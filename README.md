@@ -2,6 +2,8 @@
 
 This library provides C++ bindings/wrappers for SDL2.
 
+This library uses C++11!
+
 ## Synopsis ##
 
 ```c++
