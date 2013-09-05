@@ -11,9 +11,12 @@ try {
 
   // Straightforward wrappers around corresponding SDL2 objects
   // These take full care of proper object destruction and error checking
-  SDL2pp::Window window("libSDL2pp demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+  SDL2pp::Window window("libSDL2pp demo",
+                        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                        640, 480, SDL_WINDOW_RESIZABLE);
   SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
-  SDL2pp::Texture sprite(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 16, 16);
+  SDL2pp::Texture sprite(renderer, SDL_PIXELFORMAT_ARGB8888,
+                         SDL_TEXTUREACCESS_STATIC, 16, 16);
 
   unsigned char pixels[16 * 16 * 4];
 
@@ -63,10 +66,19 @@ Just place the library into dedicated directory in your project
 ADD_SUBDIRECTORY(lib/SDL2pp)
 ```
 into your core CMakeLists.txt. This will act as similar to what
-FIND_PACKAGE do, and will provide ${SDL2PP_INCLUDE_DIRS} and
-${SDL2PP_LIBRARIES} variables to your projects which you may use
-in INCLUDE_DIRECTORIES() and TARGET_LINK_LIBRARIES() correspondingly
-as usual.
+FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
+and ${SDL2PP_LIBRARIES} variables for your project. You will the
+be able to use them as usual:
+
+```cmake
+INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
+
+ADD_EXEUTABLE(mytarget ...)
+TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
+```
+
+if bundled, libSDL2pp will not build a demo and will be a static
+library, providing SDL2 includes/libs in the mentioned variables.
 
 ## Author ##
 
@@ -78,4 +90,4 @@ as usual.
 
 ## License ##
 
-libSDL2pp comes under the same license as SDL2 (zlib license).
+libSDL2pp comes under zlib licemse, the same license as SDL2.
