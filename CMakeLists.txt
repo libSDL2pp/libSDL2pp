@@ -52,6 +52,7 @@ SET(LIBRARY_SOURCES
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
 	SDL2pp/Texture.cc
+	SDL2pp/TextureLock.cc
 	SDL2pp/Window.cc
 )
 

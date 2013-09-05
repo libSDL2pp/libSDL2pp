@@ -42,6 +42,30 @@ private:
 	SDL_Texture* texture_;
 
 public:
+	class LockHandle {
+		friend class Texture;
+	private:
+		Texture* texture_;
+		void* pixels_;
+		int pitch_;
+
+	private:
+		LockHandle(Texture* texture, const Rect& rect);
+
+	public:
+		~LockHandle();
+
+		LockHandle(LockHandle&& other) noexcept;
+		LockHandle& operator=(LockHandle&& other) noexcept;
+
+		LockHandle(const LockHandle& other) = delete;
+		LockHandle& operator=(const LockHandle& other) = delete;
+
+		void* GetPixels() const;
+		int GetPitch() const;
+	};
+
+public:
 	Texture(Renderer& renderer, Uint32 format, int access, int w, int h);
 #ifdef SDL2PP_WITH_IMAGE
 	Texture(Renderer& renderer, RWops& rwops);
@@ -61,6 +85,8 @@ public:
 	void SetBlendMode(SDL_BlendMode blendMode);
 	void SetAlphaMod(Uint8 alpha = 255);
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+
+	LockHandle Lock(const Rect& rect);
 };
 
 }
