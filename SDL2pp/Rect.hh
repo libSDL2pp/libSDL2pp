@@ -41,6 +41,8 @@ public:
 
 	static Rect Null();
 
+	static Rect FromCenter(int cx, int cy, int w, int h);
+
 	Rect(const Rect& other);
 	Rect& operator=(const Rect& other);
 
