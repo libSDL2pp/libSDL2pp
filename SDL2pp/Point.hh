@@ -54,6 +54,11 @@ public:
 
 	SDL_Point* Get();
 	const SDL_Point* Get() const;
+
+	bool IsNull() const;
+
+	int GetX() const;
+	int GetY() const;
 };
 
 }

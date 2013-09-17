@@ -48,6 +48,15 @@ public:
 
 	SDL_Rect* Get();
 	const SDL_Rect* Get() const;
+
+	bool IsNull() const;
+
+	int GetX() const;
+	int GetY() const;
+	int GetW() const;
+	int GetH() const;
+	int GetX2() const;
+	int GetY2() const;
 };
 
 }

@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
+
 #include <SDL2/SDL_rect.h>
 
 #include <SDL2pp/Rect.hh>
@@ -73,6 +75,40 @@ const SDL_Rect* Rect::Get() const {
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
 	return Rect(cx - w/2, cy - h/2, cx + w - w/2, cy + h - h/2);
+}
+
+bool Rect::IsNull() const {
+	return rect_ == nullptr;
+}
+
+int Rect::GetX() const {
+	assert(!IsNull());
+	return rect_->x;
+}
+
+int Rect::GetY() const {
+	assert(!IsNull());
+	return rect_->y;
+}
+
+int Rect::GetW() const {
+	assert(!IsNull());
+	return rect_->w;
+}
+
+int Rect::GetH() const {
+	assert(!IsNull());
+	return rect_->h;
+}
+
+int Rect::GetX2() const {
+	assert(!IsNull());
+	return rect_->x + rect_->w;
+}
+
+int Rect::GetY2() const {
+	assert(!IsNull());
+	return rect_->y + rect_->h;
 }
 
 }

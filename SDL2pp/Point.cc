@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
+
 #include <SDL2/SDL_rect.h>
 
 #include <SDL2pp/Point.hh>
@@ -63,6 +65,20 @@ SDL_Point* Point::Get() {
 
 const SDL_Point* Point::Get() const {
 	return point_.get();
+}
+
+bool Point::IsNull() const {
+	return point_ == nullptr;
+}
+
+int Point::GetX() const {
+	assert(!IsNull());
+	return point_->x;
+}
+
+int Point::GetY() const {
+	assert(!IsNull());
+	return point_->y;
 }
 
 }
