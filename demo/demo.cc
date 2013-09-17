@@ -42,6 +42,8 @@ int main() {
 	sprite.Update(Rect::Null(), pixels, 4 * 4);
 	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
+	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
+
 	while (1) {
 		// Process events
 		SDL_Event event;
@@ -51,7 +53,32 @@ int main() {
 		}
 
 		// Render
+		render.SetDrawColor(0, 0, 0);
 		render.Clear();
+
+		// Render lines
+		render.SetDrawColor(255, 0, 0);
+		render.DrawLine(10, 10, 630, 10);
+		render.SetDrawColor(0, 255, 0);
+		render.DrawLine(630, 10, 630, 470);
+		render.SetDrawColor(0, 0, 255);
+		render.DrawLine(630, 470, 10, 470);
+		render.SetDrawColor(255, 255, 255);
+		render.DrawLine(10, 470, 10, 10);
+
+		render.SetDrawColor(255, 255, 255, 127);
+		render.FillRect(0, 0, 20, 20);
+		render.SetDrawColor(255, 255, 255);
+		render.DrawRect(0, 0, 20, 20);
+
+		// Pixel-perfectness test
+		render.SetDrawColor(192, 192, 192);
+		render.DrawLine(6, 2, 6, 10);
+		render.DrawLine(2, 6, 10, 6);
+
+		render.SetDrawColor(255, 255, 255);
+		render.DrawRect(5, 5, 7, 7);
+		render.DrawRect(3, 3, 9, 9);
 
 		// Render 4 smaller squares
 		sprite.SetAlphaMod(0xff);

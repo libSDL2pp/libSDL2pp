@@ -57,6 +57,26 @@ public:
 
 	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 	void SetTarget(Texture& texture);
+
+	void SetDrawBlendMode(SDL_BlendMode blendMode);
+
+	void DrawPoint(int x, int y);
+	void DrawPoint(const Point& p);
+	void DrawPoints(const Point* points, int count);
+
+	void DrawLine(int x1, int y1, int x2, int y2);
+	void DrawLine(const Point& p1, const Point& p2);
+	void DrawLines(const Point* points, int count);
+
+	void DrawRect(int x1, int y1, int x2, int y2);
+	void DrawRect(const Point& p1, const Point& p2);
+	void DrawRect(const Rect& r);
+	void DrawRects(const Rect* rects, int count);
+
+	void FillRect(int x1, int y1, int x2, int y2);
+	void FillRect(const Point& p1, const Point& p2);
+	void FillRect(const Rect& r);
+	void FillRects(const Rect* rects, int count);
 };
 
 }
