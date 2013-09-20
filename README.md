@@ -35,6 +35,8 @@ try {
 
   // Of course, C SDL2 API is still perfectly valid
   SDL_Delay(2000);
+
+  // All SDL objects are released at this point or if an error occurs
 } catch (SDL2pp::Exception& e) {
   // Exception stores SDL_GetError() result
   std::cerr << "Exception: " << e.what() << std::endl;
