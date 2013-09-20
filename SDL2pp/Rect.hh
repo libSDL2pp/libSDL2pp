@@ -44,7 +44,9 @@ public:
 	static Rect FromCenter(int cx, int cy, int w, int h);
 
 	Rect(const Rect& other);
+	Rect(Rect&&) noexcept = default;
 	Rect& operator=(const Rect& other);
+	Rect& operator=(Rect&&) noexcept = default;
 
 	SDL_Rect* Get();
 	const SDL_Rect* Get() const;

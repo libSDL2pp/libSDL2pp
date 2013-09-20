@@ -50,7 +50,9 @@ public:
 	static Point Null();
 
 	Point(const Point& other);
+	Point(Point&&) noexcept = default;
 	Point& operator=(const Point& other);
+	Point& operator=(Point&&) noexcept = default;
 
 	SDL_Point* Get();
 	const SDL_Point* Get() const;
