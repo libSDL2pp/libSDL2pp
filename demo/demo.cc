@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <iostream>
+
 #include <SDL2/SDL.h>
 
 #include <SDL2pp/SDL2pp.hh>
@@ -33,7 +35,7 @@ unsigned char pixels[4 * 4 * 4] = {
 	RGBA(0x80, 0x00, 0xff, 0xff), RGBA(0x00, 0x00, 0xff, 0xff), RGBA(0x00, 0x80, 0xff, 0xff), RGBA(0x00, 0xff, 0xff, 0xff),
 };
 
-int main() {
+int Run() {
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
@@ -98,4 +100,16 @@ int main() {
 	}
 
 	return 0;
+}
+
+int main() {
+	try {
+		return Run();
+	} catch (Exception& e) {
+		std::cerr << "Error: " << e.what() << " (" << e.GetSDLError() << ")" << std::endl;
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+
+	return -1;
 }
