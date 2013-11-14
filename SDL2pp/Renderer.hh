@@ -39,7 +39,7 @@ private:
 
 public:
 	Renderer(Window& window, int index, Uint32 flags);
-	~Renderer();
+	virtual ~Renderer();
 
 	Renderer(const Renderer& other) = delete;
 	Renderer(Renderer&& other) = delete;

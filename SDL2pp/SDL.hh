@@ -29,7 +29,7 @@ namespace SDL2pp {
 class SDL {
 public:
 	SDL(Uint32 flags);
-	~SDL();
+	virtual ~SDL();
 
 	SDL(const SDL& other) = delete;
 	SDL(SDL&& other) = delete;
