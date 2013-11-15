@@ -37,7 +37,7 @@ private:
 
 public:
 	Rect(int x, int y, int w, int h);
-	~Rect();
+	virtual ~Rect();
 
 	static Rect Null();
 
