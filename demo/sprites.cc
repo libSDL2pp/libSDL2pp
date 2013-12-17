@@ -37,61 +37,45 @@ unsigned char pixels[4 * 4 * 4] = {
 
 int Run() {
 	SDL sdl(SDL_INIT_VIDEO);
-	Window window("libSDL2pp demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
-	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
-	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
+	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 
+	// Load sprite texture
+	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
 	sprite.Update(Rect::Null(), pixels, 4 * 4);
 	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
 	while (1) {
-		// Process events
+		// Process input
 		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+		while (SDL_PollEvent(&event))
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
 				return 0;
-		}
 
-		// Render
-		render.SetDrawColor(0, 0, 0);
+		// Clear screen
+		render.SetDrawColor(0, 32, 32);
 		render.Clear();
 
-		// Render lines
-		render.SetDrawColor(255, 0, 0);
-		render.DrawLine(10, 10, 630, 10);
-		render.SetDrawColor(0, 255, 0);
-		render.DrawLine(630, 10, 630, 470);
-		render.SetDrawColor(0, 0, 255);
-		render.DrawLine(630, 470, 10, 470);
-		render.SetDrawColor(255, 255, 255);
-		render.DrawLine(10, 470, 10, 10);
+		// Simple copy
+		render.Copy(sprite, Rect::Null(), Rect(80, 0, 240, 240));
 
-		render.SetDrawColor(255, 255, 255, 127);
-		render.FillRect(0, 0, 20, 20);
-		render.SetDrawColor(255, 255, 255);
-		render.DrawRect(0, 0, 20, 20);
+		// Copy with modulation
+		render.Copy(sprite, Rect::Null(), Rect(400, 0, 120, 120));
+		sprite.SetAlphaMod(92);
+		render.Copy(sprite, Rect::Null(), Rect(400 + 120, 0, 120, 120));
+		sprite.SetColorMod(255, 0, 0);
+		render.Copy(sprite, Rect::Null(), Rect(400, 0 + 120, 120, 120));
+		sprite.SetAlphaMod();
+		render.Copy(sprite, Rect::Null(), Rect(400 + 120, 0 + 120, 120, 120));
+		sprite.SetColorMod();
 
-		// Pixel-perfectness test
-		render.SetDrawColor(192, 192, 192);
-		render.DrawLine(6, 2, 6, 10);
-		render.DrawLine(2, 6, 10, 6);
+		// Copy with rotation
+		render.Copy(sprite, Rect::Null(), Rect(80, 240, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
 
-		render.SetDrawColor(255, 255, 255);
-		render.DrawRect(5, 5, 7, 7);
-		render.DrawRect(3, 3, 9, 9);
-
-		// Render 4 smaller squares
-		sprite.SetAlphaMod(0xff);
-		render.Copy(sprite, Rect::Null(), Rect(80, 0, 240, 240), SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
-		render.Copy(sprite, Rect::Null(), Rect(80, 360, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
-		render.Copy(sprite, Rect::Null(), Rect(400, 0, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
-		render.Copy(sprite, Rect::Null(), Rect(400, 360, 240, 240), SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
-
-		// Render transparent bigger square
-		sprite.SetAlphaMod(0x80);
-		render.Copy(sprite, Rect::Null(), Rect(80, 0, 480, 480), SDL_GetTicks() / 10000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
+		// Rotation around another point
+		render.Copy(sprite, Rect::Null(), Rect(520, 360, 120, 120), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point(0, 0), SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
 
 		render.Present();
 
