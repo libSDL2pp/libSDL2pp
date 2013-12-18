@@ -35,9 +35,16 @@ unsigned char pixels[4 * 4 * 4] = {
 	RGBA(0x80, 0x00, 0xff, 0xff), RGBA(0x00, 0x00, 0xff, 0xff), RGBA(0x00, 0x80, 0xff, 0xff), RGBA(0x00, 0xff, 0xff, 0xff),
 };
 
+enum {
+	MY_SPRITE_SIZE = 4,
+	MY_SCREEN_WIDTH = 640,
+	MY_SCREEN_HEIGHT = 480,
+	MY_RENDERTARGET_SIZE = 512,
+};
+
 int Run() {
 	SDL sdl(SDL_INIT_VIDEO);
-	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
@@ -51,16 +58,16 @@ int Run() {
 	}
 
 	// Sprite data
-	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
+	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, MY_SPRITE_SIZE, MY_SPRITE_SIZE);
 
-	sprite.Update(Rect::Null(), pixels, 4 * 4);
+	sprite.Update(Rect::Null(), pixels, MY_SPRITE_SIZE * MY_SPRITE_SIZE);
 	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	// Two render target textures
-	Texture target1(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 512, 512);
+	Texture target1(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
 	target1.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-	Texture target2(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 512, 512);
+	Texture target2(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
 	target2.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	while (1) {
@@ -82,10 +89,10 @@ int Run() {
 		for (int i = 0; i < 4; i++) {
 			render.SetTarget(target2);
 			render.Clear();
-			render.Copy(target1, Rect::Null(), Rect(0, 0, 256, 256), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(256, 0, 256, 256), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(0, 256, 256, 256), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(256, 256, 256, 256), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, Rect::Null(), Rect(0, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, Rect::Null(), Rect(MY_RENDERTARGET_SIZE / 2, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, Rect::Null(), Rect(0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, Rect::Null(), Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
 
 			// Swap textures to copy recursively
 			target1.Swap(target2);
@@ -95,7 +102,7 @@ int Run() {
 		render.SetTarget();
 		render.Clear();
 
-		render.Copy(target1, Rect::Null(), Rect(80, 0, 480, 480), SDL_GetTicks() / 10000.0 * 360.0);
+		render.Copy(target1, Rect::Null(), Rect((MY_SCREEN_WIDTH - MY_SCREEN_HEIGHT) / 2, 0, MY_SCREEN_HEIGHT, MY_SCREEN_HEIGHT), SDL_GetTicks() / 10000.0 * 360.0);
 
 		render.Present();
 
