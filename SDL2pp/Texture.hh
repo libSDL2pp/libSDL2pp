@@ -50,8 +50,8 @@ public:
 	void Update(const Rect& rect, const void* pixels, int pitch);
 
 	void SetBlendMode(SDL_BlendMode blendMode);
-	void SetAlphaMod(Uint8 alpha);
-	void SetColorMod(Uint8 r, Uint8 g, Uint8 b);
+	void SetAlphaMod(Uint8 alpha = 255);
+	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	void Swap(Texture& other) noexcept;
 };
