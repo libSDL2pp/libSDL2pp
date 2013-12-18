@@ -52,6 +52,8 @@ public:
 	void Present();
 	void Clear();
 
+	void GetInfo(SDL_RendererInfo* info);
+
 	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect);
 	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, SDL_RendererFlip flip);
 

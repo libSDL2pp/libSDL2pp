@@ -59,6 +59,11 @@ void Renderer::Clear() {
 		throw Exception("SDL_RenderClear failed");
 }
 
+void Renderer::GetInfo(SDL_RendererInfo* info) {
+	if (SDL_GetRendererInfo(renderer_, info) != 0)
+		throw Exception("SDL_GetRendererInfo failed");
+}
+
 void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect) {
 	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect.Get(), dstrect.Get()) != 0)
 		throw Exception("SDL_RenderCopy failed");
