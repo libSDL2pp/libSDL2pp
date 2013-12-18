@@ -28,11 +28,13 @@
 
 // SDL 2.0.0 doesn't have a name for SDL_Point structure (only
 // typedef), so we can't use forward declaration yet. This was
-// fixed in SDL mercurial repo, so we can switch to forward
-// declaration later
+// fixed in later versions starting with 2.0.1
 
-//struct SDL_Point;
-#include <SDL2/SDL_rect.h>
+#if SDL_MAJOR_VERSION == 2 && SDL_MINOR_VERSION == 0 && SDL_PATCHLEVEL == 0
+#	include <SDL2/SDL_rect.h>
+#else
+struct SDL_Point;
+#endif
 
 namespace SDL2pp {
 
