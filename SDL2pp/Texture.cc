@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <utility>
+
 #include <SDL2/SDL_render.h>
 
 #include <SDL2pp/Texture.hh>
@@ -62,9 +64,7 @@ void Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 }
 
 void Texture::Swap(Texture& other) noexcept {
-	SDL_Texture* tmp = other.texture_;
-	other.texture_ = texture_;
-	texture_ = tmp;
+	std::swap(texture_, other.texture_);
 }
 
 }
