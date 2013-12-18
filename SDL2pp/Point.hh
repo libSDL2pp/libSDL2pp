@@ -45,7 +45,7 @@ private:
 
 public:
 	Point(int x, int y);
-	~Point();
+	virtual ~Point();
 
 	static Point Null();
 

@@ -170,7 +170,7 @@ void Renderer::DrawRects(const Rect* rects, int count) {
 
 void Renderer::FillRect(int x1, int y1, int x2, int y2) {
 	SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
-	if (SDL_RenderDrawRect(renderer_, &rect) != 0)
+	if (SDL_RenderFillRect(renderer_, &rect) != 0)
 		throw Exception("SDL_RenderFillRect failed");
 }
 
@@ -183,7 +183,7 @@ void Renderer::FillRect(const Point& p1, const Point& p2) {
 void Renderer::FillRect(const Rect& r) {
 	if (r.IsNull())
 		return;
-	if (SDL_RenderDrawRect(renderer_, r.Get()) != 0)
+	if (SDL_RenderFillRect(renderer_, r.Get()) != 0)
 		throw Exception("SDL_RenderFillRect failed");
 }
 

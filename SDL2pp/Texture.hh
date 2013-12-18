@@ -38,7 +38,7 @@ private:
 
 public:
 	Texture(Renderer& renderer, Uint32 format, int access, int w, int h);
-	~Texture();
+	virtual ~Texture();
 
 	Texture(const Texture& other) = delete;
 	Texture(Texture&& other) = delete;
