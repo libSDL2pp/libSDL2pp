@@ -51,6 +51,7 @@ public:
 
 	void SetBlendMode(SDL_BlendMode blendMode);
 	void SetAlphaMod(Uint8 alpha);
+	void SetColorMod(Uint8 r, Uint8 g, Uint8 b);
 
 	void Swap(Texture& other) noexcept;
 };
