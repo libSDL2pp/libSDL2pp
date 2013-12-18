@@ -111,4 +111,8 @@ int Rect::GetY2() const {
 	return rect_->y + rect_->h;
 }
 
+void Rect::Swap(Rect& other) noexcept {
+	rect_.swap(other.rect_);
+}
+
 }

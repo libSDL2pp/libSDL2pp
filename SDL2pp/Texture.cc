@@ -56,4 +56,10 @@ void Texture::SetAlphaMod(Uint8 alpha) {
 		throw Exception("SDL_SetTextureAlphaMod failed");
 }
 
+void Texture::Swap(Texture& other) noexcept {
+	SDL_Texture* tmp = other.texture_;
+	other.texture_ = texture_;
+	texture_ = tmp;
+}
+
 }

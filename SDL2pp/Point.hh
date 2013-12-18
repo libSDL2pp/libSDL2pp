@@ -61,6 +61,8 @@ public:
 
 	int GetX() const;
 	int GetY() const;
+
+	void Swap(Point& other) noexcept;
 };
 
 }
