@@ -69,8 +69,8 @@ void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect) 
 		throw Exception("SDL_RenderCopy failed");
 }
 
-void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, SDL_RendererFlip flip) {
-	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect.Get(), dstrect.Get(), angle, center.Get(), flip) != 0)
+void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, int flip) {
+	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect.Get(), dstrect.Get(), angle, center.Get(), static_cast<SDL_RendererFlip>(flip)) != 0)
 		throw Exception("SDL_RenderCopyEx failed");
 }
 

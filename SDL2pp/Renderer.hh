@@ -55,7 +55,7 @@ public:
 	void GetInfo(SDL_RendererInfo* info);
 
 	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect);
-	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, SDL_RendererFlip flip);
+	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, int flip);
 
 	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 	void SetTarget();
