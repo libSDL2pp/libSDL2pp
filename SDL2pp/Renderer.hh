@@ -24,6 +24,9 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+#include <SDL2pp/Point.hh>
+#include <SDL2pp/Rect.hh>
+
 struct SDL_Renderer;
 
 namespace SDL2pp {
@@ -54,8 +57,8 @@ public:
 
 	void GetInfo(SDL_RendererInfo* info);
 
-	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect);
-	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, int flip);
+	void Copy(Texture& texture, const Rect& srcrect = Rect::Null(), const Rect& dstrect = Rect::Null());
+	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center = Point::Null(), int flip = 0);
 
 	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 	void SetTarget();
