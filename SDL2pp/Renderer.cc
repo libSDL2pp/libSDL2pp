@@ -74,6 +74,11 @@ void Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 		throw Exception("SDL_SetRenderDrawColor failed");
 }
 
+void Renderer::SetTarget() {
+	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
+		throw Exception("SDL_SetRenderTarget failed");
+}
+
 void Renderer::SetTarget(Texture& texture) {
 	if (SDL_SetRenderTarget(renderer_, texture.Get()) != 0)
 		throw Exception("SDL_SetRenderTarget failed");

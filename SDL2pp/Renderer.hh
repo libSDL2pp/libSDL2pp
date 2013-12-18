@@ -56,6 +56,7 @@ public:
 	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, SDL_RendererFlip flip);
 
 	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
+	void SetTarget();
 	void SetTarget(Texture& texture);
 
 	void SetDrawBlendMode(SDL_BlendMode blendMode);
