@@ -61,7 +61,7 @@ To build standalone version:
 
 ## Bundling ##
 
-The library is easy to integrade into other CMake-using projects.
+The library is easy to integrate into other CMake-using projects.
 
 Just place the library into dedicated directory in your project
 (for example, lib/SDL2pp) and add
@@ -77,7 +77,7 @@ be able to use them as usual:
 ```cmake
 INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
 
-ADD_EXEUTABLE(mytarget ...)
+ADD_EXECUTABLE(mytarget ...)
 TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
 ```
 
@@ -94,4 +94,4 @@ library, providing SDL2 includes/libs in the mentioned variables.
 
 ## License ##
 
-libSDL2pp comes under zlib licemse, the same license as SDL2.
+libSDL2pp comes under zlib license, the same license as SDL2.
