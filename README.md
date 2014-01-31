@@ -1,8 +1,6 @@
 # libSDL2pp #
 
-This library provides C++ bindings/wrappers for SDL2.
-
-This library uses C++11!
+This library provides C++11 bindings/wrappers for SDL2.
 
 ## Synopsis ##
 
@@ -44,24 +42,41 @@ try {
 }
 ```
 
-## Completeness ##
+## Features ##
 
-For now I only implement functionality I need myself, so the library
-is not nearly complete. However, patches (as well as requests for
-adding new functionality) are welcome.
+Currently, the library provides wrapper classes for
+
+* SDL iteslf
+* SDL_Point
+* SDL_Rect
+* SDL_Renderer
+* SDL_Texture
+* SDL_Window
+
+each with subset of methods corresponding to SDL functions working
+with sepcific type of object and in some cases additional convenience
+methods. These classes also support:
+
+- RAII-style initialization and destruction
+- Full error checking: exception is thrown if any SDL function fails.
+  Exception itself allows to retrieve SDL error string
+- C++11 move semantics support, with which you can store e.g. texture
+  objects and containers and returb by value with no overhead
 
 ## Building ##
 
 Dependencies:
-- cmake
-- SDL2
+* cmake
+* SDL2
 
 To build standalone version:
 ```cmake . && make```
 
 ## Bundling ##
 
-The library is easy to integrate into other CMake-using projects.
+The library is easy to integrate into other CMake-using projects
+(and as the library has no stable API yet, this way of using it is
+preferred).
 
 Just place the library into dedicated directory in your project
 (for example, lib/SDL2pp) and add
@@ -69,9 +84,10 @@ Just place the library into dedicated directory in your project
 ```cmake
 ADD_SUBDIRECTORY(lib/SDL2pp)
 ```
+
 into your core CMakeLists.txt. This will act as similar to what
 FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
-and ${SDL2PP_LIBRARIES} variables for your project. You will the
+and ${SDL2PP_LIBRARIES} variables for your project. You will then
 be able to use them as usual:
 
 ```cmake
@@ -81,8 +97,15 @@ ADD_EXECUTABLE(mytarget ...)
 TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
 ```
 
-if bundled, libSDL2pp will not build a demo and will be a static
-library, providing SDL2 includes/libs in the mentioned variables.
+if bundled, libSDL2pp does not build demos and becomes a static
+library, providing required SDL2 includes/libs in the mentioned
+variables.
+
+## Completeness ##
+
+For now I only implement functionality I need myself, so the library
+is not nearly complete. However, patches (as well as requests for
+adding new functionality) are welcome.
 
 ## Author ##
 
@@ -90,7 +113,7 @@ library, providing SDL2 includes/libs in the mentioned variables.
 
 ## Contributors ##
 
-* You name here!
+* [Carl Schwope](https://github.com/Lowest0ne)
 
 ## License ##
 
