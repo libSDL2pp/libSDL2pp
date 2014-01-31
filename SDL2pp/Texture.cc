@@ -39,6 +39,16 @@ Texture::~Texture() {
 	SDL_DestroyTexture(texture_);
 }
 
+Texture::Texture(Texture&& other) noexcept : texture_(other.texture_) {
+	other.texture_ = nullptr;
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept {
+	texture_ = other.texture_;
+	other.texture_ = nullptr;
+	return *this;
+}
+
 SDL_Texture* Texture::Get() const {
 	return texture_;
 }
@@ -61,10 +71,6 @@ void Texture::SetAlphaMod(Uint8 alpha) {
 void Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	if (SDL_SetTextureColorMod(texture_, r, g, b) != 0)
 		throw Exception("SDL_SetTextureColorMod failed");
-}
-
-void Texture::Swap(Texture& other) noexcept {
-	std::swap(texture_, other.texture_);
 }
 
 }

@@ -41,9 +41,9 @@ public:
 	virtual ~Texture();
 
 	Texture(const Texture& other) = delete;
-	Texture(Texture&& other) = delete;
+	Texture(Texture&& other) noexcept;
 	Texture& operator=(const Texture& other) = delete;
-	Texture& operator=(Texture&& other) = delete;
+	Texture& operator=(Texture&& other) noexcept;
 
 	SDL_Texture* Get() const;
 
@@ -52,8 +52,6 @@ public:
 	void SetBlendMode(SDL_BlendMode blendMode);
 	void SetAlphaMod(Uint8 alpha = 255);
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
-
-	void Swap(Texture& other) noexcept;
 };
 
 }

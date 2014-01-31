@@ -95,7 +95,7 @@ int Run() {
 			render.Copy(target1, Rect::Null(), Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
 
 			// Swap textures to copy recursively
-			target1.Swap(target2);
+			std::swap(target1, target2);
 		}
 
 		// Draw result to screen
