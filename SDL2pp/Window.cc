@@ -32,7 +32,8 @@ Window::Window(const char* title, int x, int y, int w, int h, Uint32 flags) {
 }
 
 Window::~Window() {
-	SDL_DestroyWindow(window_);
+	if (window_ != nullptr)
+		SDL_DestroyWindow(window_);
 }
 
 Window::Window(Window&& other) noexcept : window_(other.window_) {

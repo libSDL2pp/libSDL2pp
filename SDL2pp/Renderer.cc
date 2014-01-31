@@ -38,7 +38,8 @@ Renderer::Renderer(Window& window, int index, Uint32 flags) {
 }
 
 Renderer::~Renderer() {
-	SDL_DestroyRenderer(renderer_);
+	if (renderer_ != nullptr)
+		SDL_DestroyRenderer(renderer_);
 }
 
 Renderer::Renderer(Renderer&& other) noexcept : renderer_(other.renderer_) {

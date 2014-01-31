@@ -36,7 +36,8 @@ Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 }
 
 Texture::~Texture() {
-	SDL_DestroyTexture(texture_);
+	if (texture_ != nullptr)
+		SDL_DestroyTexture(texture_);
 }
 
 Texture::Texture(Texture&& other) noexcept : texture_(other.texture_) {
