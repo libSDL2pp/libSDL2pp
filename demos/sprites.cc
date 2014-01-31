@@ -38,7 +38,7 @@ unsigned char pixels[4 * 4 * 4] = {
 int Run() {
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
-	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
 	// Load sprite texture
 	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
