@@ -23,10 +23,12 @@
 #define SDL2PP_RENDERER_HH
 
 #include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_blendmode.h>
 
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
 
+struct SDL_RendererInfo;
 struct SDL_Renderer;
 
 namespace SDL2pp {
