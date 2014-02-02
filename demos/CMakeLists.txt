@@ -1,0 +1,10 @@
+SET(DEMOS
+	sprites
+	lines
+	rendertarget
+)
+
+FOREACH(DEMO ${DEMOS})
+	ADD_EXECUTABLE(demo_${DEMO} ${DEMO}.cc)
+	TARGET_LINK_LIBRARIES(demo_${DEMO} SDL2pp)
+ENDFOREACH(DEMO ${DEMOS})
