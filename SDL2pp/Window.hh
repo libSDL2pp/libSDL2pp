@@ -22,6 +22,8 @@
 #ifndef SDL2PP_WINDOW_HH
 #define SDL2PP_WINDOW_HH
 
+#include <string>
+
 #include <SDL2/SDL_stdinc.h>
 
 #include <SDL2pp/Point.hh>
@@ -35,7 +37,7 @@ private:
 	SDL_Window* window_;
 
 public:
-	Window(const char* title, int x, int y, int w, int h, Uint32 flags);
+	Window(const std::string& title, int x, int y, int w, int h, Uint32 flags);
 	virtual ~Window();
 
 	Window(const Window& other) = delete;
@@ -46,6 +48,8 @@ public:
 	Point GetSize() const;
 	int GetWidth() const;
 	int GetHeight() const;
+
+	void SetTitle(const std::string& title);
 
 	SDL_Window* Get() const;
 };
