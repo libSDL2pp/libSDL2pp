@@ -24,6 +24,8 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+#include <SDL2pp/Point.hh>
+
 struct SDL_Window;
 
 namespace SDL2pp {
@@ -40,6 +42,10 @@ public:
 	Window(Window&& other) noexcept;
 	Window& operator=(const Window& other) = delete;
 	Window& operator=(Window&& other) noexcept;
+
+	Point GetSize() const;
+	int GetWidth() const;
+	int GetHeight() const;
 
 	SDL_Window* Get() const;
 };

@@ -46,6 +46,24 @@ Window& Window::operator=(Window&& other) noexcept {
 	return *this;
 }
 
+Point Window::GetSize() const {
+	int w, h;
+	SDL_GetWindowSize(window_, &w, &h);
+	return Point(w, h);
+}
+
+int Window::GetWidth() const {
+	int w, h;
+	SDL_GetWindowSize(window_, &w, &h);
+	return w;
+}
+
+int Window::GetHeight() const {
+	int w, h;
+	SDL_GetWindowSize(window_, &w, &h);
+	return h;
+}
+
 SDL_Window* Window::Get() const {
 	return window_;
 }
