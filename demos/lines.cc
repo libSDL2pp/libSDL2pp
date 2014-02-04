@@ -69,6 +69,16 @@ int Run() {
 		render.DrawRect(5, 5, 7, 7);
 		render.DrawRect(3, 3, 9, 9);
 
+		// Rect corner test
+		// This may show diagonal lines:
+		// - bright ones indicate that pixels are overdrawn
+		// - dark ones indicate that some corner pixels are missing
+		// Unfortunately, on most implementations some of
+		// these problems exist
+		render.SetDrawColor(255, 255, 255, 32);
+		for (int i = 0; i < 50; i++)
+			render.DrawRect(100+i, 100+i, 200-i, 200-i);
+
 		render.Present();
 
 		// Frame limiter
