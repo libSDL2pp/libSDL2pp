@@ -107,6 +107,12 @@ For now I only implement functionality I need myself, so the library
 is not nearly complete. However, patches (as well as requests for
 adding new functionality) are welcome.
 
+## Users ##
+
+Projects using libSDL2pp:
+
+* [openstrike](https://github.com/AMDmi3/openstrike)
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru>
