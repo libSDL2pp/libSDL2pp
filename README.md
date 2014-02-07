@@ -60,8 +60,8 @@ methods. These classes also support:
 - RAII-style initialization and destruction
 - Full error checking: exception is thrown if any SDL function fails.
   Exception itself allows to retrieve SDL error string
-- C++11 move semantics support, with which you can store e.g. texture
-  objects and containers and returb by value with no overhead
+- C++11 move semantics support, which allow you to store SDL objects
+  in containers and pass/return them by value with no overhead
 
 ## Building ##
 
