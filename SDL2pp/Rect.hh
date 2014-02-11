@@ -59,8 +59,6 @@ public:
 	int GetH() const;
 	int GetX2() const;
 	int GetY2() const;
-
-	void Swap(Rect& other) noexcept;
 };
 
 }

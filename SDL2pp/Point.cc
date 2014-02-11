@@ -81,8 +81,4 @@ int Point::GetY() const {
 	return point_->y;
 }
 
-void Point::Swap(Point& other) noexcept {
-	point_.swap(other.point_);
-}
-
 }
