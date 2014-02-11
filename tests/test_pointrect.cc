@@ -119,4 +119,11 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(r.GetW() == 16 && r.GetH() == 31);
 	}
+
+	{
+		Rect r = Rect::FromCenter(100, 100, 5, 7);
+
+		EXPECT_TRUE(r.GetX() == 98 && r.GetY() == 97);
+		EXPECT_TRUE(r.GetX2() == 102 && r.GetY2() == 103);
+	}
 END_TEST()

@@ -93,7 +93,7 @@ const SDL_Rect* Rect::Get() const {
 }
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
-	return Rect(cx - w/2, cy - h/2, cx + w - w/2, cy + h - h/2);
+	return Rect(cx - w/2, cy - h/2, w, h);
 }
 
 bool Rect::IsNull() const {
