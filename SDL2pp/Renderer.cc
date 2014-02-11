@@ -209,4 +209,9 @@ void Renderer::FillRects(const Rect* rects, int count) {
 		throw Exception("SDL_RenderFillRects failed");
 }
 
+void Renderer::ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch) {
+	if (SDL_RenderReadPixels(renderer_, rect.Get(), format, pixels, pitch) != 0)
+		throw Exception("SDL_RenderReadPixels failed");
+}
+
 }

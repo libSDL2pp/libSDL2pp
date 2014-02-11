@@ -85,6 +85,8 @@ public:
 	void FillRect(const Point& p1, const Point& p2);
 	void FillRect(const Rect& r);
 	void FillRects(const Rect* rects, int count);
+
+	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
 };
 
 }
