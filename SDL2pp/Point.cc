@@ -43,7 +43,9 @@ Point Point::Null() {
 }
 
 Point::Point(const Point& other) {
-	if (other.point_.get()) {
+	if (!other.point_) {
+		point_.reset(nullptr);
+	} else if (point_ != other.point_) {
 		point_.reset(new SDL_Point);
 		point_->x = other.point_->x;
 		point_->y = other.point_->y;
@@ -53,7 +55,9 @@ Point::Point(const Point& other) {
 Point::Point(Point&&) noexcept = default;
 
 Point& Point::operator=(const Point& other) {
-	if (other.point_.get()) {
+	if (!other.point_) {
+		point_.reset(nullptr);
+	} else if (point_ != other.point_) {
 		point_.reset(new SDL_Point);
 		point_->x = other.point_->x;
 		point_->y = other.point_->y;

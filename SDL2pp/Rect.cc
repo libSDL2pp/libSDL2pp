@@ -45,7 +45,9 @@ Rect Rect::Null() {
 }
 
 Rect::Rect(const Rect& other) {
-	if (other.rect_.get()) {
+	if (!other.rect_) {
+		rect_.reset(nullptr);
+	} else if (rect_ != other.rect_) {
 		rect_.reset(new SDL_Rect);
 		rect_->x = other.rect_->x;
 		rect_->y = other.rect_->y;
@@ -57,7 +59,9 @@ Rect::Rect(const Rect& other) {
 Rect::Rect(Rect&&) noexcept = default;
 
 Rect& Rect::operator=(const Rect& other) {
-	if (other.rect_.get()) {
+	if (!other.rect_) {
+		rect_.reset(nullptr);
+	} else if (rect_ != other.rect_) {
 		rect_.reset(new SDL_Rect);
 		rect_->x = other.rect_->x;
 		rect_->y = other.rect_->y;
