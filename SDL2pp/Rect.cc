@@ -54,6 +54,8 @@ Rect::Rect(const Rect& other) {
 	}
 }
 
+Rect::Rect(Rect&&) noexcept = default;
+
 Rect& Rect::operator=(const Rect& other) {
 	if (other.rect_.get()) {
 		rect_.reset(new SDL_Rect);
@@ -64,6 +66,8 @@ Rect& Rect::operator=(const Rect& other) {
 	}
 	return *this;
 }
+
+Rect& Rect::operator=(Rect&&) noexcept = default;
 
 bool Rect::operator==(const Rect& other) const {
 	if (!rect_ || !other.rect_)

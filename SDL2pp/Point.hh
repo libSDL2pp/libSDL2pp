@@ -52,9 +52,9 @@ public:
 	static Point Null();
 
 	Point(const Point& other);
-	Point(Point&&) noexcept = default;
+	Point(Point&&) noexcept;
 	Point& operator=(const Point& other);
-	Point& operator=(Point&&) noexcept = default;
+	Point& operator=(Point&&) noexcept;
 
 	bool operator==(const Point& other) const;
 	bool operator!=(const Point& other) const;

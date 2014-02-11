@@ -50,6 +50,8 @@ Point::Point(const Point& other) {
 	}
 }
 
+Point::Point(Point&&) noexcept = default;
+
 Point& Point::operator=(const Point& other) {
 	if (other.point_.get()) {
 		point_.reset(new SDL_Point);
@@ -58,6 +60,8 @@ Point& Point::operator=(const Point& other) {
 	}
 	return *this;
 }
+
+Point& Point::operator=(Point&&) noexcept = default;
 
 bool Point::operator==(const Point& other) const {
 	if (!point_ || !other.point_)
