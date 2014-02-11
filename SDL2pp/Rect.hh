@@ -48,6 +48,9 @@ public:
 	Rect& operator=(const Rect& other);
 	Rect& operator=(Rect&&) noexcept = default;
 
+	bool operator==(const Rect& other) const;
+	bool operator!=(const Rect& other) const;
+
 	SDL_Rect* Get();
 	const SDL_Rect* Get() const;
 

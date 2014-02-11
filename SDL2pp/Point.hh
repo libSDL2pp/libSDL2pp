@@ -56,6 +56,9 @@ public:
 	Point& operator=(const Point& other);
 	Point& operator=(Point&&) noexcept = default;
 
+	bool operator==(const Point& other) const;
+	bool operator!=(const Point& other) const;
+
 	SDL_Point* Get();
 	const SDL_Point* Get() const;
 

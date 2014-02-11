@@ -65,6 +65,17 @@ Rect& Rect::operator=(const Rect& other) {
 	return *this;
 }
 
+bool Rect::operator==(const Rect& other) const {
+	if (!rect_ || !other.rect_)
+		return rect_ == other.rect_; // true only if both null
+	return rect_->x == other.rect_->x && rect_->y == other.rect_->y &&
+	       rect_->w == other.rect_->w && rect_->h == other.rect_->h;
+}
+
+bool Rect::operator!=(const Rect& other) const {
+	return !(*this == other);
+}
+
 SDL_Rect* Rect::Get() {
 	return rect_.get();
 }

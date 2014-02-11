@@ -59,6 +59,16 @@ Point& Point::operator=(const Point& other) {
 	return *this;
 }
 
+bool Point::operator==(const Point& other) const {
+	if (!point_ || !other.point_)
+		return point_ == other.point_; // true only if both null
+	return point_->x == other.point_->x && point_->y == other.point_->y;
+}
+
+bool Point::operator!=(const Point& other) const {
+	return !(*this == other);
+}
+
 SDL_Point* Point::Get() {
 	return point_.get();
 }
