@@ -86,9 +86,19 @@ int Rect::GetX() const {
 	return rect_->x;
 }
 
+void Rect::SetX(int x) {
+	assert(!IsNull());
+	rect_->x = x;
+}
+
 int Rect::GetY() const {
 	assert(!IsNull());
 	return rect_->y;
+}
+
+void Rect::SetY(int y) {
+	assert(!IsNull());
+	rect_->y = y;
 }
 
 int Rect::GetW() const {
@@ -96,19 +106,39 @@ int Rect::GetW() const {
 	return rect_->w;
 }
 
+void Rect::SetW(int w) {
+	assert(!IsNull());
+	rect_->w = w;
+}
+
 int Rect::GetH() const {
 	assert(!IsNull());
 	return rect_->h;
 }
 
+void Rect::SetH(int h) {
+	assert(!IsNull());
+	rect_->h = h;
+}
+
 int Rect::GetX2() const {
 	assert(!IsNull());
-	return rect_->x + rect_->w;
+	return rect_->x + rect_->w - 1;
+}
+
+void Rect::SetX2(int x2) {
+	assert(!IsNull());
+	rect_->w = x2 - rect_->x + 1;
 }
 
 int Rect::GetY2() const {
 	assert(!IsNull());
-	return rect_->y + rect_->h;
+	return rect_->y + rect_->h - 1;
+}
+
+void Rect::SetY2(int y2) {
+	assert(!IsNull());
+	rect_->h = y2 - rect_->y + 1;
 }
 
 }

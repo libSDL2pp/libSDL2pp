@@ -76,9 +76,19 @@ int Point::GetX() const {
 	return point_->x;
 }
 
+void Point::SetX(int x) {
+	assert(!IsNull());
+	point_->x = x;
+}
+
 int Point::GetY() const {
 	assert(!IsNull());
 	return point_->y;
+}
+
+void Point::SetY(int y) {
+	assert(!IsNull());
+	point_->y = y;
 }
 
 }

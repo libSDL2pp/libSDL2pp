@@ -54,11 +54,22 @@ public:
 	bool IsNull() const;
 
 	int GetX() const;
+	void SetX(int x);
+
 	int GetY() const;
+	void SetY(int y);
+
 	int GetW() const;
+	void SetW(int w);
+
 	int GetH() const;
+	void SetH(int h);
+
 	int GetX2() const;
+	void SetX2(int x2);
+
 	int GetY2() const;
+	void SetY2(int y2);
 };
 
 }

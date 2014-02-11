@@ -62,7 +62,10 @@ public:
 	bool IsNull() const;
 
 	int GetX() const;
+	void SetX(int x);
+
 	int GetY() const;
+	void SetY(int y);
 };
 
 }
