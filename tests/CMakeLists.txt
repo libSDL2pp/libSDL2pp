@@ -20,6 +20,7 @@ SET(CLI_TESTS
 # tests which test graphics functionality and thus requre working
 # and OpenGL-enabled X11 display
 SET(GUI_TESTS
+	gui_rendering
 )
 
 FOREACH(TEST ${HEADER_TESTS})
