@@ -2,26 +2,40 @@
 # they are compilable (e.g., includes and forward declarations are
 # complete and do not require extra includes)
 SET(HEADER_TESTS
-	hdr_exception
-	hdr_point
-	hdr_rect
-	hdr_renderer
-	hdr_sdl
-	hdr_sdl2pp
-	hdr_texture
-	hdr_window
+	header_exception
+	header_point
+	header_rect
+	header_renderer
+	header_sdl
+	header_sdl2pp
+	header_texture
+	header_window
+)
+
+# simple command-line tests
+SET(CLI_TESTS
+	test_pointrect
+)
+
+# tests which test graphics functionality and thus requre working
+# and OpenGL-enabled X11 display
+SET(GUI_TESTS
 )
 
 FOREACH(TEST ${HEADER_TESTS})
 	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
 ENDFOREACH(TEST ${TESTS})
 
-SET(TESTS
-	test_pointrect
-)
-
-FOREACH(TEST ${TESTS})
+FOREACH(TEST ${CLI_TESTS})
 	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
 	TARGET_LINK_LIBRARIES(${TEST} SDL2pp)
 	ADD_TEST(${TEST} ${TEST})
+ENDFOREACH(TEST ${TESTS})
+
+FOREACH(TEST ${GUI_TESTS})
+	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
+	TARGET_LINK_LIBRARIES(${TEST} SDL2pp)
+	IF(RUN_GUI_TESTS)
+		ADD_TEST(${TEST} ${TEST})
+	ENDIF(RUN_GUI_TESTS)
 ENDFOREACH(TEST ${TESTS})
