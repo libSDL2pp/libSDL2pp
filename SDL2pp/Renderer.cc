@@ -56,11 +56,6 @@ SDL_Renderer* Renderer::Get() const {
 	return renderer_;
 }
 
-void Renderer::SetLogicalSize(int w, int h) {
-	if (SDL_RenderSetLogicalSize(renderer_, w, h) != 0)
-		throw Exception("SDL_RenderSetLogicalSize failed");
-}
-
 void Renderer::Present() {
 	SDL_RenderPresent(renderer_);
 }
@@ -212,6 +207,30 @@ void Renderer::FillRects(const Rect* rects, int count) {
 void Renderer::ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch) {
 	if (SDL_RenderReadPixels(renderer_, rect.Get(), format, pixels, pitch) != 0)
 		throw Exception("SDL_RenderReadPixels failed");
+}
+
+void Renderer::SetClipRect(const Rect& rect) {
+	if (SDL_RenderSetClipRect(renderer_, rect.Get()) != 0)
+		throw Exception("SDL_RenderSetClipRect failed");
+}
+
+void Renderer::SetLogicalSize(int w, int h) {
+	if (SDL_RenderSetLogicalSize(renderer_, w, h) != 0)
+		throw Exception("SDL_RenderSetLogicalSize failed");
+}
+
+void Renderer::SetScale(float scaleX, float scaleY) {
+	if (SDL_RenderSetScale(renderer_, scaleX, scaleY) != 0)
+		throw Exception("SDL_RenderSetScale failed");
+}
+
+void Renderer::SetViewport(const Rect& rect) {
+	if (SDL_RenderSetViewport(renderer_, rect.Get()) != 0)
+		throw Exception("SDL_RenderSetViewport failed");
+}
+
+bool Renderer::TargetSupported() {
+	return SDL_RenderTargetSupported(renderer_);
 }
 
 }

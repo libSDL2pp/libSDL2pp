@@ -53,7 +53,6 @@ public:
 
 	SDL_Renderer* Get() const;
 
-	void SetLogicalSize(int w, int h);
 	void Present();
 	void Clear();
 
@@ -87,6 +86,13 @@ public:
 	void FillRects(const Rect* rects, int count);
 
 	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
+
+	void SetClipRect(const Rect& rect);
+	void SetLogicalSize(int w, int h);
+	void SetScale(float scaleX, float scaleY);
+	void SetViewport(const Rect& rect);
+
+	bool TargetSupported();
 };
 
 }
