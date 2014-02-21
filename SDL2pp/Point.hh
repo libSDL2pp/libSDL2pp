@@ -40,9 +40,9 @@ public:
 
 	static Point Null();
 
-	Point(const Point& other) noexcept = default;
+	Point(const Point&) noexcept = default;
 	Point(Point&&) noexcept = default;
-	Point& operator=(const Point& other) noexcept = default;
+	Point& operator=(const Point&) noexcept = default;
 	Point& operator=(Point&&) noexcept = default;
 
 	bool operator==(const Point& other) const;

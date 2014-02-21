@@ -44,9 +44,9 @@ public:
 
 	static Rect FromCenter(int cx, int cy, int w, int h);
 
-	Rect(const Rect& other) noexcept = default;
+	Rect(const Rect&) noexcept = default;
 	Rect(Rect&&) noexcept = default;
-	Rect& operator=(const Rect& other) noexcept = default;
+	Rect& operator=(const Rect&) noexcept = default;
 	Rect& operator=(Rect&&) noexcept = default;
 
 	bool operator==(const Rect& other) const;
