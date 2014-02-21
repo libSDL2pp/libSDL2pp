@@ -22,7 +22,7 @@
 #ifndef SDL2PP_RECT_HH
 #define SDL2PP_RECT_HH
 
-#include <memory>
+#include <SDL2/SDL_rect.h>
 
 struct SDL_Rect;
 
@@ -30,7 +30,8 @@ namespace SDL2pp {
 
 class Rect {
 private:
-	std::unique_ptr<SDL_Rect> rect_;
+	SDL_Rect rect_;
+	bool valid_;
 
 private:
 	Rect();
@@ -43,10 +44,10 @@ public:
 
 	static Rect FromCenter(int cx, int cy, int w, int h);
 
-	Rect(const Rect& other);
-	Rect(Rect&&) noexcept;
-	Rect& operator=(const Rect& other);
-	Rect& operator=(Rect&&) noexcept;
+	Rect(const Rect& other) noexcept = default;
+	Rect(Rect&&) noexcept = default;
+	Rect& operator=(const Rect& other) noexcept = default;
+	Rect& operator=(Rect&&) noexcept = default;
 
 	bool operator==(const Rect& other) const;
 	bool operator!=(const Rect& other) const;

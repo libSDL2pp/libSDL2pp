@@ -21,63 +21,32 @@
 
 #include <cassert>
 
-#include <SDL2/SDL_rect.h>
-
 #include <SDL2pp/Rect.hh>
 
 namespace SDL2pp {
 
-Rect::Rect() {
+Rect::Rect() : valid_(false) {
 }
 
 Rect::~Rect() {
 }
 
-Rect::Rect(int x, int y, int w, int h) : rect_(new SDL_Rect) {
-	rect_->x = x;
-	rect_->y = y;
-	rect_->w = w;
-	rect_->h = h;
+Rect::Rect(int x, int y, int w, int h) : valid_(true) {
+	rect_.x = x;
+	rect_.y = y;
+	rect_.w = w;
+	rect_.h = h;
 }
 
 Rect Rect::Null() {
 	return Rect();
 }
 
-Rect::Rect(const Rect& other) {
-	if (!other.rect_) {
-		rect_.reset(nullptr);
-	} else if (rect_ != other.rect_) {
-		rect_.reset(new SDL_Rect);
-		rect_->x = other.rect_->x;
-		rect_->y = other.rect_->y;
-		rect_->w = other.rect_->w;
-		rect_->h = other.rect_->h;
-	}
-}
-
-Rect::Rect(Rect&&) noexcept = default;
-
-Rect& Rect::operator=(const Rect& other) {
-	if (!other.rect_) {
-		rect_.reset(nullptr);
-	} else if (rect_ != other.rect_) {
-		rect_.reset(new SDL_Rect);
-		rect_->x = other.rect_->x;
-		rect_->y = other.rect_->y;
-		rect_->w = other.rect_->w;
-		rect_->h = other.rect_->h;
-	}
-	return *this;
-}
-
-Rect& Rect::operator=(Rect&&) noexcept = default;
-
 bool Rect::operator==(const Rect& other) const {
-	if (!rect_ || !other.rect_)
-		return rect_ == other.rect_; // true only if both null
-	return rect_->x == other.rect_->x && rect_->y == other.rect_->y &&
-	       rect_->w == other.rect_->w && rect_->h == other.rect_->h;
+	if (!valid_ || !other.valid_)
+		return valid_ == other.valid_; // true only if both null
+	return rect_.x == other.rect_.x && rect_.y == other.rect_.y &&
+	       rect_.w == other.rect_.w && rect_.h == other.rect_.h;
 }
 
 bool Rect::operator!=(const Rect& other) const {
@@ -85,11 +54,11 @@ bool Rect::operator!=(const Rect& other) const {
 }
 
 SDL_Rect* Rect::Get() {
-	return rect_.get();
+	return &rect_;
 }
 
 const SDL_Rect* Rect::Get() const {
-	return rect_.get();
+	return &rect_;
 }
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
@@ -97,67 +66,67 @@ Rect Rect::FromCenter(int cx, int cy, int w, int h) {
 }
 
 bool Rect::IsNull() const {
-	return rect_ == nullptr;
+	return !valid_;
 }
 
 int Rect::GetX() const {
 	assert(!IsNull());
-	return rect_->x;
+	return rect_.x;
 }
 
 void Rect::SetX(int x) {
 	assert(!IsNull());
-	rect_->x = x;
+	rect_.x = x;
 }
 
 int Rect::GetY() const {
 	assert(!IsNull());
-	return rect_->y;
+	return rect_.y;
 }
 
 void Rect::SetY(int y) {
 	assert(!IsNull());
-	rect_->y = y;
+	rect_.y = y;
 }
 
 int Rect::GetW() const {
 	assert(!IsNull());
-	return rect_->w;
+	return rect_.w;
 }
 
 void Rect::SetW(int w) {
 	assert(!IsNull());
-	rect_->w = w;
+	rect_.w = w;
 }
 
 int Rect::GetH() const {
 	assert(!IsNull());
-	return rect_->h;
+	return rect_.h;
 }
 
 void Rect::SetH(int h) {
 	assert(!IsNull());
-	rect_->h = h;
+	rect_.h = h;
 }
 
 int Rect::GetX2() const {
 	assert(!IsNull());
-	return rect_->x + rect_->w - 1;
+	return rect_.x + rect_.w - 1;
 }
 
 void Rect::SetX2(int x2) {
 	assert(!IsNull());
-	rect_->w = x2 - rect_->x + 1;
+	rect_.w = x2 - rect_.x + 1;
 }
 
 int Rect::GetY2() const {
 	assert(!IsNull());
-	return rect_->y + rect_->h - 1;
+	return rect_.y + rect_.h - 1;
 }
 
 void Rect::SetY2(int y2) {
 	assert(!IsNull());
-	rect_->h = y2 - rect_->y + 1;
+	rect_.h = y2 - rect_.y + 1;
 }
 
 }

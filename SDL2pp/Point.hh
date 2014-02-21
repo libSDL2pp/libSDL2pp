@@ -22,25 +22,14 @@
 #ifndef SDL2PP_POINT_HH
 #define SDL2PP_POINT_HH
 
-#include <memory>
-
-#include <SDL2/SDL_version.h>
-
-// SDL 2.0.0 doesn't have a name for SDL_Point structure (only
-// typedef), so we can't use forward declaration yet. This was
-// fixed in later versions starting with 2.0.1
-
-#if SDL_MAJOR_VERSION == 2 && SDL_MINOR_VERSION == 0 && SDL_PATCHLEVEL == 0
-#	include <SDL2/SDL_rect.h>
-#else
-struct SDL_Point;
-#endif
+#include <SDL2/SDL_rect.h>
 
 namespace SDL2pp {
 
 class Point {
 private:
-	std::unique_ptr<SDL_Point> point_;
+	SDL_Point point_;
+	bool valid_;
 
 private:
 	Point();
@@ -51,10 +40,10 @@ public:
 
 	static Point Null();
 
-	Point(const Point& other);
-	Point(Point&&) noexcept;
-	Point& operator=(const Point& other);
-	Point& operator=(Point&&) noexcept;
+	Point(const Point& other) noexcept = default;
+	Point(Point&&) noexcept = default;
+	Point& operator=(const Point& other) noexcept = default;
+	Point& operator=(Point&&) noexcept = default;
 
 	bool operator==(const Point& other) const;
 	bool operator!=(const Point& other) const;

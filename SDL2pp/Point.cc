@@ -21,56 +21,29 @@
 
 #include <cassert>
 
-#include <SDL2/SDL_rect.h>
-
 #include <SDL2pp/Point.hh>
 
 namespace SDL2pp {
 
-Point::Point() {
+Point::Point() : valid_(false) {
 }
 
 Point::~Point() {
 }
 
-Point::Point(int x, int y) : point_(new SDL_Point) {
-	point_->x = x;
-	point_->y = y;
+Point::Point(int x, int y) : valid_(true) {
+	point_.x = x;
+	point_.y = y;
 }
 
 Point Point::Null() {
 	return Point();
 }
 
-Point::Point(const Point& other) {
-	if (!other.point_) {
-		point_.reset(nullptr);
-	} else if (point_ != other.point_) {
-		point_.reset(new SDL_Point);
-		point_->x = other.point_->x;
-		point_->y = other.point_->y;
-	}
-}
-
-Point::Point(Point&&) noexcept = default;
-
-Point& Point::operator=(const Point& other) {
-	if (!other.point_) {
-		point_.reset(nullptr);
-	} else if (point_ != other.point_) {
-		point_.reset(new SDL_Point);
-		point_->x = other.point_->x;
-		point_->y = other.point_->y;
-	}
-	return *this;
-}
-
-Point& Point::operator=(Point&&) noexcept = default;
-
 bool Point::operator==(const Point& other) const {
-	if (!point_ || !other.point_)
-		return point_ == other.point_; // true only if both null
-	return point_->x == other.point_->x && point_->y == other.point_->y;
+	if (!valid_ || !other.valid_)
+		return valid_ == other.valid_; // true only if both null
+	return point_.x == other.point_.x && point_.y == other.point_.y;
 }
 
 bool Point::operator!=(const Point& other) const {
@@ -78,35 +51,35 @@ bool Point::operator!=(const Point& other) const {
 }
 
 SDL_Point* Point::Get() {
-	return point_.get();
+	return &point_;
 }
 
 const SDL_Point* Point::Get() const {
-	return point_.get();
+	return &point_;
 }
 
 bool Point::IsNull() const {
-	return point_ == nullptr;
+	return !valid_;
 }
 
 int Point::GetX() const {
 	assert(!IsNull());
-	return point_->x;
+	return point_.x;
 }
 
 void Point::SetX(int x) {
 	assert(!IsNull());
-	point_->x = x;
+	point_.x = x;
 }
 
 int Point::GetY() const {
 	assert(!IsNull());
-	return point_->y;
+	return point_.y;
 }
 
 void Point::SetY(int y) {
 	assert(!IsNull());
-	point_->y = y;
+	point_.y = y;
 }
 
 }
