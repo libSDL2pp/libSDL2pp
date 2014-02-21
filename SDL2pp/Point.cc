@@ -51,11 +51,11 @@ bool Point::operator!=(const Point& other) const {
 }
 
 SDL_Point* Point::Get() {
-	return &point_;
+	return valid_ ? &point_ : nullptr;
 }
 
 const SDL_Point* Point::Get() const {
-	return &point_;
+	return valid_ ? &point_ : nullptr;
 }
 
 bool Point::IsNull() const {

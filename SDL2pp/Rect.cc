@@ -54,11 +54,11 @@ bool Rect::operator!=(const Rect& other) const {
 }
 
 SDL_Rect* Rect::Get() {
-	return &rect_;
+	return valid_ ? &rect_ : nullptr;
 }
 
 const SDL_Rect* Rect::Get() const {
-	return &rect_;
+	return valid_ ? &rect_ : nullptr;
 }
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {

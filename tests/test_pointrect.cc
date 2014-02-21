@@ -33,6 +33,7 @@ BEGIN_TEST()
 		EXPECT_TRUE(p != Point(1,2));
 		EXPECT_TRUE(p == Point::Null());
 		EXPECT_TRUE(p.IsNull());
+		EXPECT_TRUE(p.Get() == nullptr);
 	}
 
 	{
@@ -114,6 +115,7 @@ BEGIN_TEST()
 		EXPECT_TRUE(r != Rect(1,2,3,4));
 		EXPECT_TRUE(r == Rect::Null());
 		EXPECT_TRUE(r.IsNull());
+		EXPECT_TRUE(r.Get() == nullptr);
 	}
 
 	{
