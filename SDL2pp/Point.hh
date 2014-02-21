@@ -58,6 +58,12 @@ public:
 
 	int GetY() const;
 	void SetY(int y);
+
+	Point operator+(const Point& other) const;
+	Point operator-(const Point& other) const;
+
+	Point& operator+=(const Point& other);
+	Point& operator-=(const Point& other);
 };
 
 }

@@ -82,4 +82,38 @@ void Point::SetY(int y) {
 	point_.y = y;
 }
 
+Point Point::operator+(const Point& other) const {
+	if (!valid_ || !other.valid_)
+		return Point();
+	return Point(point_.x + other.point_.x, point_.y + other.point_.y);
+}
+
+Point Point::operator-(const Point& other) const {
+	if (!valid_ || !other.valid_)
+		return Point();
+	return Point(point_.x - other.point_.x, point_.y - other.point_.y);
+}
+
+Point& Point::operator+=(const Point& other) {
+	if (!valid_ || !other.valid_) {
+		valid_ = false;
+	} else {
+		point_.x += other.point_.x;
+		point_.y += other.point_.y;
+	}
+
+	return *this;
+}
+
+Point& Point::operator-=(const Point& other) {
+	if (!valid_ || !other.valid_) {
+		valid_ = false;
+	} else {
+		point_.x -= other.point_.x;
+		point_.y -= other.point_.y;
+	}
+
+	return *this;
+}
+
 }

@@ -56,6 +56,34 @@ BEGIN_TEST()
 	}
 
 	{
+		// Point arith
+		Point sum = Point(1, 2) + Point(10, 20);
+		Point diff = Point(-1, -2) - Point(10, 20);
+
+		EXPECT_TRUE(sum.GetX() == 11 && sum.GetY() == 22);
+		EXPECT_TRUE(diff.GetX() == -11 && diff.GetY() == -22);
+
+		sum += Point(100, 200);
+		diff -= Point(100, 200);
+
+		EXPECT_TRUE(sum.GetX() == 111 && sum.GetY() == 222);
+		EXPECT_TRUE(diff.GetX() == -111 && diff.GetY() == -222);
+
+		sum += Point::Null();
+		diff -= Point::Null();
+
+		EXPECT_TRUE(sum.IsNull());
+		EXPECT_TRUE(diff.IsNull());
+
+		EXPECT_TRUE((Point(1,1) + Point::Null()).IsNull());
+		EXPECT_TRUE((Point(1,1) - Point::Null()).IsNull());
+		EXPECT_TRUE((Point::Null() + Point(1,1)).IsNull());
+		EXPECT_TRUE((Point::Null() - Point(1,1)).IsNull());
+		EXPECT_TRUE((Point::Null() - Point::Null()).IsNull());
+		EXPECT_TRUE((Point::Null() - Point::Null()).IsNull());
+	}
+
+	{
 		// Rect basic ops
 		Rect r(1,2,3,4);
 
