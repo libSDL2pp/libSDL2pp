@@ -16,6 +16,8 @@ BEGIN_TEST()
 		EXPECT_TRUE(p != Point(1,1));
 		EXPECT_TRUE(p != Point(2,2));
 		EXPECT_TRUE(p != Point::Null());
+		EXPECT_TRUE(p.Get() != nullptr);
+		EXPECT_TRUE(p.Get()->x == 1 && p.Get()->y == 2);
 
 		p.SetX(4);
 		p.SetY(5);
@@ -96,6 +98,8 @@ BEGIN_TEST()
 		EXPECT_TRUE(r != Rect(1,2,4,4));
 		EXPECT_TRUE(r != Rect(1,2,3,5));
 		EXPECT_TRUE(r != Rect::Null());
+		EXPECT_TRUE(r.Get() != nullptr);
+		EXPECT_TRUE(r.Get()->x == 1 && r.Get()->y == 2 && r.Get()->w == 3 && r.Get()->h == 4);
 
 		r.SetX(5);
 		r.SetY(6);
