@@ -24,6 +24,8 @@
 
 #include <SDL2/SDL_rect.h>
 
+#include "definitions.hh"
+
 namespace SDL2pp {
 
 class Point {
@@ -40,10 +42,15 @@ public:
 
 	static Point Null();
 
-	Point(const Point&) noexcept = default;
-	Point(Point&&) noexcept = default;
-	Point& operator=(const Point&) noexcept = default;
-	Point& operator=(Point&&) noexcept = default;
+	Point(const Point&) NOEXCEPT = default;
+	Point& operator=(const Point&) NOEXCEPT = default;
+#if _MSC_VER
+	Point(Point&& orig) NOEXCEPT : point_(orig.point_), valid_(orig.valid_) { }
+	Point& operator=(Point&& orig) NOEXCEPT{ point_ = orig.point_; valid_ = orig.valid_; }
+#else
+	Point(Point&& orig) NOEXCEPT = default;
+	Point& operator=(Point&& orig) NOEXCEPT = default;
+#endif
 
 	bool operator==(const Point& other) const;
 	bool operator!=(const Point& other) const;

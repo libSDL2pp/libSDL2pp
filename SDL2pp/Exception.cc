@@ -28,14 +28,14 @@ namespace SDL2pp {
 Exception::Exception(const char* what) : what_(what), sdl_error_(SDL_GetError()) {
 }
 
-Exception::~Exception() noexcept {
+Exception::~Exception() NOEXCEPT{
 }
 
-const char* Exception::what() const noexcept {
+const char* Exception::what() const NOEXCEPT{
 	return what_;
 }
 
-const char* Exception::GetSDLError() const noexcept {
+const char* Exception::GetSDLError() const NOEXCEPT{
 	return sdl_error_;
 }
 
