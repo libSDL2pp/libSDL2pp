@@ -25,6 +25,8 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include "definitions.hh"
+
 struct SDL_Texture;
 
 namespace SDL2pp {
@@ -41,9 +43,9 @@ public:
 	virtual ~Texture();
 
 	Texture(const Texture& other) = delete;
-	Texture(Texture&& other) noexcept;
+	Texture(Texture&& other) NOEXCEPT;
 	Texture& operator=(const Texture& other) = delete;
-	Texture& operator=(Texture&& other) noexcept;
+	Texture& operator=(Texture&& other) NOEXCEPT;
 
 	SDL_Texture* Get() const;
 

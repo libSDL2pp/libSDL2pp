@@ -8,21 +8,34 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 # depends
 FIND_PACKAGE(SDL2 REQUIRED)
 
-# definitions
-ADD_DEFINITIONS(-std=c++11 -Wall -Wextra -Werror -pedantic)
+# compiler flags
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message(STATUS "GCC detected, adding compile flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra")
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
+# definitions
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
 
 # sources
 SET(LIBRARY_SOURCES
+	SDL2pp/SDL2pp.hh
+  SDL2pp/definitions.hh
 	SDL2pp/Exception.cc
+	SDL2pp/Exception.hh
 	SDL2pp/SDL.cc
+	SDL2pp/SDL.hh
 	SDL2pp/Window.cc
+	SDL2pp/Window.hh
 	SDL2pp/Renderer.cc
+ 	SDL2pp/Renderer.hh
 	SDL2pp/Texture.cc
+	SDL2pp/Texture.hh
 	SDL2pp/Rect.cc
+  SDL2pp/Rect.hh
 	SDL2pp/Point.cc
+  SDL2pp/Point.hh
 )
 
 SET(LIBRARY_HEADERS

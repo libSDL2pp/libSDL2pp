@@ -47,9 +47,9 @@ public:
 	virtual ~Renderer();
 
 	Renderer(const Renderer& other) = delete;
-	Renderer(Renderer&& other) noexcept;
+	Renderer(Renderer&& other) NOEXCEPT;
 	Renderer& operator=(const Renderer& other) = delete;
-	Renderer& operator=(Renderer&& other) noexcept;
+	Renderer& operator=(Renderer&& other) NOEXCEPT;
 
 	SDL_Renderer* Get() const;
 

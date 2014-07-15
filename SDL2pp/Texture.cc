@@ -40,11 +40,11 @@ Texture::~Texture() {
 		SDL_DestroyTexture(texture_);
 }
 
-Texture::Texture(Texture&& other) noexcept : texture_(other.texture_) {
+Texture::Texture(Texture&& other) NOEXCEPT : texture_(other.texture_) {
 	other.texture_ = nullptr;
 }
 
-Texture& Texture::operator=(Texture&& other) noexcept {
+Texture& Texture::operator=(Texture&& other) NOEXCEPT {
 	texture_ = other.texture_;
 	other.texture_ = nullptr;
 	return *this;

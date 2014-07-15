@@ -19,26 +19,16 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_EXCEPTION_HH
-#define SDL2PP_EXCEPTION_HH
+#ifndef SDL2PP_DEFINITIONS_HH
+#define SDL2PP_DEFINITIONS_HH
 
-#include <exception>
-
-#include "definitions.hh"
+#ifdef _MSC_VER
+#define NOEXCEPT
+#else
+#define NOEXCEPT noexcept
+#endif
 
 namespace SDL2pp {
-
-class Exception : public std::exception {
-private:
-	const char* what_;
-	const char* sdl_error_;
-
-public:
-	Exception(const char* what = "");
-	virtual ~Exception() NOEXCEPT;
-	const char* what() const NOEXCEPT;
-	const char* GetSDLError() const NOEXCEPT;
-};
 
 }
 
