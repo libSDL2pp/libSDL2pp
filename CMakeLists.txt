@@ -8,9 +8,10 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 # depends
 FIND_PACKAGE(SDL2 REQUIRED)
 
-# definitions
-ADD_DEFINITIONS(-std=c++11 -Wall -Wextra -Werror -pedantic)
+# compiler flags
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Werror -pedantic")
 
+# definitions
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
 
