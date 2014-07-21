@@ -17,12 +17,12 @@ INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
 # sources
 SET(LIBRARY_SOURCES
 	SDL2pp/Exception.cc
-	SDL2pp/SDL.cc
-	SDL2pp/Window.cc
-	SDL2pp/Renderer.cc
-	SDL2pp/Texture.cc
-	SDL2pp/Rect.cc
 	SDL2pp/Point.cc
+	SDL2pp/Rect.cc
+	SDL2pp/Renderer.cc
+	SDL2pp/SDL.cc
+	SDL2pp/Texture.cc
+	SDL2pp/Window.cc
 )
 
 SET(LIBRARY_HEADERS
