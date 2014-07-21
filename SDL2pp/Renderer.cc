@@ -230,7 +230,7 @@ void Renderer::SetViewport(const Rect& rect) {
 }
 
 bool Renderer::TargetSupported() {
-	return SDL_RenderTargetSupported(renderer_);
+	return SDL_RenderTargetSupported(renderer_) == SDL_TRUE;
 }
 
 }
