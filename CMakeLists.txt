@@ -8,11 +8,15 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 # depends
 FIND_PACKAGE(SDL2 REQUIRED)
 
-# compiler flags
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
-SET(WERROR_FLAG "-Werror")
+# compiler flags & definitions
+IF(MSVC)
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
+	SET(WERROR_FLAG "/WX")
+ELSE(MSVC)
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
+	SET(WERROR_FLAG "-Werror")
+ENDIF(MSVC)
 
-# definitions
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
 
