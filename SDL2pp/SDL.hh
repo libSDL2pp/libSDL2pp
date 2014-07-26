@@ -35,6 +35,10 @@ public:
 	SDL(SDL&& other) = delete;
 	SDL& operator=(const SDL& other) = delete;
 	SDL& operator=(SDL&& other) = delete;
+
+	Uint32 WasInit(Uint32 flags);
+	void InitSubSystem(Uint32 flags);
+	void QuitSubSystem(Uint32 flags);
 };
 
 }

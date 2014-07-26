@@ -35,4 +35,17 @@ SDL::~SDL() {
 	SDL_Quit();
 }
 
+Uint32 WasInit(Uint32 flags) {
+	return SDL_WasInit(flags);
+}
+
+void InitSubsystem(Uint32 flags) {
+	if (SDL_InitSubSystem(flags) != 0)
+		throw Exception("SDL_InitSubsystem failed");
+}
+
+void QuitSubSystem(Uint32 flags) {
+	SDL_QuitSubSystem(flags);
+}
+
 }
