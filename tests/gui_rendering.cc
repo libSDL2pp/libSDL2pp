@@ -63,6 +63,9 @@ BEGIN_TEST()
 		pixels.Retrieve(renderer);
 
 		EXPECT_TRUE(pixels.Test(0, 0, 1, 2, 3));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 
 	{
@@ -84,6 +87,9 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(10, 10, 0x020, 255, 128, 0));
 		EXPECT_TRUE(pixels.Test3x3(20, 20, 0x020, 0, 255, 128));
 		EXPECT_TRUE(pixels.Test3x3(30, 30, 0x020, 128, 0, 255));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 
 	{
@@ -106,6 +112,9 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(10, 20, 0x222, 255, 128, 0));
 		EXPECT_TRUE(pixels.Test3x3(20, 20, 0x222, 0, 255, 128));
 		EXPECT_TRUE(pixels.Test3x3(30, 20, 0x222, 128, 0, 255));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 
 	{
@@ -147,6 +156,9 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(39, 30, 0x062, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(30, 39, 0x230, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(39, 39, 0x260, 128, 192, 255));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 
 	{
@@ -188,6 +200,9 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(39, 30, 0x066, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(30, 39, 0x330, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(39, 39, 0x660, 128, 192, 255));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 
 	{
@@ -205,5 +220,8 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(19, 10, 0x066, 127, 127, 127));
 		EXPECT_TRUE(pixels.Test3x3(10, 19, 0x330, 127, 127, 127));
 		EXPECT_TRUE(pixels.Test3x3(19, 19, 0x660, 127, 127, 127));
+
+		renderer.Present();
+		SDL_Delay(1000);
 	}
 END_TEST()
