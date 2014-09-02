@@ -140,22 +140,22 @@ BEGIN_TEST()
 		EXPECT_TRUE(pixels.Test3x3(10, 10, 0x032, 255, 128, 0));
 		EXPECT_TRUE(pixels.Test3x3(19, 10, 0x062, 255, 128, 0));
 		EXPECT_TRUE(pixels.Test3x3(10, 19, 0x230, 255, 128, 0));
-		EXPECT_TRUE(pixels.Test3x3(19, 19, 0x260, 255, 128, 0));
+		EXPECT_TRUE(pixels.Test3x3(19, 19, 0x260, 255, 128, 0), "depends on OpenGL implementation, which may or may not draw last pixel of a line", NON_FATAL);
 
 		EXPECT_TRUE(pixels.Test3x3(30, 10, 0x032, 0, 255, 128));
 		EXPECT_TRUE(pixels.Test3x3(39, 10, 0x062, 0, 255, 128));
 		EXPECT_TRUE(pixels.Test3x3(30, 19, 0x230, 0, 255, 128));
-		EXPECT_TRUE(pixels.Test3x3(39, 19, 0x260, 0, 255, 128));
+		EXPECT_TRUE(pixels.Test3x3(39, 19, 0x260, 0, 255, 128), "depends on OpenGL implementation, which may or may not draw last pixel of a line", NON_FATAL);
 
 		EXPECT_TRUE(pixels.Test3x3(10, 30, 0x032, 128, 0, 255));
 		EXPECT_TRUE(pixels.Test3x3(19, 30, 0x062, 128, 0, 255));
 		EXPECT_TRUE(pixels.Test3x3(10, 39, 0x230, 128, 0, 255));
-		EXPECT_TRUE(pixels.Test3x3(19, 39, 0x260, 128, 0, 255));
+		EXPECT_TRUE(pixels.Test3x3(19, 39, 0x260, 128, 0, 255), "depends on OpenGL implementation, which may or may not draw last pixel of a line", NON_FATAL);
 
 		EXPECT_TRUE(pixels.Test3x3(30, 30, 0x032, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(39, 30, 0x062, 128, 192, 255));
 		EXPECT_TRUE(pixels.Test3x3(30, 39, 0x230, 128, 192, 255));
-		EXPECT_TRUE(pixels.Test3x3(39, 39, 0x260, 128, 192, 255));
+		EXPECT_TRUE(pixels.Test3x3(39, 39, 0x260, 128, 192, 255), "depends on OpenGL implementation, which may or may not draw last pixel of a line", NON_FATAL);
 
 		renderer.Present();
 		SDL_Delay(1000);
