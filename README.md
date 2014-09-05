@@ -15,17 +15,23 @@ try {
                         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                         640, 480, SDL_WINDOW_RESIZABLE);
   SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
-  SDL2pp::Texture sprite(renderer, SDL_PIXELFORMAT_ARGB8888,
+  SDL2pp::Texture sprite1(renderer, SDL_PIXELFORMAT_ARGB8888,
                          SDL_TEXTUREACCESS_STATIC, 16, 16);
+  SDL2pp::Texture sprite2(renderer, "sprite.png"); // SDL_image support
 
   unsigned char pixels[16 * 16 * 4];
 
   // Note proper constructor for Rect
-  sprite.Update(SDL2pp::Rect(0, 0, 16, 16), pixels, 16 * 4);
+  sprite1.Update(SDL2pp::Rect(0, 0, 16, 16), pixels, 16 * 4);
 
   renderer.Clear();
+
   // Also note a way to specify null rects
-  renderer.Copy(sprite, SDL2pp::Rect::Null(), SDL2pp::Rect::Null());
+  renderer.Copy(sprite1, SDL2pp::Rect::Null(), SDL2pp::Rect::Null());
+
+  // Copy() is overloaded, providing access to both SDL_RenderCopy and SDL_RenderCopyEx
+  renderer.Copy(sprite2, SDL2pp::Rect::Null(), SDL2pp::Rect::Null(), 45.0);
+
   renderer.Present();
 
   // You can still access wrapped C SDL types
@@ -68,6 +74,7 @@ methods. These classes also support:
 Dependencies:
 * cmake
 * SDL2
+* SDL_image2 (optional)
 
 To build standalone version:
 ```cmake . && make```
@@ -82,6 +89,7 @@ Just place the library into dedicated directory in your project
 (for example, lib/SDL2pp) and add
 
 ```cmake
+SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
 ADD_SUBDIRECTORY(lib/SDL2pp)
 ```
 
