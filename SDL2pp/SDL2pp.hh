@@ -29,5 +29,6 @@
 #include <SDL2pp/Texture.hh>
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Point.hh>
+#include <SDL2pp/RWops.hh>
 
 #endif

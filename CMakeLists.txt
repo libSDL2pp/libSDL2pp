@@ -24,6 +24,7 @@ INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
 SET(LIBRARY_SOURCES
 	SDL2pp/Exception.cc
 	SDL2pp/Point.cc
+	SDL2pp/RWops.cc
 	SDL2pp/Rect.cc
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
@@ -34,6 +35,7 @@ SET(LIBRARY_SOURCES
 SET(LIBRARY_HEADERS
 	SDL2pp/Exception.hh
 	SDL2pp/Point.hh
+	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
