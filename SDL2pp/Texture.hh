@@ -22,8 +22,12 @@
 #ifndef SDL2PP_TEXTURE_HH
 #define SDL2PP_TEXTURE_HH
 
+#include <string>
+
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
+
+#include <SDL2pp/Config.hh>
 
 struct SDL_Texture;
 
@@ -31,6 +35,7 @@ namespace SDL2pp {
 
 class Renderer;
 class Rect;
+class RWops;
 
 class Texture {
 private:
@@ -38,6 +43,10 @@ private:
 
 public:
 	Texture(Renderer& renderer, Uint32 format, int access, int w, int h);
+#ifdef SDL2PP_WITH_IMAGE
+	Texture(Renderer& renderer, RWops& rwops);
+	Texture(Renderer& renderer, const std::string& filename);
+#endif
 	virtual ~Texture();
 
 	Texture(const Texture& other) = delete;

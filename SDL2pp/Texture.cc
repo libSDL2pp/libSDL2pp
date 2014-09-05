@@ -21,12 +21,21 @@
 
 #include <utility>
 
+#include <SDL2pp/Config.hh>
+
 #include <SDL2/SDL_render.h>
+#ifdef SDL2PP_WITH_IMAGE
+#	include <SDL2/SDL_image.h>
+#endif
 
 #include <SDL2pp/Texture.hh>
+#include <SDL2pp/Config.hh>
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/Rect.hh>
+#ifdef SDL2PP_WITH_IMAGE
+#	include <SDL2pp/RWops.hh>
+#endif
 
 namespace SDL2pp {
 
@@ -34,6 +43,17 @@ Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 	if ((texture_ = SDL_CreateTexture(renderer.Get(), format, access, w, h)) == nullptr)
 		throw Exception("SDL_CreateTexture failed");
 }
+
+#ifdef SDL2PP_WITH_IMAGE
+Texture::Texture(Renderer& renderer, RWops& rwops) {
+	texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0);
+}
+
+Texture::Texture(Renderer& renderer, const std::string& path) {
+	RWops rwops = RWops::FromFile(path);
+	texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0);
+}
+#endif
 
 Texture::~Texture() {
 	if (texture_ != nullptr)
