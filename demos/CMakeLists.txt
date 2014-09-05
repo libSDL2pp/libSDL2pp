@@ -2,7 +2,10 @@ SET(DEMOS
 	sprites
 	lines
 	rendertarget
+	image
 )
+
+ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
 FOREACH(DEMO ${DEMOS})
 	ADD_EXECUTABLE(${DEMO} ${DEMO}.cc)
