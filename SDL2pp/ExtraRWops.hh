@@ -88,6 +88,61 @@ public:
 	}
 };
 
+template<typename C>
+class ConstContainerRWops : public CustomRWops {
+protected:
+	const C& container_;
+	size_t position_;
+
+public:
+	ConstContainerRWops(const C& container) : container_(container), position_(0) {
+	}
+
+	ConstContainerRWops(const ConstContainerRWops&) = default;
+	ConstContainerRWops& operator=(const ConstContainerRWops&) = default;
+	ConstContainerRWops(ConstContainerRWops&&) = default;
+	ConstContainerRWops& operator=(ConstContainerRWops&&) = default;
+
+	virtual Sint64 Seek(Sint64 offset, int whence) override {
+		switch (whence) {
+		case RW_SEEK_SET:
+			position_ = offset;
+			break;
+		case RW_SEEK_CUR:
+			position_ = position_ + offset;
+			break;
+		case RW_SEEK_END:
+			position_ = container_.size() + offset;
+			break;
+		default:
+			throw Exception("Unexpected whence value for WritableMemRWops::Seek");
+		}
+		return position_;
+	}
+
+	virtual size_t Read(void* ptr, size_t size, size_t maxnum) override {
+		if (position_ + size > container_.size())
+			return 0;
+
+		int toread = std::min((container_.size() - position_), maxnum * size);
+
+		std::copy(container_.begin() + position_, container_.begin() + position_ + toread, reinterpret_cast<unsigned char*>(ptr));
+
+		position_ += toread;
+
+		return toread / size;
+	}
+
+	virtual size_t Write(const void*, size_t, size_t) override {
+		SDL_SetError("Can't write to read-only container");
+		return 0;
+	}
+
+	virtual int Close() override {
+		return 0;
+	}
+};
+
 }
 
 #endif

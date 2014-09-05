@@ -114,6 +114,33 @@ BEGIN_TEST()
 		}
 	}
 
+	// Short test for ContainerRWops
+	{
+		const std::vector<char> buffer = { 'a', 'b', 'c', 'd' };
+
+		RWops rw((ConstContainerRWops<std::vector<char>>(buffer)));
+
+		{
+			// Read via C++
+			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+
+			char buf[4] = {0};
+			EXPECT_TRUE(rw.Read(buf, 1, 4) == 4);
+			EXPECT_TRUE(buf[0] == 'a' && buf[3] == 'd');
+
+			// Position after read
+			EXPECT_TRUE(rw.Tell() == 4);
+		}
+
+		{
+			// Write
+			char buf[4] = {0};
+
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 0);
+			EXPECT_TRUE(rw.Write(buf, 4, 1) == 0);
+		}
+	}
+
 	// SDL file read test
 	{
 		RWops rw = RWops::FromFile(TESTDATA_DIR "/test.txt");
