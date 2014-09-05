@@ -6,6 +6,8 @@ SET(HEADER_TESTS
 	header_point
 	header_rect
 	header_renderer
+	header_rwops
+	header_extrarwops
 	header_sdl
 	header_sdl2pp
 	header_texture
@@ -15,6 +17,7 @@ SET(HEADER_TESTS
 # simple command-line tests
 SET(CLI_TESTS
 	test_pointrect
+	test_rwops
 )
 
 # tests which test graphics functionality and thus requre working
@@ -22,6 +25,8 @@ SET(CLI_TESTS
 SET(GUI_TESTS
 	gui_rendering
 )
+
+ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
 FOREACH(TEST ${HEADER_TESTS})
 	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
