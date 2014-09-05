@@ -34,6 +34,7 @@ SET(LIBRARY_SOURCES
 
 SET(LIBRARY_HEADERS
 	SDL2pp/Exception.hh
+	SDL2pp/ExtraRWops.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh
