@@ -8,4 +8,4 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev g++-4.8
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-script: cmake . -DRUN_GUI_TESTS=OFF && make && make test
+script: cmake . -DRUN_GUI_TESTS=OFF -DCMAKE_INSTALL_PREFIX=`pwd`/_prefix && make && make test && make install
