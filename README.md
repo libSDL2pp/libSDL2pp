@@ -54,6 +54,7 @@ Currently, the library provides wrapper classes for
 
 * SDL iteslf
 * SDL_Point
+* SDL_RWops
 * SDL_Rect
 * SDL_Renderer
 * SDL_Texture
