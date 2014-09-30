@@ -1,13 +1,13 @@
-SET(DEMOS
-	sprites
-	lines
-	rendertarget
-	image
-)
-
 ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
-FOREACH(DEMO ${DEMOS})
-	ADD_EXECUTABLE(${DEMO} ${DEMO}.cc)
-	TARGET_LINK_LIBRARIES(${DEMO} SDL2pp)
-ENDFOREACH(DEMO ${DEMOS})
+ADD_EXECUTABLE(sprites sprites.cc)
+TARGET_LINK_LIBRARIES(sprites SDL2pp)
+
+ADD_EXECUTABLE(lines lines.cc)
+TARGET_LINK_LIBRARIES(lines SDL2pp)
+
+ADD_EXECUTABLE(rendertarget rendertarget.cc)
+TARGET_LINK_LIBRARIES(rendertarget SDL2pp)
+
+ADD_EXECUTABLE(image image.cc)
+TARGET_LINK_LIBRARIES(image SDL2pp)
