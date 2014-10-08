@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++ wrapper for libSDL2
-  Copyright (C) 2013 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014 Rian Hunter <rian@alum.mit.edu>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,20 +19,30 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_SDL2PP_HH
-#define SDL2PP_SDL2PP_HH
+#ifndef SDL2PP_EVENT_HH
+#define SDL2PP_EVENT_HH
 
-#include <SDL2pp/Exception.hh>
-#include <SDL2pp/Config.hh>
+#include <SDL2pp/Optional.hh>
 
-#include <SDL2pp/SDL.hh>
-#include <SDL2pp/Window.hh>
-#include <SDL2pp/Renderer.hh>
-#include <SDL2pp/Texture.hh>
-#include <SDL2pp/Rect.hh>
-#include <SDL2pp/Point.hh>
-#include <SDL2pp/RWops.hh>
-#include <SDL2pp/ExtraRWops.hh>
-#include <SDL2pp/Event.hh>
+#include <SDL2/SDL_events.h>
+
+namespace SDL2pp {
+
+class Event {
+private:
+	SDL_Event event_;
+
+private:
+	Event();
+
+public:
+	virtual ~Event();
+
+	static Util::Optional<Event> Poll();
+
+	Uint32 GetType() const;
+};
+
+}
 
 #endif
