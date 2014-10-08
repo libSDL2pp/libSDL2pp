@@ -74,8 +74,8 @@ SDL_Texture* Texture::Get() const {
 	return texture_;
 }
 
-void Texture::Update(const Rect& rect, const void* pixels, int pitch) {
-	if (SDL_UpdateTexture(texture_, rect.Get(), pixels, pitch) != 0)
+void Texture::Update(const Util::Optional<Rect>& rect, const void* pixels, int pitch) {
+	if (SDL_UpdateTexture(texture_, rect ? rect->Get() : nullptr, pixels, pitch) != 0)
 		throw Exception("SDL_UpdateTexture failed");
 }
 

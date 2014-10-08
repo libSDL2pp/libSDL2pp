@@ -31,16 +31,10 @@ namespace SDL2pp {
 class Rect {
 private:
 	SDL_Rect rect_;
-	bool valid_;
-
-private:
-	Rect();
 
 public:
 	Rect(int x, int y, int w, int h);
 	virtual ~Rect();
-
-	static Rect Null();
 
 	static Rect FromCenter(int cx, int cy, int w, int h);
 
@@ -54,8 +48,6 @@ public:
 
 	SDL_Rect* Get();
 	const SDL_Rect* Get() const;
-
-	bool IsNull() const;
 
 	int GetX() const;
 	void SetX(int x);

@@ -31,6 +31,9 @@ namespace Util {
 template<typename T>
 using Optional = std::experimental::optional<T>;
 
+constexpr auto Null = std::experimental::nullopt;
+
+
 }
 
 }

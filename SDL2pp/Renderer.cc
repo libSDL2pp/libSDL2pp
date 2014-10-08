@@ -70,13 +70,13 @@ void Renderer::GetInfo(SDL_RendererInfo* info) {
 		throw Exception("SDL_GetRendererInfo failed");
 }
 
-void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect) {
-	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect.Get(), dstrect.Get()) != 0)
+void Renderer::Copy(Texture& texture, const Util::Optional<Rect>& srcrect, const Util::Optional<Rect>& dstrect) {
+	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect ? srcrect->Get() : nullptr, dstrect ? dstrect->Get() : nullptr) != 0)
 		throw Exception("SDL_RenderCopy failed");
 }
 
-void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, int flip) {
-	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect.Get(), dstrect.Get(), angle, center.Get(), static_cast<SDL_RendererFlip>(flip)) != 0)
+void Renderer::Copy(Texture& texture, const Util::Optional<Rect>& srcrect, const Util::Optional<Rect>& dstrect, double angle, const Util::Optional<Point>& center, int flip) {
+	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? srcrect->Get() : nullptr, dstrect ? dstrect->Get() : nullptr, angle, center ? center->Get() : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
 		throw Exception("SDL_RenderCopyEx failed");
 }
 
@@ -106,8 +106,6 @@ void Renderer::DrawPoint(int x, int y) {
 }
 
 void Renderer::DrawPoint(const Point& p) {
-	if (p.IsNull())
-		return;
 	DrawPoint(p.GetX(), p.GetY());
 }
 
@@ -115,8 +113,7 @@ void Renderer::DrawPoints(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
 	sdl_points.reserve(count);
 	for (const Point* p = points; p != points + count; ++p)
-		if (!p->IsNull())
-			sdl_points.emplace_back(*p->Get());
+		sdl_points.emplace_back(*p->Get());
 
 	if (SDL_RenderDrawPoints(renderer_, sdl_points.data(), sdl_points.size()) != 0)
 		throw Exception("SDL_RenderDrawPoints failed");
@@ -128,8 +125,6 @@ void Renderer::DrawLine(int x1, int y1, int x2, int y2) {
 }
 
 void Renderer::DrawLine(const Point& p1, const Point& p2) {
-	if (p1.IsNull() || p2.IsNull())
-		return;
 	DrawLine(p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
 }
 
@@ -137,8 +132,7 @@ void Renderer::DrawLines(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
 	sdl_points.reserve(count);
 	for (const Point* p = points; p != points + count; ++p)
-		if (!p->IsNull())
-			sdl_points.emplace_back(*p->Get());
+		sdl_points.emplace_back(*p->Get());
 
 	if (SDL_RenderDrawLines(renderer_, sdl_points.data(), sdl_points.size()) != 0)
 		throw Exception("SDL_RenderDrawLines failed");
@@ -151,14 +145,10 @@ void Renderer::DrawRect(int x1, int y1, int x2, int y2) {
 }
 
 void Renderer::DrawRect(const Point& p1, const Point& p2) {
-	if (p1.IsNull() || p2.IsNull())
-		return;
 	DrawRect(p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
 }
 
 void Renderer::DrawRect(const Rect& r) {
-	if (r.IsNull())
-		return;
 	if (SDL_RenderDrawRect(renderer_, r.Get()) != 0)
 		throw Exception("SDL_RenderDrawRect failed");
 }
@@ -167,8 +157,7 @@ void Renderer::DrawRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
 	sdl_rects.reserve(count);
 	for (const Rect* r = rects; r != rects + count; ++r)
-		if (!r->IsNull())
-			sdl_rects.emplace_back(*r->Get());
+		sdl_rects.emplace_back(*r->Get());
 
 	if (SDL_RenderDrawRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
 		throw Exception("SDL_RenderDrawRects failed");
@@ -181,14 +170,10 @@ void Renderer::FillRect(int x1, int y1, int x2, int y2) {
 }
 
 void Renderer::FillRect(const Point& p1, const Point& p2) {
-	if (p1.IsNull() || p2.IsNull())
-		return;
 	FillRect(p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
 }
 
 void Renderer::FillRect(const Rect& r) {
-	if (r.IsNull())
-		return;
 	if (SDL_RenderFillRect(renderer_, r.Get()) != 0)
 		throw Exception("SDL_RenderFillRect failed");
 }
@@ -197,8 +182,7 @@ void Renderer::FillRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
 	sdl_rects.reserve(count);
 	for (const Rect* r = rects; r != rects + count; ++r)
-		if (!r->IsNull())
-			sdl_rects.emplace_back(*r->Get());
+		sdl_rects.emplace_back(*r->Get());
 
 	if (SDL_RenderFillRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
 		throw Exception("SDL_RenderFillRects failed");

@@ -10,12 +10,10 @@ BEGIN_TEST()
 		// Point basic ops
 		Point p(1,2);
 
-		EXPECT_TRUE(!p.IsNull());
 		EXPECT_TRUE(p.GetX() == 1 && p.GetY() == 2);
 		EXPECT_TRUE(p == Point(1,2));
 		EXPECT_TRUE(p != Point(1,1));
 		EXPECT_TRUE(p != Point(2,2));
-		EXPECT_TRUE(p != Point::Null());
 		EXPECT_TRUE(p.Get() != nullptr);
 		EXPECT_TRUE(p.Get()->x == 1 && p.Get()->y == 2);
 
@@ -29,13 +27,6 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(p.GetX() == 6 && p.GetY() == 7);
 		EXPECT_TRUE(p == Point(6,7));
-
-		p = Point::Null();
-
-		EXPECT_TRUE(p != Point(1,2));
-		EXPECT_TRUE(p == Point::Null());
-		EXPECT_TRUE(p.IsNull());
-		EXPECT_TRUE(p.Get() == nullptr);
 	}
 
 	{
@@ -71,33 +62,18 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(sum.GetX() == 111 && sum.GetY() == 222);
 		EXPECT_TRUE(diff.GetX() == -111 && diff.GetY() == -222);
-
-		sum += Point::Null();
-		diff -= Point::Null();
-
-		EXPECT_TRUE(sum.IsNull());
-		EXPECT_TRUE(diff.IsNull());
-
-		EXPECT_TRUE((Point(1,1) + Point::Null()).IsNull());
-		EXPECT_TRUE((Point(1,1) - Point::Null()).IsNull());
-		EXPECT_TRUE((Point::Null() + Point(1,1)).IsNull());
-		EXPECT_TRUE((Point::Null() - Point(1,1)).IsNull());
-		EXPECT_TRUE((Point::Null() - Point::Null()).IsNull());
-		EXPECT_TRUE((Point::Null() - Point::Null()).IsNull());
 	}
 
 	{
 		// Rect basic ops
 		Rect r(1,2,3,4);
 
-		EXPECT_TRUE(!r.IsNull());
 		EXPECT_TRUE(r.GetX() == 1 && r.GetY() == 2 && r.GetW() == 3 && r.GetH() == 4);
 		EXPECT_TRUE(r == Rect(1,2,3,4));
 		EXPECT_TRUE(r != Rect(2,2,3,4));
 		EXPECT_TRUE(r != Rect(1,3,3,4));
 		EXPECT_TRUE(r != Rect(1,2,4,4));
 		EXPECT_TRUE(r != Rect(1,2,3,5));
-		EXPECT_TRUE(r != Rect::Null());
 		EXPECT_TRUE(r.Get() != nullptr);
 		EXPECT_TRUE(r.Get()->x == 1 && r.Get()->y == 2 && r.Get()->w == 3 && r.Get()->h == 4);
 
@@ -113,13 +89,6 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(r.GetX() == 9 && r.GetY() == 10 && r.GetW() == 11 && r.GetH() == 12);
 		EXPECT_TRUE(r == Rect(9,10,11,12));
-
-		r = Rect::Null();
-
-		EXPECT_TRUE(r != Rect(1,2,3,4));
-		EXPECT_TRUE(r == Rect::Null());
-		EXPECT_TRUE(r.IsNull());
-		EXPECT_TRUE(r.Get() == nullptr);
 	}
 
 	{

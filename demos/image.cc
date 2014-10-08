@@ -51,9 +51,9 @@ int Run() {
 
 		// Simple copy
 		float angle = SDL_GetTicks() / 5000.0 * 2.0 * M_PI;
-		render.Copy(sprite, Rect::Null(), Rect(320 - 64, 240 - 64, 128, 128), angle / M_PI * 180.0);
-		render.Copy(sprite, Rect::Null(), Rect(320 - 32 + sin(angle) * 40, 240 - 32 + cos(angle) * 40, 64, 64));
-		render.Copy(sprite, Rect::Null(), Rect(320 - 32 - sin(angle) * 40, 240 - 32 - cos(angle) * 40, 64, 64));
+		render.Copy(sprite, Util::Null, Rect(320 - 64, 240 - 64, 128, 128), angle / M_PI * 180.0);
+		render.Copy(sprite, Util::Null, Rect(320 - 32 + sin(angle) * 40, 240 - 32 + cos(angle) * 40, 64, 64));
+		render.Copy(sprite, Util::Null, Rect(320 - 32 - sin(angle) * 40, 240 - 32 - cos(angle) * 40, 64, 64));
 
 		render.Present();
 
