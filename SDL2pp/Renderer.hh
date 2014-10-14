@@ -91,7 +91,7 @@ public:
 	void SetClipRect(const Rect& rect);
 	void SetLogicalSize(int w, int h);
 	void SetScale(float scaleX, float scaleY);
-	void SetViewport(const Rect& rect);
+	void SetViewport(const Util::Optional<Rect>& rect = Util::Null);
 
 	bool TargetSupported();
 };

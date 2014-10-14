@@ -46,4 +46,9 @@ Uint32 Event::GetType() const {
 	return event_.type;
 }
 
+const SDL_Event & Event::GetEvent() const {
+	return event_;
+}
+
+
 }

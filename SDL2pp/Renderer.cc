@@ -208,8 +208,8 @@ void Renderer::SetScale(float scaleX, float scaleY) {
 		throw Exception("SDL_RenderSetScale failed");
 }
 
-void Renderer::SetViewport(const Rect& rect) {
-	if (SDL_RenderSetViewport(renderer_, rect.Get()) != 0)
+void Renderer::SetViewport(const Util::Optional<Rect>& rect) {
+	if (SDL_RenderSetViewport(renderer_, rect ? rect->Get() : nullptr) != 0)
 		throw Exception("SDL_RenderSetViewport failed");
 }
 

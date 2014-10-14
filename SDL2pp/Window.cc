@@ -72,4 +72,17 @@ SDL_Window* Window::Get() const {
 	return window_;
 }
 
+void Window::Maximize() {
+	SDL_MaximizeWindow(window_);
+}
+
+void Window::SetFullscreen(Uint32 flags) {
+	if (SDL_SetWindowFullscreen(window_, flags))
+		throw SDL2pp::Exception("SDL_SetWindowFullscreen");
+}
+
+void Window::SetSize(int w, int h) {
+	SDL_SetWindowSize(window_, w, h);
+}
+
 }

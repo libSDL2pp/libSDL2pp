@@ -41,6 +41,7 @@ public:
 	static Util::Optional<Event> Poll();
 
 	Uint32 GetType() const;
+	const SDL_Event & GetEvent() const;
 };
 
 }
