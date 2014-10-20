@@ -92,8 +92,8 @@ namespace std{
 # elif defined TR2_OPTIONAL_CLANG_3_4_2_AND_HIGHER_
     // leave it: it is already there
 # else
-	template <typename T>
-	using is_trivially_destructible = has_trivial_destructor<T>;
+  //	template <typename T>
+  //	using is_trivially_destructible = has_trivial_destructor<T>;
 # endif
 // END workaround for missing is_trivially_destructible
 
@@ -182,7 +182,8 @@ template <class T> inline constexpr typename std::remove_reference<T>::type&& co
   inline void fail(const char* expr, const char* file, unsigned line)
   {
   # if defined __clang__ || defined __GNU_LIBRARY__
-    __assert(expr, file, line);
+    assert(false);
+    //__assert(expr, file, line);
   # elif defined __GNUC__
     _assert(expr, file, line);
   # else
