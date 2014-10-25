@@ -22,6 +22,7 @@
 #ifndef SDL2PP_RWOPS_HH
 #define SDL2PP_RWOPS_HH
 
+#include <memory>
 #include <string>
 
 #include <SDL2/SDL_rwops.h>
@@ -53,17 +54,24 @@ public:
 	virtual int Close() = 0;
 };
 
+
+#if SDL_MAJOR_VERSION == 2
+typedef Sint64 SeekType;
+#else
+typedef long SeekType;
+#endif
+
 class RWops {
 protected:
 	SDL_RWops* rwops_;
 
 private:
-	static Sint64 StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
+	static SeekType StdSeekFuncWrapper(SDL_RWops* context, SeekType offset, int whence);
 	static size_t StdReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum);
 	static size_t StdWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum);
 	static int StdCloseFuncWrapper(SDL_RWops* context);
 
-	static Sint64 CustomSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
+        static SeekType CustomSeekFuncWrapper(SDL_RWops* context, SeekType offset, int whence);
 	static size_t CustomReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum);
 	static size_t CustomWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum);
 	static int CustomCloseFuncWrapper(SDL_RWops* context);
@@ -83,6 +91,11 @@ public:
 	RWops(RWops&& other) noexcept;
 	RWops& operator=(RWops&& other) noexcept;
 
+  struct CustomRWopsWrapper {
+    std::unique_ptr<CustomRWops> custom_rwops;
+    RWops *rwops;
+  };
+
 	template<class C>
 	RWops(C&& custom_rwops) {
 		rwops_ = SDL_AllocRW();
@@ -95,12 +108,11 @@ public:
 		rwops_->close = CustomCloseFuncWrapper;
 		rwops_->type = 0x57524370; // "pCRW" for libSDLp[p] [C]ustom [RW]ops
 		try {
-			rwops_->hidden.unknown.data1 = static_cast<void*>(new C(custom_rwops));
+                  rwops_->hidden.unknown.data1 = static_cast<void*>(new CustomRWopsWrapper{new C(std::move(custom_rwops)), this});
 		} catch (...) {
 			SDL_FreeRW(rwops_);
 			throw;
 		}
-		rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 	}
 
 	~RWops();

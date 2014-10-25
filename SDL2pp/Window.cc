@@ -76,13 +76,18 @@ void Window::Maximize() {
 	SDL_MaximizeWindow(window_);
 }
 
+void Window::SetSize(int w, int h) {
+	SDL_SetWindowSize(window_, w, h);
+}
+
+
+#if SDL_MAJOR_VERSION == 2
+
 void Window::SetFullscreen(Uint32 flags) {
 	if (SDL_SetWindowFullscreen(window_, flags))
 		throw SDL2pp::Exception("SDL_SetWindowFullscreen");
 }
 
-void Window::SetSize(int w, int h) {
-	SDL_SetWindowSize(window_, w, h);
-}
+#endif
 
 }

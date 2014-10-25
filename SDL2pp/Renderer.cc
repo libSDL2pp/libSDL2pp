@@ -75,24 +75,9 @@ void Renderer::Copy(Texture& texture, const Util::Optional<Rect>& srcrect, const
 		throw Exception("SDL_RenderCopy failed");
 }
 
-void Renderer::Copy(Texture& texture, const Util::Optional<Rect>& srcrect, const Util::Optional<Rect>& dstrect, double angle, const Util::Optional<Point>& center, int flip) {
-	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? srcrect->Get() : nullptr, dstrect ? dstrect->Get() : nullptr, angle, center ? center->Get() : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
-		throw Exception("SDL_RenderCopyEx failed");
-}
-
 void Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (SDL_SetRenderDrawColor(renderer_, r, g, b, a) != 0)
 		throw Exception("SDL_SetRenderDrawColor failed");
-}
-
-void Renderer::SetTarget() {
-	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
-		throw Exception("SDL_SetRenderTarget failed");
-}
-
-void Renderer::SetTarget(Texture& texture) {
-	if (SDL_SetRenderTarget(renderer_, texture.Get()) != 0)
-		throw Exception("SDL_SetRenderTarget failed");
 }
 
 void Renderer::SetDrawBlendMode(SDL_BlendMode blendMode) {
@@ -193,9 +178,27 @@ void Renderer::ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pit
 		throw Exception("SDL_RenderReadPixels failed");
 }
 
-void Renderer::SetClipRect(const Rect& rect) {
-	if (SDL_RenderSetClipRect(renderer_, rect.Get()) != 0)
-		throw Exception("SDL_RenderSetClipRect failed");
+void Renderer::SetViewport(const Util::Optional<Rect>& rect) {
+	if (SDL_RenderSetViewport(renderer_, rect ? rect->Get() : nullptr) != 0)
+		throw Exception("SDL_RenderSetViewport failed");
+}
+
+
+#if SDL_MAJOR_VERSION == 2
+
+void Renderer::Copy(Texture& texture, const Util::Optional<Rect>& srcrect, const Util::Optional<Rect>& dstrect, double angle, const Util::Optional<Point>& center, int flip) {
+	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? srcrect->Get() : nullptr, dstrect ? dstrect->Get() : nullptr, angle, center ? center->Get() : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
+		throw Exception("SDL_RenderCopyEx failed");
+}
+
+void Renderer::SetTarget() {
+	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
+		throw Exception("SDL_SetRenderTarget failed");
+}
+
+void Renderer::SetTarget(Texture& texture) {
+	if (SDL_SetRenderTarget(renderer_, texture.Get()) != 0)
+		throw Exception("SDL_SetRenderTarget failed");
 }
 
 void Renderer::SetLogicalSize(int w, int h) {
@@ -203,18 +206,20 @@ void Renderer::SetLogicalSize(int w, int h) {
 		throw Exception("SDL_RenderSetLogicalSize failed");
 }
 
+void Renderer::SetClipRect(const Rect& rect) {
+	if (SDL_RenderSetClipRect(renderer_, rect.Get()) != 0)
+		throw Exception("SDL_RenderSetClipRect failed");
+}
+
 void Renderer::SetScale(float scaleX, float scaleY) {
 	if (SDL_RenderSetScale(renderer_, scaleX, scaleY) != 0)
 		throw Exception("SDL_RenderSetScale failed");
 }
 
-void Renderer::SetViewport(const Util::Optional<Rect>& rect) {
-	if (SDL_RenderSetViewport(renderer_, rect ? rect->Get() : nullptr) != 0)
-		throw Exception("SDL_RenderSetViewport failed");
-}
-
 bool Renderer::TargetSupported() {
 	return SDL_RenderTargetSupported(renderer_) == SDL_TRUE;
 }
+
+#endif
 
 }

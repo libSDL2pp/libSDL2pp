@@ -26,74 +26,72 @@
 
 namespace SDL2pp {
 
-Sint64 RWops::StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence) {
+SeekType RWops::StdSeekFuncWrapper(SDL_RWops* context, SeekType offset, int whence) {
 	assert(context != nullptr);
-	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
-	assert(sdl_rwops != nullptr);
-	return sdl_rwops->seek(sdl_rwops, offset, whence);
+	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data1);
+	assert(rwops != nullptr);
+	return rwops->rwops_->seek(rwops->rwops_, offset, whence);
 }
 
 size_t RWops::StdReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum) {
 	assert(context != nullptr);
-	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
-	assert(sdl_rwops != nullptr);
-	return sdl_rwops->read(sdl_rwops, ptr, size, maxnum);
+	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data1);
+	assert(rwops != nullptr);
+	return rwops->rwops_->read(rwops->rwops_, ptr, size, maxnum);
 }
 
 size_t RWops::StdWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum) {
 	assert(context != nullptr);
-	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
-	assert(sdl_rwops != nullptr);
-	return sdl_rwops->write(sdl_rwops, ptr, size, maxnum);
+	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data1);
+	assert(rwops != nullptr);
+	return rwops->rwops_->write(rwops->rwops_, ptr, size, maxnum);
 }
 
 int RWops::StdCloseFuncWrapper(SDL_RWops* context) {
 	assert(context != nullptr);
-	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
-	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data2);
-	assert(sdl_rwops != nullptr);
+	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data1);
 	assert(rwops != nullptr);
 
 	// this automatically frees sdl_rwops
-	int ret = sdl_rwops->close(sdl_rwops);
+	int ret = rwops->rwops_->close(rwops->rwops_);
 
-	SDL_FreeRW(rwops->rwops_);
-	rwops->rwops_ = nullptr;
+        rwops->Close();
+        rwops->rwops_ = nullptr;
 
 	return ret;
 }
 
-Sint64 RWops::CustomSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence) {
+SeekType RWops::CustomSeekFuncWrapper(SDL_RWops* context, SeekType offset, int whence) {
 	assert(context != nullptr);
-	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
-	assert(custom_rwops != nullptr);
-	return custom_rwops->Seek(offset, whence);
+        auto wrapper = static_cast<CustomRWopsWrapper*>(context->hidden.unknown.data1);
+	assert(wrapper != nullptr);
+	return wrapper->custom_rwops->Seek(offset, whence);
 }
 
 size_t RWops::CustomReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum) {
 	assert(context != nullptr);
-	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
-	assert(custom_rwops != nullptr);
-	return custom_rwops->Read(ptr, size, maxnum);
+        auto wrapper = static_cast<CustomRWopsWrapper*>(context->hidden.unknown.data1);
+	assert(wrapper != nullptr);
+	return wrapper->custom_rwops->Read(ptr, size, maxnum);
 }
 
 size_t RWops::CustomWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum) {
 	assert(context != nullptr);
-	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
-	assert(custom_rwops != nullptr);
-	return custom_rwops->Write(ptr, size, maxnum);
+        auto wrapper = static_cast<CustomRWopsWrapper*>(context->hidden.unknown.data1);
+        assert(wrapper != nullptr);
+	return wrapper->custom_rwops->Write(ptr, size, maxnum);
 }
 
 int RWops::CustomCloseFuncWrapper(SDL_RWops* context) {
 	assert(context != nullptr);
-	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
-	RWops* rwops = reinterpret_cast<RWops*>(context->hidden.unknown.data2);
-	assert(custom_rwops != nullptr);
+        auto wrapper = static_cast<CustomRWopsWrapper*>(context->hidden.unknown.data1);
+	assert(wrapper != nullptr);
+	RWops* rwops = wrapper->rwops;
 	assert(rwops != nullptr);
 
-	int ret = custom_rwops->Close();
+	int ret = wrapper->custom_rwops->Close();
 
-	delete custom_rwops;
+	delete wrapper;
 
 	SDL_FreeRW(rwops->rwops_);
 	rwops->rwops_ = nullptr;
@@ -140,17 +138,14 @@ RWops::RWops(SDL_RWops* rwops) {
 	rwops_->close = StdCloseFuncWrapper;
 	rwops_->type = 0x57525370; // "pSRW" for libSDLp[p] [S]tandard [RW]ops
 	rwops_->hidden.unknown.data1 = static_cast<void*>(rwops);
-	rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 }
 
 RWops::RWops(RWops&& other) noexcept : rwops_(other.rwops_) {
 	other.rwops_ = nullptr;
-	rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 }
 
 RWops& RWops::operator=(RWops&& other) noexcept {
 	rwops_ = other.rwops_;
-	rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 	other.rwops_ = nullptr;
 	return *this;
 }

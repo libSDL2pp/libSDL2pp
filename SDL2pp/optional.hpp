@@ -183,6 +183,7 @@ template <class T> inline constexpr typename std::remove_reference<T>::type&& co
   {
   # if defined __clang__ || defined __GNU_LIBRARY__
     assert(false);
+    (void) expr; (void) file; (void) line;
     //__assert(expr, file, line);
   # elif defined __GNUC__
     _assert(expr, file, line);
