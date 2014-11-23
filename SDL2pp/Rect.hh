@@ -28,6 +28,8 @@ struct SDL_Rect;
 
 namespace SDL2pp {
 
+class Point;
+
 class Rect {
 private:
 	SDL_Rect rect_;
@@ -74,6 +76,8 @@ public:
 
 	int GetY2() const;
 	void SetY2(int y2);
+
+	bool Contains(const Point& point) const;
 };
 
 }

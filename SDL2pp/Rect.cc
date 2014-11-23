@@ -21,6 +21,8 @@
 
 #include <cassert>
 
+#include <SDL2pp/Point.hh>
+
 #include <SDL2pp/Rect.hh>
 
 namespace SDL2pp {
@@ -127,6 +129,12 @@ int Rect::GetY2() const {
 void Rect::SetY2(int y2) {
 	assert(!IsNull());
 	rect_.h = y2 - rect_.y + 1;
+}
+
+bool Rect::Contains(const Point& point) const {
+	if (IsNull() || point.IsNull())
+		return false;
+	return !(point.GetX() < GetX() || point.GetY() < GetY() || point.GetX() > GetX2() || point.GetY() > GetY2());
 }
 
 }

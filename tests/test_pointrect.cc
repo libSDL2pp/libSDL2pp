@@ -160,4 +160,17 @@ BEGIN_TEST()
 		EXPECT_TRUE(r.GetX() == 98 && r.GetY() == 97);
 		EXPECT_TRUE(r.GetX2() == 102 && r.GetY2() == 103);
 	}
+
+	{
+		// Rect contains point
+		Rect r(10, 20, 5, 5);
+
+		EXPECT_TRUE(r.Contains(Point(10, 20)));
+		EXPECT_TRUE(r.Contains(Point(14, 24)));
+
+		EXPECT_TRUE(!r.Contains(Point(9, 20)));
+		EXPECT_TRUE(!r.Contains(Point(10, 19)));
+		EXPECT_TRUE(!r.Contains(Point(15, 20)));
+		EXPECT_TRUE(!r.Contains(Point(10, 25)));
+	}
 END_TEST()
