@@ -98,4 +98,32 @@ Texture::LockHandle Texture::Lock(const Rect& rect) {
 	return LockHandle(this, rect);
 }
 
+Uint32 Texture::GetFormat() const {
+	Uint32 format;
+	if (SDL_QueryTexture(texture_, &format, nullptr, nullptr, nullptr) != 0)
+		throw Exception("SDL_QueryTexture failed");
+	return format;
+}
+
+int Texture::GetAccess() const {
+	int access;
+	if (SDL_QueryTexture(texture_, nullptr, &access, nullptr, nullptr) != 0)
+		throw Exception("SDL_QueryTexture failed");
+	return access;
+}
+
+int Texture::GetWidth() const {
+	int w;
+	if (SDL_QueryTexture(texture_, nullptr, nullptr, &w, nullptr) != 0)
+		throw Exception("SDL_QueryTexture failed");
+	return w;
+}
+
+int Texture::GetHeight() const {
+	int h;
+	if (SDL_QueryTexture(texture_, nullptr, nullptr, nullptr, &h) != 0)
+		throw Exception("SDL_QueryTexture failed");
+	return h;
+}
+
 }

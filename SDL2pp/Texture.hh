@@ -87,6 +87,11 @@ public:
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	LockHandle Lock(const Rect& rect);
+
+	Uint32 GetFormat() const;
+	int GetAccess() const;
+	int GetWidth() const;
+	int GetHeight() const;
 };
 
 }
