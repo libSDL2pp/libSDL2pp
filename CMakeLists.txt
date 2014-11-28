@@ -46,6 +46,7 @@ INCLUDE_DIRECTORIES(BEFORE ${PROJECT_BINARY_DIR})
 # sources
 SET(LIBRARY_SOURCES
 	SDL2pp/Exception.cc
+	SDL2pp/Event.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
 	SDL2pp/Rect.cc
@@ -59,6 +60,9 @@ SET(LIBRARY_SOURCES
 SET(LIBRARY_HEADERS
 	SDL2pp/Exception.hh
 	SDL2pp/ExtraRWops.hh
+	SDL2pp/Event.hh
+	SDL2pp/Optional.hh
+	SDL2pp/optional.hpp
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh

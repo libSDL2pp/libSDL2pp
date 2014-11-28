@@ -28,6 +28,7 @@
 #include <SDL2/SDL_blendmode.h>
 
 #include <SDL2pp/Config.hh>
+#include <SDL2pp/Optional.hh>
 
 struct SDL_Texture;
 
@@ -80,7 +81,7 @@ public:
 
 	SDL_Texture* Get() const;
 
-	void Update(const Rect& rect, const void* pixels, int pitch);
+	void Update(const Util::Optional<Rect>& rect, const void* pixels, int pitch);
 
 	void SetBlendMode(SDL_BlendMode blendMode);
 	void SetAlphaMod(Uint8 alpha = 255);

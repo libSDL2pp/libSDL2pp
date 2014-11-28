@@ -29,16 +29,10 @@ namespace SDL2pp {
 class Point {
 private:
 	SDL_Point point_;
-	bool valid_;
-
-private:
-	Point();
 
 public:
 	Point(int x, int y);
 	virtual ~Point();
-
-	static Point Null();
 
 	Point(const Point&) noexcept = default;
 	Point(Point&&) noexcept = default;
@@ -50,8 +44,6 @@ public:
 
 	SDL_Point* Get();
 	const SDL_Point* Get() const;
-
-	bool IsNull() const;
 
 	int GetX() const;
 	void SetX(int x);

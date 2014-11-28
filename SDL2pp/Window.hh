@@ -52,6 +52,13 @@ public:
 	void SetTitle(const std::string& title);
 
 	SDL_Window* Get() const;
+
+	void Maximize();
+	void SetSize(int w, int h);
+
+#if SDL_MAJOR_VERSION == 2
+	void SetFullscreen(Uint32 flags);
+#endif
 };
 
 }
