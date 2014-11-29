@@ -44,6 +44,7 @@ private:
 public:
 	AudioSpec();
 	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioCallback&& callback = AudioCallback());
+	AudioSpec(const AudioSpec& other, AudioCallback&& callback = AudioCallback());
 	~AudioSpec();
 
 	AudioSpec(AudioSpec&& other);

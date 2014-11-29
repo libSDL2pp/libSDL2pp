@@ -47,6 +47,13 @@ AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 sa
 	}
 }
 
+AudioSpec::AudioSpec(const AudioSpec& other, AudioSpec::AudioCallback&& callback) : SDL_AudioSpec(*other.Get()), callback_(std::move(callback)) {
+	if (callback) {
+		SDL_AudioSpec::callback = SDLCallback;
+		SDL_AudioSpec::userdata = static_cast<void*>(this);
+	}
+}
+
 AudioSpec::~AudioSpec() {
 }
 
