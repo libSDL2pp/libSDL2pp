@@ -5,6 +5,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+# there are functions present on wiki, but not yet in stable SDL2 releases;
+# we hide these under following options
+OPTION(SDL2PP_NEW_2_0_4 "Enable new SDL2 functions present since SDL2 2.0.4" OFF)
+
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	OPTION(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
 ELSE(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
@@ -45,6 +49,9 @@ INCLUDE_DIRECTORIES(BEFORE ${PROJECT_BINARY_DIR})
 
 # sources
 SET(LIBRARY_SOURCES
+	SDL2pp/AudioDevice.cc
+	SDL2pp/AudioLock.cc
+	SDL2pp/AudioSpec.cc
 	SDL2pp/Exception.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
@@ -57,6 +64,7 @@ SET(LIBRARY_SOURCES
 )
 
 SET(LIBRARY_HEADERS
+	SDL2pp/Audio.hh
 	SDL2pp/Exception.hh
 	SDL2pp/ExtraRWops.hh
 	SDL2pp/Point.hh

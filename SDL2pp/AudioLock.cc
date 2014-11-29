@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++ wrapper for libSDL2
-  Copyright (C) 2013 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,20 +19,29 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_SDL2PP_HH
-#define SDL2PP_SDL2PP_HH
-
-#include <SDL2pp/Exception.hh>
-#include <SDL2pp/Config.hh>
-
-#include <SDL2pp/SDL.hh>
 #include <SDL2pp/Audio.hh>
-#include <SDL2pp/Window.hh>
-#include <SDL2pp/Renderer.hh>
-#include <SDL2pp/Texture.hh>
-#include <SDL2pp/Rect.hh>
-#include <SDL2pp/Point.hh>
-#include <SDL2pp/RWops.hh>
-#include <SDL2pp/ExtraRWops.hh>
 
-#endif
+namespace SDL2pp {
+
+AudioDevice::LockHandle::LockHandle(AudioDevice* device) : device_(device) {
+	SDL_LockAudioDevice(device_->device_id_);
+}
+
+AudioDevice::LockHandle::~LockHandle() {
+	if (device_ != nullptr)
+		SDL_UnlockAudioDevice(device_->device_id_);
+}
+
+AudioDevice::LockHandle::LockHandle(AudioDevice::LockHandle&& other) noexcept : device_(other.device_) {
+	other.device_ = nullptr;
+}
+
+AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(AudioDevice::LockHandle&& other) noexcept {
+	device_ = other.device_;
+
+	other.device_ = nullptr;
+
+	return *this;
+}
+
+}

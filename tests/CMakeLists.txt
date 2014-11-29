@@ -2,6 +2,7 @@
 # they are compilable (e.g., includes and forward declarations are
 # complete and do not require extra includes)
 SET(HEADER_TESTS
+	header_audio
 	header_exception
 	header_point
 	header_rect
