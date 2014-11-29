@@ -60,6 +60,7 @@ SET(LIBRARY_SOURCES
 	SDL2pp/SDL.cc
 	SDL2pp/Texture.cc
 	SDL2pp/TextureLock.cc
+	SDL2pp/Wav.cc
 	SDL2pp/Window.cc
 )
 
@@ -74,6 +75,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
 	SDL2pp/Texture.hh
+	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
 )
 

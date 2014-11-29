@@ -12,6 +12,7 @@ SET(HEADER_TESTS
 	header_sdl
 	header_sdl2pp
 	header_texture
+	header_wav
 	header_window
 )
 
