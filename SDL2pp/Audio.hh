@@ -42,7 +42,7 @@ private:
 	static void SDLCallback(void *userdata, Uint8* stream, int len);
 
 public:
-	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioCallback&& callback);
+	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioCallback&& callback = AudioCallback());
 	~AudioSpec();
 
 	AudioSpec(AudioSpec&& other);
