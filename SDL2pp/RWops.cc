@@ -149,6 +149,10 @@ RWops::RWops(RWops&& other) noexcept : rwops_(other.rwops_) {
 }
 
 RWops& RWops::operator=(RWops&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (rwops_ != nullptr)
+		Close();
 	rwops_ = other.rwops_;
 	rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 	other.rwops_ = nullptr;

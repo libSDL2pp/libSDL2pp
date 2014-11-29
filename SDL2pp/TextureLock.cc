@@ -38,6 +38,12 @@ Texture::LockHandle::LockHandle(Texture::LockHandle&& other) noexcept : texture_
 }
 
 Texture::LockHandle& Texture::LockHandle::operator=(Texture::LockHandle&& other) noexcept {
+	if (&other == this)
+		return *this;
+
+	if (texture_ != nullptr)
+		SDL_UnlockTexture(texture_->Get());
+
 	texture_ = other.texture_;
 	pixels_ = other.pixels_;
 	pitch_ = other.pitch_;

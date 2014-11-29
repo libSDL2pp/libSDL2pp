@@ -65,6 +65,10 @@ Texture::Texture(Texture&& other) noexcept : texture_(other.texture_) {
 }
 
 Texture& Texture::operator=(Texture&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (texture_ != nullptr)
+		SDL_DestroyTexture(texture_);
 	texture_ = other.texture_;
 	other.texture_ = nullptr;
 	return *this;

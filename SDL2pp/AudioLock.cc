@@ -37,6 +37,12 @@ AudioDevice::LockHandle::LockHandle(AudioDevice::LockHandle&& other) noexcept : 
 }
 
 AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(AudioDevice::LockHandle&& other) noexcept {
+	if (&other == this)
+		return *this;
+
+	if (device_ != nullptr)
+		SDL_UnlockAudioDevice(device_->device_id_);
+
 	device_ = other.device_;
 
 	other.device_ = nullptr;

@@ -51,6 +51,9 @@ AudioDevice::AudioDevice(AudioDevice&& other) noexcept : device_id_(other.device
 }
 
 AudioDevice& AudioDevice::operator=(AudioDevice&& other) noexcept {
+	if (&other == this)
+		return *this;
+
 	if (device_id_)
 		SDL_CloseAudioDevice(device_id_);
 

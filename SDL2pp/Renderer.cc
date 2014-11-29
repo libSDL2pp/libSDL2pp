@@ -47,6 +47,10 @@ Renderer::Renderer(Renderer&& other) noexcept : renderer_(other.renderer_) {
 }
 
 Renderer& Renderer::operator=(Renderer&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (renderer_ != nullptr)
+		SDL_DestroyRenderer(renderer_);
 	renderer_ = other.renderer_;
 	other.renderer_ = nullptr;
 	return *this;

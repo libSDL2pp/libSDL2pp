@@ -41,6 +41,10 @@ Window::Window(Window&& other) noexcept : window_(other.window_) {
 }
 
 Window& Window::operator=(Window&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (window_ != nullptr)
+		SDL_DestroyWindow(window_);
 	window_ = other.window_;
 	other.window_ = nullptr;
 	return *this;

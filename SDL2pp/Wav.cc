@@ -47,6 +47,12 @@ Wav::Wav(Wav&& other) : audio_buffer_(other.audio_buffer_), audio_length_(other.
 }
 
 Wav& Wav::operator=(Wav&& other) {
+	if (&other == this)
+		return *this;
+
+	if (audio_buffer_ != nullptr)
+		SDL_FreeWAV(audio_buffer_);
+
 	spec_ = std::move(other.spec_);
 	audio_buffer_ = other.audio_buffer_;
 	audio_length_ = other.audio_length_;
