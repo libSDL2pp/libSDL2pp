@@ -56,6 +56,8 @@ public:
 
 	void MergeChanges(const SDL_AudioSpec& obtained);
 	const SDL_AudioSpec* Get() const;
+
+	bool IsSameFormat(const AudioSpec& other) const;
 };
 
 class AudioDevice {

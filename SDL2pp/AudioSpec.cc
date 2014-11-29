@@ -75,4 +75,8 @@ const SDL_AudioSpec* AudioSpec::Get() const {
 	return static_cast<const SDL_AudioSpec*>(this);
 }
 
+bool AudioSpec::IsSameFormat(const AudioSpec& other) const {
+	return freq == other.freq && format == other.format && channels == other.channels;
+}
+
 }
