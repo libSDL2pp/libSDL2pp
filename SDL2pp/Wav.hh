@@ -19,10 +19,39 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#ifndef SDL2PP_WAV_HH
+#define SDL2PP_WAV_HH
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_NEW_2_0_4
+#include <SDL2pp/Audio.hh>
+
+namespace SDL2pp {
+
+class RWops;
+
+class Wav {
+private:
+	Uint8* audio_buffer_;
+	Uint32 audio_length_;
+
+	AudioSpec spec_;
+
+public:
+	Wav(const std::string& file);
+	Wav(RWops& rwops);
+	~Wav();
+
+	Wav(Wav&& other);
+	Wav& operator=(Wav&& other);
+	Wav(const Wav& other) = delete;
+	Wav& operator=(const Wav& other) = delete;
+
+	Uint32 GetLength() const;
+	Uint8* GetBuffer();
+	const Uint8* GetBuffer() const;
+
+	const AudioSpec& GetSpec() const;
+};
+
+}
 
 #endif

@@ -19,10 +19,29 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <SDL2pp/Audio.hh>
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_NEW_2_0_4
+namespace SDL2pp {
 
-#endif
+AudioDevice::LockHandle::LockHandle(AudioDevice* device) : device_(device) {
+	SDL_LockAudioDevice(device_->device_id_);
+}
+
+AudioDevice::LockHandle::~LockHandle() {
+	if (device_ != nullptr)
+		SDL_UnlockAudioDevice(device_->device_id_);
+}
+
+AudioDevice::LockHandle::LockHandle(AudioDevice::LockHandle&& other) noexcept : device_(other.device_) {
+	other.device_ = nullptr;
+}
+
+AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(AudioDevice::LockHandle&& other) noexcept {
+	device_ = other.device_;
+
+	other.device_ = nullptr;
+
+	return *this;
+}
+
+}
