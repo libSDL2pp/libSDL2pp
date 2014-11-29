@@ -30,6 +30,10 @@ void AudioSpec::SDLCallback(void *userdata, Uint8* stream, int len) {
 	audiospec->callback_(stream, len);
 }
 
+AudioSpec::AudioSpec() {
+	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
+}
+
 AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioSpec::AudioCallback&& callback)
 	  : callback_(std::move(callback)) {
 	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
