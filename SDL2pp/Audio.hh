@@ -45,8 +45,8 @@ public:
 	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioCallback&& callback);
 	~AudioSpec();
 
-	AudioSpec(AudioSpec&& other) noexcept;
-	AudioSpec& operator=(AudioSpec&& other) noexcept;
+	AudioSpec(AudioSpec&& other);
+	AudioSpec& operator=(AudioSpec&& other);
 	AudioSpec(const AudioSpec& other) = delete;
 	AudioSpec& operator=(const AudioSpec& other) = delete;
 

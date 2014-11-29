@@ -44,8 +44,8 @@ AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 sa
 AudioSpec::~AudioSpec() {
 }
 
-AudioSpec::AudioSpec(AudioSpec&&) noexcept = default;
-AudioSpec& AudioSpec::operator=(AudioSpec&&) noexcept = default;
+AudioSpec::AudioSpec(AudioSpec&&) = default;
+AudioSpec& AudioSpec::operator=(AudioSpec&&) = default;
 
 void AudioSpec::ChangeCallback(AudioCallback&& callback) {
 	callback_ = callback;
