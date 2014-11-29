@@ -121,6 +121,7 @@ adding new functionality) are welcome.
 Projects using libSDL2pp:
 
 * [openstrike](https://github.com/AMDmi3/openstrike)
+* [opendaed](https://github.com/AMDmi3/opendaed)
 
 ## Author ##
 
