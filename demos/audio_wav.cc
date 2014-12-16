@@ -32,10 +32,10 @@ int Run() {
 	SDL sdl(SDL_INIT_AUDIO);
 
 	Wav wav(TESTDATA_DIR "/test.wav");
-
-	// Setup audio device, and provide callback which plays looped wave sound
 	Uint8* wav_pos = wav.GetBuffer();
-	AudioSpec spec(wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
+
+	// Open audio device
+	AudioDevice dev("", 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
 				// Fill provided buffer with wave contents
 				Uint8* stream_pos = stream;
 				Uint8* stream_end = stream + len;
@@ -53,13 +53,6 @@ int Run() {
 				}
 			}
 		);
-
-	// Open audio device
-	AudioDevice dev("", 0, spec);
-
-	// Ensure SDL has set up format conversion for us
-	if (!spec.IsSameFormat(wav.GetSpec()))
-		throw std::runtime_error("WAV format is not the same as output format");
 
 	// Sound plays after this call
 	dev.Pause(false);

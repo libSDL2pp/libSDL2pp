@@ -25,33 +25,16 @@
 
 namespace SDL2pp {
 
-void AudioSpec::SDLCallback(void *userdata, Uint8* stream, int len) {
-	AudioSpec* audiospec = static_cast<AudioSpec*>(userdata);
-	audiospec->callback_(stream, len);
-}
-
 AudioSpec::AudioSpec() {
 	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
 }
 
-AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioSpec::AudioCallback&& callback)
-	  : callback_(std::move(callback)) {
+AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) {
 	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
 	SDL_AudioSpec::freq = freq;
 	SDL_AudioSpec::format = format;
 	SDL_AudioSpec::channels = channels;
 	SDL_AudioSpec::samples = samples;
-	if (callback) {
-		SDL_AudioSpec::callback = SDLCallback;
-		SDL_AudioSpec::userdata = static_cast<void*>(this);
-	}
-}
-
-AudioSpec::AudioSpec(const AudioSpec& other, AudioSpec::AudioCallback&& callback) : SDL_AudioSpec(*other.Get()), callback_(std::move(callback)) {
-	if (callback) {
-		SDL_AudioSpec::callback = SDLCallback;
-		SDL_AudioSpec::userdata = static_cast<void*>(this);
-	}
 }
 
 AudioSpec::~AudioSpec() {
@@ -59,10 +42,6 @@ AudioSpec::~AudioSpec() {
 
 AudioSpec::AudioSpec(AudioSpec&&) = default;
 AudioSpec& AudioSpec::operator=(AudioSpec&&) = default;
-
-void AudioSpec::ChangeCallback(AudioCallback&& callback) {
-	callback_ = callback;
-}
 
 void AudioSpec::MergeChanges(const SDL_AudioSpec& obtained) {
 	freq = obtained.freq;
