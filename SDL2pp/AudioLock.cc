@@ -23,6 +23,9 @@
 
 namespace SDL2pp {
 
+AudioDevice::LockHandle::LockHandle() : device_(nullptr) {
+}
+
 AudioDevice::LockHandle::LockHandle(AudioDevice* device) : device_(device) {
 	SDL_LockAudioDevice(device_->device_id_);
 }

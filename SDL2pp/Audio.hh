@@ -60,6 +60,7 @@ public:
 		LockHandle(AudioDevice* device);
 
 	public:
+		LockHandle();
 		~LockHandle();
 
 		LockHandle(LockHandle&& other) noexcept;
