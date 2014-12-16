@@ -1,6 +1,6 @@
 # libSDL2pp #
 
-This library provides C++11 bindings/wrappers for SDL2.
+This library provides C++11 bindings/wrapper for SDL2.
 
 ## Synopsis ##
 
