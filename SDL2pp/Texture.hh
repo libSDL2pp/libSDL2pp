@@ -37,9 +37,16 @@ class Renderer;
 class Rect;
 class RWops;
 
+////////////////////////////////////////////////////////////
+/// \brief Image stored in the graphics card memory that
+///        can be used for fast drawing
+///
+/// \headerfile SDL2pp/Texture.hh
+///
+////////////////////////////////////////////////////////////
 class Texture {
 private:
-	SDL_Texture* texture_;
+	SDL_Texture* texture_; ///< SDL2 texture pointer
 
 public:
 	class LockHandle {
@@ -86,11 +93,51 @@ public:
 	void SetAlphaMod(Uint8 alpha = 255);
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Lock texture for write-only pixel access
+	///
+	/// \param rect Rect representing area to lock for access
+	///             (Rect::Null() to lock entire texture)
+	///
+	/// \return Lock handle used to access pixel data and to control lifetime of the lock
+	///
+	////////////////////////////////////////////////////////////
 	LockHandle Lock(const Rect& rect);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get texture format
+	///
+	/// \return Texture raw format
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueryTexture#format
+	///
+	////////////////////////////////////////////////////////////
 	Uint32 GetFormat() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get texture access mode
+	///
+	/// \return Texture access pattern
+	///
+	/// \see http://wiki.libsdl.org/SDL_TextureAccess
+	///
+	////////////////////////////////////////////////////////////
 	int GetAccess() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get texture image width
+	///
+	/// \return Texture width in pixels
+	///
+	////////////////////////////////////////////////////////////
 	int GetWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get texture image height
+	///
+	/// \return Texture height in pixels
+	///
+	////////////////////////////////////////////////////////////
 	int GetHeight() const;
 };
 
