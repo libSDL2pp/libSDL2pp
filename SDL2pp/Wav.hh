@@ -125,7 +125,7 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class SDL2pp::Wav
-/// \ingroup Audio
+/// \ingroup audio
 ///
 /// SDL2pp::Wav is a wrapper around basic SDL2 audio fragment
 /// handling functionality, basically SDL_LoadWAV and related
