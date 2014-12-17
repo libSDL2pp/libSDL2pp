@@ -1,5 +1,7 @@
 # libSDL2pp #
 
+[![Build Status](https://travis-ci.org/AMDmi3/libSDL2pp.svg?branch=master)](https://travis-ci.org/AMDmi3/libSDL2pp)
+
 This library provides C++11 bindings/wrappers for SDL2.
 
 ## Synopsis ##
