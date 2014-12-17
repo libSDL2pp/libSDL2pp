@@ -138,4 +138,4 @@ Projects using libSDL2pp:
 
 ## License ##
 
-libSDL2pp comes under zlib license, the same license as SDL2.
+libSDL2pp comes under zlib license, the same license as SDL2. See COPYING.txt.
