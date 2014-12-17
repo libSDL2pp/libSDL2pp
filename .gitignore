@@ -6,5 +6,4 @@ cmake_install.cmake
 libSDL2pp.so
 
 # doxygen
-doxygen/html
-doxygen/latex
+doxygen
