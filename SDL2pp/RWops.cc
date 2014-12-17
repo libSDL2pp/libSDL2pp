@@ -1,5 +1,5 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
+  libSDL2pp - C++11 bindings/wrapper for SDL2
   Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
