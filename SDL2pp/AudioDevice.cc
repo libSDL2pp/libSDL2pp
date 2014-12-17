@@ -79,7 +79,7 @@ AudioDevice::LockHandle AudioDevice::Lock() {
 	return LockHandle(this);
 }
 
-#ifdef SDL2PP_NEW_2_0_4
+#ifdef SDL2PP_WITH_2_0_4
 void AudioDevice::QueueAudio(const void* data, Uint32 len) {
 	if (SDL_QueueAudio(device_id_, data, len) == 0)
 		throw Exception("SDL_QueueAudio failed");

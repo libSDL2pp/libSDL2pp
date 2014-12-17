@@ -23,6 +23,6 @@
 #define SDL2PP_CONFIG_HH
 
 #cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_NEW_2_0_4
+#cmakedefine SDL2PP_WITH_2_0_4
 
 #endif

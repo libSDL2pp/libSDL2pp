@@ -100,7 +100,7 @@ public:
 
 	LockHandle Lock();
 
-#ifdef SDL2PP_NEW_2_0_4
+#ifdef SDL2PP_WITH_2_0_4
 	void QueueAudio(const void* data, Uint32 len);
 	void ClearQueuedAudio();
 	Uint32 GetQueuedAudioSize() const;

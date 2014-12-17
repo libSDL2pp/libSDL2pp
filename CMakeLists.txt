@@ -7,7 +7,7 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # there are functions present on wiki, but not yet in stable SDL2 releases;
 # we hide these under following options
-OPTION(SDL2PP_NEW_2_0_4 "Enable new SDL2 functions present since SDL2 2.0.4" OFF)
+OPTION(SDL2PP_WITH_2_0_4 "Enable new functions available only in SDL2 2.0.4+" OFF)
 OPTION(SDL2PP_WITH_WERROR "Make warnings fatal" OFF)
 
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
