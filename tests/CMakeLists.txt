@@ -1,22 +1,3 @@
-# header tests: these just include specific headers to check if
-# they are compilable (e.g., includes and forward declarations are
-# complete and do not require extra includes)
-SET(HEADER_TESTS
-	header_audio
-	header_exception
-	header_point
-	header_rect
-	header_renderer
-	header_rwops
-	header_containerrwops
-	header_streamrwops
-	header_sdl
-	header_sdl2pp
-	header_texture
-	header_wav
-	header_window
-)
-
 # simple command-line tests
 SET(CLI_TESTS
 	test_pointrect
@@ -31,9 +12,14 @@ SET(GUI_TESTS
 
 ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
-FOREACH(TEST ${HEADER_TESTS})
-	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
-ENDFOREACH(TEST ${TESTS})
+# header tests: these just include specific headers to check if
+# they are compilable (e.g., includes and forward declarations are
+# complete and do not require extra includes)
+FOREACH(HEADER ${LIBRARY_HEADERS})
+	STRING(REGEX REPLACE [^a-zA-Z0-9] _ HEADER_NORMALIZED ${HEADER})
+	CONFIGURE_FILE(header_test.cc.in ${HEADER_NORMALIZED}_test.cc)
+	ADD_EXECUTABLE(${HEADER_NORMALIZED}_test ${HEADER_NORMALIZED}_test.cc)
+ENDFOREACH(HEADER ${TESTS})
 
 FOREACH(TEST ${CLI_TESTS})
 	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
