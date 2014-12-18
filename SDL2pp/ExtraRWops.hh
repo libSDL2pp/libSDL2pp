@@ -23,7 +23,8 @@
 #define SDL2PP_EXTRARWOPS_HH
 
 #include <SDL2pp/RWops.hh>
-#include <SDL2pp/Exception.hh>
+
+#include <stdexcept>
 
 namespace SDL2pp {
 
@@ -54,7 +55,7 @@ public:
 			position_ = container_.size() + offset;
 			break;
 		default:
-			throw Exception("Unexpected whence value for WritableMemRWops::Seek");
+			throw std::logic_error("Unexpected whence value for ContainerRWops::Seek");
 		}
 		return position_;
 	}
@@ -115,7 +116,7 @@ public:
 			position_ = container_.size() + offset;
 			break;
 		default:
-			throw Exception("Unexpected whence value for WritableMemRWops::Seek");
+			throw std::logic_error("Unexpected whence value for ConstContainerRWops::Seek");
 		}
 		return position_;
 	}
