@@ -26,18 +26,82 @@
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief %Exception object representing %SDL error
+///
+/// \headerfile SDL2pp/Exception.hh
+///
+////////////////////////////////////////////////////////////
 class Exception : public std::exception {
 private:
-	const char* what_;
-	const char* sdl_error_;
+	const char* what_;      ///< User-specified message
+	const char* sdl_error_; ///< SDL error string
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Construct exception, storing result of SDL_GetError
+	///
+	/// \param what User-specified explanatory string
+	///
+	////////////////////////////////////////////////////////////
 	Exception(const char* what = "");
+
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~Exception() noexcept;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get explanatory string
+	///
+	/// \returns Explanatory tring stored in the exception object
+	///
+	////////////////////////////////////////////////////////////
 	const char* what() const noexcept;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get %SDL error text
+	///
+	/// \returns Stored result of SDL_GetError()
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetError
+	///
+	////////////////////////////////////////////////////////////
 	const char* GetSDLError() const noexcept;
 };
 
 }
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// \class SDL2pp::Exception
+/// \ingroup generic
+///
+/// Internally, libSDL2pp checks return value of each SDL2
+/// function it calls which may fail. If the function fails,
+/// SDL2pp::Exception is thrown, and SDL2 error which expains
+/// cause of function failure is stored in the exception and
+/// may be extracted later.
+///
+/// what() usually contains a name of SDL2 function which failed,
+/// e.g. "SDL_Init() failed"
+///
+/// Usage example:
+/// \code
+/// {
+///     try {
+///         SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///     } catch (SDL2pp::Exception& e) {
+///         std::cerr << "Fatal error:"
+///                   << e.what()         // "SDL_Init failed"
+///                   << ", SDL error: "
+///                   << e.GetSDLError()  // "x11 not available"
+///                   << std::endl;
+///     }
+/// }
+/// \endcode
+///
+////////////////////////////////////////////////////////////
