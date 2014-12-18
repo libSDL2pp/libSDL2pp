@@ -233,6 +233,36 @@ BEGIN_TEST()
 
 		rw.Close();
 	}
+
+	// Fixed width reads/writes
+	{
+		std::vector<char> data, outdata;
+		for (int i = 0; i < 28; i++)
+			data.push_back(i);
+
+		RWops rw((ContainerRWops<std::vector<char>>(data)));
+
+		EXPECT_EQUAL(rw.ReadBE16(), 0x0001U);
+		EXPECT_EQUAL(rw.ReadLE16(), 0x0302U);
+		EXPECT_EQUAL(rw.ReadBE32(), 0x04050607U);
+		EXPECT_EQUAL(rw.ReadLE32(), 0x0B0A0908U);
+		EXPECT_EQUAL(rw.ReadBE64(), 0x0C0D0E0F10111213ULL);
+		EXPECT_EQUAL(rw.ReadLE64(), 0x1B1A191817161514ULL);
+
+		RWops rw1((ContainerRWops<std::vector<char>>(outdata)));
+
+		EXPECT_EQUAL(rw1.WriteBE16(0x0001U), 1U);
+		EXPECT_EQUAL(rw1.WriteLE16(0x0302U), 1U);
+		EXPECT_EQUAL(rw1.WriteBE32(0x04050607U), 1U);
+		EXPECT_EQUAL(rw1.WriteLE32(0x0B0A0908U), 1U);
+		EXPECT_EQUAL(rw1.WriteBE64(0x0C0D0E0F10111213ULL), 1U);
+		EXPECT_EQUAL(rw1.WriteLE64(0x1B1A191817161514ULL), 1U);
+
+		EXPECT_EQUAL(data.size(), outdata.size());
+
+		EXPECT_TRUE(data == outdata);
+	}
+
 HANDLE_EXCEPTION(Exception& e)
 	std::cerr << "unexpected SDL exception was thrown during the test: " << e.what() << ": " << e.GetSDLError() << std::endl;
 END_TEST()

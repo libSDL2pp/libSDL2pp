@@ -197,4 +197,52 @@ Sint64 RWops::Size() {
 	return size;
 }
 
+Uint16 RWops::ReadBE16() {
+	return SDL_ReadBE16(rwops_);
+}
+
+Uint32 RWops::ReadBE32() {
+	return SDL_ReadBE32(rwops_);
+}
+
+Uint64 RWops::ReadBE64() {
+	return SDL_ReadBE64(rwops_);
+}
+
+Uint16 RWops::ReadLE16() {
+	return SDL_ReadLE16(rwops_);
+}
+
+Uint32 RWops::ReadLE32() {
+	return SDL_ReadLE32(rwops_);
+}
+
+Uint64 RWops::ReadLE64() {
+	return SDL_ReadLE64(rwops_);
+}
+
+size_t RWops::WriteBE16(Uint16 value) {
+	return SDL_WriteBE16(rwops_, value);
+}
+
+size_t RWops::WriteBE32(Uint32 value) {
+	return SDL_WriteBE32(rwops_, value);
+}
+
+size_t RWops::WriteBE64(Uint64 value) {
+	return SDL_WriteBE64(rwops_, value);
+}
+
+size_t RWops::WriteLE16(Uint16 value) {
+	return SDL_WriteLE16(rwops_, value);
+}
+
+size_t RWops::WriteLE32(Uint32 value) {
+	return SDL_WriteLE32(rwops_, value);
+}
+
+size_t RWops::WriteLE64(Uint64 value) {
+	return SDL_WriteLE64(rwops_, value);
+}
+
 }
