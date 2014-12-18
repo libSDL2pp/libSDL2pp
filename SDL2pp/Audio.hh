@@ -32,27 +32,16 @@
 namespace SDL2pp {
 
 class AudioSpec : public SDL_AudioSpec {
-public:
-	typedef std::function<void(Uint8* stream, int len)> AudioCallback;
-
-private:
-	AudioCallback callback_;
-
-private:
-	static void SDLCallback(void *userdata, Uint8* stream, int len);
 
 public:
 	AudioSpec();
-	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples, AudioCallback&& callback = AudioCallback());
-	AudioSpec(const AudioSpec& other, AudioCallback&& callback = AudioCallback());
+	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
 	~AudioSpec();
 
 	AudioSpec(AudioSpec&& other);
 	AudioSpec& operator=(AudioSpec&& other);
 	AudioSpec(const AudioSpec& other) = delete;
 	AudioSpec& operator=(const AudioSpec& other) = delete;
-
-	void ChangeCallback(AudioCallback&& callback); // should be called with audio device using this spec locked!
 
 	void MergeChanges(const SDL_AudioSpec& obtained);
 	const SDL_AudioSpec* Get() const;
@@ -61,9 +50,6 @@ public:
 };
 
 class AudioDevice {
-private:
-	SDL_AudioDeviceID device_id_;
-
 public:
 	class LockHandle {
 		friend class AudioDevice;
@@ -74,6 +60,7 @@ public:
 		LockHandle(AudioDevice* device);
 
 	public:
+		LockHandle();
 		~LockHandle();
 
 		LockHandle(LockHandle&& other) noexcept;
@@ -83,9 +70,18 @@ public:
 		LockHandle& operator=(const LockHandle& other) = delete;
 	};
 
+	typedef std::function<void(Uint8* stream, int len)> AudioCallback;
+
+private:
+	SDL_AudioDeviceID device_id_;
+	AudioCallback callback_;
+
+private:
+	static void SDLCallback(void *userdata, Uint8* stream, int len);
+
 public:
-	AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec);
-	AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes);
+	AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
+	AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
 	virtual ~AudioDevice();
 
 	AudioDevice(const AudioDevice& other) = delete;
@@ -97,6 +93,8 @@ public:
 
 	void Pause(bool pause_on);
 	SDL_AudioStatus GetStatus() const;
+
+	void ChangeCallback(AudioCallback&& callback);
 
 	LockHandle Lock();
 

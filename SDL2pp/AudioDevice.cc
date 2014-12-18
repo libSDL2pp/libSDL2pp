@@ -25,20 +25,39 @@
 
 namespace SDL2pp {
 
-AudioDevice::AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec) {
-	SDL_AudioSpec obtained;
-
-	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec, &obtained, 0)) == 0)
-		throw Exception("SDL_OpenAudioDevice failed");
+void AudioDevice::SDLCallback(void *userdata, Uint8* stream, int len) {
+	AudioDevice* audiodevice = static_cast<AudioDevice*>(userdata);
+	audiodevice->callback_(stream, len);
 }
 
-AudioDevice::AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes) {
+AudioDevice::AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioDevice::AudioCallback&& callback) {
+	SDL_AudioSpec spec_with_callback = *spec.Get();
+	if (callback) {
+		spec_with_callback.callback = SDLCallback;
+		spec_with_callback.userdata = static_cast<void*>(this);
+	}
 	SDL_AudioSpec obtained;
 
-	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec, &obtained, allowed_changes)) == 0)
+	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec_with_callback, &obtained, 0)) == 0)
+		throw Exception("SDL_OpenAudioDevice failed");
+
+	callback_ = std::move(callback);
+}
+
+AudioDevice::AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioDevice::AudioCallback&& callback) {
+	SDL_AudioSpec spec_with_callback = *spec.Get();
+	if (callback) {
+		spec_with_callback.callback = SDLCallback;
+		spec_with_callback.userdata = static_cast<void*>(this);
+	}
+	SDL_AudioSpec obtained;
+
+	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec_with_callback, &obtained, allowed_changes)) == 0)
 		throw Exception("SDL_OpenAudioDevice failed");
 
 	spec.MergeChanges(obtained);
+
+	callback_ = std::move(callback);
 }
 
 AudioDevice::~AudioDevice() {
@@ -46,7 +65,7 @@ AudioDevice::~AudioDevice() {
 		SDL_CloseAudioDevice(device_id_);
 }
 
-AudioDevice::AudioDevice(AudioDevice&& other) noexcept : device_id_(other.device_id_) {
+AudioDevice::AudioDevice(AudioDevice&& other) noexcept : device_id_(other.device_id_), callback_(std::move(other.callback_)) {
 	other.device_id_ = 0;
 }
 
@@ -58,6 +77,7 @@ AudioDevice& AudioDevice::operator=(AudioDevice&& other) noexcept {
 		SDL_CloseAudioDevice(device_id_);
 
 	device_id_ = other.device_id_;
+	callback_ = std::move(other.callback_);
 	other.device_id_ = 0;
 
 	return *this;
@@ -73,6 +93,13 @@ void AudioDevice::Pause(bool pause_on) {
 
 SDL_AudioStatus AudioDevice::GetStatus() const {
 	return SDL_GetAudioDeviceStatus(device_id_);
+}
+
+void AudioDevice::ChangeCallback(AudioDevice::AudioCallback&& callback) {
+	// make sure callback is not called while it's being replaced
+	LockHandle lock = Lock();
+
+	callback_ = std::move(callback);
 }
 
 AudioDevice::LockHandle AudioDevice::Lock() {
