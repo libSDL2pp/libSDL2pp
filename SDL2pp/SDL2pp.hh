@@ -33,7 +33,8 @@
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/RWops.hh>
-#include <SDL2pp/ExtraRWops.hh>
+#include <SDL2pp/ContainerRWops.hh>
+#include <SDL2pp/StreamRWops.hh>
 #include <SDL2pp/Wav.hh>
 
 #endif

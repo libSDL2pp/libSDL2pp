@@ -113,6 +113,19 @@ public:
 	size_t Write(const void* ptr, size_t size, size_t num);
 	Sint64 Tell();
 	Sint64 Size();
+
+	Uint16 ReadBE16();
+	Uint32 ReadBE32();
+	Uint64 ReadBE64();
+	Uint16 ReadLE16();
+	Uint32 ReadLE32();
+	Uint64 ReadLE64();
+	size_t WriteBE16(Uint16 value);
+	size_t WriteBE32(Uint32 value);
+	size_t WriteBE64(Uint64 value);
+	size_t WriteLE16(Uint16 value);
+	size_t WriteLE32(Uint32 value);
+	size_t WriteLE64(Uint64 value);
 };
 
 }

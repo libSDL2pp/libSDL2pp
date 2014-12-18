@@ -71,14 +71,15 @@ SET(LIBRARY_SOURCES
 
 SET(LIBRARY_HEADERS
 	SDL2pp/Audio.hh
+	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
-	SDL2pp/ExtraRWops.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
+	SDL2pp/StreamRWops.hh
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
