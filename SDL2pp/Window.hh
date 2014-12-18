@@ -32,28 +32,125 @@ struct SDL_Window;
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief GUI window object
+///
+/// \headerfile SDL2pp/Window.hh
+///
+////////////////////////////////////////////////////////////
 class Window {
 private:
-	SDL_Window* window_;
+	SDL_Window* window_; ///< SDL2 window pointer
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create window with specified title and fimensions
+	///
+	/// \param title Title of the windows, in UTF-8 encoding
+	/// \param x X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param y X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param w Width of the window
+	/// \param h Height of the window
+	/// \param flags 0 or more SDL_WindowFlags OR'd together
+	///
+	////////////////////////////////////////////////////////////
 	Window(const std::string& title, int x, int y, int w, int h, Uint32 flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~Window();
 
-	Window(const Window& other) = delete;
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::Window object to move data from
+	///
+	////////////////////////////////////////////////////////////
 	Window(Window&& other) noexcept;
-	Window& operator=(const Window& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment operator
+	///
+	/// \param other SDL2pp::Window object to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	Window& operator=(Window&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	Window(const Window& other) = delete;
+	Window& operator=(const Window& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get dimensions of the window
+	///
+	/// \returns SDL2pp::Point representing dimensions (width and
+	///          height) of the window in pixels
+	///
+	////////////////////////////////////////////////////////////
 	Point GetSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get width of the window
+	///
+	/// \returns Width of the window in pixels
+	///
+	////////////////////////////////////////////////////////////
 	int GetWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get height of the window
+	///
+	/// \returns Height of the window in pixels
+	///
+	////////////////////////////////////////////////////////////
 	int GetHeight() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Set window title
+	///
+	/// \param title New window title in UTF-8 encoding
+	///
+	////////////////////////////////////////////////////////////
 	void SetTitle(const std::string& title);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_Window structure
+	///
+	/// \returns Pointer to SDL_Window structure
+	///
+	////////////////////////////////////////////////////////////
 	SDL_Window* Get() const;
 };
 
 }
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// \class SDL2pp::Window
+/// \ingroup windows
+///
+/// SDL2pp::Window is a wrapper around SDL_Window structure
+/// and related functions which take care of GUI window
+/// management.
+///
+/// Usage example:
+/// \code
+/// {
+///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///     SDL2pp::Window window("Test Window",
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           640,
+///                           480,
+///                           SDL_WINDOW_OPENGL);
+///
+///     SDL_Delay(3000); // show window for 3 seconds
+/// }
+/// \endcode
+///
+////////////////////////////////////////////////////////////
