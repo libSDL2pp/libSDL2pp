@@ -78,7 +78,7 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class SDL2pp::Exception
-/// \ingroup generic
+/// \ingroup general
 ///
 /// Internally, libSDL2pp checks return value of each SDL2
 /// function it calls which may fail. If the function fails,

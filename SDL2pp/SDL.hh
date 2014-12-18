@@ -102,7 +102,7 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class SDL2pp::SDL
-/// \ingroup generic
+/// \ingroup general
 ///
 /// Before using any SDL2 functions, the library must be initialized.
 /// Likewise, it should be deinitialized before application exits.
