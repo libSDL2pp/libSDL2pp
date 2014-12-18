@@ -23,7 +23,9 @@
 
 #include <SDL2/SDL.h>
 
-#include <SDL2pp/SDL2pp.hh>
+#include <SDL2pp/SDL.hh>
+#include <SDL2pp/Audio.hh>
+#include <SDL2pp/Exception.hh>
 
 using namespace SDL2pp;
 
