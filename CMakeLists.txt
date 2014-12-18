@@ -7,7 +7,8 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # there are functions present on wiki, but not yet in stable SDL2 releases;
 # we hide these under following options
-OPTION(SDL2PP_NEW_2_0_4 "Enable new SDL2 functions present since SDL2 2.0.4" OFF)
+OPTION(SDL2PP_WITH_2_0_4 "Enable new functions available only in SDL2 2.0.4+" OFF)
+OPTION(SDL2PP_WITH_WERROR "Make warnings fatal" OFF)
 
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	OPTION(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
@@ -39,6 +40,10 @@ ENDIF(MSVC)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${SDL2_ALL_INCLUDE_DIRS})
 
+IF(SDL2PP_WITH_WERROR)
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WERROR_FLAG}")
+ENDIF(SDL2PP_WITH_WERROR)
+
 # config.h
 CONFIGURE_FILE(
 	SDL2pp/Config.hh.in
@@ -66,14 +71,15 @@ SET(LIBRARY_SOURCES
 
 SET(LIBRARY_HEADERS
 	SDL2pp/Audio.hh
+	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
-	SDL2pp/ExtraRWops.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
+	SDL2pp/StreamRWops.hh
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
@@ -81,8 +87,6 @@ SET(LIBRARY_HEADERS
 
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	MESSAGE(STATUS "libSDL2pp standalone build")
-
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WERROR_FLAG}")
 
 	# library
 	ADD_LIBRARY(SDL2pp SHARED ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})

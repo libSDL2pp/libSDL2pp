@@ -1,5 +1,7 @@
 # libSDL2pp #
 
+[![Build Status](https://travis-ci.org/AMDmi3/libSDL2pp.svg?branch=master)](https://travis-ci.org/AMDmi3/libSDL2pp)
+
 This library provides C++11 bindings/wrapper for SDL2.
 
 ## Synopsis ##
@@ -53,6 +55,9 @@ try {
 Currently, the library provides wrapper classes for
 
 * SDL iteslf
+* SDL_AudioDevice* functions
+* SDL_*WAV functions
+* SDL_AudioSpec
 * SDL_Point
 * SDL_RWops
 * SDL_Rect
@@ -120,8 +125,8 @@ adding new functionality) are welcome.
 
 Projects using libSDL2pp:
 
-* [openstrike](https://github.com/AMDmi3/openstrike)
-* [opendaed](https://github.com/AMDmi3/opendaed)
+* [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
+* [OpenDaed](https://github.com/AMDmi3/opendaed) - Libre reimplementation of The Daedalus Encounter game
 
 ## Author ##
 
@@ -133,4 +138,4 @@ Projects using libSDL2pp:
 
 ## License ##
 
-libSDL2pp comes under zlib license, the same license as SDL2.
+libSDL2pp comes under zlib license, the same license as SDL2. See COPYING.txt.

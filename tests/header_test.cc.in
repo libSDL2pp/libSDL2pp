@@ -1,4 +1,4 @@
-#include <SDL2pp/RWops.hh>
+#include <@HEADER@>
 
 int main() {
 	return 0;

@@ -1,6 +1,6 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
-  Copyright (C) 2013 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  libSDL2pp - C++11 bindings/wrapper for SDL2
+  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,6 +28,9 @@
 
 namespace SDL2pp {
 
+Texture::LockHandle::LockHandle() : texture_(nullptr) {
+}
+
 Texture::LockHandle::LockHandle(Texture* texture, const Rect& rect) : texture_(texture) {
 	if (SDL_LockTexture(texture_->Get(), rect.Get(), &pixels_, &pitch_) != 0)
 		throw Exception("SDL_LockTexture failed");
@@ -35,6 +38,8 @@ Texture::LockHandle::LockHandle(Texture* texture, const Rect& rect) : texture_(t
 
 Texture::LockHandle::LockHandle(Texture::LockHandle&& other) noexcept : texture_(other.texture_), pixels_(other.pixels_), pitch_(other.pitch_) {
 	other.texture_ = nullptr;
+	other.pixels_ = nullptr;
+	other.pitch_ = 0;
 }
 
 Texture::LockHandle& Texture::LockHandle::operator=(Texture::LockHandle&& other) noexcept {
@@ -49,6 +54,8 @@ Texture::LockHandle& Texture::LockHandle::operator=(Texture::LockHandle&& other)
 	pitch_ = other.pitch_;
 
 	other.texture_ = nullptr;
+	other.pixels_ = nullptr;
+	other.pitch_ = 0;
 
 	return *this;
 }

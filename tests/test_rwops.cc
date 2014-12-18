@@ -1,7 +1,8 @@
 #include <vector>
 
 #include <SDL2pp/Exception.hh>
-#include <SDL2pp/ExtraRWops.hh>
+#include <SDL2pp/ContainerRWops.hh>
+#include <SDL2pp/StreamRWops.hh>
 #include <SDL2pp/RWops.hh>
 
 #include "testing.h"
@@ -118,7 +119,7 @@ BEGIN_TEST()
 	{
 		const std::vector<char> buffer = { 'a', 'b', 'c', 'd' };
 
-		RWops rw((ConstContainerRWops<std::vector<char>>(buffer)));
+		RWops rw((ContainerRWops<const std::vector<char>>(buffer)));
 
 		{
 			// Read via C++
@@ -133,11 +134,89 @@ BEGIN_TEST()
 		}
 
 		{
-			// Write
+			// Write to const container fails
 			char buf[4] = {0};
 
 			EXPECT_TRUE(rw.Write(buf, 1, 4) == 0);
 			EXPECT_TRUE(rw.Write(buf, 4, 1) == 0);
+		}
+
+		{
+			// Write to non-const container
+			std::vector<char> vec;
+
+			RWops rw((ContainerRWops<std::vector<char>>(vec)));
+
+			char buf[4] = {'a', 'b', 'c', 'd'};
+
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+			EXPECT_TRUE(rw.Write(buf, 4, 1) == 1);
+
+			EXPECT_TRUE(rw.Seek(2, SEEK_SET) == 2);
+			EXPECT_TRUE(rw.Write(buf, 2, 2) == 2);
+
+			EXPECT_TRUE(vec.size() == 8);
+			EXPECT_TRUE(std::string(vec.data(), 8) == "ababcdcd");
+		}
+	}
+
+	// Test for StreamRWops
+	{
+		{
+			// write test
+
+			std::stringstream test;
+			RWops rw((StreamRWops<std::ostream>(test)));
+
+			char buf[4] = { 'a', 'b', 'c', 'd' };
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_CUR) == 4);
+
+			EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
+
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_EQUAL(test.str(), "ababcd");
+		}
+
+		{
+			// read test
+
+			std::stringstream test("abcdef");
+			RWops rw((StreamRWops<std::istream>(test)));
+
+			char buf[4];
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 4UL);
+
+			EXPECT_EQUAL(std::string(buf, 4), "abcd");
+
+			EXPECT_EQUAL(rw.Seek(0, RW_SEEK_CUR), 4);
+
+			EXPECT_EQUAL(rw.Seek(2, RW_SEEK_SET), 2);
+
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 4UL);
+
+			EXPECT_EQUAL(std::string(buf, 4), "cdef");
+
+			// short read
+			EXPECT_EQUAL(rw.Seek(4, RW_SEEK_SET), 4);
+
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 2UL);
+
+			EXPECT_EQUAL(std::string(buf, 2), "ef");
+
+			// short object read
+			EXPECT_EQUAL(rw.Seek(4, RW_SEEK_SET), 4);
+
+			EXPECT_EQUAL(rw.Read(buf, 4, 1), 0UL);
+
+			EXPECT_EQUAL(rw.Seek(0, RW_SEEK_CUR), 4);
+
+			// read end
+			EXPECT_EQUAL(rw.Read(buf, 1, 2), 2UL);
+
+			EXPECT_EQUAL(std::string(buf, 2), "ef");
 		}
 	}
 
@@ -154,6 +233,36 @@ BEGIN_TEST()
 
 		rw.Close();
 	}
+
+	// Fixed width reads/writes
+	{
+		std::vector<char> data, outdata;
+		for (int i = 0; i < 28; i++)
+			data.push_back(i);
+
+		RWops rw((ContainerRWops<std::vector<char>>(data)));
+
+		EXPECT_EQUAL(rw.ReadBE16(), 0x0001U);
+		EXPECT_EQUAL(rw.ReadLE16(), 0x0302U);
+		EXPECT_EQUAL(rw.ReadBE32(), 0x04050607U);
+		EXPECT_EQUAL(rw.ReadLE32(), 0x0B0A0908U);
+		EXPECT_EQUAL(rw.ReadBE64(), 0x0C0D0E0F10111213ULL);
+		EXPECT_EQUAL(rw.ReadLE64(), 0x1B1A191817161514ULL);
+
+		RWops rw1((ContainerRWops<std::vector<char>>(outdata)));
+
+		EXPECT_EQUAL(rw1.WriteBE16(0x0001U), 1U);
+		EXPECT_EQUAL(rw1.WriteLE16(0x0302U), 1U);
+		EXPECT_EQUAL(rw1.WriteBE32(0x04050607U), 1U);
+		EXPECT_EQUAL(rw1.WriteLE32(0x0B0A0908U), 1U);
+		EXPECT_EQUAL(rw1.WriteBE64(0x0C0D0E0F10111213ULL), 1U);
+		EXPECT_EQUAL(rw1.WriteLE64(0x1B1A191817161514ULL), 1U);
+
+		EXPECT_EQUAL(data.size(), outdata.size());
+
+		EXPECT_TRUE(data == outdata);
+	}
+
 HANDLE_EXCEPTION(Exception& e)
 	std::cerr << "unexpected SDL exception was thrown during the test: " << e.what() << ": " << e.GetSDLError() << std::endl;
 END_TEST()

@@ -1,5 +1,5 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
+  libSDL2pp - C++11 bindings/wrapper for SDL2
   Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
@@ -19,19 +19,40 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_EXTRARWOPS_HH
-#define SDL2PP_EXTRARWOPS_HH
+#ifndef SDL2PP_CONTAINERRWOPS_HH
+#define SDL2PP_CONTAINERRWOPS_HH
 
 #include <SDL2pp/RWops.hh>
-#include <SDL2pp/Exception.hh>
+
+#include <type_traits>
+#include <stdexcept>
 
 namespace SDL2pp {
 
-template<typename C>
+template <class C>
 class ContainerRWops : public CustomRWops {
 protected:
 	C& container_;
 	size_t position_;
+
+private:
+	template <class CC>
+	typename std::enable_if<!std::is_const<CC>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t maxnum) {
+		if (position_ + size * maxnum > container_.size())
+			container_.resize(position_ + size * maxnum);
+
+		std::copy(reinterpret_cast<const unsigned char*>(ptr), reinterpret_cast<const unsigned char*>(ptr) + size * maxnum, container_.begin() + position_);
+
+		position_ += size * maxnum;
+
+		return maxnum;
+	}
+
+	template <class CC>
+	typename std::enable_if<std::is_const<CC>::value, size_t>::type WriteHelper(const void*, size_t, size_t) {
+		SDL_SetError("Can't write to read-only container");
+		return 0;
+	}
 
 public:
 	ContainerRWops(C& container) : container_(container), position_(0) {
@@ -54,7 +75,7 @@ public:
 			position_ = container_.size() + offset;
 			break;
 		default:
-			throw Exception("Unexpected whence value for WritableMemRWops::Seek");
+			throw std::logic_error("Unexpected whence value for ContainerRWops::Seek");
 		}
 		return position_;
 	}
@@ -73,69 +94,7 @@ public:
 	}
 
 	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) override {
-		if (position_ + size * maxnum > container_.size())
-			container_.resize(position_ + size * maxnum);
-
-		std::copy(reinterpret_cast<const unsigned char*>(ptr), reinterpret_cast<const unsigned char*>(ptr) + size * maxnum, container_.begin() + position_);
-
-		position_ += size * maxnum;
-
-		return maxnum;
-	}
-
-	virtual int Close() override {
-		return 0;
-	}
-};
-
-template<typename C>
-class ConstContainerRWops : public CustomRWops {
-protected:
-	const C& container_;
-	size_t position_;
-
-public:
-	ConstContainerRWops(const C& container) : container_(container), position_(0) {
-	}
-
-	ConstContainerRWops(const ConstContainerRWops<C>&) = default;
-	ConstContainerRWops& operator=(const ConstContainerRWops<C>&) = delete;
-	ConstContainerRWops(ConstContainerRWops<C>&&) noexcept = default;
-	ConstContainerRWops& operator=(ConstContainerRWops<C>&&) = delete;
-
-	virtual Sint64 Seek(Sint64 offset, int whence) override {
-		switch (whence) {
-		case RW_SEEK_SET:
-			position_ = offset;
-			break;
-		case RW_SEEK_CUR:
-			position_ = position_ + offset;
-			break;
-		case RW_SEEK_END:
-			position_ = container_.size() + offset;
-			break;
-		default:
-			throw Exception("Unexpected whence value for WritableMemRWops::Seek");
-		}
-		return position_;
-	}
-
-	virtual size_t Read(void* ptr, size_t size, size_t maxnum) override {
-		if (position_ + size > container_.size())
-			return 0;
-
-		int toread = std::min((container_.size() - position_), maxnum * size);
-
-		std::copy(container_.begin() + position_, container_.begin() + position_ + toread, reinterpret_cast<unsigned char*>(ptr));
-
-		position_ += toread;
-
-		return toread / size;
-	}
-
-	virtual size_t Write(const void*, size_t, size_t) override {
-		SDL_SetError("Can't write to read-only container");
-		return 0;
+		return WriteHelper<C>(ptr, size, maxnum);
 	}
 
 	virtual int Close() override {

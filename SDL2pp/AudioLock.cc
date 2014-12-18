@@ -1,5 +1,5 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
+  libSDL2pp - C++11 bindings/wrapper for SDL2
   Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
@@ -22,6 +22,9 @@
 #include <SDL2pp/Audio.hh>
 
 namespace SDL2pp {
+
+AudioDevice::LockHandle::LockHandle() : device_(nullptr) {
+}
 
 AudioDevice::LockHandle::LockHandle(AudioDevice* device) : device_(device) {
 	SDL_LockAudioDevice(device_->device_id_);

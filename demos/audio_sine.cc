@@ -1,5 +1,5 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
+  libSDL2pp - C++11 bindings/wrapper for SDL2
   Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
@@ -35,15 +35,15 @@ int Run() {
 	int64_t nsample = 0;
 
 	// Setup audio device, and provide callback which plays sine wave with specified frequency
-	AudioSpec spec(samplerate, AUDIO_S16SYS, 1, 4096, [&nsample, frequency, samplerate](Uint8* stream, int len) {
+	AudioSpec spec(samplerate, AUDIO_S16SYS, 1, 4096);
+
+	// Open audio device
+	AudioDevice dev("", 0, spec, [&nsample, frequency, samplerate](Uint8* stream, int len) {
 				// fill provided buffer with sine wave
 				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
 					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)samplerate * frequency));
 			}
 		);
-
-	// Open audio device
-	AudioDevice dev("", 0, spec);
 
 	// Sound plays after this call
 	dev.Pause(false);

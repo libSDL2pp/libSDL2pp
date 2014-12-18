@@ -1,6 +1,6 @@
 /*
-  libSDL2pp - C++ wrapper for libSDL2
-  Copyright (C) 2013 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  libSDL2pp - C++11 bindings/wrapper for SDL2
+  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -60,6 +60,7 @@ public:
 		LockHandle(Texture* texture, const Rect& rect);
 
 	public:
+		LockHandle();
 		~LockHandle();
 
 		LockHandle(LockHandle&& other) noexcept;
