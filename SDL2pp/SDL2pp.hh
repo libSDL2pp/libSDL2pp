@@ -26,7 +26,8 @@
 #include <SDL2pp/Config.hh>
 
 #include <SDL2pp/SDL.hh>
-#include <SDL2pp/Audio.hh>
+#include <SDL2pp/AudioDevice.hh>
+#include <SDL2pp/AudioSpec.hh>
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Texture.hh>

@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2pp/Audio.hh>
+#include <SDL2pp/AudioDevice.hh>
 
 namespace SDL2pp {
 

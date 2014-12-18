@@ -20,8 +20,9 @@
 */
 
 #include <SDL2pp/Exception.hh>
+#include <SDL2pp/AudioSpec.hh>
 
-#include <SDL2pp/Audio.hh>
+#include <SDL2pp/AudioDevice.hh>
 
 namespace SDL2pp {
 

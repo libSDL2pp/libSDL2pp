@@ -21,7 +21,7 @@
 
 #include <algorithm>
 
-#include <SDL2pp/Audio.hh>
+#include <SDL2pp/AudioSpec.hh>
 
 namespace SDL2pp {
 

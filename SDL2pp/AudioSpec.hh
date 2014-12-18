@@ -19,39 +19,29 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_WAV_HH
-#define SDL2PP_WAV_HH
+#ifndef SDL2PP_AUDIOSPEC_HH
+#define SDL2PP_AUDIOSPEC_HH
 
-#include <string>
-
-#include <SDL2pp/AudioSpec.hh>
+#include <SDL2/SDL_audio.h>
 
 namespace SDL2pp {
 
-class RWops;
-
-class Wav {
-private:
-	Uint8* audio_buffer_;
-	Uint32 audio_length_;
-
-	AudioSpec spec_;
+class AudioSpec : public SDL_AudioSpec {
 
 public:
-	Wav(const std::string& file);
-	Wav(RWops& rwops);
-	~Wav();
+	AudioSpec();
+	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
+	~AudioSpec();
 
-	Wav(Wav&& other);
-	Wav& operator=(Wav&& other);
-	Wav(const Wav& other) = delete;
-	Wav& operator=(const Wav& other) = delete;
+	AudioSpec(AudioSpec&& other);
+	AudioSpec& operator=(AudioSpec&& other);
+	AudioSpec(const AudioSpec& other) = delete;
+	AudioSpec& operator=(const AudioSpec& other) = delete;
 
-	Uint32 GetLength() const;
-	Uint8* GetBuffer();
-	const Uint8* GetBuffer() const;
+	void MergeChanges(const SDL_AudioSpec& obtained);
+	const SDL_AudioSpec* Get() const;
 
-	const AudioSpec& GetSpec() const;
+	bool IsSameFormat(const AudioSpec& other) const;
 };
 
 }
