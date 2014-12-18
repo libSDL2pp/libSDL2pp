@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_EXTRARWOPS_HH
-#define SDL2PP_EXTRARWOPS_HH
+#ifndef SDL2PP_CONTAINERRWOPS_HH
+#define SDL2PP_CONTAINERRWOPS_HH
 
 #include <SDL2pp/RWops.hh>
 

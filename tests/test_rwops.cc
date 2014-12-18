@@ -1,7 +1,7 @@
 #include <vector>
 
 #include <SDL2pp/Exception.hh>
-#include <SDL2pp/ExtraRWops.hh>
+#include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/RWops.hh>
 
 #include "testing.h"
