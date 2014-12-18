@@ -26,21 +26,101 @@
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief Object taking care of %SDL library (de-)initialization
+///
+/// \headerfile SDL2pp/SDL.hh
+///
+////////////////////////////////////////////////////////////
 class SDL {
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Initializes %SDL library
+	///
+	/// \param flags Flags to pass to SDL_Init()
+	///
+	/// \see http://wiki.libsdl.org/SDL_Init
+	///
+	////////////////////////////////////////////////////////////
 	SDL(Uint32 flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor, deinitializes %SDL library
+	///
+	/// \see http://wiki.libsdl.org/SDL_Quit
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~SDL();
 
+	// Deleted copy/move constructors and assignments
 	SDL(const SDL& other) = delete;
 	SDL(SDL&& other) = delete;
 	SDL& operator=(const SDL& other) = delete;
 	SDL& operator=(SDL&& other) = delete;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Checks which %SDL subsystems were initialized
+	///
+	/// \param flags 0 to return mask of initialized subsystems
+	///              or any combination of flags to return initialization
+	///              status of the specified subsystems
+	///
+	/// \returns Mask of initialized subsystems or the initialization
+	///          status of the specified subsystems
+	///
+	/// \see http://wiki.libsdl.org/SDL_WasInit
+	///
+	////////////////////////////////////////////////////////////
 	Uint32 WasInit(Uint32 flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Initializes additional %SDL subsystems
+	///
+	/// \param flags Set of flags which determines which subsystems
+	///              to initialize
+	///
+	/// \see http://wiki.libsdl.org/SDL_InitSubSystem
+	///
+	////////////////////////////////////////////////////////////
 	void InitSubSystem(Uint32 flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Deinitializes specific %SDL subsystems
+	///
+	/// \param flags Set of flags which determines which subsystems
+	///              to deinitialize
+	///
+	/// \see http://wiki.libsdl.org/SDL_QuitSubSystem
+	///
+	////////////////////////////////////////////////////////////
 	void QuitSubSystem(Uint32 flags);
 };
 
 }
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// \class SDL2pp::SDL
+/// \ingroup generic
+///
+/// Before using any SDL2 functions, the library must be initialized.
+/// Likewise, it should be deinitialized before application exits.
+/// SDL2pp::SDL object takes care of this in a RAII way
+/// by initializing the library in constructor and deinitializing
+/// in destructor, with an ability to init/quit specific subsystems
+/// in between
+///
+/// Usage example:
+/// \code
+/// int main() {
+///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///
+///     // ...use SDL functions...
+///
+///     // SDL library is automatically deinitialized before exit
+///     return 0;
+/// }
+/// \endcode
+///
+////////////////////////////////////////////////////////////
