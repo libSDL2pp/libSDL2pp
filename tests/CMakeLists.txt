@@ -9,6 +9,7 @@ SET(HEADER_TESTS
 	header_renderer
 	header_rwops
 	header_containerrwops
+	header_streamrwops
 	header_sdl
 	header_sdl2pp
 	header_texture

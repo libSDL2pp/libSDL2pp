@@ -79,6 +79,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
+	SDL2pp/StreamRWops.hh
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
