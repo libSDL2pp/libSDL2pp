@@ -19,38 +19,31 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2pp/AudioDevice.hh>
+#ifndef SDL2PP_AUDIOSPEC_HH
+#define SDL2PP_AUDIOSPEC_HH
+
+#include <SDL2/SDL_audio.h>
 
 namespace SDL2pp {
 
-AudioDevice::LockHandle::LockHandle() : device_(nullptr) {
-}
+class AudioSpec : public SDL_AudioSpec {
 
-AudioDevice::LockHandle::LockHandle(AudioDevice* device) : device_(device) {
-	SDL_LockAudioDevice(device_->device_id_);
-}
+public:
+	AudioSpec();
+	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
+	~AudioSpec();
 
-AudioDevice::LockHandle::~LockHandle() {
-	if (device_ != nullptr)
-		SDL_UnlockAudioDevice(device_->device_id_);
-}
+	AudioSpec(AudioSpec&& other);
+	AudioSpec& operator=(AudioSpec&& other);
+	AudioSpec(const AudioSpec& other) = delete;
+	AudioSpec& operator=(const AudioSpec& other) = delete;
 
-AudioDevice::LockHandle::LockHandle(AudioDevice::LockHandle&& other) noexcept : device_(other.device_) {
-	other.device_ = nullptr;
-}
+	void MergeChanges(const SDL_AudioSpec& obtained);
+	const SDL_AudioSpec* Get() const;
 
-AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(AudioDevice::LockHandle&& other) noexcept {
-	if (&other == this)
-		return *this;
-
-	if (device_ != nullptr)
-		SDL_UnlockAudioDevice(device_->device_id_);
-
-	device_ = other.device_;
-
-	other.device_ = nullptr;
-
-	return *this;
-}
+	bool IsSameFormat(const AudioSpec& other) const;
+};
 
 }
+
+#endif

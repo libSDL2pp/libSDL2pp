@@ -22,7 +22,9 @@
 #ifndef SDL2PP_WAV_HH
 #define SDL2PP_WAV_HH
 
-#include <SDL2pp/Audio.hh>
+#include <string>
+
+#include <SDL2pp/AudioSpec.hh>
 
 namespace SDL2pp {
 

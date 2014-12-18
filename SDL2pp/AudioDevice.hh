@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_AUDIO_HH
-#define SDL2PP_AUDIO_HH
+#ifndef SDL2PP_AUDIODEVICE_HH
+#define SDL2PP_AUDIODEVICE_HH
 
 #include <functional>
 #include <string>
@@ -31,23 +31,7 @@
 
 namespace SDL2pp {
 
-class AudioSpec : public SDL_AudioSpec {
-
-public:
-	AudioSpec();
-	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
-	~AudioSpec();
-
-	AudioSpec(AudioSpec&& other);
-	AudioSpec& operator=(AudioSpec&& other);
-	AudioSpec(const AudioSpec& other) = delete;
-	AudioSpec& operator=(const AudioSpec& other) = delete;
-
-	void MergeChanges(const SDL_AudioSpec& obtained);
-	const SDL_AudioSpec* Get() const;
-
-	bool IsSameFormat(const AudioSpec& other) const;
-};
+class AudioSpec;
 
 class AudioDevice {
 public:

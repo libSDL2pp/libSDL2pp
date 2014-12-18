@@ -40,7 +40,8 @@
 /// \brief Audio device management and audio playback
 ///
 ////////////////////////////////////////////////////////////
-#include <SDL2pp/Audio.hh>
+#include <SDL2pp/AudioDevice.hh>
+#include <SDL2pp/AudioSpec.hh>
 #include <SDL2pp/Wav.hh>
 
 ////////////////////////////////////////////////////////////
