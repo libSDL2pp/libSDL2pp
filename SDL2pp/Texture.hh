@@ -53,6 +53,7 @@ public:
 		LockHandle(Texture* texture, const Rect& rect);
 
 	public:
+		LockHandle();
 		~LockHandle();
 
 		LockHandle(LockHandle&& other) noexcept;
