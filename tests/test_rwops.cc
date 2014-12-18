@@ -2,6 +2,7 @@
 
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/ContainerRWops.hh>
+#include <SDL2pp/StreamRWops.hh>
 #include <SDL2pp/RWops.hh>
 
 #include "testing.h"
@@ -138,6 +139,66 @@ BEGIN_TEST()
 
 			EXPECT_TRUE(rw.Write(buf, 1, 4) == 0);
 			EXPECT_TRUE(rw.Write(buf, 4, 1) == 0);
+		}
+	}
+
+	// Test for StreamRWops
+	{
+		{
+			// write test
+
+			std::stringstream test;
+			RWops rw((StreamRWops<std::ostream>(test)));
+
+			char buf[4] = { 'a', 'b', 'c', 'd' };
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_CUR) == 4);
+
+			EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
+
+			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_EQUAL(test.str(), "ababcd");
+		}
+
+		{
+			// read test
+
+			std::stringstream test("abcdef");
+			RWops rw((StreamRWops<std::istream>(test)));
+
+			char buf[4];
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 4UL);
+
+			EXPECT_EQUAL(std::string(buf, 4), "abcd");
+
+			EXPECT_EQUAL(rw.Seek(0, RW_SEEK_CUR), 4);
+
+			EXPECT_EQUAL(rw.Seek(2, RW_SEEK_SET), 2);
+
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 4UL);
+
+			EXPECT_EQUAL(std::string(buf, 4), "cdef");
+
+			// short read
+			EXPECT_EQUAL(rw.Seek(4, RW_SEEK_SET), 4);
+
+			EXPECT_EQUAL(rw.Read(buf, 1, 4), 2UL);
+
+			EXPECT_EQUAL(std::string(buf, 2), "ef");
+
+			// short object read
+			EXPECT_EQUAL(rw.Seek(4, RW_SEEK_SET), 4);
+
+			EXPECT_EQUAL(rw.Read(buf, 4, 1), 0UL);
+
+			EXPECT_EQUAL(rw.Seek(0, RW_SEEK_CUR), 4);
+
+			// read end
+			EXPECT_EQUAL(rw.Read(buf, 1, 2), 2UL);
+
+			EXPECT_EQUAL(std::string(buf, 2), "ef");
 		}
 	}
 

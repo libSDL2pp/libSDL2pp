@@ -26,16 +26,97 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <type_traits>
 
 namespace SDL2pp {
 
-template<typename S>
+template <class S>
 class StreamRWops : public CustomRWops {
+	// since STL streams have different pointers for reading and writing,
+	// supporting both at the same time is impossible
+	static_assert(!(std::is_base_of<std::istream, S>::value && std::is_base_of<std::ostream, S>::value), "StreamRWops does not support reading and writing at the same time");
+
 protected:
 	S& stream_;
 
+private:
+	template <class SS>
+	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(off_t off, std::ios_base::seekdir dir) {
+		stream_.seekg(off, dir);
+	}
+
+	template <class SS>
+	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(off_t off, std::ios_base::seekdir dir) {
+		stream_.seekp(off, dir);
+	}
+
+	template <class SS>
+	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, off_t>::type TellHelper() {
+		return stream_.tellg();
+	}
+
+	template <class SS>
+	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, off_t>::type TellHelper() {
+		return stream_.tellp();
+	}
+
+	template <class SS>
+	typename std::enable_if<std::is_base_of<std::istream, SS>::value, size_t>::type ReadHelper(void* ptr, size_t size, size_t maxnum) {
+		stream_.read(static_cast<char*>(ptr), size * maxnum);
+		size_t nread = stream_.gcount();
+
+		// eof is OK
+		if (stream_.rdstate() == (std::ios_base::eofbit | std::ios_base::failbit))
+			stream_.clear();
+
+		if (nread != size * maxnum) {
+			// short read
+			char* pos = static_cast<char*>(ptr);
+			pos += nread;
+
+			int count = nread % size;
+
+			// put partially read object back into the stream
+			while (--count >= 0)
+				stream_.putback(*--pos);
+		}
+
+		return nread / size;
+	}
+
+	template <class SS>
+	typename std::enable_if<!std::is_base_of<std::istream, SS>::value, size_t>::type ReadHelper(void*, size_t, size_t) {
+		return 0;
+	}
+
+	template <class SS>
+	typename std::enable_if<std::is_base_of<std::ostream, SS>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t maxnum) {
+		stream_.write(static_cast<const char*>(ptr), size * maxnum);
+		// XXX: there seem to be no reliable way to tell how much
+		// was actually written
+		if (stream_.rdstate() & std::ios_base::badbit)
+			return 0;
+		return maxnum;
+	}
+
+	template <class SS>
+	typename std::enable_if<!std::is_base_of<std::ostream, SS>::value, size_t>::type WriteHelper(const void*, size_t, size_t) {
+		return 0;
+	}
+
+	template <class SS>
+	typename std::enable_if<std::is_base_of<std::ostream, SS>::value, int>::type CloseHelper() {
+		stream_.flush();
+		return stream_.rdstate() & std::ios_base::badbit;
+	}
+
+	template <class SS>
+	typename std::enable_if<!std::is_base_of<std::ostream, SS>::value, int>::type CloseHelper() {
+		return 0;
+	}
+
 public:
-	StreamRWops(const S& stream) : stream_(stream) {
+	StreamRWops(S& stream) : stream_(stream) {
 	}
 
 	StreamRWops(const StreamRWops<S>&) = default;
@@ -46,52 +127,30 @@ public:
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
 		case RW_SEEK_SET:
-			stream_.seekg(offset, std::ios_base::beg);
+			SeekHelper<S>(offset, std::ios_base::beg);
 			break;
 		case RW_SEEK_CUR:
-			stream_.seekg(offset, std::ios_base::cur);
+			SeekHelper<S>(offset, std::ios_base::cur);
 			break;
 		case RW_SEEK_END:
-			stream_.seekg(offset, std::ios_base::end);
+			SeekHelper<S>(offset, std::ios_base::end);
 			break;
 		default:
-			throw Exception("Unexpected whence value for StreamRWops::Seek");
+			throw std::logic_error("Unexpected whence value for StreamRWops::Seek");
 		}
-		return stream_.tellg();
+		return TellHelper<S>();
 	}
 
 	virtual size_t Read(void* ptr, size_t size, size_t maxnum) override {
-		stream_.read(ptr, size * maxnum);
-		size_t nread = stream_.gcount();
-
-		if (nread != size * maxnum) {
-			// short read
-			unsigned char* pos = static_cast<unsigned char*>(ptr);
-			pos += nread + 1;
-
-			int count = nread % size;
-
-			// put partially read object back into the stream
-			while (--count >= 0)
-				stream_.putback(*--pos);
-
-			stream_.seekg(-count, std::ios_base::cur);
-		}
-		return nread / size;
+		return ReadHelper<S>(ptr, size, maxnum);
 	}
 
 	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) override {
-		stream_.write(ptr, size * maxnum);
-		// XXX: there seem to be no reliable way to tell how much
-		// was actually written
-		if (stream_.restate() & std::ios_base::badbit)
-			return 0;
-		return maxnum;
+		return WriteHelper<S>(ptr, size, maxnum);
 	}
 
 	virtual int Close() override {
-		stream_.flush();
-		return stream_.restate() & std::ios_base::badbit;
+		return CloseHelper<S>();
 	}
 };
 
