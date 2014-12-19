@@ -49,27 +49,114 @@ private:
 	SDL_Texture* texture_; ///< SDL2 texture pointer
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief SDL2pp::Texture lock
+	/// \ingroup rendering
+	///
+	/// \details
+	/// Textures with SDL_TEXTUREACCESS_STREAMING access mode may
+	/// be locked, which provides (writeonly) access to their raw
+	/// pixel data. This may be used to update texture contents.
+	///
+	/// This class represents the lock and controls its lifetime
+	/// as the lock is released as soon as LockHandle is destroyed.
+	///
+	/// Usage example:
+	/// \code
+	/// {
+	///     SDL2pp::Texture tex(SDL_PIXELFORMAT_RGB24,
+	///                         SDL_TEXTUREACCESS_STREAMING,
+	///                         256, 256);
+	///     {
+	///         // Lock the whole texture
+	///         SDL2pp::Texture::LockHandle lock = tex.Lock();
+	///
+	///         unsigned char* start = static_cast<unsigned char*>(lock.GetPixels());
+	///
+	///         // note that we use lock.GetPitch(), not tex.GetWidth() here
+	///         // as texture may have different dimensions in memory
+	///         unsigned char* end = start + tex.GetHeight() * lock.GetPitch();
+	///
+	///         // fill the texture white
+	///         std::fill(start, end, 255);
+	///     }
+	///     // At this point lock is released
+	/// }
+	/// \endcode
+	///
+	////////////////////////////////////////////////////////////
 	class LockHandle {
 		friend class Texture;
 	private:
-		Texture* texture_;
-		void* pixels_;
-		int pitch_;
+		Texture* texture_; ///< SDL2pp::Texture this lock belongs to
+		void* pixels_;     ///< Pointer to raw pixel data of locked region
+		int pitch_;        ///< Pitch (row length) of pixel data in bytes
 
 	private:
+		////////////////////////////////////////////////////////////
+		/// \brief Create lock for specific SDL2pp::Texture
+		///
+		/// \param rect Specifies region to lock
+		///
+		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle(Texture* texture, const Rect& rect);
 
 	public:
+		////////////////////////////////////////////////////////////
+		/// \brief Create no-op lock
+		///
+		/// \details
+		/// This may be initialized with real lock later with move
+		/// assignment operator
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle();
+
+		////////////////////////////////////////////////////////////
+		/// \brief Destructor
+		///
+		/// \details
+		/// Releases the lock
+		///
+		////////////////////////////////////////////////////////////
 		~LockHandle();
 
+		////////////////////////////////////////////////////////////
+		/// \brief Move constructor
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Move assignment operator
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
+		// Deleted copy constructor and assignment
 		LockHandle(const LockHandle& other) = delete;
 		LockHandle& operator=(const LockHandle& other) = delete;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Get pointer to raw pixel data of locked region
+		///
+		/// \returns Pointer to raw pixel data of locked region
+		///
+		////////////////////////////////////////////////////////////
 		void* GetPixels() const;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get row width of locked pixel data
+		///
+		/// \returns Pitch (row width) of locked pixel data
+		///
+		////////////////////////////////////////////////////////////
 		int GetPitch() const;
 	};
 
@@ -100,7 +187,7 @@ public:
 	/// \param rect Rect representing area to lock for access
 	///             (Rect::Null() to lock entire texture)
 	///
-	/// \return Lock handle used to access pixel data and to control lifetime of the lock
+	/// \return Lock handle used to access pixel data and to control lock lifetime
 	///
 	////////////////////////////////////////////////////////////
 	LockHandle Lock(const Rect& rect);

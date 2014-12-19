@@ -35,21 +35,96 @@ class AudioSpec;
 
 class AudioDevice {
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief SDL2pp::AudioDevice lock
+	/// \ingroup audio
+	///
+	/// \details
+	/// Audio devices may be locked, which means that audio
+	/// callback will not be called in a locked state, allowing
+	/// to change data it accesses in a thread-safe way.
+	///
+	/// This class represents the lock and controls its lifetime
+	/// as the lock is released as soon as LockHandle is destroyed.
+	///
+	/// Usage example:
+	/// \code
+	/// {
+	///     // Some audio data is loaded
+	///     SDL2pp::Wav audiodata;
+	///
+	///     // Audio device is created, its callback accesses our audio data
+	///     SDL2pp::AudioDevice dev(..., [&audiodata](){...});
+	///
+	///     dev.Pause(false); // playback starts, the callback is called periodically
+	///
+	///     {
+	///         SDL2pp::AudioDevice::LockHandle lock = dev.Lock();
+	///         // Now audiodata may be safely modified, no callback will be called to access it
+	///     }
+	///     // At this point lock is released, playback continues
+	/// }
+	/// \endcode
+	///
+	////////////////////////////////////////////////////////////
 	class LockHandle {
 		friend class AudioDevice;
 	private:
-		AudioDevice* device_;
+		AudioDevice* device_; ///< SDL2pp::AudioDevice the lock belongs to
 
 	private:
+		////////////////////////////////////////////////////////////
+		/// \brief Create lock for specific SDL2pp::AudioDevice
+		///
+		/// \param device Pointer to audio device to lock
+		///
+		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
+		///
+		/// This operation locks a device, which remains locked
+		/// until LockHandle is destroyed
+		///
+		/// Recursive locking is allowed
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle(AudioDevice* device);
 
 	public:
+		////////////////////////////////////////////////////////////
+		/// \brief Create no-op lock
+		///
+		/// \details
+		/// This may be initialized with real lock later with move
+		/// assignment operator
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle();
+
+		////////////////////////////////////////////////////////////
+		/// \brief Destructor
+		///
+		/// \details
+		/// Releases the lock
+		///
+		////////////////////////////////////////////////////////////
 		~LockHandle();
 
+		////////////////////////////////////////////////////////////
+		/// \brief Move constructor
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Move assignment operator
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		///
+		////////////////////////////////////////////////////////////
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
+		// Deleted copy constructor and assignment
 		LockHandle(const LockHandle& other) = delete;
 		LockHandle& operator=(const LockHandle& other) = delete;
 	};
@@ -57,8 +132,8 @@ public:
 	typedef std::function<void(Uint8* stream, int len)> AudioCallback;
 
 private:
-	SDL_AudioDeviceID device_id_;
-	AudioCallback callback_;
+	SDL_AudioDeviceID device_id_; ///< SDL2 device id
+	AudioCallback callback_;      ///< Callback used to feed audio data to the device
 
 private:
 	static void SDLCallback(void *userdata, Uint8* stream, int len);
@@ -80,6 +155,19 @@ public:
 
 	void ChangeCallback(AudioCallback&& callback);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Lock audio device to prevent it from calling audio callback
+	///
+	/// \returns Lock handle used to control lock lifetime
+	///
+	/// \details
+	/// The device remains locked for the lifetime of returned LockHandle
+	///
+	/// Recursive locking is allowed
+	//
+	/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
+	///
+	////////////////////////////////////////////////////////////
 	LockHandle Lock();
 
 #ifdef SDL2PP_WITH_2_0_4
