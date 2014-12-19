@@ -201,7 +201,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to specified texture
 	///
-	/// \param texture Target texture, SDL2pp::Texture created with \
+	/// \param texture Target texture, SDL2pp::Texture created with
 	///                SDL_TEXTUREACCESS_TARGET
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
