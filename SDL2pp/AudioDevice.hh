@@ -50,8 +50,8 @@ public:
 		LockHandle(LockHandle&& other) noexcept;
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
-		LockHandle(const LockHandle& other) = delete;
-		LockHandle& operator=(const LockHandle& other) = delete;
+		LockHandle(const LockHandle& other);
+		LockHandle& operator=(const LockHandle& other);
 	};
 
 	typedef std::function<void(Uint8* stream, int len)> AudioCallback;
