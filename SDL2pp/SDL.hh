@@ -29,7 +29,28 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 /// \brief Object taking care of %SDL library (de-)initialization
 ///
+/// \ingroup general
+///
 /// \headerfile SDL2pp/SDL.hh
+///
+/// Before using any SDL2 functions, the library must be initialized.
+/// Likewise, it should be deinitialized before application exits.
+/// SDL2pp::SDL object takes care of this in a RAII way
+/// by initializing the library in constructor and deinitializing
+/// in destructor, with an ability to init/quit specific subsystems
+/// in between
+///
+/// Usage example:
+/// \code
+/// int main() {
+///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///
+///     // ...use SDL functions...
+///
+///     // SDL library is automatically deinitialized before exit
+///     return 0;
+/// }
+/// \endcode
 ///
 ////////////////////////////////////////////////////////////
 class SDL {
@@ -99,28 +120,3 @@ public:
 }
 
 #endif
-
-////////////////////////////////////////////////////////////
-/// \class SDL2pp::SDL
-/// \ingroup general
-///
-/// Before using any SDL2 functions, the library must be initialized.
-/// Likewise, it should be deinitialized before application exits.
-/// SDL2pp::SDL object takes care of this in a RAII way
-/// by initializing the library in constructor and deinitializing
-/// in destructor, with an ability to init/quit specific subsystems
-/// in between
-///
-/// Usage example:
-/// \code
-/// int main() {
-///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-///
-///     // ...use SDL functions...
-///
-///     // SDL library is automatically deinitialized before exit
-///     return 0;
-/// }
-/// \endcode
-///
-////////////////////////////////////////////////////////////

@@ -29,7 +29,33 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 /// \brief %Exception object representing %SDL error
 ///
+/// \ingroup general
+///
 /// \headerfile SDL2pp/Exception.hh
+///
+/// Internally, libSDL2pp checks return value of each SDL2
+/// function it calls which may fail. If the function fails,
+/// SDL2pp::Exception is thrown, and SDL2 error which expains
+/// cause of function failure is stored in the exception and
+/// may be extracted later.
+///
+/// what() usually contains a name of SDL2 function which failed,
+/// e.g. "SDL_Init() failed"
+///
+/// Usage example:
+/// \code
+/// {
+///     try {
+///         SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///     } catch (SDL2pp::Exception& e) {
+///         std::cerr << "Fatal error:"
+///                   << e.what()         // "SDL_Init failed"
+///                   << ", SDL error: "
+///                   << e.GetSDLError()  // "x11 not available"
+///                   << std::endl;
+///     }
+/// }
+/// \endcode
 ///
 ////////////////////////////////////////////////////////////
 class Exception : public std::exception {
@@ -75,33 +101,3 @@ public:
 }
 
 #endif
-
-////////////////////////////////////////////////////////////
-/// \class SDL2pp::Exception
-/// \ingroup general
-///
-/// Internally, libSDL2pp checks return value of each SDL2
-/// function it calls which may fail. If the function fails,
-/// SDL2pp::Exception is thrown, and SDL2 error which expains
-/// cause of function failure is stored in the exception and
-/// may be extracted later.
-///
-/// what() usually contains a name of SDL2 function which failed,
-/// e.g. "SDL_Init() failed"
-///
-/// Usage example:
-/// \code
-/// {
-///     try {
-///         SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-///     } catch (SDL2pp::Exception& e) {
-///         std::cerr << "Fatal error:"
-///                   << e.what()         // "SDL_Init failed"
-///                   << ", SDL error: "
-///                   << e.GetSDLError()  // "x11 not available"
-///                   << std::endl;
-///     }
-/// }
-/// \endcode
-///
-////////////////////////////////////////////////////////////

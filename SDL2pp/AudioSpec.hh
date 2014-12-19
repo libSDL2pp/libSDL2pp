@@ -29,7 +29,14 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 /// \brief Audio format specification
 ///
+/// \ingroup audio
+///
 /// \headerfile SDL2pp/Audiospec.hh
+///
+/// This class extends SDL_AudioSpec - a structure that describes
+/// audio format. It may be used to describe format of loaded
+/// SDL2pp::Wav audio fragments and to specify desired or actual
+/// audio output format of SDL2pp::AudioDevice
 ///
 ////////////////////////////////////////////////////////////
 class AudioSpec : public SDL_AudioSpec {
@@ -109,14 +116,3 @@ public:
 }
 
 #endif
-
-////////////////////////////////////////////////////////////
-/// \class SDL2pp::AudioSpec
-/// \ingroup audio
-///
-/// This class extends SDL_AudioSpec - a structure that describes
-/// audio format. It may be used to describe format of loaded
-/// SDL2pp::Wav audio fragments and to specify desired or actual
-/// audio output format of SDL2pp::AudioDevice
-///
-////////////////////////////////////////////////////////////

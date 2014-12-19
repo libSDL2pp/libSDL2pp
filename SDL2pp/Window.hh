@@ -35,7 +35,28 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 /// \brief GUI window object
 ///
+/// \ingroup windows
+///
 /// \headerfile SDL2pp/Window.hh
+///
+/// SDL2pp::Window is a wrapper around SDL_Window structure
+/// and related functions which take care of GUI window
+/// management.
+///
+/// Usage example:
+/// \code
+/// {
+///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///     SDL2pp::Window window("Test Window",
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           640,
+///                           480,
+///                           SDL_WINDOW_OPENGL);
+///
+///     SDL_Delay(3000); // show window for 3 seconds
+/// }
+/// \endcode
 ///
 ////////////////////////////////////////////////////////////
 class Window {
@@ -129,28 +150,3 @@ public:
 }
 
 #endif
-
-////////////////////////////////////////////////////////////
-/// \class SDL2pp::Window
-/// \ingroup windows
-///
-/// SDL2pp::Window is a wrapper around SDL_Window structure
-/// and related functions which take care of GUI window
-/// management.
-///
-/// Usage example:
-/// \code
-/// {
-///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-///     SDL2pp::Window window("Test Window",
-///                           SDL_WINDOWPOS_UNDEFINED,
-///                           SDL_WINDOWPOS_UNDEFINED,
-///                           640,
-///                           480,
-///                           SDL_WINDOW_OPENGL);
-///
-///     SDL_Delay(3000); // show window for 3 seconds
-/// }
-/// \endcode
-///
-////////////////////////////////////////////////////////////

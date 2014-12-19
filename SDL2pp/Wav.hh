@@ -33,7 +33,19 @@ class RWops;
 ////////////////////////////////////////////////////////////
 /// \brief Chunk of audio data read from a .WAV file
 ///
+/// \ingroup audio
+///
 /// \headerfile SDL2pp/Wav.hh
+///
+/// SDL2pp::Wav is a wrapper around basic SDL2 audio fragment
+/// handling functionality, basically SDL_LoadWAV and related
+/// functions.
+///
+/// The class holds raw audio data which is loaded from a disk
+/// file or from an arbitrary source with SDL2pp::RWops and
+/// may be used in audio playback.
+///
+/// See audio_wav demo for an example.
 ///
 ////////////////////////////////////////////////////////////
 class Wav {
@@ -124,19 +136,3 @@ public:
 }
 
 #endif
-
-////////////////////////////////////////////////////////////
-/// \class SDL2pp::Wav
-/// \ingroup audio
-///
-/// SDL2pp::Wav is a wrapper around basic SDL2 audio fragment
-/// handling functionality, basically SDL_LoadWAV and related
-/// functions.
-///
-/// The class holds raw audio data which is loaded from a disk
-/// file or from an arbitrary source with SDL2pp::RWops and
-/// may be used in audio playback.
-///
-/// See audio_wav demo for an example.
-///
-////////////////////////////////////////////////////////////
