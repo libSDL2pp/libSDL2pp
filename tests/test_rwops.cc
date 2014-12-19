@@ -24,19 +24,19 @@ BEGIN_TEST()
 
 		{
 			// Seeks
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 			EXPECT_TRUE(rw.Tell() == 0);
-			EXPECT_TRUE(rw.Seek(1, SEEK_SET) == 1);
+			EXPECT_TRUE(rw.Seek(1, RW_SEEK_SET) == 1);
 			EXPECT_TRUE(rw.Tell() == 1);
-			EXPECT_TRUE(rw.Seek(1, SEEK_CUR) == 2);
+			EXPECT_TRUE(rw.Seek(1, RW_SEEK_CUR) == 2);
 			EXPECT_TRUE(rw.Tell() == 2);
-			EXPECT_TRUE(rw.Seek(-1, SEEK_END) == 3);
+			EXPECT_TRUE(rw.Seek(-1, RW_SEEK_END) == 3);
 			EXPECT_TRUE(rw.Tell() == 3);
 		}
 
 		{
 			// Read via C++
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[4] = {0};
 			EXPECT_TRUE(rw.Read(buf, 1, 4) == 4);
@@ -48,7 +48,7 @@ BEGIN_TEST()
 
 		{
 			// Read via C++
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[4] = {0};
 			EXPECT_TRUE(rw.Read(buf, 4, 1) == 1);
@@ -60,7 +60,7 @@ BEGIN_TEST()
 
 		{
 			// Read via SDL
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[4] = {0};
 			EXPECT_TRUE(SDL_RWread(rw.Get(), buf, 1, 4) == 4);
@@ -72,17 +72,17 @@ BEGIN_TEST()
 
 		{
 			// Overread
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[6] = {0};
 			EXPECT_TRUE(SDL_RWread(rw.Get(), buf, 3, 2) == 1);
-			rw.Seek(0, SEEK_SET);
+			rw.Seek(0, RW_SEEK_SET);
 			EXPECT_TRUE(SDL_RWread(rw.Get(), buf, 2, 3) == 2);
 		}
 
 		{
 			// Write
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[2] = {'1', '2'};
 			EXPECT_TRUE(rw.Write(buf, 1, 2) == 2);
@@ -98,7 +98,7 @@ BEGIN_TEST()
 		{
 			// Write past EOF
 			char buf[2] = {'x', 'y'};
-			EXPECT_TRUE(rw.Seek(100, SEEK_SET) == 100);
+			EXPECT_TRUE(rw.Seek(100, RW_SEEK_SET) == 100);
 
 			EXPECT_TRUE(rw.Write(buf, 1, 2) == 2);
 			EXPECT_TRUE(rw.Tell() == 102);
@@ -123,7 +123,7 @@ BEGIN_TEST()
 
 		{
 			// Read via C++
-			EXPECT_TRUE(rw.Seek(0, SEEK_SET) == 0);
+			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 
 			char buf[4] = {0};
 			EXPECT_TRUE(rw.Read(buf, 1, 4) == 4);
@@ -152,7 +152,7 @@ BEGIN_TEST()
 			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
 			EXPECT_TRUE(rw.Write(buf, 4, 1) == 1);
 
-			EXPECT_TRUE(rw.Seek(2, SEEK_SET) == 2);
+			EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
 			EXPECT_TRUE(rw.Write(buf, 2, 2) == 2);
 
 			EXPECT_TRUE(vec.size() == 8);
