@@ -27,32 +27,121 @@
 #include <SDL2/SDL_rwops.h>
 #include <SDL2pp/Exception.hh>
 
-/*
- * This looks quite complicated, but it's needed to both retain
- * compatibility with C SDL and make it possible to write pure C++
- * RWops classes, doing both safely.
- *
- * This class supports either standard SDL_RWops (e.g. created with
- * SDL_RWFrom* famuly of functions or SDL_AllocRW) or custom C++-style
- * rwops derived from CustomRWops class
- *
- * Either may be used via C++ interface (Read/Write/Seek/Tell/Close
- * functions) or via C SDL interface (SDL_RWread/SDL_RWwrite/...)
- * functions on SDL_RWops obtained with Get() method.
- */
-
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief Base class for custom RWops
+///
+/// \ingroup io
+///
+/// \headerfile SDL2pp/RWops.hh
+///
+/// Derive from this class and override 4 virtual methods used
+/// to Seek, Read, Write and Close the data stream.
+/// The derived class is expected to be moved-into RWops via
+/// RWops(C&& custom_rwops).
+///
+/// \see SDL2pp::ContainerRWops, SDL2pp::StreamRWops
+///
+////////////////////////////////////////////////////////////
 class CustomRWops {
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~CustomRWops() {}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Seek within the data stream
+	///
+	/// \param offset Offset in bytes, relative to whence location; can
+	///               be negative
+	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	///
+	/// \returns Final offset in the data stream after the seek or -1 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWseek
+	///
+	////////////////////////////////////////////////////////////
 	virtual Sint64 Seek(Sint64 offset, int whence) = 0;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read from a data stream
+	///
+	/// \param ptr Pointer to a buffer to read data into
+	/// \param size Size of each object to read, in bytes
+	/// \param maxnum Maximum number of objects to be read
+	///
+	/// \returns Number of objects read, or 0 at error or end of file
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWread
+	///
+	////////////////////////////////////////////////////////////
+
 	virtual size_t Read(void* ptr, size_t size, size_t maxnum) = 0;
+	////////////////////////////////////////////////////////////
+	/// \brief Write to a data stream
+	///
+	/// \param ptr Pointer to a buffer containing data to write
+	/// \param size Size of each object to write, in bytes
+	/// \param maxnum Maximum number of objects to be write
+	///
+	/// \returns Number of objects written, which will be less than num on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWwrite
+	///
+	////////////////////////////////////////////////////////////
 	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) = 0;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Close data source
+	///
+	/// \returns 0 on success or a negative error code on failure
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWclose
+	///
+	////////////////////////////////////////////////////////////
 	virtual int Close() = 0;
 };
 
+////////////////////////////////////////////////////////////
+/// \brief I/O abstraction
+///
+/// \ingroup io
+///
+/// \headerfile SDL2pp/RWops.hh
+///
+/// RWops is an SDL2 abstraction of file-like I/O. For most functions
+/// that take file name as a parameter, SDL2 has an alternative which
+/// take RWops, and through RWops it's functionality is extended from
+/// just files to arbitrary objects that support file-like operations.
+///
+/// For example, SDL2 provide 4 builtin types of RWops: File (take
+/// file name and work with plain file), FP (take stdio's FILE* and
+/// work with it), Mem and ConstMem (take memory chunk and work with
+/// it like a file) and allow one to write custom RWops.
+///
+/// SDL2pp::RWops support all this in extended C++11 way.
+///
+/// Usage example:
+/// \code
+/// {
+///     // RWops which work on a plain file
+///     SDL2pp::RWops ops = SDL2pp::RWops::FromFile("myfile.txt");
+///
+///     // Texture is loaded through RWops
+///     SDL2pp::Texture(ops);
+/// }
+/// \endcode
+///
+/// Implementation note:
+///
+/// This class is more complicated than just wrapper over SDL_RWops,
+/// but it's needed to both retain compatibility with C SDL2 and to
+/// make it possible to write pure C++ RWops classes, in a safe way.
+///
+////////////////////////////////////////////////////////////
 class RWops {
 protected:
 	SDL_RWops* rwops_;
@@ -71,18 +160,95 @@ private:
 	static RWops CheckedCreateStandardRWops(SDL_RWops* sdl_rwops, const char* errmsg);
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops working through stdio's FILE*
+	///
+	/// \param file Pointer to stdio's FILE type
+	/// \param autoclose True to take ownership of given FILE and
+	///                  close it on RWops destruction
+	///
+	/// \returns Created RWops
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWFromFP
+	///
+	////////////////////////////////////////////////////////////
 	static RWops FromFP(FILE* file, bool autoclose);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops working with a constant memory chunk
+	///
+	/// \param mem Pointer to the memory to work with
+	/// \param size Size of a memory chunk
+	///
+	/// \returns Created RWops
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWFromConstMem
+	///
+	////////////////////////////////////////////////////////////
 	static RWops FromConstMem(const void* mem, int size);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops working with a memory chunk
+	///
+	/// \param mem Pointer to the memory to work with
+	/// \param size Size of a memory chunk
+	///
+	/// \returns Created RWops
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWFromMem
+	///
+	////////////////////////////////////////////////////////////
 	static RWops FromMem(void* mem, int size);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops working with plain file
+	///
+	/// \param file Path to file
+	/// \param mode Open mode in stdio way
+	///
+	/// \returns Created RWops
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWFromFile
+	///
+	////////////////////////////////////////////////////////////
 	static RWops FromFile(const std::string& file, const std::string& mode = "rb");
 
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops from existing SDL2 SDL_RWops structure
+	///
+	/// \param rwops Pointer to SDL_RWops to use
+	///
+	////////////////////////////////////////////////////////////
 	RWops(SDL_RWops* rwops);
 
-	RWops(const RWops&) = delete;
-	RWops& operator=(const RWops&) = delete;
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::RWops to move data from
+	///
+	////////////////////////////////////////////////////////////
 	RWops(RWops&& other) noexcept;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment operator
+	///
+	/// \param other SDL2pp::RWops to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	RWops& operator=(RWops&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	RWops(const RWops&) = delete;
+	RWops& operator=(const RWops&) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create RWops from custom RWops class
+	///
+	/// \param custom_rwops Custom RWops functions
+	///
+	////////////////////////////////////////////////////////////
 	template<class C>
 	RWops(C&& custom_rwops) {
 		rwops_ = SDL_AllocRW();
@@ -103,28 +269,232 @@ public:
 		rwops_->hidden.unknown.data2 = static_cast<void*>(this);
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	~RWops();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_RWops structure
+	///
+	/// \returns Pointer to contained SDL_RWops structure
+	///
+	////////////////////////////////////////////////////////////
 	SDL_RWops* Get() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Close data source
+	///
+	/// \returns 0 on success or a negative error code on failure
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWclose
+	///
+	////////////////////////////////////////////////////////////
 	int Close();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read from a data stream
+	///
+	/// \param ptr Pointer to a buffer to read data into
+	/// \param size Size of each object to read, in bytes
+	/// \param maxnum Maximum number of objects to be read
+	///
+	/// \returns Number of objects read, or 0 at error or end of file
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWread
+	///
+	////////////////////////////////////////////////////////////
 	size_t Read(void* ptr, size_t size, size_t maxnum);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Seek within the data stream
+	///
+	/// \param offset Offset in bytes, relative to whence location; can
+	///               be negative
+	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	///
+	/// \returns Final offset in the data stream after the seek or -1 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWseek
+	///
+	////////////////////////////////////////////////////////////
 	Sint64 Seek(Sint64 offset, int whence);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write to a data stream
+	///
+	/// \param ptr Pointer to a buffer containing data to write
+	/// \param size Size of each object to write, in bytes
+	/// \param maxnum Maximum number of objects to be write
+	///
+	/// \returns Number of objects written, which will be less than num on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWwrite
+	///
+	////////////////////////////////////////////////////////////
 	size_t Write(const void* ptr, size_t size, size_t num);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Determine the current read/write offset within the data stream
+	///
+	/// \returns Current offset in the stream, or -1 if the information can not be determined
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWtell
+	///
+	////////////////////////////////////////////////////////////
 	Sint64 Tell();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get current size of the data container
+	///
+	/// \returns Data container size in bytes, or -1 if the information can not be determined
+	///
+	////////////////////////////////////////////////////////////
 	Sint64 Size();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Read 16 bits of big-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 16 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadBE16
+	///
+	////////////////////////////////////////////////////////////
 	Uint16 ReadBE16();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read 32 bits of big-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 32 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadBE32
+	///
+	////////////////////////////////////////////////////////////
 	Uint32 ReadBE32();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read 64 bits of big-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 64 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadBE64
+	///
+	////////////////////////////////////////////////////////////
 	Uint64 ReadBE64();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read 16 bits of little-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 16 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadLE16
+	///
+	////////////////////////////////////////////////////////////
 	Uint16 ReadLE16();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read 32 bits of little-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 32 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadLE32
+	///
+	////////////////////////////////////////////////////////////
 	Uint32 ReadLE32();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Read 64 bits of little-endian data from data stream
+	///        and return in native format
+	///
+	/// \returns 64 bits of data in the native byte order
+	///
+	/// \see http://wiki.libsdl.org/SDL_ReadLE64
+	///
+	////////////////////////////////////////////////////////////
 	Uint64 ReadLE64();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 16 bits in native format to a data stream
+	///        as big-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteBE16
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteBE16(Uint16 value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 32 bits in native format to a data stream
+	///        as big-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteBE32
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteBE32(Uint32 value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 64 bits in native format to a data stream
+	///        as big-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteBE64
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteBE64(Uint64 value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 16 bits in native format to a data stream
+	///        as little-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteLE16
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteLE16(Uint16 value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 32 bits in native format to a data stream
+	///        as little-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteLE32
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteLE32(Uint32 value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Write 64 bits in native format to a data stream
+	///        as little-endian data
+	///
+	/// \param value data to be written, in native format
+	///
+	/// \returns 1 on successful write, 0 on error
+	///
+	/// \see http://wiki.libsdl.org/SDL_WriteLE64
+	///
+	////////////////////////////////////////////////////////////
 	size_t WriteLE64(Uint64 value);
 };
 
