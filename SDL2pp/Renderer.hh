@@ -41,7 +41,7 @@ class Point;
 ////////////////////////////////////////////////////////////
 /// \brief 2D rendering context
 ///
-/// \ingroup rendiring
+/// \ingroup rendering
 ///
 /// \headerfile SDL2pp/Renderer.hh
 ///
