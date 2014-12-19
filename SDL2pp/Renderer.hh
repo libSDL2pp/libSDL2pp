@@ -55,7 +55,9 @@ public:
 	/// \brief Create renderer
 	///
 	/// \param window Window where rendering is displayed
-	/// \param index Index of the rendering driver to initialize, or -1 to initialize the first one supporting the requested flags
+	/// \param index Index of the rendering driver to initialize,
+	///              or -1 to initialize the first one supporting
+	///              the requested flags
 	/// \param flags 0 or more SDL_RendererFlags OR'ed together
 	///
 	////////////////////////////////////////////////////////////
@@ -98,7 +100,8 @@ public:
 	SDL_Renderer* Get() const;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Update the screen with any rendering performed since the previous call
+	/// \brief Update the screen with any rendering performed
+	///        since the previous call
 	///
 	/// \detail
 	/// SDL's rendering functions operate on a backbuffer; that
@@ -125,43 +128,53 @@ public:
 	////////////////////////////////////////////////////////////
 	void Clear();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get information about a rendering context
+	///
+	/// \param info SDL_RendererInfo structure to be filled with
+	///             information about the current renderer
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
+	///
+	////////////////////////////////////////////////////////////
 	void GetInfo(SDL_RendererInfo* info);
 
-	////////////////////////////////////////////////////////////////////////////
-	/// \brief Copy a portion of the texture to the current rendering target
+	////////////////////////////////////////////////////////////
+	/// \brief Copy a portion of the texture to the current rendering
+	///        target
 	///
 	/// \param texture Source texture
-	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the entire
-	///                texture
-	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for the
-	///                entire rendering target
+	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the
+	///                entire texture
+	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for
+	///                the entire rendering target
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderCopy
 	///
-	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
 	void Copy(Texture& texture, const Rect& srcrect = Rect::Null(), const Rect& dstrect = Rect::Null());
 
-	////////////////////////////////////////////////////////////////////////////
-	/// \brief Copy a portion of the texture to the current rendering target
-	///        with optional rotating or flipping
+	////////////////////////////////////////////////////////////
+	/// \brief Copy a portion of the texture to the current rendering
+	///        target with optional rotating or flipping
 	///
 	/// \param texture Source texture
-	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the entire
-	///                texture
-	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for the
-	///                entire rendering target
-	/// \param angle Angle in degrees that indicates the rotation that will be
-	///              applied to dstrect
-	/// \param center Point indicating the point around which dstrect will be
-	///               rotated (SDL2pp::Point::Null() to rotate around dstrect
-	///               center)
-	/// \param flip SDL_RendererFlip value stating which flipping actions should
-	///              be performed on the texture
+	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the
+	///                entire texture
+	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for
+	///                the entire rendering target
+	/// \param angle Angle in degrees that indicates the rotation that
+	///              will be applied to dstrect
+	/// \param center Point indicating the point around which dstrect
+	///               will be rotated (SDL2pp::Point::Null() to rotate
+	///               around dstrect center)
+	/// \param flip SDL_RendererFlip value stating which flipping
+	///             actions should be performed on the texture
 	///
 	/// \see http://wiki.libsdl.org/SDL_RendererFlip
 	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
 	///
-	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
 	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center = Point::Null(), int flip = 0);
 
 	////////////////////////////////////////////////////////////
@@ -188,7 +201,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to specified texture
 	///
-	/// \param Target texture, SDL2pp::Texture created with SDL_TEXTUREACCESS_TARGET
+	/// \param texture Target texture, SDL2pp::Texture created with \
+	///                SDL_TEXTUREACCESS_TARGET
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
 	///
@@ -363,13 +377,76 @@ public:
 	////////////////////////////////////////////////////////////
 	void FillRects(const Rect* rects, int count);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Read pixels from the current rendering target
+	///
+	/// \param rect Area to read or SDL2pp::Rect::Null() for the
+	///             enditer render target
+	/// \param format Desired format of the pixel data, or 0 to
+	///               use the format of the rendering target
+	/// \param pixels Pointer to memory to be filled with pixel
+	///               data
+	/// \param pitch Pitch (row width) of the pixels parameter
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderReadPixels
+	///
+	////////////////////////////////////////////////////////////
 	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Set the clipping rectange for rendering
+	///
+	/// \param rect New clipping rectangle or SDL2pp::Rect::Null()
+	///             to disable clipping
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderSetClipRect
+	///
+	////////////////////////////////////////////////////////////
 	void SetClipRect(const Rect& rect);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set a device independent resolution for rendering
+	///
+	/// \param w width of the logical resolution
+	/// \param h heigth of the logical resolution
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderSetLogicalSize
+	///
+	////////////////////////////////////////////////////////////
 	void SetLogicalSize(int w, int h);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the drawing scale for rendering on the current target
+	///
+	/// \param scaleX Horizontal scaling factor
+	/// \param scaleY Vertical scaling factor
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderSetScale
+	///
+	////////////////////////////////////////////////////////////
 	void SetScale(float scaleX, float scaleY);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the drawing area for rendering on the current target
+	///
+	/// \param rect Rectangle representing the drawing area or
+	///             SDL2pp::Rect::Null() toset the viewport to
+	///              the entire target
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderSetViewport
+	///
+	////////////////////////////////////////////////////////////
 	void SetViewport(const Rect& rect);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Determine whether a window supports the use of
+	///        render targets
+	///
+	/// \returns true if render targets are supported
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderTargetSupported
+	///
+	////////////////////////////////////////////////////////////
 	bool TargetSupported();
 };
 
