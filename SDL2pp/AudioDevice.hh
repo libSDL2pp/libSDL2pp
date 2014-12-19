@@ -33,10 +33,17 @@ namespace SDL2pp {
 
 class AudioSpec;
 
+////////////////////////////////////////////////////////////
+/// \brief Audio device
+/// \ingroup audio
+/// \headerfile SDL2pp/AudioDevice.hh
+///
+////////////////////////////////////////////////////////////
 class AudioDevice {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief SDL2pp::AudioDevice lock
+	/// \headerfile SDL2pp/AudioDevice.hh
 	/// \ingroup audio
 	///
 	/// \details
@@ -121,6 +128,8 @@ public:
 		///
 		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
 		///
+		/// \returns Reference to self
+		///
 		////////////////////////////////////////////////////////////
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
@@ -136,23 +145,102 @@ private:
 	AudioCallback callback_;      ///< Callback used to feed audio data to the device
 
 private:
+	////
 	static void SDLCallback(void *userdata, Uint8* stream, int len);
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Open audio device with specified output format
+	///
+	/// \param device Name of the device to open
+	/// \param iscapture Non-zero to open device for recording
+	///                  (SDL2 doesn't support this yet)
+	/// \param spec Audio output format
+	/// \param callback Callback which will feed audio to the device
+	///
+	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
+	///
+	////////////////////////////////////////////////////////////
 	AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
+
+	////////////////////////////////////////////////////////////
+	/// \brief Open audio device with desired output format
+	///
+	/// \param device Name of the device to open
+	/// \param iscapture Non-zero to open device for recording
+	///                  (SDL2 doesn't support this yet)
+	/// \param allowed_changes Flag mask specifying which audio
+	//                         format properties may change
+	/// \param spec Desired audio output format (may be changed)
+	/// \param callback Callback which will feed audio to the device
+	///
+	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
+	///
+	////////////////////////////////////////////////////////////
 	AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~AudioDevice();
 
-	AudioDevice(const AudioDevice& other) = delete;
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::AudioDevice to move data from
+	///
+	////////////////////////////////////////////////////////////
 	AudioDevice(AudioDevice&& other) noexcept;
-	AudioDevice& operator=(const AudioDevice& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::AudioDevice to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	AudioDevice& operator=(AudioDevice&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	AudioDevice(const AudioDevice& other) = delete;
+	AudioDevice& operator=(const AudioDevice& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get container audio device ID
+	///
+	/// \returns Contained audio device ID
+	///
+	////////////////////////////////////////////////////////////
 	SDL_AudioDeviceID Get() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Pause or unpause audio playback
+	///
+	/// \param pause_on Whether audio should be paused
+	///
+	/// \see http://wiki.libsdl.org/SDL_PauseAudioDevice
+	///
+	////////////////////////////////////////////////////////////
 	void Pause(bool pause_on);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get playback status
+	///
+	/// \returns Playback status (SDL_AUDIO_STOPPED, SDL_AUDIO_PLAYING, SDL_AUDIO_PAUSED)
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetAudioDeviceStatus
+	///
+	////////////////////////////////////////////////////////////
 	SDL_AudioStatus GetStatus() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Replace audio callback
+	///
+	/// \param callback New audio callback
+	///
+	////////////////////////////////////////////////////////////
 	void ChangeCallback(AudioCallback&& callback);
 
 	////////////////////////////////////////////////////////////
@@ -164,15 +252,40 @@ public:
 	/// The device remains locked for the lifetime of returned LockHandle
 	///
 	/// Recursive locking is allowed
-	//
+	///
 	/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
 	///
 	////////////////////////////////////////////////////////////
 	LockHandle Lock();
 
 #ifdef SDL2PP_WITH_2_0_4
+	////////////////////////////////////////////////////////////
+	/// \brief Queue more audio for a non-callback device
+	///
+	/// \param data Data to queue for later playback
+	/// \param len Data length in bytes (not samples!)
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueueAudio
+	///
+	////////////////////////////////////////////////////////////
 	void QueueAudio(const void* data, Uint32 len);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Drop queued audio
+	///
+	/// \see http://wiki.libsdl.org/SDL_ClearQueuedAudio
+	///
+	////////////////////////////////////////////////////////////
 	void ClearQueuedAudio();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get number of bytes of still-queued audio
+	///
+	/// \returns Number of bytes (not samples!) of still-queued audio
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetQueuedAudioSize
+	///
+	////////////////////////////////////////////////////////////
 	Uint32 GetQueuedAudioSize() const;
 #endif
 };

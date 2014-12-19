@@ -136,6 +136,8 @@ public:
 		///
 		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
 		///
+		/// \returns Reference to self
+		///
 		////////////////////////////////////////////////////////////
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
