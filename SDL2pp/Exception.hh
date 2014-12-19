@@ -27,7 +27,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief %Exception object representing %SDL error
+/// \brief %Exception object representing SDL2 error
 ///
 /// \ingroup general
 ///
@@ -88,7 +88,7 @@ public:
 	const char* what() const noexcept;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get %SDL error text
+	/// \brief Get SDL2 error text
 	///
 	/// \returns Stored result of SDL_GetError()
 	///

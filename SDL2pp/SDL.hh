@@ -27,7 +27,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of %SDL library (de-)initialization
+/// \brief Object taking care of SDL2 library (de-)initialization
 ///
 /// \ingroup general
 ///
@@ -56,7 +56,7 @@ namespace SDL2pp {
 class SDL {
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief Initializes %SDL library
+	/// \brief Initializes SDL2 library
 	///
 	/// \param flags Flags to pass to SDL_Init()
 	///
@@ -66,7 +66,7 @@ public:
 	SDL(Uint32 flags);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Destructor, deinitializes %SDL library
+	/// \brief Destructor, deinitializes SDL2 library
 	///
 	/// \see http://wiki.libsdl.org/SDL_Quit
 	///
@@ -80,7 +80,7 @@ public:
 	SDL& operator=(SDL&& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Checks which %SDL subsystems were initialized
+	/// \brief Checks which SDL2 subsystems were initialized
 	///
 	/// \param flags 0 to return mask of initialized subsystems
 	///              or any combination of flags to return initialization
@@ -95,7 +95,7 @@ public:
 	Uint32 WasInit(Uint32 flags);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Initializes additional %SDL subsystems
+	/// \brief Initializes additional SDL2 subsystems
 	///
 	/// \param flags Set of flags which determines which subsystems
 	///              to initialize
@@ -106,7 +106,7 @@ public:
 	void InitSubSystem(Uint32 flags);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Deinitializes specific %SDL subsystems
+	/// \brief Deinitializes specific SDL2 subsystems
 	///
 	/// \param flags Set of flags which determines which subsystems
 	///              to deinitialize
