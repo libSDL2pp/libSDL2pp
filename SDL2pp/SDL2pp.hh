@@ -25,7 +25,7 @@
 #include <SDL2pp/Config.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup general
+/// \defgroup general General
 ///
 /// \brief SDL library initialization and shutdown functions
 ///        and error handling
@@ -35,7 +35,7 @@
 #include <SDL2pp/Exception.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup audio
+/// \defgroup audio Audio
 ///
 /// \brief Audio device management and audio playback
 ///
@@ -45,14 +45,14 @@
 #include <SDL2pp/Wav.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup graphics
+/// \defgroup graphics Graphics
 ///
 /// \brief Graphics output
 ///
 ////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-/// \defgroup windows
+/// \defgroup windows Window management
 ///
 /// \brief Display and window management
 ///
@@ -62,7 +62,7 @@
 #include <SDL2pp/Window.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup rendering
+/// \defgroup rendering 2D rendering
 ///
 /// \brief 2D accelerated rendering
 ///
@@ -73,7 +73,7 @@
 #include <SDL2pp/Texture.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup rect
+/// \defgroup rect Rects and Points
 ///
 /// \brief Rectangle and point functions
 ///
