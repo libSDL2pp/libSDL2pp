@@ -132,7 +132,7 @@ ADD_EXECUTABLE(mytarget ...)
 TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
 ```
 
-if bundled, libSDL2pp does not build demos and becomes a static
+if bundled, libSDL2pp does not build examples and becomes a static
 library, providing required SDL2 includes/libs in the mentioned
 variables.
 
