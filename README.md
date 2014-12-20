@@ -83,13 +83,34 @@ Dependencies:
 * SDL_image2 (optional)
 
 To build standalone version:
+
 ```cmake . && make```
+
+## Installation ##
+
+To install the library systemwide, run:
+
+```cmake . && make && make install```
+
+You can change installation prefix with CMAKE_INSTALL_PREFIX cmake
+variable:
+
+```cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install```
+
+SDL2pp install pkg-config file, so it can be used with any build
+system which interacts with pkg-config, including CMake and GNU
+Autotools.
+
+SDL2pp is also already available from following package repositories:
+
+* [Arch Linux AUR](https://aur.archlinux.org/packages/sdl2pp-git/)
+* [FreeBSD ports](http://www.freshports.org/devel/sdl2pp/)
 
 ## Bundling ##
 
 The library is easy to integrate into other CMake-using projects
 (and as the library has no stable API yet, this way of using it is
-preferred).
+still recommended).
 
 Just place the library into dedicated directory in your project
 (for example, lib/SDL2pp) and add
