@@ -108,7 +108,7 @@ void Renderer::DrawPoint(int x, int y) {
 }
 
 void Renderer::DrawPoint(const Point& p) {
-	DrawPoint(p.GetX(), p.GetY());
+	DrawPoint(p.x, p.y);
 }
 
 void Renderer::DrawPoints(const Point* points, int count) {
