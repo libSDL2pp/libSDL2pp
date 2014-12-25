@@ -28,7 +28,7 @@
 
 namespace SDL2pp {
 
-Texture::LockHandle::LockHandle() : texture_(nullptr) {
+Texture::LockHandle::LockHandle() : texture_(nullptr), pixels_(nullptr), pitch_(0) {
 }
 
 Texture::LockHandle::LockHandle(Texture* texture, const Rect& rect) : texture_(texture) {
