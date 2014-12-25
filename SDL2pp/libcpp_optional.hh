@@ -28,8 +28,10 @@ public:
         : std::logic_error(__arg) {}
     explicit bad_optional_access(const char* __arg)
         : std::logic_error(__arg) {}
-    bad_optional_access(const bad_optional_access&) noexcept = default;
-    bad_optional_access& operator=(const bad_optional_access&) noexcept = default;
+	// Remove explicitly defaulted copy constructor and assignment operator:
+	// noexcept specification doesn't work well with libstdc++
+    //bad_optional_access(const bad_optional_access&) noexcept = default;
+    //bad_optional_access& operator=(const bad_optional_access&) noexcept = default;
     // Get the key function ~bad_optional_access() into the dylib even if not compiling for C++1y
     virtual ~bad_optional_access() noexcept {}
 };
