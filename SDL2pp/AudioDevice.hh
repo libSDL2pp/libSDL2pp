@@ -27,6 +27,7 @@
 
 #include <SDL2/SDL_audio.h>
 
+#include <SDL2pp/Optional.hh>
 #include <SDL2pp/Config.hh>
 
 namespace SDL2pp {
@@ -64,8 +65,8 @@ private:
 	static void SDLCallback(void *userdata, Uint8* stream, int len);
 
 public:
-	AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
-	AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
+	AudioDevice(const Optional<std::string>& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
+	AudioDevice(const Optional<std::string>& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
 	virtual ~AudioDevice();
 
 	AudioDevice(const AudioDevice& other) = delete;

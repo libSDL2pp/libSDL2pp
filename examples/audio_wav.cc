@@ -39,7 +39,7 @@ int Run() {
 	Uint8* wav_pos = wav.GetBuffer();
 
 	// Open audio device
-	AudioDevice dev("", 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
+	AudioDevice dev(NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
 				// Fill provided buffer with wave contents
 				Uint8* stream_pos = stream;
 				Uint8* stream_end = stream + len;
