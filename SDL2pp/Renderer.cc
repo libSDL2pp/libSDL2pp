@@ -27,8 +27,6 @@
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/Texture.hh>
-#include <SDL2pp/Rect.hh>
-#include <SDL2pp/Point.hh>
 
 namespace SDL2pp {
 
@@ -74,13 +72,13 @@ void Renderer::GetInfo(SDL_RendererInfo* info) {
 		throw Exception("SDL_GetRendererInfo failed");
 }
 
-void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect) {
-	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect.Get(), dstrect.Get()) != 0)
+void Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect) {
+	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr) != 0)
 		throw Exception("SDL_RenderCopy failed");
 }
 
-void Renderer::Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center, int flip) {
-	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect.Get(), dstrect.Get(), angle, center.Get(), static_cast<SDL_RendererFlip>(flip)) != 0)
+void Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center, int flip) {
+	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr, angle, center ? &*center : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
 		throw Exception("SDL_RenderCopyEx failed");
 }
 

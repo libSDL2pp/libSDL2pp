@@ -24,21 +24,16 @@
 
 #include <SDL2/SDL_rect.h>
 
+#include <SDL2pp/Optional.hh> // for deprecated functionality
+
 namespace SDL2pp {
 
-class Point {
-private:
-	SDL_Point point_;
-	bool valid_;
-
-private:
-	Point();
-
+class Point : public SDL_Point{
 public:
-	Point(int x, int y);
-	virtual ~Point();
+	Point();
+	Point(int nx, int ny);
 
-	static Point Null();
+	static Optional<Point> Null();
 
 	Point(const Point&) noexcept = default;
 	Point(Point&&) noexcept = default;
@@ -54,10 +49,10 @@ public:
 	bool IsNull() const;
 
 	int GetX() const;
-	void SetX(int x);
+	void SetX(int nx);
 
 	int GetY() const;
-	void SetY(int y);
+	void SetY(int ny);
 
 	Point operator+(const Point& other) const;
 	Point operator-(const Point& other) const;

@@ -27,28 +27,27 @@
 
 namespace SDL2pp {
 
-Rect::Rect() : valid_(false) {
+Rect::Rect() {
+	x = 0;
+	y = 0;
+	w = 0;
+	h = 0;
 }
 
-Rect::~Rect() {
+Rect::Rect(int nx, int ny, int nw, int nh) {
+	x = nx;
+	y = ny;
+	w = nw;
+	h = nh;
 }
 
-Rect::Rect(int x, int y, int w, int h) : valid_(true) {
-	rect_.x = x;
-	rect_.y = y;
-	rect_.w = w;
-	rect_.h = h;
-}
-
-Rect Rect::Null() {
-	return Rect();
+Optional<Rect> Rect::Null() {
+	return NullOpt;
 }
 
 bool Rect::operator==(const Rect& other) const {
-	if (!valid_ || !other.valid_)
-		return valid_ == other.valid_; // true only if both null
-	return rect_.x == other.rect_.x && rect_.y == other.rect_.y &&
-	       rect_.w == other.rect_.w && rect_.h == other.rect_.h;
+	return x == other.x && y == other.y &&
+	       w == other.w && h == other.h;
 }
 
 bool Rect::operator!=(const Rect& other) const {
@@ -56,11 +55,11 @@ bool Rect::operator!=(const Rect& other) const {
 }
 
 SDL_Rect* Rect::Get() {
-	return valid_ ? &rect_ : nullptr;
+	return this;
 }
 
 const SDL_Rect* Rect::Get() const {
-	return valid_ ? &rect_ : nullptr;
+	return this;
 }
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
@@ -68,101 +67,79 @@ Rect Rect::FromCenter(int cx, int cy, int w, int h) {
 }
 
 bool Rect::IsNull() const {
-	return !valid_;
+	return false;
 }
 
 int Rect::GetX() const {
-	assert(!IsNull());
-	return rect_.x;
+	return x;
 }
 
-void Rect::SetX(int x) {
-	assert(!IsNull());
-	rect_.x = x;
+void Rect::SetX(int nx) {
+	x = nx;
 }
 
 int Rect::GetY() const {
-	assert(!IsNull());
-	return rect_.y;
+	return y;
 }
 
-void Rect::SetY(int y) {
-	assert(!IsNull());
-	rect_.y = y;
+void Rect::SetY(int ny) {
+	y = ny;
 }
 
 int Rect::GetW() const {
-	assert(!IsNull());
-	return rect_.w;
+	return w;
 }
 
-void Rect::SetW(int w) {
-	assert(!IsNull());
-	rect_.w = w;
+void Rect::SetW(int nw) {
+	w = nw;
 }
 
 int Rect::GetH() const {
-	assert(!IsNull());
-	return rect_.h;
+	return h;
 }
 
-void Rect::SetH(int h) {
-	assert(!IsNull());
-	rect_.h = h;
+void Rect::SetH(int nh) {
+	h = nh;
 }
 
 int Rect::GetX2() const {
-	assert(!IsNull());
-	return rect_.x + rect_.w - 1;
+	return x + w - 1;
 }
 
 void Rect::SetX2(int x2) {
-	assert(!IsNull());
-	rect_.w = x2 - rect_.x + 1;
+	w = x2 - x + 1;
 }
 
 int Rect::GetY2() const {
-	assert(!IsNull());
-	return rect_.y + rect_.h - 1;
+	return y + h - 1;
 }
 
 void Rect::SetY2(int y2) {
-	assert(!IsNull());
-	rect_.h = y2 - rect_.y + 1;
+	h = y2 - y + 1;
 }
 
 bool Rect::Contains(const Point& point) const {
-	if (IsNull() || point.IsNull())
-		return false;
-	return !(point.GetX() < GetX() || point.GetY() < GetY() || point.GetX() > GetX2() || point.GetY() > GetY2());
+	return !(point.x < x || point.y < y || point.x > GetX2() || point.y > GetY2());
 }
 
 Rect Rect::operator+(const Point& offset) const {
-	assert(!IsNull() && !offset.IsNull());
-
-	return Rect(rect_.x + offset.GetX(), rect_.y + offset.GetY(), rect_.w, rect_.h);
+	return Rect(x + offset.x, y + offset.y, w, h);
 }
 
 Rect& Rect::operator+=(const Point& offset) {
-	assert(!IsNull() && !offset.IsNull());
-
-	rect_.x += offset.GetX();
-	rect_.y += offset.GetY();
+	x += offset.x;
+	y += offset.y;
 
 	return *this;
 }
 
 Rect Rect::operator-(const Point& offset) const {
-	assert(!IsNull() && !offset.IsNull());
-
-	return Rect(rect_.x - offset.GetX(), rect_.y - offset.GetY(), rect_.w, rect_.h);
+	return Rect(x - offset.x, y - offset.y, w, h);
 }
 
 Rect& Rect::operator-=(const Point& offset) {
-	assert(!IsNull() && !offset.IsNull());
-
-	rect_.x -= offset.GetX();
-	rect_.y -= offset.GetY();
+	x -= offset.x;
+	y -= offset.y;
 
 	return *this;
 }
