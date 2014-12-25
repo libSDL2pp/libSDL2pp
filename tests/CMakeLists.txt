@@ -2,6 +2,7 @@
 SET(CLI_TESTS
 	test_pointrect
 	test_rwops
+	test_optional
 )
 
 # tests which test graphics functionality and thus requre working
