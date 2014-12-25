@@ -173,4 +173,20 @@ BEGIN_TEST()
 		EXPECT_TRUE(!r.Contains(Point(15, 20)));
 		EXPECT_TRUE(!r.Contains(Point(10, 25)));
 	}
+
+	{
+		// Rect offset
+		Rect r(1, 2, 3, 4);
+
+		EXPECT_TRUE(r + Point(10, 20) == Rect(11, 22, 3, 4));
+		EXPECT_TRUE(r - Point(10, 20) == Rect(-9, -18, 3, 4));
+
+		r += Point(10, 20);
+
+		EXPECT_TRUE(r == Rect(11, 22, 3, 4));
+
+		r -= Point(20, 40);
+
+		EXPECT_TRUE(r == Rect(-9, -18, 3, 4));
+	}
 END_TEST()

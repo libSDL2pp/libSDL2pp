@@ -135,9 +135,23 @@ public:
 		////////////////////////////////////////////////////////////
 		LockHandle& operator=(LockHandle&& other) noexcept;
 
-		// Deleted copy constructor and assignment
-		LockHandle(const LockHandle& other) = delete;
-		LockHandle& operator=(const LockHandle& other) = delete;
+		////////////////////////////////////////////////////////////
+		/// \brief Copy constructor
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to copy data from
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle(const LockHandle& other);
+
+		////////////////////////////////////////////////////////////
+		/// \brief Assignment operator
+		///
+		/// \param other SDL2pp::AudioDevice::LockHandle to copy data from
+		///
+		/// \returns Reference to self
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle& operator=(const LockHandle& other);
 	};
 
 	typedef std::function<void(Uint8* stream, int len)> AudioCallback;

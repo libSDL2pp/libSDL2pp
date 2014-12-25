@@ -53,4 +53,21 @@ AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(AudioDevice::LockHan
 	return *this;
 }
 
+AudioDevice::LockHandle::LockHandle(const AudioDevice::LockHandle& other) : device_(other.device_) {
+	SDL_LockAudioDevice(device_->device_id_);
+}
+
+AudioDevice::LockHandle& AudioDevice::LockHandle::operator=(const AudioDevice::LockHandle& other) {
+	if (&other == this)
+		return *this;
+
+	if (device_ != nullptr)
+		SDL_UnlockAudioDevice(device_->device_id_);
+
+	device_ = other.device_;
+	SDL_LockAudioDevice(device_->device_id_);
+
+	return *this;
+}
+
 }

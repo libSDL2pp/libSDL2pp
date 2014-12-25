@@ -137,4 +137,34 @@ bool Rect::Contains(const Point& point) const {
 	return !(point.GetX() < GetX() || point.GetY() < GetY() || point.GetX() > GetX2() || point.GetY() > GetY2());
 }
 
+Rect Rect::operator+(const Point& offset) const {
+	assert(!IsNull() && !offset.IsNull());
+
+	return Rect(rect_.x + offset.GetX(), rect_.y + offset.GetY(), rect_.w, rect_.h);
+}
+
+Rect& Rect::operator+=(const Point& offset) {
+	assert(!IsNull() && !offset.IsNull());
+
+	rect_.x += offset.GetX();
+	rect_.y += offset.GetY();
+
+	return *this;
+}
+
+Rect Rect::operator-(const Point& offset) const {
+	assert(!IsNull() && !offset.IsNull());
+
+	return Rect(rect_.x - offset.GetX(), rect_.y - offset.GetY(), rect_.w, rect_.h);
+}
+
+Rect& Rect::operator-=(const Point& offset) {
+	assert(!IsNull() && !offset.IsNull());
+
+	rect_.x -= offset.GetX();
+	rect_.y -= offset.GetY();
+
+	return *this;
+}
+
 }

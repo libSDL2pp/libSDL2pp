@@ -78,6 +78,12 @@ public:
 	void SetY2(int y2);
 
 	bool Contains(const Point& point) const;
+
+	Rect operator+(const Point& offset) const;
+	Rect& operator+=(const Point& offset);
+
+	Rect operator-(const Point& offset) const;
+	Rect& operator-=(const Point& offset);
 };
 
 }

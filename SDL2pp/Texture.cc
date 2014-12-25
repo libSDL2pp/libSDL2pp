@@ -98,7 +98,7 @@ void Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 		throw Exception("SDL_SetTextureColorMod failed");
 }
 
-Texture::LockHandle Texture::Lock(const Rect& rect) {
+Texture::LockHandle Texture::Lock(const Rect& rect = Rect::Null()) {
 	return LockHandle(this, rect);
 }
 
