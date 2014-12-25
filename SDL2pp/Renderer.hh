@@ -86,12 +86,12 @@ public:
 	void FillRect(const Rect& r);
 	void FillRects(const Rect* rects, int count);
 
-	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
+	void ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch);
 
-	void SetClipRect(const Rect& rect);
+	void SetClipRect(const Optional<Rect>& rect = NullOpt);
 	void SetLogicalSize(int w, int h);
 	void SetScale(float scaleX, float scaleY);
-	void SetViewport(const Rect& rect);
+	void SetViewport(const Optional<Rect>& rect = NullOpt);
 
 	bool TargetSupported();
 };

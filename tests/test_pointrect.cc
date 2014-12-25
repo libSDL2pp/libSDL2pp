@@ -78,8 +78,6 @@ BEGIN_TEST()
 		EXPECT_TRUE(r != Rect(1,3,3,4));
 		EXPECT_TRUE(r != Rect(1,2,4,4));
 		EXPECT_TRUE(r != Rect(1,2,3,5));
-		EXPECT_TRUE(r.Get() != nullptr);
-		EXPECT_TRUE(r.Get()->x == 1 && r.Get()->y == 2 && r.Get()->w == 3 && r.Get()->h == 4);
 		EXPECT_TRUE(r.x == 1 && r.y == 2 && r.w == 3 && r.h == 4);
 
 		r.SetX(5);
