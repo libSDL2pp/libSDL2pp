@@ -30,5 +30,7 @@
 
 #cmakedefine SDL2PP_WITH_IMAGE
 #cmakedefine SDL2PP_WITH_2_0_4
+#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
+#cmakedefine SDL2PP_WITH_DEPRECATED
 
 #endif

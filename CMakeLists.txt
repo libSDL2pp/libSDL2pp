@@ -52,6 +52,19 @@ IF(SDL2PP_WITH_WERROR)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WERROR_FLAG}")
 ENDIF(SDL2PP_WITH_WERROR)
 
+# platform checks
+INCLUDE(CheckCompile)
+CHECK_COMPILE(
+	SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
+	${PROJECT_SOURCE_DIR}/cmake/std_experimental_optional_test.cc
+	"Checking for experimental/optional header"
+)
+CHECK_COMPILE(
+	SDL2PP_WITH_DEPRECATED
+	${PROJECT_SOURCE_DIR}/cmake/attribute_deprecated_test.cc
+	"Checking for [[deprecated]] attribute"
+)
+
 # config.h
 CONFIGURE_FILE(
 	SDL2pp/Config.hh.in
