@@ -22,7 +22,7 @@
 #ifndef SDL2PP_OPTIONAL_HH
 #define SDL2PP_OPTIONAL_HH
 
-#include <SDL2pp/libcpp_optional.hh>
+#include <SDL2pp/external/libcpp_optional.hh>
 
 namespace SDL2pp {
 
