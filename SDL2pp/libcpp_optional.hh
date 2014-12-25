@@ -123,26 +123,17 @@ class _LIBCPP_EXCEPTION_ABI bad_optional_access
     : public logic_error
 {
 public:
-#if _LIBCPP_STD_VER > 11
     _LIBCPP_INLINE_VISIBILITY explicit bad_optional_access(const string& __arg)
         : logic_error(__arg) {}
     _LIBCPP_INLINE_VISIBILITY explicit bad_optional_access(const char* __arg)
         : logic_error(__arg) {}
     _LIBCPP_INLINE_VISIBILITY bad_optional_access(const bad_optional_access&) noexcept = default;
     _LIBCPP_INLINE_VISIBILITY bad_optional_access& operator=(const bad_optional_access&) noexcept = default;
-#else
-private:
-    bad_optional_access(const bad_optional_access&);
-    bad_optional_access& operator=(const bad_optional_access&);
-public:
-#endif  // _LIBCPP_STD_VER > 11
     // Get the key function ~bad_optional_access() into the dylib even if not compiling for C++1y
     virtual ~bad_optional_access() _NOEXCEPT;
 };
 
 }}  // std::experimental
-
-#if _LIBCPP_STD_VER > 11
 
 #include <initializer_list>
 #include <type_traits>
@@ -693,7 +684,5 @@ struct _LIBCPP_TYPE_VIS_ONLY hash<std::experimental::optional<_Tp> >
 };
 
 _LIBCPP_END_NAMESPACE_STD
-
-#endif  // _LIBCPP_STD_VER > 11
 
 #endif  // SDL2PP_LIBCPP_OPTIONAL
