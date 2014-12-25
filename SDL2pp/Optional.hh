@@ -22,7 +22,26 @@
 #ifndef SDL2PP_OPTIONAL_HH
 #define SDL2PP_OPTIONAL_HH
 
-#include <SDL2pp/libcpp_optional.hh>
+#include <SDL2pp/Config.hh>
+
+#if defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
+
+#	include <experimental/optional>
+
+namespace SDL2pp {
+
+template<typename T>
+using Optional = std::experimental::optional<T>;
+
+using BadOptionalAccess = std::experimental::bad_optional_access;
+
+constexpr std::experimental::nullopt_t NullOpt = std::experimental::nullopt;
+
+}
+
+#else
+
+#	include <SDL2pp/external/libcpp_optional.hh>
 
 namespace SDL2pp {
 
@@ -34,5 +53,7 @@ using BadOptionalAccess = sdl2pp_libcpp_optional::bad_optional_access;
 constexpr sdl2pp_libcpp_optional::nullopt_t NullOpt = sdl2pp_libcpp_optional::nullopt;
 
 }
+
+#endif
 
 #endif
