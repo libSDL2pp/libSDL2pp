@@ -26,7 +26,7 @@
 
 #if defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
 
-#include <experimental/optional>
+#	include <experimental/optional>
 
 namespace SDL2pp {
 
@@ -41,7 +41,7 @@ constexpr std::experimental::nullopt_t NullOpt = std::experimental::nullopt;
 
 #else
 
-#include <SDL2pp/external/libcpp_optional.hh>
+#	include <SDL2pp/external/libcpp_optional.hh>
 
 namespace SDL2pp {
 
