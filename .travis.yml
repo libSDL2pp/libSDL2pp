@@ -6,6 +6,6 @@ before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev g++-4.8
+  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev g++-4.8 cppcheck
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-script: cmake . -DSDL2PP_ENABLE_GUI_TEST=OFF -DCMAKE_INSTALL_PREFIX=`pwd`/_prefix -DSDL2PP_WITH_WERROR=YES && make && make test && make install
+script: cmake . -DSDL2PP_ENABLE_GUI_TEST=OFF -DCMAKE_INSTALL_PREFIX=`pwd`/_prefix -DSDL2PP_WITH_WERROR=YES && make && make test && make install && cppcheck -I . --enable=style,performance,portability,information,missingInclude --error-exitcode=2 SDL2pp
