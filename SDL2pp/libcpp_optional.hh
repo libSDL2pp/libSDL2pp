@@ -8,8 +8,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_OPTIONAL
-#define _LIBCPP_OPTIONAL
+#ifndef SDL2PP_LIBCPP_OPTIONAL
+#define SDL2PP_LIBCPP_OPTIONAL
 
 /*
     optional synopsis
@@ -696,4 +696,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 #endif  // _LIBCPP_STD_VER > 11
 
-#endif  // _LIBCPP_ARRAY
+#endif  // SDL2PP_LIBCPP_OPTIONAL
