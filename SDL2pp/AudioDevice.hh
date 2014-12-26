@@ -155,14 +155,20 @@ public:
 		LockHandle& operator=(const LockHandle& other);
 	};
 
-	typedef std::function<void(Uint8* stream, int len)> AudioCallback;
+	typedef std::function<void(Uint8* stream, int len)> AudioCallback; ///< Function type for audio callback
 
 private:
 	SDL_AudioDeviceID device_id_; ///< SDL2 device id
 	AudioCallback callback_;      ///< Callback used to feed audio data to the device
 
 private:
-	////
+	////////////////////////////////////////////////////////////
+	/// \brief Static wrapper for audio callback
+	///
+	/// This only extracts this from userdata and
+	/// runs real this->callback_
+	///
+	////////////////////////////////////////////////////////////
 	static void SDLCallback(void *userdata, Uint8* stream, int len);
 
 public:
