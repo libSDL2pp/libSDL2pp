@@ -36,7 +36,6 @@ namespace SDL2pp {
 
 class Window;
 class Texture;
-class Rect;
 class Point;
 
 ////////////////////////////////////////////////////////////

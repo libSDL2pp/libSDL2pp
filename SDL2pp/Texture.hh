@@ -28,6 +28,7 @@
 #include <SDL2/SDL_blendmode.h>
 
 #include <SDL2pp/Optional.hh>
+#include <SDL2pp/Rect.hh>
 #include <SDL2pp/Config.hh>
 
 struct SDL_Texture;
@@ -35,7 +36,6 @@ struct SDL_Texture;
 namespace SDL2pp {
 
 class Renderer;
-class Rect;
 class RWops;
 
 ////////////////////////////////////////////////////////////
@@ -286,7 +286,7 @@ public:
 	/// \return Lock handle used to access pixel data and to control lock lifetime
 	///
 	////////////////////////////////////////////////////////////
-	LockHandle Lock(const Optional<Rect>& rect);
+	LockHandle Lock(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get texture format

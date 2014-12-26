@@ -76,4 +76,41 @@ SDL_Window* Window::Get() const {
 	return window_;
 }
 
+void Window::Maximize() {
+	SDL_MaximizeWindow(window_);
+}
+
+void Window::Minimize() {
+	SDL_MinimizeWindow(window_);
+}
+
+void Window::Hide() {
+	SDL_HideWindow(window_);
+}
+
+void Window::Restore() {
+	SDL_RestoreWindow(window_);
+}
+
+void Window::Raise() {
+	SDL_RaiseWindow(window_);
+}
+
+void Window::Show() {
+	SDL_ShowWindow(window_);
+}
+
+void Window::SetFullscreen(int flags) {
+	if (SDL_SetWindowFullscreen(window_, flags) != 0)
+		throw Exception("SDL_SetWindowFullscreen failed");
+}
+
+void Window::SetSize(int w, int h) {
+	SDL_SetWindowSize(window_, w, h);
+}
+
+void Window::SetSize(const Point& size) {
+	SDL_SetWindowSize(window_, size.x, size.y);
+}
+
 }
