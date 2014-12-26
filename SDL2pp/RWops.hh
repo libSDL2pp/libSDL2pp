@@ -326,7 +326,7 @@ public:
 	///
 	/// \param ptr Pointer to a buffer containing data to write
 	/// \param size Size of each object to write, in bytes
-	/// \param maxnum Maximum number of objects to be write
+	/// \param num Number of objects to be write
 	///
 	/// \returns Number of objects written, which will be less than num on error
 	///
