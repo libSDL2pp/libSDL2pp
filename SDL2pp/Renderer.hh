@@ -145,10 +145,9 @@ public:
 	///        target
 	///
 	/// \param texture Source texture
-	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the
-	///                entire texture
-	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for
-	///                the entire rendering target
+	/// \param srcrect Source rectangle, NullOpt for the entire texture
+	/// \param dstrect Destination rectangle, NullOpt for the entire
+	///                rendering target
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderCopy
 	///
