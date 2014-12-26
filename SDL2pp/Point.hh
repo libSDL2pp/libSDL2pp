@@ -96,7 +96,7 @@ public:
 	///
 	/// \param other Point to compare to
 	///
-	/// \returns whether two points are identical
+	/// \returns True if two points are identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator==(const Point& other) const;
@@ -106,7 +106,7 @@ public:
 	///
 	/// \param other Point to compare to
 	///
-	/// \returns whether two points are not identical
+	/// \returns True if two points are not identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator!=(const Point& other) const;
@@ -127,7 +127,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the point
 	///
-	/// \param nx new X coordinate value
+	/// \param nx New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX(int nx);
@@ -143,7 +143,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the point
 	///
-	/// \param ny new Y coordinate value
+	/// \param ny New Y coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetY(int ny);
@@ -151,9 +151,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get sum of two points
 	///
-	/// \param other point to add
+	/// \param other Point to add
 	///
-	/// \returns a new Point representing memberwise addition of two points
+	/// \returns New Point representing memberwise addition of two points
 	///
 	////////////////////////////////////////////////////////////
 	Point operator+(const Point& other) const;
@@ -161,9 +161,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get subtraction of two points
 	///
-	/// \param other point to subtract
+	/// \param other Point to subtract
 	///
-	/// \returns a new Point representing memberwise subtraction of two points
+	/// \returns New Point representing memberwise subtraction of two points
 	///
 	////////////////////////////////////////////////////////////
 	Point operator-(const Point& other) const;
@@ -171,9 +171,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Add another point
 	///
-	/// \param other point to add to the current one
+	/// \param other Point to add to the current one
 	///
-	/// \returns reference to self
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Point& operator+=(const Point& other);
@@ -181,9 +181,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Substact another point
 	///
-	/// \param other point to subtract from the current one
+	/// \param other Point to subtract from the current one
 	///
-	/// \returns reference to self
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Point& operator-=(const Point& other);

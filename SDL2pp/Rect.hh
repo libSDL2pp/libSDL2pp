@@ -61,8 +61,8 @@ public:
 	///
 	/// \param x X coordinate of the top left rectangle corner
 	/// \param y Y coordinate of the top left rectangle corner
-	/// \param w width of the rectangle
-	/// \param h height of the rectangle
+	/// \param w Width of the rectangle
+	/// \param h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	Rect(int x, int y, int w, int h);
@@ -74,8 +74,8 @@ public:
 	///
 	/// \param cx X coordinate of the rectangle center
 	/// \param cy Y coordinate of the rectangle center
-	/// \param w width of the rectangle
-	/// \param h height of the rectangle
+	/// \param w Width of the rectangle
+	/// \param h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCenter(int cx, int cy, int w, int h);
@@ -113,7 +113,7 @@ public:
 	///
 	/// \param other Rect to compare to
 	///
-	/// \returns whether two rectangles are identical
+	/// \returns Whether two rectangles are identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator==(const Rect& other) const;
@@ -123,7 +123,7 @@ public:
 	///
 	/// \param other Rect to compare to
 	///
-	/// \returns whether two rectangles are not identical
+	/// \returns Whether two rectangles are not identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator!=(const Rect& other) const;
@@ -144,7 +144,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect corner
 	///
-	/// \param nx new X coordinate value
+	/// \param nx New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX(int nx);
@@ -160,7 +160,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect corner
 	///
-	/// \param ny new Y coordinate value
+	/// \param ny New Y coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetY(int ny);
@@ -168,7 +168,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get width of the rect
 	///
-	/// \returns width of the rect
+	/// \returns Width of the rect
 	///
 	////////////////////////////////////////////////////////////
 	int GetW() const;
@@ -176,7 +176,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set width of the rect
 	///
-	/// \param nw new width of the rect
+	/// \param nw New width of the rect
 	///
 	////////////////////////////////////////////////////////////
 	void SetW(int nw);
@@ -184,7 +184,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get height of the rect
 	///
-	/// \returns height of the rect
+	/// \returns Height of the rect
 	///
 	////////////////////////////////////////////////////////////
 	int GetH() const;
@@ -192,7 +192,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set height of the rect
 	///
-	/// \param nh new height of the rect
+	/// \param nh New height of the rect
 	///
 	////////////////////////////////////////////////////////////
 	void SetH(int nh);
@@ -208,7 +208,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect second corner
 	///
-	/// \param x2 new X coordinate value
+	/// \param x2 New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX2(int x2);
@@ -226,7 +226,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect second corner
 	///
-	/// \param y2 new Y coordinate value
+	/// \param y2 New Y coordinate value
 	///
 	/// This modifies rectangle height internally
 	///
@@ -236,9 +236,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
 	///
-	/// \param point point to check
+	/// \param point Point to check
 	///
-	/// \returns whether the point is contained in the rect
+	/// \returns Whether the point is contained in the rect
 	///
 	////////////////////////////////////////////////////////////
 	bool Contains(const Point& point) const;
@@ -248,7 +248,7 @@ public:
 	///
 	/// \param offset Point specifying an offset
 	///
-	/// \returns moved rectangle
+	/// \returns Moved rectangle
 	///
 	////////////////////////////////////////////////////////////
 	Rect operator+(const Point& offset) const;
@@ -258,7 +258,7 @@ public:
 	///
 	/// \param offset Point specifying an offset
 	///
-	/// \returns moved rectangle
+	/// \returns Moved rectangle
 	///
 	////////////////////////////////////////////////////////////
 	Rect operator-(const Point& offset) const;
@@ -268,7 +268,7 @@ public:
 	///
 	/// \param offset Point specifying an offset
 	///
-	/// \returns reference to self
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Rect& operator+=(const Point& offset);
@@ -278,7 +278,7 @@ public:
 	///
 	/// \param offset Point specifying an offset
 	///
-	/// \returns reference to self
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Rect& operator-=(const Point& offset);

@@ -423,7 +423,7 @@ public:
 	/// \brief Write 16 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -436,7 +436,7 @@ public:
 	/// \brief Write 32 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -449,7 +449,7 @@ public:
 	/// \brief Write 64 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -462,7 +462,7 @@ public:
 	/// \brief Write 16 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -475,7 +475,7 @@ public:
 	/// \brief Write 32 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -488,7 +488,7 @@ public:
 	/// \brief Write 64 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value data to be written, in native format
+	/// \param value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///

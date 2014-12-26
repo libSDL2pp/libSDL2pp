@@ -405,8 +405,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set a device independent resolution for rendering
 	///
-	/// \param w width of the logical resolution
-	/// \param h heigth of the logical resolution
+	/// \param w Width of the logical resolution
+	/// \param h Heigth of the logical resolution
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetLogicalSize
 	///
@@ -439,7 +439,7 @@ public:
 	/// \brief Determine whether a window supports the use of
 	///        render targets
 	///
-	/// \returns true if render targets are supported
+	/// \returns True if render targets are supported
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderTargetSupported
 	///
