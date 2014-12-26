@@ -36,7 +36,6 @@ struct SDL_Texture;
 namespace SDL2pp {
 
 class Renderer;
-class Rect;
 class RWops;
 
 class Texture {
