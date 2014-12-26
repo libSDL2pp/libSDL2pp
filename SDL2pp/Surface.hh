@@ -28,20 +28,97 @@ struct SDL_Surface;
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief Image stored in system memory with direct access
+///        to pixel data
+///
+/// \ingroup rendering
+///
+/// \headerfile SDL2pp/Surface.hh
+///
+/// \see http://wiki.libsdl.org/SDL_Surface
+///
+////////////////////////////////////////////////////////////
 class Surface {
 private:
-	SDL_Surface* surface_;
+	SDL_Surface* surface_; ///< Contained SDL_Texture structure
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create RGB surface
+	///
+	/// \param flags Unused and should be set to 0
+	/// \param width Width of the surface
+	/// \param height Height of the surface
+	/// \param depth Depth of the surface in bits
+	/// \param Rmask Red mask for the pixels
+	/// \param Gmask Green mask for the pixels
+	/// \param Bmask Blue mask for the pixels
+	/// \param Amask Alpha mask for the pixels
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateRGBSurface
+	///
+	////////////////////////////////////////////////////////////
 	Surface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create RGB surface with existing pixel data
+	///
+	/// \param pixels Pointer to existing pixel data
+	/// \param width Width of the surface
+	/// \param height Height of the surface
+	/// \param depth depth of the surface in bits
+	/// \param pitch Number of bytes in a row of pixel data, including padding between lines
+	/// \param Rmask Red mask for the pixels
+	/// \param Gmask Green mask for the pixels
+	/// \param Bmask Blue mask for the pixels
+	/// \param Amask Alpha mask for the pixels
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateRGBSurfaceFrom
+	///
+	////////////////////////////////////////////////////////////
 	Surface(void* pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Destructor
+    ///
+    /// \see http://wiki.libsdl.org/SDL_DestroyTexture
+    ///
+    ////////////////////////////////////////////////////////////
 	virtual ~Surface();
 
-	Surface(const Surface& other) = delete;
+    ////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::Surface object to move data from
+	///
+	////////////////////////////////////////////////////////////
 	Surface(Surface&& other) noexcept;
-	Surface& operator=(const Surface& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment
+	///
+	/// \param other SDL2pp::Surface object to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	Surface& operator=(Surface&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	Surface(const Surface&) = delete;
+	Surface& operator=(const Surface&) = delete;
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_Surface structure
+	///
+	/// \returns Pointer to contained SDL_Surface structure
+	///
+	////////////////////////////////////////////////////////////
 	SDL_Surface* Get() const;
 };
 
