@@ -74,11 +74,17 @@ public:
 	/// \param h Height of the window
 	/// \param flags 0 or more SDL_WindowFlags OR'd together
 	///
+	/// \thows SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateWindow
+	///
 	////////////////////////////////////////////////////////////
 	Window(const std::string& title, int x, int y, int w, int h, Uint32 flags);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
+	///
+	/// \see http://wiki.libsdl.org/SDL_DestroyWindow
 	///
 	////////////////////////////////////////////////////////////
 	virtual ~Window();
@@ -111,6 +117,8 @@ public:
 	/// \returns SDL2pp::Point representing dimensions (width and
 	///          height) of the window in pixels
 	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
+	///
 	////////////////////////////////////////////////////////////
 	Point GetSize() const;
 
@@ -118,6 +126,8 @@ public:
 	/// \brief Get width of the window
 	///
 	/// \returns Width of the window in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
 	///
 	////////////////////////////////////////////////////////////
 	int GetWidth() const;
@@ -127,6 +137,8 @@ public:
 	///
 	/// \returns Height of the window in pixels
 	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
+	///
 	////////////////////////////////////////////////////////////
 	int GetHeight() const;
 
@@ -134,6 +146,8 @@ public:
 	/// \brief Set window title
 	///
 	/// \param title New window title in UTF-8 encoding
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowTitle
 	///
 	////////////////////////////////////////////////////////////
 	void SetTitle(const std::string& title);
