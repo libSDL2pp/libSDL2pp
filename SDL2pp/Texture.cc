@@ -50,8 +50,7 @@ Texture::Texture(Renderer& renderer, RWops& rwops) {
 }
 
 Texture::Texture(Renderer& renderer, const std::string& path) {
-	RWops rwops = RWops::FromFile(path);
-	texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0);
+	texture_ = IMG_LoadTexture(renderer.Get(), path.c_str());
 }
 #endif
 
