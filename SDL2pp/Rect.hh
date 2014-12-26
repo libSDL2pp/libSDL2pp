@@ -113,7 +113,7 @@ public:
 	///
 	/// \param other Rect to compare to
 	///
-	/// \returns Whether two rectangles are identical
+	/// \returns True if two rectangles are identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator==(const Rect& other) const;
@@ -123,7 +123,7 @@ public:
 	///
 	/// \param other Rect to compare to
 	///
-	/// \returns Whether two rectangles are not identical
+	/// \returns True if two rectangles are not identical
 	///
 	////////////////////////////////////////////////////////////
 	bool operator!=(const Rect& other) const;
@@ -238,7 +238,7 @@ public:
 	///
 	/// \param point Point to check
 	///
-	/// \returns Whether the point is contained in the rect
+	/// \returns True if the point is contained in the rect
 	///
 	////////////////////////////////////////////////////////////
 	bool Contains(const Point& point) const;
