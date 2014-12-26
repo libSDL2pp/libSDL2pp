@@ -26,21 +26,92 @@
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief Audio format specification
+///
+/// \ingroup audio
+///
+/// \headerfile SDL2pp/AudioSpec.hh
+///
+/// This class extends SDL_AudioSpec - a structure that describes
+/// audio format. It may be used to describe format of loaded
+/// SDL2pp::Wav audio fragments and to specify desired or actual
+/// audio output format of SDL2pp::AudioDevice
+///
+/// \see http://wiki.libsdl.org/SDL_AudioSpec
+///
+////////////////////////////////////////////////////////////
 class AudioSpec : public SDL_AudioSpec {
-
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create empty (invalid) audio format specification
+	///
+	////////////////////////////////////////////////////////////
 	AudioSpec();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create audio format specification with given properties
+	///
+	/// \param freq Sampling frequency in samples/second
+	/// \param format Sample format, see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
+	/// \param channels Number of separate audio channels
+	/// \param samples Audio buffer size in samples (power of 2)
+	///
+	/// \see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
+	///
+	////////////////////////////////////////////////////////////
 	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	~AudioSpec();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::AudioSpec object to move data from
+	///
+	////////////////////////////////////////////////////////////
 	AudioSpec(AudioSpec&& other);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment operator
+	///
+	/// \param other SDL2pp::AudioSpec object to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	AudioSpec& operator=(AudioSpec&& other);
+
+	// Deleted copy constructor and assignment
 	AudioSpec(const AudioSpec& other) = delete;
 	AudioSpec& operator=(const AudioSpec& other) = delete;
 
-	void MergeChanges(const SDL_AudioSpec& obtained);
+	////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_AudioSpec structure
+	///
+	/// \returns Pointer to SDL_AudioSpec structure
+	///
+	////////////////////////////////////////////////////////////
 	const SDL_AudioSpec* Get() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Merges audio format changes from another SDL2pp::AudioSpec
+	///
+	/// \param obtained SDL2pp::AudioSpec to merge data from
+	///
+	////////////////////////////////////////////////////////////
+	void MergeChanges(const SDL_AudioSpec& obtained);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Checks if format of another SDL2pp::AudioSpec is the same
+	///
+	/// \param other SDL2pp::AudioSpec to compare to
+	///
+	////////////////////////////////////////////////////////////
 	bool IsSameFormat(const AudioSpec& other) const;
 };
 

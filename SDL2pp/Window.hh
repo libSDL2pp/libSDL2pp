@@ -32,36 +32,213 @@ struct SDL_Window;
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief GUI window object
+///
+/// \ingroup windows
+///
+/// \headerfile SDL2pp/Window.hh
+///
+/// SDL2pp::Window is a wrapper around SDL_Window structure
+/// and related functions which take care of GUI window
+/// management.
+///
+/// Usage example:
+/// \code
+/// {
+///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+///     SDL2pp::Window window("Test Window",
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           SDL_WINDOWPOS_UNDEFINED,
+///                           640,
+///                           480,
+///                           SDL_WINDOW_OPENGL);
+///
+///     SDL_Delay(3000); // show window for 3 seconds
+/// }
+/// \endcode
+///
+////////////////////////////////////////////////////////////
 class Window {
 private:
-	SDL_Window* window_;
+	SDL_Window* window_; ///< Contained SDL2_Window structure
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create window with specified title and fimensions
+	///
+	/// \param title Title of the windows, in UTF-8 encoding
+	/// \param x X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param y X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param w Width of the window
+	/// \param h Height of the window
+	/// \param flags 0 or more SDL_WindowFlags OR'd together
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateWindow
+	///
+	////////////////////////////////////////////////////////////
 	Window(const std::string& title, int x, int y, int w, int h, Uint32 flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	/// \see http://wiki.libsdl.org/SDL_DestroyWindow
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~Window();
 
-	Window(const Window& other) = delete;
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::Window object to move data from
+	///
+	////////////////////////////////////////////////////////////
 	Window(Window&& other) noexcept;
-	Window& operator=(const Window& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment operator
+	///
+	/// \param other SDL2pp::Window object to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	Window& operator=(Window&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	Window(const Window& other) = delete;
+	Window& operator=(const Window& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get dimensions of the window
+	///
+	/// \returns SDL2pp::Point representing dimensions (width and
+	///          height) of the window in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
+	///
+	////////////////////////////////////////////////////////////
 	Point GetSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get width of the window
+	///
+	/// \returns Width of the window in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
+	///
+	////////////////////////////////////////////////////////////
 	int GetWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get height of the window
+	///
+	/// \returns Height of the window in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowSize
+	///
+	////////////////////////////////////////////////////////////
 	int GetHeight() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Set window title
+	///
+	/// \param title New window title in UTF-8 encoding
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowTitle
+	///
+	////////////////////////////////////////////////////////////
 	void SetTitle(const std::string& title);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_Window structure
+	///
+	/// \returns Pointer to SDL_Window structure
+	///
+	////////////////////////////////////////////////////////////
 	SDL_Window* Get() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Make a window as large as possible
+	///
+	/// \see http://wiki.libsdl.org/SDL_MaximizeWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Maximize();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Minimize a window to an iconic representation
+	///
+	/// \see http://wiki.libsdl.org/SDL_MinimizeWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Minimize();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Hide a window
+	///
+	/// \see http://wiki.libsdl.org/SDL_HideWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Hide();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Restore the size and position of a minimized or maximized window
+	///
+	/// \see http://wiki.libsdl.org/SDL_RestoreWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Restore();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Raise a window above other windows and set the input focus
+	///
+	/// \see http://wiki.libsdl.org/SDL_RaiseWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Raise();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Show a window
+	///
+	/// \see http://wiki.libsdl.org/SDL_ShowWindow
+	///
+	////////////////////////////////////////////////////////////
 	void Show();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Set a window's fullscreen state
+	///
+	/// \param flags SDL_WINDOW_FULLSCREEN, SDL_WINDOW_FULLSCREEN_DESKTOP or 0
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowFullscreen
+	///
+	////////////////////////////////////////////////////////////
 	void SetFullscreen(int flags);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the size of a window's client area
+	///
+	/// \param w Width of the window in pixles
+	/// \param h Height of the window in pixles
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
+	///
+	////////////////////////////////////////////////////////////
 	void SetSize(int w, int h);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the size of a window's client area
+	///
+	/// \param size Point representin window dimensions
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
+	///
+	////////////////////////////////////////////////////////////
 	void SetSize(const Point& size);
 };
 

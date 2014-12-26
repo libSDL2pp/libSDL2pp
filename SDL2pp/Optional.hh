@@ -24,6 +24,48 @@
 
 #include <SDL2pp/Config.hh>
 
+////////////////////////////////////////////////////////////
+/// \class SDL2pp::Optional
+///
+/// \brief Optional value container
+///
+/// \ingroup general
+///
+/// \headerfile SDL2pp/Optional.hh
+///
+/// This class contains an optional value, i.e. a value that
+/// semantically may not be present.
+///
+/// \see http://en.cppreference.com/w/cpp/experimental/optional
+///
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+/// \class SDL2pp::BadOptionalAccess
+///
+/// \brief %Exception thrown on accessing a SDL2pp::Optional object with uninitialized state
+///
+/// \ingroup general
+///
+/// \headerfile SDL2pp/Optional.hh
+///
+/// \see http://en.cppreference.com/w/cpp/utility/bad_optional_access
+///
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+/// \var SDL2pp::NullOpt
+///
+/// \brief Null value for SDL2pp::Optional
+///
+/// \ingroup general
+///
+/// \headerfile SDL2pp/Optional.hh
+///
+/// \see http://en.cppreference.com/w/cpp/experimental/optional
+///
+////////////////////////////////////////////////////////////
+
 #if defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
 
 #	include <experimental/optional>

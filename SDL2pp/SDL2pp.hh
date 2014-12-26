@@ -22,21 +22,77 @@
 #ifndef SDL2PP_SDL2PP_HH
 #define SDL2PP_SDL2PP_HH
 
-#include <SDL2pp/Exception.hh>
 #include <SDL2pp/Config.hh>
 
+////////////////////////////////////////////////////////////
+/// \defgroup general General
+///
+/// \brief SDL library initialization and shutdown functions
+///        and error handling
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/SDL.hh>
+#include <SDL2pp/Exception.hh>
+#include <SDL2pp/Optional.hh>
+
+////////////////////////////////////////////////////////////
+/// \defgroup audio Audio
+///
+/// \brief Audio device management and audio playback
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/AudioDevice.hh>
 #include <SDL2pp/AudioSpec.hh>
+#include <SDL2pp/Wav.hh>
+
+////////////////////////////////////////////////////////////
+/// \defgroup graphics Graphics
+///
+/// \brief Graphics output
+///
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+/// \defgroup windows Window management
+///
+/// \brief Display and window management
+///
+/// \ingroup graphics
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/Window.hh>
+
+////////////////////////////////////////////////////////////
+/// \defgroup rendering 2D rendering
+///
+/// \brief 2D accelerated rendering
+///
+/// \ingroup graphics
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Texture.hh>
+
+////////////////////////////////////////////////////////////
+/// \defgroup geometry 2D geometry
+///
+/// \brief 2D rectangle and point functions
+///
+/// \ingroup graphics
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Point.hh>
+
+////////////////////////////////////////////////////////////
+/// \defgroup io I/O abstraction
+///
+/// \brief Functions that extend file-like operations onto arbitrary
+///        objects such as memory, streams, STL containers etc.
+///
+////////////////////////////////////////////////////////////
 #include <SDL2pp/RWops.hh>
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
-#include <SDL2pp/Wav.hh>
-#include <SDL2pp/Optional.hh>
 
 #endif
