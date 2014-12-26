@@ -25,6 +25,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
 
@@ -152,22 +153,21 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_RenderCopy
 	///
 	////////////////////////////////////////////////////////////
-	void Copy(Texture& texture, const Rect& srcrect = Rect::Null(), const Rect& dstrect = Rect::Null());
+	void Copy(Texture& texture, const Optional<Rect>& srcrect = NullOpt, const Optional<Rect>& dstrect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy a portion of the texture to the current rendering
 	///        target with optional rotating or flipping
 	///
 	/// \param texture Source texture
-	/// \param srcrect Source rectangle, SDL2pp::Rect::Null() for the
-	///                entire texture
-	/// \param dstrect Destination rectangle, SDL2pp::Rect::Null() for
-	///                the entire rendering target
+	/// \param srcrect Source rectangle, NullOpt for the entire texture
+	/// \param dstrect Destination rectangle, NullOpt for the entire
+	///                rendering target
 	/// \param angle Angle in degrees that indicates the rotation that
 	///              will be applied to dstrect
 	/// \param center Point indicating the point around which dstrect
-	///               will be rotated (SDL2pp::Point::Null() to rotate
-	///               around dstrect center)
+	///               will be rotated (NullOpt to rotate around dstrect
+	///               center)
 	/// \param flip SDL_RendererFlip value stating which flipping
 	///             actions should be performed on the texture
 	///
@@ -175,7 +175,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
 	///
 	////////////////////////////////////////////////////////////
-	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center = Point::Null(), int flip = 0);
+	void Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set color user for drawing operations
@@ -380,8 +380,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Read pixels from the current rendering target
 	///
-	/// \param rect Area to read or SDL2pp::Rect::Null() for the
-	///             enditer render target
+	/// \param rect Area to read or NullOpt for the entire render
+	///             target
 	/// \param format Desired format of the pixel data, or 0 to
 	///               use the format of the rendering target
 	/// \param pixels Pointer to memory to be filled with pixel
@@ -391,18 +391,18 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_RenderReadPixels
 	///
 	////////////////////////////////////////////////////////////
-	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
+	void ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the clipping rectange for rendering
 	///
-	/// \param rect New clipping rectangle or SDL2pp::Rect::Null()
-	///             to disable clipping
+	/// \param rect New clipping rectangle or NullOpt to dusable
+	///             clipping
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetClipRect
 	///
 	////////////////////////////////////////////////////////////
-	void SetClipRect(const Rect& rect);
+	void SetClipRect(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set a device independent resolution for rendering
@@ -430,13 +430,12 @@ public:
 	/// \brief Set the drawing area for rendering on the current target
 	///
 	/// \param rect Rectangle representing the drawing area or
-	///             SDL2pp::Rect::Null() toset the viewport to
-	///              the entire target
+	///             NullOpt to set the viewport to the entire target
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetViewport
 	///
 	////////////////////////////////////////////////////////////
-	void SetViewport(const Rect& rect);
+	void SetViewport(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Determine whether a window supports the use of

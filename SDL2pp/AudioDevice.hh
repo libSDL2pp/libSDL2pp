@@ -27,6 +27,7 @@
 
 #include <SDL2/SDL_audio.h>
 
+#include <SDL2pp/Optional.hh>
 #include <SDL2pp/Config.hh>
 
 namespace SDL2pp {
@@ -177,7 +178,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
 	///
 	////////////////////////////////////////////////////////////
-	AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
+	AudioDevice(const Optional<std::string>& device, bool iscapture, const AudioSpec& spec, AudioCallback&& callback = AudioCallback());
 
 	////////////////////////////////////////////////////////////
 	/// \brief Open audio device with desired output format
@@ -193,7 +194,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
 	///
 	////////////////////////////////////////////////////////////
-	AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
+	AudioDevice(const Optional<std::string>& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioCallback&& callback = AudioCallback());
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor

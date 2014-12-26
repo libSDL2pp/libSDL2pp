@@ -19,24 +19,41 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#ifndef SDL2PP_OPTIONAL_HH
+#define SDL2PP_OPTIONAL_HH
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+#include <SDL2pp/Config.hh>
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+#if defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+#	include <experimental/optional>
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
+namespace SDL2pp {
+
+template<typename T>
+using Optional = std::experimental::optional<T>;
+
+using BadOptionalAccess = std::experimental::bad_optional_access;
+
+constexpr std::experimental::nullopt_t NullOpt = std::experimental::nullopt;
+
+}
+
 #else
-#	define SDL2PP_DEPRECATED
+
+#	include <SDL2pp/external/libcpp_optional.hh>
+
+namespace SDL2pp {
+
+template<typename T>
+using Optional = sdl2pp_libcpp_optional::optional<T>;
+
+using BadOptionalAccess = sdl2pp_libcpp_optional::bad_optional_access;
+
+constexpr sdl2pp_libcpp_optional::nullopt_t NullOpt = sdl2pp_libcpp_optional::nullopt;
+
+}
+
 #endif
 
 #endif

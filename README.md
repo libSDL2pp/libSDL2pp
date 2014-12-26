@@ -28,11 +28,11 @@ try {
 
   renderer.Clear();
 
-  // Also note a way to specify null rects
-  renderer.Copy(sprite1, SDL2pp::Rect::Null(), SDL2pp::Rect::Null());
+  // Also note a way to specify null rects and points
+  renderer.Copy(sprite1, SDL2pp::NullOpt, SDL2pp::NullOpt);
 
   // Copy() is overloaded, providing access to both SDL_RenderCopy and SDL_RenderCopyEx
-  renderer.Copy(sprite2, SDL2pp::Rect::Null(), SDL2pp::Rect::Null(), 45.0);
+  renderer.Copy(sprite2, SDL2pp::NullOpt, SDL2pp::NullOpt, 45.0);
 
   renderer.Present();
 

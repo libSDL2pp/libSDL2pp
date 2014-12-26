@@ -27,6 +27,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include <SDL2pp/Optional.hh>
 #include <SDL2pp/Config.hh>
 
 struct SDL_Texture;
@@ -103,7 +104,7 @@ public:
 		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
 		///
 		////////////////////////////////////////////////////////////
-		LockHandle(Texture* texture, const Rect& rect);
+		LockHandle(Texture* texture, const Optional<Rect>& rect);
 
 	public:
 		////////////////////////////////////////////////////////////
@@ -179,7 +180,7 @@ public:
 
 	SDL_Texture* Get() const;
 
-	void Update(const Rect& rect, const void* pixels, int pitch);
+	void Update(const Optional<Rect>& rect, const void* pixels, int pitch);
 
 	void SetBlendMode(SDL_BlendMode blendMode);
 	void SetAlphaMod(Uint8 alpha = 255);
@@ -189,12 +190,12 @@ public:
 	/// \brief Lock texture for write-only pixel access
 	///
 	/// \param rect Rect representing area to lock for access
-	///             (Rect::Null() to lock entire texture)
+	///             (NullOpt to lock entire texture)
 	///
 	/// \return Lock handle used to access pixel data and to control lock lifetime
 	///
 	////////////////////////////////////////////////////////////
-	LockHandle Lock(const Rect& rect);
+	LockHandle Lock(const Optional<Rect>& rect);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get texture format

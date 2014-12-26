@@ -16,6 +16,8 @@ SET(SDL2PP_VERSION "${SDL2PP_MAJOR_VERSION}.${SDL2PP_MINOR_VERSION}.${SDL2PP_PAT
 OPTION(SDL2PP_WITH_2_0_4 "Enable new functions available only in SDL2 2.0.4+" OFF)
 OPTION(SDL2PP_WITH_WERROR "Make warnings fatal" OFF)
 
+SET(SDL2PP_CXXSTD "c++11" CACHE STRING "Used c++ standard")
+
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	OPTION(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
 ELSE(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
@@ -39,7 +41,7 @@ IF(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 	SET(WERROR_FLAG "/WX")
 ELSE(MSVC)
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${SDL2PP_CXXSTD} -Wall -Wextra -pedantic")
 	SET(WERROR_FLAG "-Werror")
 ENDIF(MSVC)
 
@@ -51,6 +53,19 @@ INCLUDE_DIRECTORIES(${SDL2_ALL_INCLUDE_DIRS})
 IF(SDL2PP_WITH_WERROR)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WERROR_FLAG}")
 ENDIF(SDL2PP_WITH_WERROR)
+
+# platform checks
+INCLUDE(CheckCompile)
+CHECK_COMPILE(
+	SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
+	${PROJECT_SOURCE_DIR}/cmake/std_experimental_optional_test.cc
+	"Checking for experimental/optional header"
+)
+CHECK_COMPILE(
+	SDL2PP_WITH_DEPRECATED
+	${PROJECT_SOURCE_DIR}/cmake/attribute_deprecated_test.cc
+	"Checking for [[deprecated]] attribute"
+)
 
 # config.h
 CONFIGURE_FILE(
@@ -82,6 +97,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/AudioSpec.hh
 	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
+	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh

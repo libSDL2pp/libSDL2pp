@@ -64,7 +64,7 @@ int Run() {
 	// Sprite data
 	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, MY_SPRITE_SIZE, MY_SPRITE_SIZE);
 
-	sprite.Update(Rect::Null(), pixels, MY_SPRITE_SIZE * MY_SPRITE_SIZE);
+	sprite.Update(NullOpt, pixels, MY_SPRITE_SIZE * MY_SPRITE_SIZE);
 	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	// Two render target textures
@@ -93,10 +93,10 @@ int Run() {
 		for (int i = 0; i < 4; i++) {
 			render.SetTarget(target2);
 			render.Clear();
-			render.Copy(target1, Rect::Null(), Rect(0, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(MY_RENDERTARGET_SIZE / 2, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, Rect::Null(), Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, NullOpt, Rect(0, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, NullOpt, Rect(0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+			render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
 
 			// Swap textures to copy recursively
 			std::swap(target1, target2);
@@ -106,7 +106,7 @@ int Run() {
 		render.SetTarget();
 		render.Clear();
 
-		render.Copy(target1, Rect::Null(), Rect((MY_SCREEN_WIDTH - MY_SCREEN_HEIGHT) / 2, 0, MY_SCREEN_HEIGHT, MY_SCREEN_HEIGHT), SDL_GetTicks() / 10000.0 * 360.0);
+		render.Copy(target1, NullOpt, Rect((MY_SCREEN_WIDTH - MY_SCREEN_HEIGHT) / 2, 0, MY_SCREEN_HEIGHT, MY_SCREEN_HEIGHT), SDL_GetTicks() / 10000.0 * 360.0);
 
 		render.Present();
 

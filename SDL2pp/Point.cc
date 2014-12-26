@@ -25,25 +25,22 @@
 
 namespace SDL2pp {
 
-Point::Point() : valid_(false) {
+Point::Point() {
+	x = 0;
+	y = 0;
 }
 
-Point::~Point() {
+Point::Point(int nx, int ny) {
+	x = nx;
+	y = ny;
 }
 
-Point::Point(int x, int y) : valid_(true) {
-	point_.x = x;
-	point_.y = y;
-}
-
-Point Point::Null() {
-	return Point();
+Optional<Point> Point::Null() {
+	return NullOpt;
 }
 
 bool Point::operator==(const Point& other) const {
-	if (!valid_ || !other.valid_)
-		return valid_ == other.valid_; // true only if both null
-	return point_.x == other.point_.x && point_.y == other.point_.y;
+	return x == other.x && y == other.y;
 }
 
 bool Point::operator!=(const Point& other) const {
@@ -51,67 +48,51 @@ bool Point::operator!=(const Point& other) const {
 }
 
 SDL_Point* Point::Get() {
-	return valid_ ? &point_ : nullptr;
+	return this;
 }
 
 const SDL_Point* Point::Get() const {
-	return valid_ ? &point_ : nullptr;
+	return this;
 }
 
 bool Point::IsNull() const {
-	return !valid_;
+	return false;
 }
 
 int Point::GetX() const {
-	assert(!IsNull());
-	return point_.x;
+	return x;
 }
 
-void Point::SetX(int x) {
-	assert(!IsNull());
-	point_.x = x;
+void Point::SetX(int nx) {
+	x = nx;
 }
 
 int Point::GetY() const {
-	assert(!IsNull());
-	return point_.y;
+	return y;
 }
 
-void Point::SetY(int y) {
-	assert(!IsNull());
-	point_.y = y;
+void Point::SetY(int ny) {
+	y = ny;
 }
 
 Point Point::operator+(const Point& other) const {
-	if (!valid_ || !other.valid_)
-		return Point();
-	return Point(point_.x + other.point_.x, point_.y + other.point_.y);
+	return Point(x + other.x, y + other.y);
 }
 
 Point Point::operator-(const Point& other) const {
-	if (!valid_ || !other.valid_)
-		return Point();
-	return Point(point_.x - other.point_.x, point_.y - other.point_.y);
+	return Point(x - other.x, y - other.y);
 }
 
 Point& Point::operator+=(const Point& other) {
-	if (!valid_ || !other.valid_) {
-		valid_ = false;
-	} else {
-		point_.x += other.point_.x;
-		point_.y += other.point_.y;
-	}
+	x += other.x;
+	y += other.y;
 
 	return *this;
 }
 
 Point& Point::operator-=(const Point& other) {
-	if (!valid_ || !other.valid_) {
-		valid_ = false;
-	} else {
-		point_.x -= other.point_.x;
-		point_.y -= other.point_.y;
-	}
+	x -= other.x;
+	y -= other.y;
 
 	return *this;
 }

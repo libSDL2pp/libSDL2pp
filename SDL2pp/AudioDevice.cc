@@ -31,7 +31,7 @@ void AudioDevice::SDLCallback(void *userdata, Uint8* stream, int len) {
 	audiodevice->callback_(stream, len);
 }
 
-AudioDevice::AudioDevice(const std::string& device, bool iscapture, const AudioSpec& spec, AudioDevice::AudioCallback&& callback) {
+AudioDevice::AudioDevice(const Optional<std::string>& device, bool iscapture, const AudioSpec& spec, AudioDevice::AudioCallback&& callback) {
 	SDL_AudioSpec spec_with_callback = *spec.Get();
 	if (callback) {
 		spec_with_callback.callback = SDLCallback;
@@ -39,13 +39,13 @@ AudioDevice::AudioDevice(const std::string& device, bool iscapture, const AudioS
 	}
 	SDL_AudioSpec obtained;
 
-	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec_with_callback, &obtained, 0)) == 0)
+	if ((device_id_ = SDL_OpenAudioDevice(device ? device->c_str() : nullptr, iscapture ? 1 : 0, &spec_with_callback, &obtained, 0)) == 0)
 		throw Exception("SDL_OpenAudioDevice failed");
 
 	callback_ = std::move(callback);
 }
 
-AudioDevice::AudioDevice(const std::string& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioDevice::AudioCallback&& callback) {
+AudioDevice::AudioDevice(const Optional<std::string>& device, bool iscapture, AudioSpec& spec, int allowed_changes, AudioDevice::AudioCallback&& callback) {
 	SDL_AudioSpec spec_with_callback = *spec.Get();
 	if (callback) {
 		spec_with_callback.callback = SDLCallback;
@@ -53,7 +53,7 @@ AudioDevice::AudioDevice(const std::string& device, bool iscapture, AudioSpec& s
 	}
 	SDL_AudioSpec obtained;
 
-	if ((device_id_ = SDL_OpenAudioDevice(device.empty() ? nullptr : device.c_str(), iscapture ? 1 : 0, &spec_with_callback, &obtained, allowed_changes)) == 0)
+	if ((device_id_ = SDL_OpenAudioDevice(device ? device->c_str() : nullptr, iscapture ? 1 : 0, &spec_with_callback, &obtained, allowed_changes)) == 0)
 		throw Exception("SDL_OpenAudioDevice failed");
 
 	spec.MergeChanges(obtained);
