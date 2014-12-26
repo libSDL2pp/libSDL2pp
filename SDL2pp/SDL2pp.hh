@@ -74,9 +74,9 @@
 #include <SDL2pp/Texture.hh>
 
 ////////////////////////////////////////////////////////////
-/// \defgroup rect Rects and Points
+/// \defgroup geometry 2D geometry
 ///
-/// \brief Rectangle and point functions
+/// \brief 2D rectangle and point functions
 ///
 /// \ingroup graphics
 ///
