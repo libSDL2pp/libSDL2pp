@@ -166,24 +166,114 @@ public:
 	};
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Create empty texture
+	///
+	/// \param renderer Rendering context to create texture for
+	/// \param format One of the enumerated values in SDL_PixelFormatEnum
+	/// \param access One of the enumerated values in SDL_TextureAccess
+	/// \param w With of the texture in pixels
+	/// \param h Height of the texture in pixels
+	///
+	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, Uint32 format, int access, int w, int h);
+
 #ifdef SDL2PP_WITH_IMAGE
+	////////////////////////////////////////////////////////////
+	/// \brief Create texture loading it via RWops
+	///
+	/// \param renderer Rendering context to create texture for
+	/// \param rwops RWops used to access an image file
+	///
+	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, RWops& rwops);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create texture loading it from file
+	///
+	/// \param renderer Rendering context to create texture for
+	/// \param filename Path to an image file
+	///
+	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, const std::string& filename);
 #endif
+
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor
+	///
+	////////////////////////////////////////////////////////////
 	virtual ~Texture();
 
-	Texture(const Texture& other) = delete;
+	////////////////////////////////////////////////////////////
+	/// \brief Move constructor
+	///
+	/// \param other SDL2pp::Texture object to move data from
+	///
+	////////////////////////////////////////////////////////////
 	Texture(Texture&& other) noexcept;
-	Texture& operator=(const Texture& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Move assignment
+	///
+	/// \param other SDL2pp::Texture object to move data from
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
 	Texture& operator=(Texture&& other) noexcept;
 
+	// Deleted copy constructor and assignment
+	Texture(const Texture& other) = delete;
+	Texture& operator=(const Texture& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get pointer to contained SDL_Texture structure
+	///
+	/// \returns Pointer to contained SDL_Texture structure
+	///
+	////////////////////////////////////////////////////////////
 	SDL_Texture* Get() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Update the given texture rectangle with new pixel data
+	///
+	/// \param rect Rect representing the area to update, or NullOpt to
+	///             update the entire texture
+	/// \param pixels Raw pixel data
+	/// \param pitch Number of bytes in a row of pixel data, including \
+	///              padding between lines
+	///
+	/// \see http://wiki.libsdl.org/SDL_UpdateTexture
+	///
+	////////////////////////////////////////////////////////////
 	void Update(const Optional<Rect>& rect, const void* pixels, int pitch);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
+	///
+	/// \param alpha SDL_BlendMode to use for texture blending
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetTextureBlendMode
+	///
+	////////////////////////////////////////////////////////////
 	void SetBlendMode(SDL_BlendMode blendMode);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set an additional alpha value multiplied into render copy operations
+	///
+	/// \param alpha Source alpha value multiplied into copy operations
+	///
+	////////////////////////////////////////////////////////////
 	void SetAlphaMod(Uint8 alpha = 255);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set an additional color value multiplied into render copy operations
+	///
+	/// \param r Red color value multiplied into copy operations
+	/// \param g Green color value multiplied into copy operations
+	/// \param b Blue color value multiplied into copy operations
+	///
+	////////////////////////////////////////////////////////////
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	////////////////////////////////////////////////////////////
