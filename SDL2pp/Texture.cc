@@ -78,8 +78,8 @@ SDL_Texture* Texture::Get() const {
 	return texture_;
 }
 
-void Texture::Update(const Rect& rect, const void* pixels, int pitch) {
-	if (SDL_UpdateTexture(texture_, rect.Get(), pixels, pitch) != 0)
+void Texture::Update(const Optional<Rect>& rect, const void* pixels, int pitch) {
+	if (SDL_UpdateTexture(texture_, rect ? &*rect : nullptr, pixels, pitch) != 0)
 		throw Exception("SDL_UpdateTexture failed");
 }
 
@@ -98,7 +98,7 @@ void Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 		throw Exception("SDL_SetTextureColorMod failed");
 }
 
-Texture::LockHandle Texture::Lock(const Rect& rect = Rect::Null()) {
+Texture::LockHandle Texture::Lock(const Optional<Rect>& rect) {
 	return LockHandle(this, rect);
 }
 

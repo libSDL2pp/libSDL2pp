@@ -37,5 +37,6 @@
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
 #include <SDL2pp/Wav.hh>
+#include <SDL2pp/Optional.hh>
 
 #endif

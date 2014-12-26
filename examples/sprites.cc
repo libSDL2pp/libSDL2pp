@@ -46,7 +46,7 @@ int Run() {
 
 	// Load sprite texture
 	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
-	sprite.Update(Rect::Null(), pixels, 4 * 4);
+	sprite.Update(NullOpt, pixels, 4 * 4);
 	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
@@ -63,23 +63,23 @@ int Run() {
 		render.Clear();
 
 		// Simple copy
-		render.Copy(sprite, Rect::Null(), Rect(80, 0, 240, 240));
+		render.Copy(sprite, NullOpt, Rect(80, 0, 240, 240));
 
 		// Copy with modulation
-		render.Copy(sprite, Rect::Null(), Rect(400, 0, 120, 120));
+		render.Copy(sprite, NullOpt, Rect(400, 0, 120, 120));
 		sprite.SetAlphaMod(92);
-		render.Copy(sprite, Rect::Null(), Rect(400 + 120, 0, 120, 120));
+		render.Copy(sprite, NullOpt, Rect(400 + 120, 0, 120, 120));
 		sprite.SetColorMod(255, 0, 0);
-		render.Copy(sprite, Rect::Null(), Rect(400, 0 + 120, 120, 120));
+		render.Copy(sprite, NullOpt, Rect(400, 0 + 120, 120, 120));
 		sprite.SetAlphaMod();
-		render.Copy(sprite, Rect::Null(), Rect(400 + 120, 0 + 120, 120, 120));
+		render.Copy(sprite, NullOpt, Rect(400 + 120, 0 + 120, 120, 120));
 		sprite.SetColorMod();
 
 		// Copy with rotation
-		render.Copy(sprite, Rect::Null(), Rect(80, 240, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point::Null(), SDL_FLIP_NONE);
+		render.Copy(sprite, NullOpt, Rect(80, 240, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, NullOpt, SDL_FLIP_NONE);
 
 		// Rotation around another point
-		render.Copy(sprite, Rect::Null(), Rect(520, 360, 120, 120), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point(0, 0), SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+		render.Copy(sprite, NullOpt, Rect(520, 360, 120, 120), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point(0, 0), SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
 
 		render.Present();
 

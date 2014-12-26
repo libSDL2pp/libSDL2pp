@@ -41,7 +41,7 @@ int Run() {
 	AudioSpec spec(samplerate, AUDIO_S16SYS, 1, 4096);
 
 	// Open audio device
-	AudioDevice dev("", 0, spec, [&nsample, frequency, samplerate](Uint8* stream, int len) {
+	AudioDevice dev(NullOpt, 0, spec, [&nsample, frequency, samplerate](Uint8* stream, int len) {
 				// fill provided buffer with sine wave
 				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
 					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)samplerate * frequency));

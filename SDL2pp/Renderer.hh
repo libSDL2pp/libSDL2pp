@@ -25,6 +25,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
 
@@ -58,8 +59,8 @@ public:
 
 	void GetInfo(SDL_RendererInfo* info);
 
-	void Copy(Texture& texture, const Rect& srcrect = Rect::Null(), const Rect& dstrect = Rect::Null());
-	void Copy(Texture& texture, const Rect& srcrect, const Rect& dstrect, double angle, const Point& center = Point::Null(), int flip = 0);
+	void Copy(Texture& texture, const Optional<Rect>& srcrect = NullOpt, const Optional<Rect>& dstrect = NullOpt);
+	void Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
 
 	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 	void SetTarget();
@@ -85,12 +86,12 @@ public:
 	void FillRect(const Rect& r);
 	void FillRects(const Rect* rects, int count);
 
-	void ReadPixels(const Rect& rect, Uint32 format, void* pixels, int pitch);
+	void ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch);
 
-	void SetClipRect(const Rect& rect);
+	void SetClipRect(const Optional<Rect>& rect = NullOpt);
 	void SetLogicalSize(int w, int h);
 	void SetScale(float scaleX, float scaleY);
-	void SetViewport(const Rect& rect);
+	void SetViewport(const Optional<Rect>& rect = NullOpt);
 
 	bool TargetSupported();
 };

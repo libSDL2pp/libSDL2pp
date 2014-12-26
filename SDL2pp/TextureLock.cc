@@ -31,8 +31,8 @@ namespace SDL2pp {
 Texture::LockHandle::LockHandle() : texture_(nullptr), pixels_(nullptr), pitch_(0) {
 }
 
-Texture::LockHandle::LockHandle(Texture* texture, const Rect& rect) : texture_(texture) {
-	if (SDL_LockTexture(texture_->Get(), rect.Get(), &pixels_, &pitch_) != 0)
+Texture::LockHandle::LockHandle(Texture* texture, const Optional<Rect>& rect) : texture_(texture) {
+	if (SDL_LockTexture(texture_->Get(), rect ? &*rect : nullptr, &pixels_, &pitch_) != 0)
 		throw Exception("SDL_LockTexture failed");
 }
 
