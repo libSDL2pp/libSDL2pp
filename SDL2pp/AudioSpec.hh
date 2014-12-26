@@ -31,7 +31,7 @@ namespace SDL2pp {
 ///
 /// \ingroup audio
 ///
-/// \headerfile SDL2pp/Audiospec.hh
+/// \headerfile SDL2pp/AudioSpec.hh
 ///
 /// This class extends SDL_AudioSpec - a structure that describes
 /// audio format. It may be used to describe format of loaded
