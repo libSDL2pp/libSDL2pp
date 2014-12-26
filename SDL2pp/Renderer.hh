@@ -104,7 +104,6 @@ public:
 	/// \brief Update the screen with any rendering performed
 	///        since the previous call
 	///
-	/// \detail
 	/// SDL's rendering functions operate on a backbuffer; that
 	/// is, calling a rendering function such as SDL_RenderDrawLine()
 	/// does not directly put a line on the screen, but rather
@@ -182,7 +181,7 @@ public:
 	/// \param r Red value used to draw on the rendering target
 	/// \param g Green value used to draw on the rendering target
 	/// \param b Blue value used to draw on the rendering target
-	/// \param r Alpha value used to draw on the rendering target
+	/// \param a Alpha value used to draw on the rendering target
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawColor
 	///
@@ -257,7 +256,7 @@ public:
 	/// \param x1 X coordinate of the start point
 	/// \param y1 Y coordinate of the start point
 	/// \param x2 X coordinate of the end point
-	/// \param y1 Y coordinate of the end point
+	/// \param y2 Y coordinate of the end point
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLine
 	///
@@ -292,7 +291,7 @@ public:
 	/// \param x1 X coordinate of the start corner
 	/// \param y1 Y coordinate of the start corner
 	/// \param x2 X coordinate of the end corner
-	/// \param y1 Y coordinate of the end corner
+	/// \param y2 Y coordinate of the end corner
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
@@ -337,7 +336,7 @@ public:
 	/// \param x1 X coordinate of the start corner
 	/// \param y1 Y coordinate of the start corner
 	/// \param x2 X coordinate of the end corner
-	/// \param y1 Y coordinate of the end corner
+	/// \param y2 Y coordinate of the end corner
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
