@@ -41,6 +41,8 @@ namespace SDL2pp {
 /// reference. It also supports direct access to x and y
 /// members.
 ///
+/// \see http://wiki.libsdl.org/SDL_Point
+///
 ////////////////////////////////////////////////////////////
 class Point : public SDL_Point {
 public:

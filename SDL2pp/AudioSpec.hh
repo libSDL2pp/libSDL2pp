@@ -38,6 +38,8 @@ namespace SDL2pp {
 /// SDL2pp::Wav audio fragments and to specify desired or actual
 /// audio output format of SDL2pp::AudioDevice
 ///
+/// \see http://wiki.libsdl.org/SDL_AudioSpec
+///
 ////////////////////////////////////////////////////////////
 class AudioSpec : public SDL_AudioSpec {
 public:

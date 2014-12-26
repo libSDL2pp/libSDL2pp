@@ -101,6 +101,8 @@ public:
 		///
 		/// \param rect Specifies region to lock
 		///
+		/// \throws STL2pp::Exception
+		///
 		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
 		///
 		////////////////////////////////////////////////////////////
@@ -122,6 +124,8 @@ public:
 		///
 		/// \details
 		/// Releases the lock
+		///
+		/// \see http://wiki.libsdl.org/SDL_UnlockAudioDevice
 		///
 		////////////////////////////////////////////////////////////
 		~LockHandle();
@@ -175,6 +179,10 @@ public:
 	/// \param access One of the enumerated values in SDL_TextureAccess
 	/// \param w With of the texture in pixels
 	/// \param h Height of the texture in pixels
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateTexture
 	///
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, Uint32 format, int access, int w, int h);
@@ -244,6 +252,8 @@ public:
 	/// \param pitch Number of bytes in a row of pixel data, including
 	///              padding between lines
 	///
+	/// \throws SDL2pp::Exception
+	///
 	/// \see http://wiki.libsdl.org/SDL_UpdateTexture
 	///
 	////////////////////////////////////////////////////////////
@@ -253,6 +263,8 @@ public:
 	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
 	///
 	/// \param blendMode SDL_BlendMode to use for texture blending
+	///
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetTextureBlendMode
 	///
@@ -264,6 +276,10 @@ public:
 	///
 	/// \param alpha Source alpha value multiplied into copy operations
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetTextureAlphaMod
+	///
 	////////////////////////////////////////////////////////////
 	void SetAlphaMod(Uint8 alpha = 255);
 
@@ -273,6 +289,10 @@ public:
 	/// \param r Red color value multiplied into copy operations
 	/// \param g Green color value multiplied into copy operations
 	/// \param b Blue color value multiplied into copy operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetTextureColorMod
 	///
 	////////////////////////////////////////////////////////////
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
@@ -285,6 +305,10 @@ public:
 	///
 	/// \return Lock handle used to access pixel data and to control lock lifetime
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_LockTexture
+	///
 	////////////////////////////////////////////////////////////
 	LockHandle Lock(const Optional<Rect>& rect = NullOpt);
 
@@ -293,6 +317,9 @@ public:
 	///
 	/// \return Texture raw format
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueryTexture
 	/// \see http://wiki.libsdl.org/SDL_QueryTexture#format
 	///
 	////////////////////////////////////////////////////////////
@@ -303,6 +330,9 @@ public:
 	///
 	/// \return Texture access pattern
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueryTexture
 	/// \see http://wiki.libsdl.org/SDL_TextureAccess
 	///
 	////////////////////////////////////////////////////////////
@@ -313,6 +343,10 @@ public:
 	///
 	/// \return Texture width in pixels
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueryTexture
+	///
 	////////////////////////////////////////////////////////////
 	int GetWidth() const;
 
@@ -320,6 +354,10 @@ public:
 	/// \brief Get texture image height
 	///
 	/// \return Texture height in pixels
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_QueryTexture
 	///
 	////////////////////////////////////////////////////////////
 	int GetHeight() const;

@@ -60,6 +60,8 @@ public:
 	///
 	/// \param flags Flags to pass to SDL_Init()
 	///
+	/// \throws SDL2pp::Exception
+	///
 	/// \see http://wiki.libsdl.org/SDL_Init
 	///
 	////////////////////////////////////////////////////////////
@@ -99,6 +101,8 @@ public:
 	///
 	/// \param flags Set of flags which determines which subsystems
 	///              to initialize
+	///
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_InitSubSystem
 	///

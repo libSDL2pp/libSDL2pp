@@ -45,11 +45,10 @@ class AudioSpec;
 class AudioDevice {
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief SDL2pp::AudioDevice lock
-	/// \headerfile SDL2pp/AudioDevice.hh
 	/// \ingroup audio
+	/// \headerfile SDL2pp/AudioDevice.hh
+	/// \brief SDL2pp::AudioDevice lock
 	///
-	/// \details
 	/// Audio devices may be locked, which means that audio
 	/// callback will not be called in a locked state, allowing
 	/// to change data it accesses in a thread-safe way.
@@ -88,12 +87,12 @@ public:
 		///
 		/// \param device Pointer to audio device to lock
 		///
-		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
-		///
 		/// This operation locks a device, which remains locked
 		/// until LockHandle is destroyed
 		///
 		/// Recursive locking is allowed
+		///
+		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(AudioDevice* device);
@@ -114,6 +113,8 @@ public:
 		///
 		/// \details
 		/// Releases the lock
+		///
+		/// \see http://wiki.libsdl.org/SDL_UnlockAudioDevice
 		///
 		////////////////////////////////////////////////////////////
 		~LockHandle();
@@ -181,6 +182,8 @@ public:
 	/// \param spec Audio output format
 	/// \param callback Callback which will feed audio to the device
 	///
+	/// \throws SDL2pp::Exception
+	///
 	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
 	///
 	////////////////////////////////////////////////////////////
@@ -196,6 +199,8 @@ public:
 	//                         format properties may change
 	/// \param spec Desired audio output format (may be changed)
 	/// \param callback Callback which will feed audio to the device
+	///
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_OpenAudioDevice
 	///
@@ -271,7 +276,6 @@ public:
 	///
 	/// \returns Lock handle used to control lock lifetime
 	///
-	/// \details
 	/// The device remains locked for the lifetime of returned LockHandle
 	///
 	/// Recursive locking is allowed
@@ -287,6 +291,8 @@ public:
 	///
 	/// \param data Data to queue for later playback
 	/// \param len Data length in bytes (not samples!)
+	///
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_QueueAudio
 	///

@@ -45,6 +45,8 @@ class Point;
 /// reference. It also supports direct access to x, y, w
 /// and h members.
 ///
+/// \see http://wiki.libsdl.org/SDL_Rect
+///
 ////////////////////////////////////////////////////////////
 class Rect : public SDL_Rect {
 public:

@@ -61,6 +61,10 @@ public:
 	///
 	/// \param file Path to the wav file
 	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_LoadWAV
+	///
 	////////////////////////////////////////////////////////////
 	Wav(const std::string& file);
 
@@ -68,6 +72,10 @@ public:
 	/// \brief Load audio using RWops
 	///
 	/// \param rwops SDL2pp::RWops used to access wav data
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_LoadWAV_RW
 	///
 	////////////////////////////////////////////////////////////
 	Wav(RWops& rwops);
