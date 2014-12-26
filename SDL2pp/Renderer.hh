@@ -301,8 +301,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
-	/// \param p1 Coordinates of the start cornder
-	/// \param p2 Coordinates of the end cornder
+	/// \param p1 Coordinates of the start corner
+	/// \param p2 Coordinates of the end corner
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
@@ -346,8 +346,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
-	/// \param p1 Coordinates of the start cornder
-	/// \param p2 Coordinates of the end cornder
+	/// \param p1 Coordinates of the start corner
+	/// \param p2 Coordinates of the end corner
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
