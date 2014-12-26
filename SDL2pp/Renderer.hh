@@ -48,7 +48,7 @@ class Point;
 ////////////////////////////////////////////////////////////
 class Renderer {
 private:
-	SDL_Renderer* renderer_; ///< Contained SDL_Renderer object
+	SDL_Renderer* renderer_; ///< Contained SDL_Renderer structure
 
 public:
 	////////////////////////////////////////////////////////////

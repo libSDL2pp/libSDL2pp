@@ -144,7 +144,7 @@ public:
 ////////////////////////////////////////////////////////////
 class RWops {
 protected:
-	SDL_RWops* rwops_;
+	SDL_RWops* rwops_; ///< Contained SDL_RWops structure
 
 private:
 	static Sint64 StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
