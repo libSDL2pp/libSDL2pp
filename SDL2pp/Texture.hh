@@ -28,6 +28,7 @@
 #include <SDL2/SDL_blendmode.h>
 
 #include <SDL2pp/Optional.hh>
+#include <SDL2pp/Rect.hh>
 #include <SDL2pp/Config.hh>
 
 struct SDL_Texture;
@@ -88,7 +89,7 @@ public:
 	void SetAlphaMod(Uint8 alpha = 255);
 	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
-	LockHandle Lock(const Optional<Rect>& rect);
+	LockHandle Lock(const Optional<Rect>& rect = NullOpt);
 
 	Uint32 GetFormat() const;
 	int GetAccess() const;
