@@ -74,7 +74,7 @@ public:
 	/// \param h Height of the window
 	/// \param flags 0 or more SDL_WindowFlags OR'd together
 	///
-	/// \thows SDL2pp::Exception
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_CreateWindow
 	///
