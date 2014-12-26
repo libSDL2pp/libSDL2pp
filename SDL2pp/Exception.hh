@@ -82,7 +82,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get explanatory string
 	///
-	/// \returns Explanatory tring stored in the exception object
+	/// \returns Explanatory string stored in the exception object
 	///
 	////////////////////////////////////////////////////////////
 	const char* what() const noexcept;
