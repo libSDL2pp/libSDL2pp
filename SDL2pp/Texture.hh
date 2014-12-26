@@ -93,7 +93,7 @@ public:
 	private:
 		Texture* texture_; ///< SDL2pp::Texture this lock belongs to
 		void* pixels_;     ///< Pointer to raw pixel data of locked region
-		int pitch_;        ///< Pitch (row length) of pixel data in bytes
+		int pitch_;        ///< Number of bytes in a row of pixel data, including padding between lines
 
 	private:
 		////////////////////////////////////////////////////////////
@@ -157,9 +157,10 @@ public:
 		void* GetPixels() const;
 
 		////////////////////////////////////////////////////////////
-		/// \brief Get row width of locked pixel data
+		/// \brief Get pitch of locked pixel data
 		///
-		/// \returns Pitch (row width) of locked pixel data
+		/// \returns Number of bytes in a row of pixel data, including
+		///          padding between lines
 		///
 		////////////////////////////////////////////////////////////
 		int GetPitch() const;
@@ -240,7 +241,7 @@ public:
 	/// \param rect Rect representing the area to update, or NullOpt to
 	///             update the entire texture
 	/// \param pixels Raw pixel data
-	/// \param pitch Number of bytes in a row of pixel data, including \
+	/// \param pitch Number of bytes in a row of pixel data, including
 	///              padding between lines
 	///
 	/// \see http://wiki.libsdl.org/SDL_UpdateTexture

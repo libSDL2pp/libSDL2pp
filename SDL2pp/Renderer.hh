@@ -384,7 +384,8 @@ public:
 	///               use the format of the rendering target
 	/// \param pixels Pointer to memory to be filled with pixel
 	///               data
-	/// \param pitch Pitch (row width) of the pixels parameter
+	/// \param pitch Number of bytes in a row of pixel data, including
+	///              padding between lines
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderReadPixels
 	///
