@@ -252,7 +252,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
 	///
-	/// \param alpha SDL_BlendMode to use for texture blending
+	/// \param blendMode SDL_BlendMode to use for texture blending
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetTextureBlendMode
 	///
