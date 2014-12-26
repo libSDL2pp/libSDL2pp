@@ -82,6 +82,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/AudioSpec.hh
 	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
+	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
 	SDL2pp/Rect.hh
