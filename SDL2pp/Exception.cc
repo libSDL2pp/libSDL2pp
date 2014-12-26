@@ -36,7 +36,7 @@ const char* Exception::what() const noexcept {
 }
 
 const char* Exception::GetSDLError() const noexcept {
-	return sdl_error_;
+	return sdl_error_.c_str();
 }
 
 } // namespace SDL2pp

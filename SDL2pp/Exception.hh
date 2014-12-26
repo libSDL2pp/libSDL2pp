@@ -22,6 +22,7 @@
 #ifndef SDL2PP_EXCEPTION_HH
 #define SDL2PP_EXCEPTION_HH
 
+#include <string>
 #include <exception>
 
 namespace SDL2pp {
@@ -61,7 +62,7 @@ namespace SDL2pp {
 class Exception : public std::exception {
 private:
 	const char* what_;      ///< User-specified message
-	const char* sdl_error_; ///< SDL error string
+	std::string sdl_error_; ///< SDL error string
 
 public:
 	////////////////////////////////////////////////////////////
@@ -71,7 +72,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Exception(const char* what = "");
-
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
