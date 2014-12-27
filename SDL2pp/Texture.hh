@@ -103,7 +103,7 @@ public:
 		///
 		/// \throws STL2pp::Exception
 		///
-		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
+		/// \see http://wiki.libsdl.org/SDL_LockTexture
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(Texture* texture, const Optional<Rect>& rect);
@@ -125,7 +125,7 @@ public:
 		/// \details
 		/// Releases the lock
 		///
-		/// \see http://wiki.libsdl.org/SDL_UnlockAudioDevice
+		/// \see http://wiki.libsdl.org/SDL_UnlockTexture
 		///
 		////////////////////////////////////////////////////////////
 		~LockHandle();
@@ -133,7 +133,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move constructor
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param other SDL2pp::Texture::LockHandle to move data from
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
@@ -141,7 +141,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move assignment operator
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param other SDL2pp::Texture::LockHandle to move data from
 		///
 		/// \returns Reference to self
 		///
