@@ -25,6 +25,7 @@
 #include <SDL2/SDL_stdinc.h>
 
 struct SDL_Surface;
+struct SDL_PixelFormat;
 
 namespace SDL2pp {
 
@@ -43,6 +44,102 @@ class Surface {
 private:
 	SDL_Surface* surface_; ///< Contained SDL_Texture structure
 
+public:
+	////////////////////////////////////////////////////////////
+	/// \brief SDL2pp::Surface lock
+	/// \ingroup rendering
+	///
+	/// \details
+	/// For direct pixel access, SDL surface may need to be locked.
+	/// This class represents the lock and controls its lifetime
+	/// as the lock is released as soon as LockHandle is destroyed.
+	///
+	////////////////////////////////////////////////////////////
+	class LockHandle {
+		friend class Surface;
+	private:
+		Surface* surface_;  ///< SDL2pp::Surface this lock belongs to
+
+	private:
+		////////////////////////////////////////////////////////////
+		/// \brief Create lock for specific SDL2pp::Texture
+		///
+		/// \throws STL2pp::Exception
+		///
+		/// \see http://wiki.libsdl.org/SDL_LockSurface
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle(Surface* surface);
+
+	public:
+		////////////////////////////////////////////////////////////
+		/// \brief Create no-op lock
+		///
+		/// \details
+		/// This may be initialized with real lock later with move
+		/// assignment operator
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle();
+
+		////////////////////////////////////////////////////////////
+		/// \brief Destructor
+		///
+		/// \details
+		/// Releases the lock
+		///
+		/// \see http://wiki.libsdl.org/SDL_UnlockSurface
+		///
+		////////////////////////////////////////////////////////////
+		~LockHandle();
+
+		////////////////////////////////////////////////////////////
+		/// \brief Move constructor
+		///
+		/// \param other SDL2pp::Surface::LockHandle to move data from
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle(LockHandle&& other) noexcept;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Move assignment operator
+		///
+		/// \param other SDL2pp::Surface::LockHandle to move data from
+		///
+		/// \returns Reference to self
+		///
+		////////////////////////////////////////////////////////////
+		LockHandle& operator=(LockHandle&& other) noexcept;
+
+		// Deleted copy constructor and assignment
+		LockHandle(const LockHandle& other) = delete;
+		LockHandle& operator=(const LockHandle& other) = delete;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get pointer to raw pixel data of locked region
+		///
+		/// \returns Pointer to raw pixel data of locked region
+		///
+		////////////////////////////////////////////////////////////
+		void* GetPixels() const;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get pitch of locked pixel data
+		///
+		/// \returns Number of bytes in a row of pixel data, including
+		///          padding between lines
+		///
+		////////////////////////////////////////////////////////////
+		int GetPitch() const;
+
+		////////////////////////////////////////////////////////////
+		/// \brief Get pixel format of the surface
+		///
+		/// \returns Format of the pixels stored in the surface
+		///
+		////////////////////////////////////////////////////////////
+		const SDL_PixelFormat& GetFormat() const;
+	};
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface
@@ -120,6 +217,18 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	SDL_Surface* Get() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Lock surface for direct pixel access
+	///
+	/// \return Lock handle used to access pixel data and to control lock lifetime
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_LockSurface
+	///
+	////////////////////////////////////////////////////////////
+    LockHandle Lock();
 };
 
 }

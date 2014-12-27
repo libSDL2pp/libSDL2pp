@@ -21,46 +21,59 @@
 
 #include <SDL2/SDL_surface.h>
 
-#include <SDL2pp/Surface.hh>
 #include <SDL2pp/Exception.hh>
+
+#include <SDL2pp/Surface.hh>
 
 namespace SDL2pp {
 
-Surface::Surface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask) {
-	if ((surface_ = SDL_CreateRGBSurface(flags, width, height, depth, Rmask, Gmask, Bmask, Amask)) == nullptr)
-		throw Exception("SDL_CreateRGBSurface failed");
+Surface::LockHandle::LockHandle() : surface_(nullptr) {
 }
 
-Surface::Surface(void* pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask) {
-	if ((surface_ = SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask)) == nullptr)
-		throw Exception("SDL_CreateRGBSurfaceFrom failed");
+Surface::LockHandle::LockHandle(Surface* surface) : surface_(surface) {
+	if (SDL_MUSTLOCK(surface_->Get())) {
+		if (SDL_LockSurface(surface_->Get()))
+			throw Exception("SDL_LockSurface failed");
+	}
 }
 
-Surface::~Surface() {
-	if (surface_ != nullptr)
-		SDL_FreeSurface(surface_);
-}
-
-Surface::Surface(Surface&& other) noexcept : surface_(other.surface_) {
+Surface::LockHandle::LockHandle(Surface::LockHandle&& other) noexcept : surface_(other.surface_) {
 	other.surface_ = nullptr;
 }
 
-Surface& Surface::operator=(Surface&& other) noexcept {
+Surface::LockHandle& Surface::LockHandle::operator=(Surface::LockHandle&& other) noexcept {
 	if (&other == this)
 		return *this;
-	if (surface_ != nullptr)
-		SDL_FreeSurface(surface_);
+
+	if (surface_ != nullptr) {
+		if (SDL_MUSTLOCK(surface_->Get()))
+			SDL_UnlockSurface(surface_->Get());
+	}
+
 	surface_ = other.surface_;
+
 	other.surface_ = nullptr;
+
 	return *this;
 }
 
-SDL_Surface* Surface::Get() const {
-	return surface_;
+Surface::LockHandle::~LockHandle() {
+	if (surface_ != nullptr) {
+		if (SDL_MUSTLOCK(surface_->Get()))
+			SDL_UnlockSurface(surface_->Get());
+	}
 }
 
-Surface::LockHandle Surface::Lock() {
-	return LockHandle(this);
+void* Surface::LockHandle::GetPixels() const {
+	return surface_->Get()->pixels;
+}
+
+int Surface::LockHandle::GetPitch() const {
+	return surface_->Get()->pitch;
+}
+
+const SDL_PixelFormat& Surface::LockHandle::GetFormat() const {
+	return *surface_->Get()->format;
 }
 
 }
