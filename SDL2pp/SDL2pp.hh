@@ -95,4 +95,12 @@
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
 
+////////////////////////////////////////////////////////////
+/// \defgroup image SDL_image
+///
+/// \brief Functions that are specific to SDL_image library
+///
+////////////////////////////////////////////////////////////
+#include <SDL2pp/SDLImage.hh>
+
 #endif
