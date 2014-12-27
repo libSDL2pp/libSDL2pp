@@ -183,7 +183,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Destructor
     ///
-    /// \see http://wiki.libsdl.org/SDL_DestroyTexture
+    /// \see http://wiki.libsdl.org/SDL_FreeSurface
     ///
     ////////////////////////////////////////////////////////////
 	virtual ~Surface();
