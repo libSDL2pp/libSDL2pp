@@ -37,6 +37,7 @@ namespace SDL2pp {
 
 class Renderer;
 class RWops;
+class Surface;
 
 ////////////////////////////////////////////////////////////
 /// \brief Image stored in the graphics card memory that
@@ -206,6 +207,19 @@ public:
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, const std::string& filename);
 #endif
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create texture from surface
+	///
+	/// \param renderer Rendering context to create texture for
+	/// \param surface Surface containing pixel data used to fill the texture
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_CreateTextureFromSurface
+	///
+	////////////////////////////////////////////////////////////
+	Texture(Renderer& renderer, const Surface& surface);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
