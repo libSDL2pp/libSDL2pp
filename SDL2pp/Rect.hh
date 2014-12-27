@@ -59,6 +59,14 @@ public:
 	Rect();
 
 	////////////////////////////////////////////////////////////
+	/// \brief Construct a rect from existing SDL_Rect
+	///
+	/// \param rect Existing SDL_Rect
+	///
+	////////////////////////////////////////////////////////////
+	Rect(const SDL_Rect& rect);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, width and height
 	///
 	/// \param x X coordinate of the top left rectangle corner

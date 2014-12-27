@@ -34,6 +34,13 @@ Rect::Rect() {
 	h = 0;
 }
 
+Rect::Rect(const SDL_Rect& rect) {
+	x = rect.x;
+	y = rect.y;
+	w = rect.w;
+	h = rect.h;
+}
+
 Rect::Rect(int nx, int ny, int nw, int nh) {
 	x = nx;
 	y = ny;
