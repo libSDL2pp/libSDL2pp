@@ -23,6 +23,10 @@
 #define SDL2PP_SURFACE_HH
 
 #include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_blendmode.h>
+
+#include <SDL2pp/Optional.hh>
+#include <SDL2pp/Rect.hh>
 
 struct SDL_Surface;
 struct SDL_PixelFormat;
@@ -140,6 +144,16 @@ public:
 		////////////////////////////////////////////////////////////
 		const SDL_PixelFormat& GetFormat() const;
 	};
+
+private:
+	////////////////////////////////////////////////////////////
+	/// \brief Create surface taking existing SDL_surface structure
+	///
+	/// \param surface Existing SDL_surface to manage
+	///
+	////////////////////////////////////////////////////////////
+	Surface(SDL_Surface* surface);
+
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface
@@ -218,6 +232,60 @@ public:
 	////////////////////////////////////////////////////////////
 	SDL_Surface* Get() const;
 
+    ////////////////////////////////////////////////////////////
+	/// \brief Copy an existing surface into a new one that is
+	///        optimized for blitting to a surface of a specified pixel format
+	///
+	/// \param format SDL_PixelFormat structure that the new surface is optimized for
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_ConvertSurface
+	///
+	////////////////////////////////////////////////////////////
+	Surface Convert(const SDL_PixelFormat& format);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Copy an existing surface to a new surface of the specified format
+	///
+	/// \param pixel_format One of the enumerated values in SDL_PixelFormatEnum
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_PixelFormatEnum
+	/// \see http://wiki.libsdl.org/SDL_ConvertSurfaceFormat
+	///
+	////////////////////////////////////////////////////////////
+	Surface Convert(Uint32 pixel_format);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Fast surface copy to a destination surface
+	///
+	/// \param srcrect Rectangle to be copied, or NullOpt to copy the entire surface
+	/// \param dst Blit target surface
+	/// \param srcrect Rectangle that is copied into
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_BlitSurface
+	///
+	////////////////////////////////////////////////////////////
+	void Blit(const Optional<Rect>& srcrect, Surface& dst, const Rect& dstrect);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Scaled surface copy to a destination surface
+	///
+	/// \param srcrect Rectangle to be copied, or NullOpt to copy the entire surface
+	/// \param dst Blit target surface
+	/// \param srcrect Rectangle that is copied into, or NullOpt to copy into entire surface
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_BlitScaled
+	///
+	////////////////////////////////////////////////////////////
+	void BlitScaled(const Optional<Rect>& srcrect, Surface& dst, const Optional<Rect>& dstrect);
+
 	////////////////////////////////////////////////////////////
 	/// \brief Lock surface for direct pixel access
 	///
@@ -229,6 +297,168 @@ public:
 	///
 	////////////////////////////////////////////////////////////
     LockHandle Lock();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the clipping rectangle for a surface
+	///
+	/// \return Rect filled in with the clipping rectangle for the surface
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetClipRect
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetClipRect() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the color key (transparent pixel) for a surface
+	///
+	/// \return Transparent pixel value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetColorKey
+	///
+	////////////////////////////////////////////////////////////
+	Uint32 GetColorKey() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional alpha value used in blit operations
+	///
+	/// \return Current alpha value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetSurfaceAlphaMod
+	///
+	////////////////////////////////////////////////////////////
+	Uint8 GetAlphaMod() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get blend mode used for blit operations
+	///
+	/// \return Current SDL_BlendMode
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetSurfaceBlendMode
+	///
+	////////////////////////////////////////////////////////////
+	SDL_BlendMode GetBlendMode() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into blit operations
+	///
+	/// \param r Variable to be filled in with the current red color value
+	/// \param g Variable to be filled in with the current green color value
+	/// \param b Variable to be filled in with the current blue color value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetSurfaceColorMod
+	///
+	////////////////////////////////////////////////////////////
+	void GetColorMod(Uint8& r, Uint8& g, Uint8& b) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the clipping rectangle for a surface
+	///
+	/// \param rect SDL22::Rect representing the clipping rectangle, or NullOpt to disable clipping
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetClipRect
+	///
+	////////////////////////////////////////////////////////////
+	void SetClipRect(const Optional<Rect>& rect = NullOpt);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the color key (transparent pixel) in a surface
+	///
+	/// \param flag True to enabled color key, false to disable
+	/// \param key Transparent pixel value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetColorKey
+	///
+	////////////////////////////////////////////////////////////
+	void SetColorKey(int flag, Uint32 key);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set an additional alpha value used in blit operations
+	///
+	/// \param alpha Alpha value multiplied into blit operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceAlphaMod
+	///
+	////////////////////////////////////////////////////////////
+	void SetAlphaMod(Uint8 alpha = 255);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the blend mode used for blit operations
+	///
+	/// \param blendMode SDL_BlendMode to use for blit blending
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceBlendMode
+	///
+	////////////////////////////////////////////////////////////
+	void SetBlendMode(SDL_BlendMode blendMode);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set an additional color value multiplied into blit operations
+	///
+	/// \param r Red color value multiplied into blit operations
+	/// \param g Green color value multiplied into blit operations
+	/// \param b Blue color value multiplied into blit operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceColorMod
+	///
+	////////////////////////////////////////////////////////////
+	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the RLE acceleration hint for a surface
+	///
+	/// \param flag 0 to disable, non-zero to enable RLE acceleration
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceRLE
+	///
+	////////////////////////////////////////////////////////////
+	void SetRLE(int flag);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Perform a fast fill of a rectangle with a specific color
+	///
+	/// \param rect Rectangle to fill, or NullOpt to fill the entire surface
+	/// \param color Color to fill with
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_FillRect
+	///
+	////////////////////////////////////////////////////////////
+	void FillRect(const Optional<Rect>& rect, Uint32 color);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Perform a fast fill of a set of rectangles with a specific color
+	///
+	/// \param rects Array rectangles to be filled
+	/// \param count Number of rectangles in the array
+	/// \param color Color to fill with
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_FillRects
+	///
+	////////////////////////////////////////////////////////////
+	void FillRects(const Rect* rects, int count, Uint32 color);
 };
 
 }
