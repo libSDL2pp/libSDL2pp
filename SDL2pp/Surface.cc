@@ -21,10 +21,18 @@
 
 #include <vector>
 
+#include <SDL2pp/Config.hh>
+
 #include <SDL2/SDL_surface.h>
+#ifdef SDL2PP_WITH_IMAGE
+#	include <SDL2/SDL_image.h>
+#endif
 
 #include <SDL2pp/Surface.hh>
 #include <SDL2pp/Exception.hh>
+#ifdef SDL2PP_WITH_IMAGE
+#	include <SDL2pp/RWops.hh>
+#endif
 
 namespace SDL2pp {
 
@@ -40,6 +48,18 @@ Surface::Surface(void* pixels, int width, int height, int depth, int pitch, Uint
 	if ((surface_ = SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask)) == nullptr)
 		throw Exception("SDL_CreateRGBSurfaceFrom failed");
 }
+
+#ifdef SDL2PP_WITH_IMAGE
+Surface::Surface(RWops& rwops) {
+	if ((surface_ = IMG_Load_RW(rwops.Get(), 0)) == nullptr)
+		throw Exception("IMG_Load_RW failed");
+}
+
+Surface::Surface(const std::string& path) {
+	if ((surface_ = IMG_Load(path.c_str())) == nullptr)
+		throw Exception("IMG_Load failed");
+}
+#endif
 
 Surface::~Surface() {
 	if (surface_ != nullptr)

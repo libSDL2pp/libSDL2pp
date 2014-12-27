@@ -25,6 +25,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include <SDL2pp/Config.hh>
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Rect.hh>
 
@@ -32,6 +33,8 @@ struct SDL_Surface;
 struct SDL_PixelFormat;
 
 namespace SDL2pp {
+
+class RWops;
 
 ////////////////////////////////////////////////////////////
 /// \brief Image stored in system memory with direct access
@@ -193,6 +196,24 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface(void* pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+
+#ifdef SDL2PP_WITH_IMAGE
+	////////////////////////////////////////////////////////////
+	/// \brief Create surface loading it via RWops
+	///
+	/// \param rwops RWops used to access an image file
+	///
+	////////////////////////////////////////////////////////////
+	Surface(RWops& rwops);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Create surface loading it from file
+	///
+	/// \param filename Path to an image file
+	///
+	////////////////////////////////////////////////////////////
+	Surface(const std::string& filename);
+#endif
 
     ////////////////////////////////////////////////////////////
     /// \brief Destructor
