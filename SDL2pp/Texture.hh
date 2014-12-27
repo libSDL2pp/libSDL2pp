@@ -194,6 +194,8 @@ public:
 	/// \param renderer Rendering context to create texture for
 	/// \param rwops RWops used to access an image file
 	///
+	/// \throws SDL2pp::Exception
+	///
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, RWops& rwops);
 
@@ -202,6 +204,8 @@ public:
 	///
 	/// \param renderer Rendering context to create texture for
 	/// \param filename Path to an image file
+	///
+	/// \throws SDL2pp::Exception
 	///
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, const std::string& filename);

@@ -43,6 +43,13 @@ namespace SDL2pp {
 /// what() usually contains a name of SDL2 function which failed,
 /// e.g. "SDL_Init() failed"
 ///
+/// Note: this Exception object is used to report errors from
+/// SDL2 satellite libraries (SDL_image, SDL_mixer, SDL_ttf)
+/// as well. Though they use their own error handling functions
+/// (IMG_GetError, Mix_GetError, TTF_GetError), those are (currently)
+/// just macros pointing to SDL_GetError. We currently rely on that.
+/// If that changes, we'll need a hierarchy of specific exceptions.
+///
 /// Usage example:
 /// \code
 /// {
