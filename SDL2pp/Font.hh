@@ -48,7 +48,7 @@ class RWops;
 ////////////////////////////////////////////////////////////
 class Font {
 private:
-	TTF_Font* font_; ///< Contained SDL_Font structure
+	TTF_Font* font_; ///< Contained TTF_Font structure
 
 public:
 	////////////////////////////////////////////////////////////
@@ -112,9 +112,9 @@ public:
 	Font& operator=(const Font&) = delete;
 
     ////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_Font structure
+	/// \brief Get pointer to contained TTF_Font structure
 	///
-	/// \returns Pointer to contained SDL_Font structure
+	/// \returns Pointer to contained TTF_Font structure
 	///
 	////////////////////////////////////////////////////////////
 	TTF_Font* Get() const;
