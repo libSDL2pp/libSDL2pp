@@ -25,9 +25,9 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of SDL_image library (de-)initialization
+/// \brief Object taking care of SDL_ttf library (de-)initialization
 ///
-/// \ingroup image
+/// \ingroup ttf
 ///
 /// \headerfile SDL2pp/SDLTTF.hh
 ///
