@@ -26,6 +26,9 @@
 
 namespace SDL2pp {
 
+Window::Window(SDL_Window* window) : window_(window) {
+}
+
 Window::Window(const std::string& title, int x, int y, int w, int h, Uint32 flags) {
 	if ((window_ = SDL_CreateWindow(title.c_str(), x, y, w, h, flags)) == nullptr)
 		throw Exception("SDL_CreateWindow failed");
@@ -50,6 +53,10 @@ Window& Window::operator=(Window&& other) noexcept {
 	return *this;
 }
 
+SDL_Window* Window::Get() const {
+	return window_;
+}
+
 Point Window::GetSize() const {
 	int w, h;
 	SDL_GetWindowSize(window_, &w, &h);
@@ -70,10 +77,6 @@ int Window::GetHeight() const {
 
 void Window::SetTitle(const std::string& title) {
 	SDL_SetWindowTitle(window_, title.c_str());
-}
-
-SDL_Window* Window::Get() const {
-	return window_;
 }
 
 void Window::Maximize() {

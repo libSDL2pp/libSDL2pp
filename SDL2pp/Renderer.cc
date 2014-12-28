@@ -30,6 +30,9 @@
 
 namespace SDL2pp {
 
+Renderer::Renderer(SDL_Renderer* renderer) : renderer_(renderer) {
+}
+
 Renderer::Renderer(Window& window, int index, Uint32 flags) {
 	if ((renderer_ = SDL_CreateRenderer(window.Get(), index, flags)) == nullptr)
 		throw Exception("SDL_CreateRenderer failed");

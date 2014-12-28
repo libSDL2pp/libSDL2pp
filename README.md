@@ -77,6 +77,9 @@ methods. These classes also support:
 
 ## Building ##
 
+To build libSDL2pp, you need a compiler with C++11 support, for
+example clang 3.4+ or gcc 4.8+.
+
 Dependencies:
 * cmake
 * SDL2

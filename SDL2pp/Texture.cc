@@ -40,6 +40,9 @@
 
 namespace SDL2pp {
 
+Texture::Texture(SDL_Texture* texture) : texture_(texture) {
+}
+
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 	if ((texture_ = SDL_CreateTexture(renderer.Get(), format, access, w, h)) == nullptr)
 		throw Exception("SDL_CreateTexture failed");
@@ -47,12 +50,13 @@ Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 
 #ifdef SDL2PP_WITH_IMAGE
 Texture::Texture(Renderer& renderer, RWops& rwops) {
-	texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0);
+	if ((texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0)) == nullptr)
+		throw Exception("IMG_LoadTexture_RW failed");
 }
 
 Texture::Texture(Renderer& renderer, const std::string& path) {
-	RWops rwops = RWops::FromFile(path);
-	texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0);
+	if ((texture_ = IMG_LoadTexture(renderer.Get(), path.c_str())) == nullptr)
+		throw Exception("IMG_LoadTexture failed");
 }
 #endif
 

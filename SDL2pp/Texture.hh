@@ -50,7 +50,7 @@ class Surface;
 ////////////////////////////////////////////////////////////
 class Texture {
 private:
-	SDL_Texture* texture_; ///< SDL2 texture pointer
+	SDL_Texture* texture_; ///< Contained SDL_Texture structure
 
 public:
 	////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ public:
 		///
 		/// \throws STL2pp::Exception
 		///
-		/// \see http://wiki.libsdl.org/SDL_LockAudioDevice
+		/// \see http://wiki.libsdl.org/SDL_LockTexture
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(Texture* texture, const Optional<Rect>& rect);
@@ -126,7 +126,7 @@ public:
 		/// \details
 		/// Releases the lock
 		///
-		/// \see http://wiki.libsdl.org/SDL_UnlockAudioDevice
+		/// \see http://wiki.libsdl.org/SDL_UnlockTexture
 		///
 		////////////////////////////////////////////////////////////
 		~LockHandle();
@@ -134,7 +134,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move constructor
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param other SDL2pp::Texture::LockHandle to move data from
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
@@ -142,7 +142,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move assignment operator
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param other SDL2pp::Texture::LockHandle to move data from
 		///
 		/// \returns Reference to self
 		///
@@ -172,6 +172,14 @@ public:
 	};
 
 public:
+    ////////////////////////////////////////////////////////////
+	/// \brief Construct from existing SDL_Texture structure
+	///
+	/// \param texture Existing SDL_Texture to manage
+	///
+	////////////////////////////////////////////////////////////
+	Texture(SDL_Texture* texture);
+
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty texture
 	///
@@ -195,6 +203,8 @@ public:
 	/// \param renderer Rendering context to create texture for
 	/// \param rwops RWops used to access an image file
 	///
+	/// \throws SDL2pp::Exception
+	///
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, RWops& rwops);
 
@@ -203,6 +213,8 @@ public:
 	///
 	/// \param renderer Rendering context to create texture for
 	/// \param filename Path to an image file
+	///
+	/// \throws SDL2pp::Exception
 	///
 	////////////////////////////////////////////////////////////
 	Texture(Renderer& renderer, const std::string& filename);
@@ -223,6 +235,8 @@ public:
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
+	///
+	/// \see http://wiki.libsdl.org/SDL_DestroyTexture
 	///
 	////////////////////////////////////////////////////////////
 	virtual ~Texture();

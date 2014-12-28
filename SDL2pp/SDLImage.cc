@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,24 +19,31 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
+#include <SDL2pp/SDLImage.hh>
 #include <SDL2pp/Exception.hh>
 
 namespace SDL2pp {
 
-Exception::Exception(const char* what) : what_(what), sdl_error_(SDL_GetError()) {
+SDLImage::SDLImage(int flags) {
+	if ((IMG_Init(flags) & flags) != flags)
+		throw Exception("IMG_Init failed");
 }
 
-Exception::~Exception() noexcept {
+SDLImage::~SDLImage() {
+	IMG_Quit();
 }
 
-const char* Exception::what() const noexcept {
-	return what_;
+int SDLImage::InitMore(int flags) {
+	int ret;
+	if (((ret = IMG_Init(flags)) & flags) != flags)
+		throw Exception("IMG_Init failed");
+	return ret;
 }
 
-const char* Exception::GetSDLError() const noexcept {
-	return sdl_error_.c_str();
+int SDLImage::GetInitFlags() {
+	return IMG_Init(0);
 }
 
-} // namespace SDL2pp
+}
