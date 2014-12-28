@@ -95,4 +95,15 @@
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
 
+#ifdef SDL2PP_WITH_TTF
+	////////////////////////////////////////////////////////////
+	/// \defgroup ttf SDL_ttf
+	///
+	/// \brief Text rendering throught SDL_ttf library
+	///
+	////////////////////////////////////////////////////////////
+#	include <SDL2pp/SDLTTF.hh>
+#	include <SDL2pp/Font.hh>
+#endif
+
 #endif
