@@ -26,11 +26,7 @@
 
 #include <SDL2/SDL_ttf.h>
 
-//#include <SDL2pp/Config.hh>
-//#include <SDL2pp/Optional.hh>
-//#include <SDL2pp/Rect.hh>
-
-//struct SDL_PixelFormat;
+#include <SDL2pp/Surface.hh>
 
 namespace SDL2pp {
 
@@ -118,6 +114,52 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	TTF_Font* Get() const;
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render LATIN1 text using solid mode
+	///
+	/// \param text LATIN1 string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC43
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderText_Solid(const std::string& text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render LATIN1 text using shaded mode
+	///
+	/// \param text LATIN1 string to render
+	/// \param fg Color to render the text in
+	/// \param bg Color to render the background box in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC47
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render LATIN1 text using blended mode
+	///
+	/// \param text LATIN1 string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC51
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderText_Blended(const std::string& text, SDL_Color fg);
 };
 
 }

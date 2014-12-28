@@ -28,6 +28,7 @@
 #include <SDL2pp/Font.hh>
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Renderer.hh>
+#include <SDL2pp/Texture.hh>
 #include <SDL2pp/Exception.hh>
 
 using namespace SDL2pp;
@@ -38,7 +39,15 @@ int Run() {
 	Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	Font font(TESTDATA_DIR "/Vera.ttf", 10);
+	Font font(TESTDATA_DIR "/Vera.ttf", 20);
+
+	Surface solid = font.RenderText_Solid("Hello, world!", SDL_Color({255, 255, 255, 255}));
+	Surface shaded = font.RenderText_Shaded("Hello, world!", SDL_Color({255, 255, 255, 255}), SDL_Color({127, 127, 127, 255}));
+	Surface blended = font.RenderText_Blended("Hello, world!", SDL_Color({255, 255, 255, 255}));
+
+	Texture solid_tex(render, solid);
+	Texture shaded_tex(render, shaded);
+	Texture blended_tex(render, blended);
 
 	while (1) {
 		// Process input
@@ -48,10 +57,18 @@ int Run() {
 				return 0;
 
 		// Clear screen
-		render.SetDrawColor(255, 255, 255);
+		render.SetDrawColor(0, 0, 0);
 		render.Clear();
 
-		// Simple copy
+		// Render 3 strings
+		int h = 0;
+		render.Copy(solid_tex, NullOpt, Rect(0, 0, solid.Get()->w, solid.Get()->h));
+		h += solid.Get()->h;
+
+		render.Copy(shaded_tex, NullOpt, Rect(0, 20, shaded.Get()->w, shaded.Get()->h));
+		h += shaded.Get()->h;
+
+		render.Copy(blended_tex, NullOpt, Rect(0, 40, blended.Get()->w, blended.Get()->h));
 
 		render.Present();
 

@@ -60,4 +60,25 @@ TTF_Font* Font::Get() const {
 	return font_;
 }
 
+Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderText_Shaded(font_, text.c_str(), fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderText_Blended(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderText_Blended(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Blended failed");
+	return Surface(surface);
+}
+
 }
