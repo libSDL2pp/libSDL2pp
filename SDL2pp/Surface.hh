@@ -148,16 +148,15 @@ public:
 		const SDL_PixelFormat& GetFormat() const;
 	};
 
-private:
+public:
 	////////////////////////////////////////////////////////////
-	/// \brief Create surface taking existing SDL_surface structure
+	/// \brief Construct from existing SDL_Surface structure
 	///
-	/// \param surface Existing SDL_surface to manage
+	/// \param surface Existing SDL_Surface to manage
 	///
 	////////////////////////////////////////////////////////////
 	Surface(SDL_Surface* surface);
 
-public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface
 	///

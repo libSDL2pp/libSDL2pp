@@ -65,6 +65,14 @@ private:
 
 public:
 	////////////////////////////////////////////////////////////
+	/// \brief Construct from existing SDL_Window structure
+	///
+	/// \param window Existing SDL_Window to manage
+	///
+	////////////////////////////////////////////////////////////
+	Window(SDL_Window* window);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Create window with specified title and fimensions
 	///
 	/// \param title Title of the windows, in UTF-8 encoding

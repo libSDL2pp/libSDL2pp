@@ -40,6 +40,9 @@
 
 namespace SDL2pp {
 
+Texture::Texture(SDL_Texture* texture) : texture_(texture) {
+}
+
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 	if ((texture_ = SDL_CreateTexture(renderer.Get(), format, access, w, h)) == nullptr)
 		throw Exception("SDL_CreateTexture failed");
