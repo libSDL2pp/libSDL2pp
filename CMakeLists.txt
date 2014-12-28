@@ -98,7 +98,6 @@ SET(LIBRARY_SOURCES
 	SDL2pp/Rect.cc
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
-	SDL2pp/SDLImage.cc
 	SDL2pp/Surface.cc
 	SDL2pp/SurfaceLock.cc
 	SDL2pp/Texture.cc
@@ -106,6 +105,13 @@ SET(LIBRARY_SOURCES
 	SDL2pp/Wav.cc
 	SDL2pp/Window.cc
 )
+
+IF(SDL2PP_WITH_IMAGE)
+	SET(LIBRARY_SOURCES
+		${LIBRARY_SOURCES}
+		SDL2pp/SDLImage.cc
+	)
+ENDIF(SDL2PP_WITH_IMAGE)
 
 SET(LIBRARY_HEADERS
 	SDL2pp/AudioDevice.hh
@@ -119,13 +125,19 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
-	SDL2pp/SDLImage.hh
 	SDL2pp/StreamRWops.hh
 	SDL2pp/Surface.hh
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
 )
+
+IF(SDL2PP_WITH_IMAGE)
+	SET(LIBRARY_HEADERS
+		${LIBRARY_HEADERS}
+		SDL2pp/SDLImage.hh
+	)
+ENDIF(SDL2PP_WITH_IMAGE)
 
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	MESSAGE(STATUS "libSDL2pp ${SDL2PP_VERSION} standalone build")
