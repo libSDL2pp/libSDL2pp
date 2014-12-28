@@ -26,8 +26,13 @@ IF(SDL2PP_WITH_TTF)
 			PATHS
 			/usr/local/lib/X11/fonts
 			/usr/lib/X11/fonts
+			/usr/share/fonts/truetype
+			/usr/share/fonts/TTF
+			/usr/local/share/fonts/X11/TTF
+			/usr/share/fonts/X11/TTF
 			PATH_SUFFIXES
 			bitstream-vera
+			ttf-bitstream-vera
 		)
 	ENDIF(NOT SDL2PP_EXAMPLE_FONT)
 	IF(SDL2PP_EXAMPLE_FONT)
