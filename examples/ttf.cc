@@ -41,9 +41,9 @@ int Run() {
 
 	Font font(TESTDATA_DIR "/Vera.ttf", 20);
 
-	Surface solid = font.RenderText_Solid("Hello, world!", SDL_Color({255, 255, 255, 255}));
-	Surface shaded = font.RenderText_Shaded("Hello, world!", SDL_Color({255, 255, 255, 255}), SDL_Color({127, 127, 127, 255}));
-	Surface blended = font.RenderText_Blended("Hello, world!", SDL_Color({255, 255, 255, 255}));
+	Surface solid = font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color({255, 255, 255, 255}));
+	Surface shaded = font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color({255, 255, 255, 255}), SDL_Color({127, 127, 127, 255}));
+	Surface blended = font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color({255, 255, 255, 255}));
 
 	Texture solid_tex(render, solid);
 	Texture shaded_tex(render, shaded);
@@ -57,7 +57,7 @@ int Run() {
 				return 0;
 
 		// Clear screen
-		render.SetDrawColor(0, 0, 0);
+		render.SetDrawColor(0, 63, 63);
 		render.Clear();
 
 		// Render 3 strings
