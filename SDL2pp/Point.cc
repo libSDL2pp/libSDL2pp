@@ -30,6 +30,11 @@ Point::Point() {
 	y = 0;
 }
 
+Point::Point(const SDL_Point& point) {
+	x = point.x;
+	y = point.y;
+}
+
 Point::Point(int nx, int ny) {
 	x = nx;
 	y = ny;

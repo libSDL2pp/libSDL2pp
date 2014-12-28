@@ -29,6 +29,7 @@
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Texture.hh>
+#include <SDL2pp/Surface.hh>
 #include <SDL2pp/Exception.hh>
 
 using namespace SDL2pp;
@@ -39,9 +40,16 @@ int Run() {
 	Window window("libSDL2pp demo: loading", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	// Load sprite texture
-	Texture sprite(render, TESTDATA_DIR "/test.png");
-	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
+	// Load sprite texture; sprite1 and sprite2 are actually the same
+	// however first one is loaded directly into texture, and second
+	// one is loaded through an intermediary surface
+	Surface surf(TESTDATA_DIR "/test.png");
+
+	Texture sprite1(render, TESTDATA_DIR "/test.png");
+	Texture sprite2(render, surf);
+
+	sprite1.SetBlendMode(SDL_BLENDMODE_BLEND);
+	sprite2.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
@@ -58,9 +66,9 @@ int Run() {
 
 		// Simple copy
 		float angle = SDL_GetTicks() / 5000.0 * 2.0 * M_PI;
-		render.Copy(sprite, NullOpt, Rect(320 - 64, 240 - 64, 128, 128), angle / M_PI * 180.0);
-		render.Copy(sprite, NullOpt, Rect(320 - 32 + sin(angle) * 40, 240 - 32 + cos(angle) * 40, 64, 64));
-		render.Copy(sprite, NullOpt, Rect(320 - 32 - sin(angle) * 40, 240 - 32 - cos(angle) * 40, 64, 64));
+		render.Copy(sprite1, NullOpt, Rect(320 - 64, 240 - 64, 128, 128), angle / M_PI * 180.0);
+		render.Copy(sprite1, NullOpt, Rect(320 - 32 + sin(angle) * 40, 240 - 32 + cos(angle) * 40, 64, 64));
+		render.Copy(sprite2, NullOpt, Rect(320 - 32 - sin(angle) * 40, 240 - 32 - cos(angle) * 40, 64, 64));
 
 		render.Present();
 

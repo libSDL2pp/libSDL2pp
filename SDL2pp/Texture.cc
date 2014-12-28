@@ -33,6 +33,7 @@
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/Rect.hh>
+#include <SDL2pp/Surface.hh>
 #ifdef SDL2PP_WITH_IMAGE
 #	include <SDL2pp/RWops.hh>
 #endif
@@ -55,6 +56,11 @@ Texture::Texture(Renderer& renderer, const std::string& path) {
 		throw Exception("IMG_LoadTexture failed");
 }
 #endif
+
+Texture::Texture(Renderer& renderer, const Surface& surface) {
+	if ((texture_ = SDL_CreateTextureFromSurface(renderer.Get(), surface.Get())) == nullptr)
+		throw Exception("SDL_CreateTextureFromSurface failed");
+}
 
 Texture::~Texture() {
 	if (texture_ != nullptr)
