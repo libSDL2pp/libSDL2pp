@@ -38,7 +38,7 @@ int Run() {
 	Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	Font font(EXAMPLE_FONT, 10);
+	Font font(TESTDATA_DIR "/Vera.ttf", 10);
 
 	while (1) {
 		// Process input
