@@ -67,6 +67,27 @@ Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
 	return Surface(surface);
 }
 
+Surface Font::RenderUTF8_Solid(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Solid(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Solid(const Uint16* text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Solid(font_, text, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Solid(Uint16 ch, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Solid(font_, ch, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Solid failed");
+	return Surface(surface);
+}
+
 Surface Font::RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderText_Shaded(font_, text.c_str(), fg, bg);
 	if (surface == nullptr)
@@ -74,10 +95,52 @@ Surface Font::RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color
 	return Surface(surface);
 }
 
+Surface Font::RenderUTF8_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Shaded(font_, text.c_str(), fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Shaded(const Uint16* text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Shaded(font_, text, fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Shaded(font_, ch, fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Shaded failed");
+	return Surface(surface);
+}
+
 Surface Font::RenderText_Blended(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderText_Blended(font_, text.c_str(), fg);
 	if (surface == nullptr)
 		throw Exception("TTF_RenderText_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUTF8_Blended(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Blended(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Blended(const Uint16* text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Blended(font_, text, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Blended(Uint16 ch, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Blended(font_, ch, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Blended failed");
 	return Surface(surface);
 }
 

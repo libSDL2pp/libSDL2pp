@@ -33,7 +33,7 @@ namespace SDL2pp {
 class RWops;
 
 ////////////////////////////////////////////////////////////
-/// \brief Loaded font
+/// \brief Holder of a loaded font
 ///
 /// \ingroup ttf
 ///
@@ -131,6 +131,51 @@ public:
 	Surface RenderText_Solid(const std::string& text, SDL_Color fg);
 
     ////////////////////////////////////////////////////////////
+	/// \brief Render UTF8 text using solid mode
+	///
+	/// \param text UTF8 string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC44
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUTF8_Solid(const std::string& text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render UNICODE encoded text using solid mode
+	///
+	/// \param text UNICODE encoded string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC45
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUNICODE_Solid(const Uint16* text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render the glyph for UNICODE character using solid mode
+	///
+	/// \param ch UNICODE character to render
+	/// \param fg Color to render the glyph in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC46
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderGlyph_Solid(Uint16 ch, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using shaded mode
 	///
 	/// \param text LATIN1 string to render
@@ -147,6 +192,54 @@ public:
 	Surface RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg);
 
     ////////////////////////////////////////////////////////////
+	/// \brief Render UTF8 text using shaded mode
+	///
+	/// \param text UTF8 string to render
+	/// \param fg Color to render the text in
+	/// \param bg Color to render the background box in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC48
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUTF8_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render UNICODE encoded text using shaded mode
+	///
+	/// \param text UNICODE encoded string to render
+	/// \param fg Color to render the text in
+	/// \param bg Color to render the background box in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC49
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUNICODE_Shaded(const Uint16* text, SDL_Color fg, SDL_Color bg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render the glyph for UNICODE character using shaded mode
+	///
+	/// \param ch UNICODE character to render
+	/// \param fg Color to render the glyph in
+	/// \param bg Color to render the background box in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC50
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg);
+
+    ////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using blended mode
 	///
 	/// \param text LATIN1 string to render
@@ -160,6 +253,51 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderText_Blended(const std::string& text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render UTF8 text using blended mode
+	///
+	/// \param text UTF8 string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC48
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUTF8_Blended(const std::string& text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render UNICODE encoded text using blended mode
+	///
+	/// \param text UNICODE encoded string to render
+	/// \param fg Color to render the text in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC49
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderUNICODE_Blended(const Uint16* text, SDL_Color fg);
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Render the glyph for UNICODE character using blended mode
+	///
+	/// \param ch UNICODE character to render
+	/// \param fg Color to render the glyph in
+	///
+	/// \returns Surface containing rendered text
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC50
+	///
+	////////////////////////////////////////////////////////////
+	Surface RenderGlyph_Blended(Uint16 ch, SDL_Color fg);
 };
 
 }
