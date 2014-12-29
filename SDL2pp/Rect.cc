@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <algorithm>
+
 #include <SDL2pp/Point.hh>
 
 #include <SDL2pp/Rect.hh>
@@ -148,6 +150,31 @@ bool Rect::Contains(const Point& point) const {
 
 bool Rect::Contains(const Rect& rect) const {
 	return rect.x >= x && rect.y >= y && rect.GetX2() <= GetX2() && rect.GetY2() <= GetY2();
+}
+
+bool Rect::Intersects(const Rect& rect) const {
+	return !(rect.GetX2() < x || rect.GetY2() < y || rect.x > GetX2() || rect.y > GetY2());
+}
+
+Rect Rect::GetUnion(const Rect& rect) const {
+	return Rect::FromCorners(
+			std::min(x, rect.x),
+			std::min(y, rect.y),
+			std::max(GetX2(), rect.GetX2()),
+			std::max(GetY2(), rect.GetY2())
+		);
+}
+
+Optional<Rect> Rect::GetIntersection(const Rect& rect) const {
+	if (!Intersects(rect))
+		return NullOpt;
+
+	return Rect::FromCorners(
+			std::max(x, rect.x),
+			std::max(y, rect.y),
+			std::min(GetX2(), rect.GetX2()),
+			std::min(GetY2(), rect.GetY2())
+		);
 }
 
 Rect Rect::operator+(const Point& offset) const {

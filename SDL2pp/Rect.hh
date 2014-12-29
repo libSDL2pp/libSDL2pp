@@ -302,6 +302,36 @@ public:
 	bool Contains(const Rect& rect) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Check whether the rect intersects another rect
+	///
+	/// \param rect Rect to check
+	///
+	/// \returns True if the rects intersect
+	///
+	////////////////////////////////////////////////////////////
+	bool Intersects(const Rect& rect) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Calculate union with another rect
+	///
+	/// \param rect Rect to union with
+	///
+	/// \returns Rect representing intersection area or NullOpt if there was no intersection
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetUnion(const Rect& rect) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Calculate intersection with another rect
+	///
+	/// \param rect Rect to intersect with
+	///
+	/// \returns Rect representing intersection area or NullOpt if there was no intersection
+	///
+	////////////////////////////////////////////////////////////
+	Optional<Rect> GetIntersection(const Rect& rect) const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by a given offset
 	///
 	/// \param offset Point specifying an offset
