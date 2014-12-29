@@ -129,6 +129,10 @@ bool Rect::Contains(const Point& point) const {
 	return !(point.x < x || point.y < y || point.x > GetX2() || point.y > GetY2());
 }
 
+bool Rect::Contains(const Rect& rect) const {
+	return rect.x >= x && rect.y >= y && rect.GetX2() <= GetX2() && rect.GetY2() <= GetY2();
+}
+
 Rect Rect::operator+(const Point& offset) const {
 	return Rect(x + offset.x, y + offset.y, w, h);
 }

@@ -254,6 +254,16 @@ public:
 	bool Contains(const Point& point) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Check whether the rect contains another rect
+	///
+	/// \param rect Rect to check
+	///
+	/// \returns True if the checked rect is contained in this rect
+	///
+	////////////////////////////////////////////////////////////
+	bool Contains(const Rect& rect) const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by a given offset
 	///
 	/// \param offset Point specifying an offset
