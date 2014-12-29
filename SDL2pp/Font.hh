@@ -160,7 +160,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC22
 	///
 	////////////////////////////////////////////////////////////
-	void SetStyle(int style);
+	void SetStyle(int style = TTF_STYLE_NORMAL);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current outline size of the loaded font
@@ -185,7 +185,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC24
 	///
 	////////////////////////////////////////////////////////////
-	void SetOutline(int outline);
+	void SetOutline(int outline = 0);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current hinting setting of the loaded font
@@ -218,7 +218,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC26
 	///
 	////////////////////////////////////////////////////////////
-	void SetHinting(int hinting);
+	void SetHinting(int hinting = TTF_HINTING_NORMAL);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current kerning setting of the loaded font
@@ -247,7 +247,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC28
 	///
 	////////////////////////////////////////////////////////////
-	void SetKerning(bool allowed);
+	void SetKerning(bool allowed = true);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the maximum pixel height of all glyphs of the loaded font
