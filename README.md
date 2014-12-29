@@ -64,6 +64,7 @@ Currently, the library provides wrapper classes for
 * SDL_Renderer
 * SDL_Texture
 * SDL_Window
+* SDL_ttf (full support)
 
 each with subset of methods corresponding to SDL functions working
 with sepcific type of object and in some cases additional convenience
@@ -84,6 +85,7 @@ Dependencies:
 * cmake
 * SDL2
 * SDL_image2 (optional)
+* SDL_ttf2 (optional)
 
 To build standalone version:
 

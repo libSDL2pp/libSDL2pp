@@ -19,25 +19,20 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <SDL2/SDL_ttf.h>
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+#include <SDL2pp/SDLTTF.hh>
+#include <SDL2pp/Exception.hh>
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+namespace SDL2pp {
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_TTF
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+SDLTTF::SDLTTF() {
+	if (TTF_Init() != 0)
+		throw Exception("TTF_Init failed");
+}
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
-#else
-#	define SDL2PP_DEPRECATED
-#endif
+SDLTTF::~SDLTTF() {
+	TTF_Quit();
+}
 
-#endif
+}

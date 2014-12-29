@@ -1,0 +1,257 @@
+/*
+  libSDL2pp - C++11 bindings/wrapper for SDL2
+  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+*/
+
+#include <SDL2/SDL_ttf.h>
+
+#include <SDL2pp/Font.hh>
+#include <SDL2pp/RWops.hh>
+#include <SDL2pp/Exception.hh>
+
+namespace SDL2pp {
+
+Font::Font(const std::string& file, int ptsize, long index) {
+	if ((font_ = TTF_OpenFontIndex(file.c_str(), ptsize, index)) == nullptr)
+		throw Exception("TTF_OpenFontIndex failed");
+}
+
+Font::Font(RWops& rwops, int ptsize, long index) {
+	if ((font_ = TTF_OpenFontIndexRW(rwops.Get(), 0, ptsize, index)) == nullptr)
+		throw Exception("TTF_OpenFontIndexRW failed");
+}
+
+Font::~Font() {
+	if (font_ != nullptr)
+		TTF_CloseFont(font_);
+}
+
+Font::Font(Font&& other) noexcept : font_(other.font_) {
+	other.font_ = nullptr;
+}
+
+Font& Font::operator=(Font&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (font_ != nullptr)
+		TTF_CloseFont(font_);
+	font_ = other.font_;
+	other.font_ = nullptr;
+	return *this;
+}
+
+TTF_Font* Font::Get() const {
+	return font_;
+}
+
+int Font::GetStyle() const {
+	return TTF_GetFontStyle(font_);
+}
+
+void Font::SetStyle(int style) {
+	TTF_SetFontStyle(font_, style);
+}
+
+int Font::GetOutline() const {
+	return TTF_GetFontOutline(font_);
+}
+
+void Font::SetOutline(int outline) {
+	TTF_SetFontOutline(font_, outline);
+}
+
+int Font::GetHinting() const {
+	return TTF_GetFontHinting(font_);
+}
+
+void Font::SetHinting(int hinting) {
+	TTF_SetFontHinting(font_, hinting);
+}
+
+bool Font::GetKerning() const {
+	return TTF_GetFontKerning(font_);
+}
+
+void Font::SetKerning(bool allowed) {
+	TTF_SetFontKerning(font_, allowed);
+}
+
+int Font::GetHeight() const {
+	return TTF_FontHeight(font_);
+}
+
+int Font::GetAscent() const {
+	return TTF_FontAscent(font_);
+}
+
+int Font::GetDescent() const {
+	return TTF_FontDescent(font_);
+}
+
+int Font::GetLineSkip() const {
+	return TTF_FontLineSkip(font_);
+}
+
+int Font::GetNumFaces() const {
+	return TTF_FontFaces(font_);
+}
+
+bool Font::IsFixedWidth() const {
+	return TTF_FontFaceIsFixedWidth(font_);
+}
+
+Optional<std::string> Font::GetFamilyName() const {
+	const char* str = TTF_FontFaceFamilyName(font_);
+	if (str == nullptr)
+		return NullOpt;
+	return std::string(str);
+}
+
+Optional<std::string> Font::GetStyleName() const {
+	const char* str = TTF_FontFaceStyleName(font_);
+	if (str == nullptr)
+		return NullOpt;
+	return std::string(str);
+}
+
+void Font::GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy, int& advance) const {
+	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, &advance) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+}
+
+Rect Font::GetGlyphRect(Uint16 ch) const {
+	int minx, maxx, miny, maxy;
+	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, nullptr) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+	return Rect(minx, miny, maxx - minx + 1, maxy - miny + 1);
+}
+
+int Font::GetGlyphAdvance(Uint16 ch) const {
+	int advance;
+	if (TTF_GlyphMetrics(font_, ch, nullptr, nullptr, nullptr, nullptr, &advance) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+	return advance;
+}
+
+Point Font::GetSizeText(const std::string& text) const {
+	int w, h;
+	if (TTF_SizeText(font_, text.c_str(), &w, &h) != 0)
+		throw Exception("TTF_SizeText failed");
+	return Point(w, h);
+}
+
+Point Font::GetSizeUTF8(const std::string& text) const {
+	int w, h;
+	if (TTF_SizeUTF8(font_, text.c_str(), &w, &h) != 0)
+		throw Exception("TTF_SizeUTF8 failed");
+	return Point(w, h);
+}
+
+Point Font::GetSizeUNICODE(const Uint16* text) const {
+	int w, h;
+	if (TTF_SizeUNICODE(font_, text, &w, &h) != 0)
+		throw Exception("TTF_SizeUNICODE failed");
+	return Point(w, h);
+}
+
+Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUTF8_Solid(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Solid(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Solid(const Uint16* text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Solid(font_, text, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Solid(Uint16 ch, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Solid(font_, ch, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Solid failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderText_Shaded(font_, text.c_str(), fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUTF8_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Shaded(font_, text.c_str(), fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Shaded(const Uint16* text, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Shaded(font_, text, fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Shaded(font_, ch, fg, bg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Shaded failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderText_Blended(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderText_Blended(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderText_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUTF8_Blended(const std::string& text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUTF8_Blended(font_, text.c_str(), fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUTF8_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Blended(const Uint16* text, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderUNICODE_Blended(font_, text, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderUNICODE_Blended failed");
+	return Surface(surface);
+}
+
+Surface Font::RenderGlyph_Blended(Uint16 ch, SDL_Color fg) {
+	SDL_Surface* surface = TTF_RenderGlyph_Blended(font_, ch, fg);
+	if (surface == nullptr)
+		throw Exception("TTF_RenderGlyph_Blended failed");
+	return Surface(surface);
+}
+
+}
