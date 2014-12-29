@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AMDmi3/libSDL2pp.svg?branch=master)](https://travis-ci.org/AMDmi3/libSDL2pp)
 
-This library provides C++11 bindings/wrapper for SDL2.
+This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
 ## Synopsis ##
 
@@ -54,27 +54,43 @@ try {
 
 Currently, the library provides wrapper classes for
 
-* SDL iteslf
-* SDL_AudioDevice* functions
-* SDL_*WAV functions
-* SDL_AudioSpec
-* SDL_Point
-* SDL_RWops
-* SDL_Rect
-* SDL_Renderer
-* SDL_Texture
-* SDL_Window
-* SDL_ttf (full support)
+* SDL
+  * Library initialization/deinitialization
+  * Audio
+    * Audio device
+    * WAV-related functions
+    * SDL_AudioSpec
+  * Graphics
+    * SDL_Point
+    * SDL_Rect
+    * SDL_Renderer
+    * SDL_Surface
+    * SDL_Texture
+    * SDL_Window
+  * I/O
+    * SDL_RWops
+* SDL_image
+  * Library initialization/deinitialization
+  * Loading functions integrated into Texture and Surface
+* SDL_ttf
+  * Library initialization/deinitialization
+  * TTF_Font (all functions covered)
 
 each with subset of methods corresponding to SDL functions working
 with sepcific type of object and in some cases additional convenience
-methods. These classes also support:
+methods. These classes support:
 
 - RAII-style initialization and destruction
-- Full error checking: exception is thrown if any SDL function fails.
+- Total error checking: exception is thrown if any SDL function fails.
   Exception itself allows to retrieve SDL error string
 - C++11 move semantics support, which allow you to store SDL objects
   in containers and pass/return them by value with no overhead
+
+Set of functional exensions above SDL2 is also available:
+
+* RWops adapters for C++ containers and streams
+* Optional object to safely handle values which may not be present,
+  (for which SDL2 usually uses NULL pointers)
 
 ## Building ##
 
@@ -91,6 +107,17 @@ To build standalone version:
 
 ```cmake . && make```
 
+Following variabled may be supplied to CMake to affect build:
+
+* ```SDL2PP_WITH_IMAGE``` - enable SDL_image support (default ON)
+* ```SDL2PP_WITH_TTF``` - enable SDL_ttf support (default ON)
+* ```SDL2PP_WITH_WERROR``` - treat warnings as errors, useful for CI (default OFF)
+* ```SDL2PP_CXXSTD``` - override C++ standard (default C++11). With C++1y some additional features are enabled such as usage of [[deprecated]] attribute and using stock experimental/optional from C++ standard library
+* ```SDL2PP_WITH_EXAMPLES``` - enable building example programs (only for standalone build, default ON)
+* ```SDL2PP_WITH_TESTS``` - enable building tests (only for standalone build, default ON)
+* ```SDL2PP_ENABLE_GUI_TEST``` - enable tests which require X11 to run (only for standalone build, default ON)
+* ```SDL2PP_WITH_2_0_4``` - enable experimental features available since SDL 2.0.4 (default OFF). These were not tested and may not even compile.
+
 ## Installation ##
 
 To install the library systemwide, run:
@@ -102,7 +129,7 @@ variable:
 
 ```cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install```
 
-SDL2pp install pkg-config file, so it can be used with any build
+SDL2pp installs pkg-config file, so it can be used with any build
 system which interacts with pkg-config, including CMake and GNU
 Autotools.
 
@@ -122,6 +149,7 @@ Just place the library into dedicated directory in your project
 
 ```cmake
 SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
 ADD_SUBDIRECTORY(lib/SDL2pp)
 ```
 
@@ -143,9 +171,16 @@ variables.
 
 ## Completeness ##
 
-For now I only implement functionality I need myself, so the library
-is not nearly complete. However, patches (as well as requests for
-adding new functionality) are welcome.
+Library still doesn't cover all aspects of SDL2, and the development
+is generally guided by the author's needs and interest without a goal
+for covering all SDL2 functions as soon as possible. However, if
+you need specific bits which are not yet implemented in the library,
+feel free to drop an issue. Patches are of course more than welcome.
+
+It should be noted, however, that I currently do not plan to implement
+any wrappers over non object-oriented SDL2 code, as these do not bring
+any benefits over using plain C API. E.g. I see no point in implementing
+SDL2pp::Delay() as it won't bring any convenience over SDL_Delay().
 
 ## Users ##
 
