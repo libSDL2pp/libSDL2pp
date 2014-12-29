@@ -67,6 +67,15 @@ public:
 	Rect(const SDL_Rect& rect);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given corner coordinates, and size
+	///
+	/// \param corner Coordinates of the top left rectangle corner
+	/// \param size Dimensions of the rectangle
+	///
+	////////////////////////////////////////////////////////////
+	Rect(const Point& corner, const Point& size);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, width and height
 	///
 	/// \param x X coordinate of the top left rectangle corner
@@ -89,6 +98,35 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCenter(int cx, int cy, int w, int h);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given center coordinates and size
+	///
+	/// \param center Coordinates of the rectangle center
+	/// \param size Dimensions of the rectangle
+	///
+	////////////////////////////////////////////////////////////
+	static Rect FromCenter(const Point& center, const Point& size);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given center coordinates, width and height
+	///
+	/// \param x1 X coordinate of the top left rectangle corner
+	/// \param y1 Y coordinate of the top left rectangle corner
+	/// \param x2 X coordinate of the bottom right rectangle corner
+	/// \param y2 Y coordinate of the bottom right rectangle corner
+	///
+	////////////////////////////////////////////////////////////
+	static Rect FromCorners(int x1, int y1, int x2, int y2);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given center coordinates and size
+	///
+	/// \param p1 Coordinates of the top left rectangle corner
+	/// \param p2 Coordinates of the bottom right rectangle corner
+	///
+	////////////////////////////////////////////////////////////
+	static Rect FromCorners(const Point& p1, const Point& p2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy constructor

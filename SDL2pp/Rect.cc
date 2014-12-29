@@ -39,6 +39,13 @@ Rect::Rect(const SDL_Rect& rect) {
 	h = rect.h;
 }
 
+Rect::Rect(const Point& corner, const Point& size) {
+	x = corner.x;
+	y = corner.y;
+	w = size.x;
+	h = size.y;
+}
+
 Rect::Rect(int nx, int ny, int nw, int nh) {
 	x = nx;
 	y = ny;
@@ -69,6 +76,18 @@ const SDL_Rect* Rect::Get() const {
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
 	return Rect(cx - w/2, cy - h/2, w, h);
+}
+
+Rect Rect::FromCenter(const Point& center, const Point& size) {
+	return Rect(center - size / 2, size);
+}
+
+Rect Rect::FromCorners(int x1, int y1, int x2, int y2) {
+	return Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+}
+
+Rect Rect::FromCorners(const Point& p1, const Point& p2) {
+	return Rect(p1, p2 - p1 + Point(1, 1));
 }
 
 bool Rect::IsNull() const {
