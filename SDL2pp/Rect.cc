@@ -145,7 +145,7 @@ void Rect::SetY2(int y2) {
 }
 
 bool Rect::Contains(const Point& point) const {
-	return !(point.x < x || point.y < y || point.x > GetX2() || point.y > GetY2());
+	return point.x >= x && point.y >= y && point.x <= GetX2() && point.y <= GetY2();
 }
 
 bool Rect::Contains(const Rect& rect) const {
