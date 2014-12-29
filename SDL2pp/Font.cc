@@ -84,11 +84,11 @@ void Font::SetHinting(int hinting) {
 	TTF_SetFontHinting(font_, hinting);
 }
 
-int Font::GetKerning() const {
+bool Font::GetKerning() const {
 	return TTF_GetFontKerning(font_);
 }
 
-void Font::SetKerning(int allowed) {
+void Font::SetKerning(bool allowed) {
 	TTF_SetFontKerning(font_, allowed);
 }
 

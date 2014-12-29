@@ -223,20 +223,19 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current kerning setting of the loaded font
 	///
-	/// \returns 0 (zero) if kerning is disabled. A non-zero value
-	///          is returned when enabled. The default for a newly
-	///          loaded font is enabled (1)
+	/// \returns False if kerning is disabled. True when disabled.
+	///          The default for a newly loaded font is true, enabled
 	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC27
 	///
 	////////////////////////////////////////////////////////////
-	int GetKerning() const;
+	bool GetKerning() const;
 
     ////////////////////////////////////////////////////////////
 	/// \brief Set whther to use kerning when rendering the loaded font
 	///
-	/// \param allowed 0 to diable kerning, non-zero to enable kerning.
-	///                The default is 1, enabled
+	/// \param allowed False to diable kerning, true to enable kerning.
+	///                The default is true, enabled
 	///
 	/// Set whether to use kerning when rendering the loaded font.
 	/// This has no effect on individual glyphs, but rather when
@@ -248,7 +247,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC28
 	///
 	////////////////////////////////////////////////////////////
-	void SetKerning(int allowed);
+	void SetKerning(bool allowed);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the maximum pixel height of all glyphs of the loaded font
