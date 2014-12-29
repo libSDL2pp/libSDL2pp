@@ -60,6 +60,102 @@ TTF_Font* Font::Get() const {
 	return font_;
 }
 
+int Font::GetStyle() const {
+	return TTF_GetFontStyle(font_);
+}
+
+void Font::SetStyle(int style) {
+	TTF_SetFontStyle(font_, style);
+}
+
+int Font::GetOutline() const {
+	return TTF_GetFontOutline(font_);
+}
+
+void Font::SetOutline(int outline) {
+	TTF_SetFontOutline(font_, outline);
+}
+
+int Font::GetHinting() const {
+	return TTF_GetFontHinting(font_);
+}
+
+void Font::SetHinting(int hinting) {
+	TTF_SetFontHinting(font_, hinting);
+}
+
+int Font::GetKerning() const {
+	return TTF_GetFontKerning(font_);
+}
+
+void Font::SetKerning(int allowed) {
+	TTF_SetFontKerning(font_, allowed);
+}
+
+int Font::GetHeight() const {
+	return TTF_FontHeight(font_);
+}
+
+int Font::GetAscent() const {
+	return TTF_FontAscent(font_);
+}
+
+int Font::GetDescent() const {
+	return TTF_FontDescent(font_);
+}
+
+int Font::GetLineSkip() const {
+	return TTF_FontLineSkip(font_);
+}
+
+int Font::GetNumFaces() const {
+	return TTF_FontFaces(font_);
+}
+
+bool Font::IsFixedWidth() const {
+	return TTF_FontFaceIsFixedWidth(font_);
+}
+
+Optional<std::string> Font::GetFamilyName() const {
+	const char* str = TTF_FontFaceFamilyName(font_);
+	if (str == nullptr)
+		return NullOpt;
+	return std::string(str);
+}
+
+Optional<std::string> Font::GetStyleName() const {
+	const char* str = TTF_FontFaceStyleName(font_);
+	if (str == nullptr)
+		return NullOpt;
+	return std::string(str);
+}
+
+void Font::GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy, int& advance) const {
+	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, &advance) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+}
+
+Point Font::GetSizeText(const std::string& text) const {
+	int w, h;
+	if (TTF_SizeText(font_, text.c_str(), &w, &h) != 0)
+		throw Exception("TTF_SizeText failed");
+	return Point(w, h);
+}
+
+Point Font::GetSizeUTF8(const std::string& text) const {
+	int w, h;
+	if (TTF_SizeUTF8(font_, text.c_str(), &w, &h) != 0)
+		throw Exception("TTF_SizeUTF8 failed");
+	return Point(w, h);
+}
+
+Point Font::GetSizeUNICODE(const Uint16* text) const {
+	int w, h;
+	if (TTF_SizeUNICODE(font_, text, &w, &h) != 0)
+		throw Exception("TTF_SizeUNICODE failed");
+	return Point(w, h);
+}
+
 Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), fg);
 	if (surface == nullptr)
