@@ -163,4 +163,23 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(r == Rect(-9, -18, 3, 4));
 	}
+
+	{
+		// Construction from and comparison with SDL objects
+		SDL_Rect sdlrect = { 1, 2, 3, 4 };
+
+		SDL_Point sdlpoint = { 6, 7 };
+
+		EXPECT_TRUE(Rect(sdlrect) == Rect(1, 2, 3, 4));
+		EXPECT_TRUE(Point(sdlpoint) == Point(6, 7));
+
+		EXPECT_TRUE(Rect(sdlrect) != Rect(0, 2, 3, 4));
+		EXPECT_TRUE(Point(sdlpoint) != Point(0, 7));
+
+		EXPECT_TRUE(Rect(1, 2, 3, 4) == sdlrect);
+		EXPECT_TRUE(Point(6, 7) == sdlpoint);
+
+		EXPECT_TRUE(Rect(0, 2, 3, 4) != sdlrect);
+		EXPECT_TRUE(Point(0, 7) != sdlpoint);
+	}
 END_TEST()
