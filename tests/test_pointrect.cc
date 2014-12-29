@@ -66,6 +66,15 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(sum.GetX() == 111 && sum.GetY() == 222);
 		EXPECT_TRUE(diff.GetX() == -111 && diff.GetY() == -222);
+
+		sum /= 111;
+		diff *= 2;
+
+		EXPECT_TRUE(sum == Point(1, 2));
+		EXPECT_TRUE(diff == Point(-222, -444));
+
+		EXPECT_TRUE(sum * 2 == Point(2, 4));
+		EXPECT_TRUE(diff / 2 == Point(-111, -222));
 	}
 
 	{
