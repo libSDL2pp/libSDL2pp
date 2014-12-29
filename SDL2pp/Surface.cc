@@ -193,4 +193,16 @@ void Surface::FillRects(const Rect* rects, int count, Uint32 color) {
 		throw Exception("SDL_FillRects failed");
 }
 
+int Surface::GetWidth() const {
+	return surface_->w;
+}
+
+int Surface::GetHeight() const {
+	return surface_->h;
+}
+
+Point Surface::GetSize() const {
+	return Point(surface_->w, surface_->h);
+}
+
 }

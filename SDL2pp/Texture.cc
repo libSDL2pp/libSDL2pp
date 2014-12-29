@@ -140,4 +140,11 @@ int Texture::GetHeight() const {
 	return h;
 }
 
+Point Texture::GetSize() const {
+	int w, h;
+	if (SDL_QueryTexture(texture_, nullptr, nullptr, &w, &h) != 0)
+		throw Exception("SDL_QueryTexture failed");
+	return Point(w, h);
+}
+
 }
