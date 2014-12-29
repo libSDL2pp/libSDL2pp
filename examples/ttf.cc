@@ -62,13 +62,13 @@ int Run() {
 
 		// Render 3 strings
 		int h = 0;
-		render.Copy(solid_tex, NullOpt, Rect(0, h, solid.Get()->w, solid.Get()->h));
+		render.Copy(solid_tex, NullOpt, Rect(0, h, solid.GetWidth(), solid.GetHeight()));
 		h += solid.Get()->h;
 
-		render.Copy(shaded_tex, NullOpt, Rect(0, h, shaded.Get()->w, shaded.Get()->h));
+		render.Copy(shaded_tex, NullOpt, Rect(0, h, shaded.GetWidth(), shaded.GetHeight()));
 		h += shaded.Get()->h;
 
-		render.Copy(blended_tex, NullOpt, Rect(0, h, blended.Get()->w, blended.Get()->h));
+		render.Copy(blended_tex, NullOpt, Rect(0, h, blended.GetWidth(), blended.GetHeight()));
 
 		render.Present();
 
