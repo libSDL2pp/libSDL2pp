@@ -159,27 +159,47 @@ public:
 	void SetY(int ny);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get sum of two points
+	/// \brief Get point's memberwise addition with another point
 	///
 	/// \param other Point to add
 	///
-	/// \returns New Point representing memberwise addition of two points
+	/// \returns New Point representing memberwise addition with another point
 	///
 	////////////////////////////////////////////////////////////
 	Point operator+(const Point& other) const;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get subtraction of two points
+	/// \brief Get point's memberwise subtraction with another point
 	///
 	/// \param other Point to subtract
 	///
-	/// \returns New Point representing memberwise subtraction of two points
+	/// \returns New Point representing memberwise subtraction of another point
 	///
 	////////////////////////////////////////////////////////////
 	Point operator-(const Point& other) const;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Add another point
+	/// \brief Get point's memberwise division by an integer
+	///
+	/// \param value Divisor
+	///
+	/// \returns New Point representing memberwise division of point by and integer
+	///
+	////////////////////////////////////////////////////////////
+	Point operator/(int value) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise multiplication by an integer
+	///
+	/// \param value Multiplier
+	///
+	/// \returns New Point representing memberwise multiplication of point by an integer
+	///
+	////////////////////////////////////////////////////////////
+	Point operator*(int value) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise add another point
 	///
 	/// \param other Point to add to the current one
 	///
@@ -189,7 +209,7 @@ public:
 	Point& operator+=(const Point& other);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Substact another point
+	/// \brief Memberwise subtract another point
 	///
 	/// \param other Point to subtract from the current one
 	///
@@ -197,6 +217,26 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Point& operator-=(const Point& other);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise divide by an inteher
+	///
+	/// \param value Divisor
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator/=(int value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise multiply by an integer
+	///
+	/// \param value Multiplier
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator*=(int value);
 };
 
 }
