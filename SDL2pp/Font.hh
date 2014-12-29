@@ -408,6 +408,36 @@ public:
 	void GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy, int& advance) const;
 
     ////////////////////////////////////////////////////////////
+	/// \brief Get rect part of glyph metrics of the UNICODE char
+	///
+	/// \param ch UNICODE char to get the glyph metrics for
+	///
+	/// \returns Rect representing glyph offset info
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC38
+	/// \see http://freetype.sourceforge.net/freetype2/docs/tutorial/step2.html
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetGlyphRect(Uint16 ch) const;
+
+    ////////////////////////////////////////////////////////////
+	/// \brief Get advance part of glyph metrics of the UNICODE char
+	///
+	/// \param ch UNICODE char to get the glyph metrics for
+	///
+	/// \returns Advance offset into
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC38
+	/// \see http://freetype.sourceforge.net/freetype2/docs/tutorial/step2.html
+	///
+	////////////////////////////////////////////////////////////
+	int GetGlyphAdvance(Uint16 ch) const;
+
+    ////////////////////////////////////////////////////////////
 	/// \brief Calculate the resulting surface size of the LATIN1 encoded text rendered using font
 	///
 	/// \param text String to size up

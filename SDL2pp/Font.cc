@@ -135,6 +135,20 @@ void Font::GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy
 		throw Exception("TTF_GlyphMetrics failed");
 }
 
+Rect Font::GetGlyphRect(Uint16 ch) const {
+	int minx, maxx, miny, maxy;
+	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, nullptr) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+	return Rect(minx, miny, maxx - minx + 1, maxy - miny + 1);
+}
+
+int Font::GetGlyphAdvance(Uint16 ch) const {
+	int advance;
+	if (TTF_GlyphMetrics(font_, ch, nullptr, nullptr, nullptr, nullptr, &advance) != 0)
+		throw Exception("TTF_GlyphMetrics failed");
+	return advance;
+}
+
 Point Font::GetSizeText(const std::string& text) const {
 	int w, h;
 	if (TTF_SizeText(font_, text.c_str(), &w, &h) != 0)
