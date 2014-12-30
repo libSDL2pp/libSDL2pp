@@ -39,15 +39,19 @@ int Run() {
 	Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	Font font(TESTDATA_DIR "/Vera.ttf", 20);
+	Font font(TESTDATA_DIR "/Vera.ttf", 30);
 
 	Surface solid = font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color({255, 255, 255, 255}));
 	Surface shaded = font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color({255, 255, 255, 255}), SDL_Color({127, 127, 127, 255}));
 	Surface blended = font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color({255, 255, 255, 255}));
 
+	font.SetOutline(1);
+	Surface outline = font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color({255, 255, 255, 255}));
+
 	Texture solid_tex(render, solid);
 	Texture shaded_tex(render, shaded);
 	Texture blended_tex(render, blended);
+	Texture outline_tex(render, outline);
 
 	while (1) {
 		// Process input
@@ -62,13 +66,16 @@ int Run() {
 
 		// Render 3 strings
 		int h = 0;
-		render.Copy(solid_tex, NullOpt, Rect(0, h, solid.Get()->w, solid.Get()->h));
+		render.Copy(solid_tex, NullOpt, Rect(0, h, solid.GetWidth(), solid.GetHeight()));
 		h += solid.Get()->h;
 
-		render.Copy(shaded_tex, NullOpt, Rect(0, h, shaded.Get()->w, shaded.Get()->h));
+		render.Copy(shaded_tex, NullOpt, Rect(0, h, shaded.GetWidth(), shaded.GetHeight()));
 		h += shaded.Get()->h;
 
-		render.Copy(blended_tex, NullOpt, Rect(0, h, blended.Get()->w, blended.Get()->h));
+		render.Copy(blended_tex, NullOpt, Rect(0, h, blended.GetWidth(), blended.GetHeight()));
+		h += blended.Get()->h;
+
+		render.Copy(outline_tex, NullOpt, Rect(0, h, outline.GetWidth(), outline.GetHeight()));
 
 		render.Present();
 
