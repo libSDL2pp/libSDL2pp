@@ -66,6 +66,15 @@ BEGIN_TEST()
 
 		EXPECT_TRUE(sum.GetX() == 111 && sum.GetY() == 222);
 		EXPECT_TRUE(diff.GetX() == -111 && diff.GetY() == -222);
+
+		sum /= 111;
+		diff *= 2;
+
+		EXPECT_TRUE(sum == Point(1, 2));
+		EXPECT_TRUE(diff == Point(-222, -444));
+
+		EXPECT_TRUE(sum * 2 == Point(2, 4));
+		EXPECT_TRUE(diff / 2 == Point(-111, -222));
 	}
 
 	{
@@ -129,10 +138,12 @@ BEGIN_TEST()
 	}
 
 	{
-		Rect r = Rect::FromCenter(100, 100, 5, 7);
+		// Constructors
+		EXPECT_TRUE(Rect::FromCenter(100, 100, 5, 7) == Rect(98, 97, 5, 7));
+		EXPECT_TRUE(Rect::FromCenter(Point(100, 100), Point(5, 7)) == Rect(98, 97, 5, 7));
 
-		EXPECT_TRUE(r.GetX() == 98 && r.GetY() == 97);
-		EXPECT_TRUE(r.GetX2() == 102 && r.GetY2() == 103);
+		EXPECT_TRUE(Rect::FromCorners(10, 20, 30, 40) == Rect(10, 20, 21, 21));
+		EXPECT_TRUE(Rect::FromCorners(Point(10, 20), Point(30, 40)) == Rect(10, 20, 21, 21));
 	}
 
 	{
@@ -146,6 +157,74 @@ BEGIN_TEST()
 		EXPECT_TRUE(!r.Contains(Point(10, 19)));
 		EXPECT_TRUE(!r.Contains(Point(15, 20)));
 		EXPECT_TRUE(!r.Contains(Point(10, 25)));
+
+		// Rect contains rect
+		EXPECT_TRUE(r.Contains(r));
+		EXPECT_TRUE(r.Contains(Rect(11, 21, 3, 3)));
+
+		EXPECT_TRUE(!r.Contains(Rect(9, 20, 5, 5)));
+		EXPECT_TRUE(!r.Contains(Rect(10, 19, 5, 5)));
+		EXPECT_TRUE(!r.Contains(Rect(10, 20, 6, 5)));
+		EXPECT_TRUE(!r.Contains(Rect(10, 20, 5, 6)));
+	}
+
+	{
+		// Rect intersections
+		// test both GetIntersection() and Intersects() as the former uses the latter
+		Rect rect(10, 20, 30, 40);
+
+		EXPECT_TRUE(rect.Intersects(rect));
+		EXPECT_TRUE(rect.GetIntersection(rect) == rect);
+
+		// simple intersection
+		EXPECT_TRUE(rect.GetIntersection(Rect(5, 15, 30, 40)) == Rect(10, 20, 25, 35));
+		EXPECT_TRUE(rect.GetIntersection(Rect(15, 25, 30, 40)) == Rect(15, 25, 25, 35));
+
+		// larger at left
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 0, 10, 80)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 0, 11, 80)) == Rect(10, 20, 1, 40));
+
+		// larger at top
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 0, 50, 20)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 0, 50, 21)) == Rect(10, 20, 30, 1));
+
+		// larger at bottom
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 60, 50, 20)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 59, 50, 20)) == Rect(10, 59, 30, 1));
+
+		// larger at right
+		EXPECT_TRUE(rect.GetIntersection(Rect(40, 0, 20, 80)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(39, 0, 20, 80)) == Rect(39, 20, 1, 40));
+
+		// smaller at left
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 30, 10, 20)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 30, 20, 20)) == Rect(10, 30, 10, 20));
+
+		// smaller at top
+		EXPECT_TRUE(rect.GetIntersection(Rect(20, 10, 10, 10)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(20, 10, 10, 20)) == Rect(20, 20, 10, 10));
+
+		// smaller at bottom
+		EXPECT_TRUE(rect.GetIntersection(Rect(20, 60, 10, 10)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(20, 50, 10, 20)) == Rect(20, 50, 10, 10));
+
+		// smaller at right
+		EXPECT_TRUE(rect.GetIntersection(Rect(40, 30, 10, 20)) == NullOpt);
+		EXPECT_TRUE(rect.GetIntersection(Rect(30, 30, 20, 20)) == Rect(30, 30, 10, 20));
+
+		// smaller
+		EXPECT_TRUE(rect.GetIntersection(Rect(20, 30, 10, 20)) == Rect(20, 30, 10, 20));
+
+		// larger
+		EXPECT_TRUE(rect.GetIntersection(Rect(0, 0, 100, 100)) == rect);
+	}
+
+	{
+		// Rect unions
+		EXPECT_TRUE(Rect(10, 20, 1, 1).GetUnion(Rect(30, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(30, 20, 1, 1).GetUnion(Rect(10, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(10, 40, 1, 1).GetUnion(Rect(30, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(30, 40, 1, 1).GetUnion(Rect(10, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
 	}
 
 	{
@@ -162,5 +241,24 @@ BEGIN_TEST()
 		r -= Point(20, 40);
 
 		EXPECT_TRUE(r == Rect(-9, -18, 3, 4));
+	}
+
+	{
+		// Construction from and comparison with SDL objects
+		SDL_Rect sdlrect = { 1, 2, 3, 4 };
+
+		SDL_Point sdlpoint = { 6, 7 };
+
+		EXPECT_TRUE(Rect(sdlrect) == Rect(1, 2, 3, 4));
+		EXPECT_TRUE(Point(sdlpoint) == Point(6, 7));
+
+		EXPECT_TRUE(Rect(sdlrect) != Rect(0, 2, 3, 4));
+		EXPECT_TRUE(Point(sdlpoint) != Point(0, 7));
+
+		EXPECT_TRUE(Rect(1, 2, 3, 4) == sdlrect);
+		EXPECT_TRUE(Point(6, 7) == sdlpoint);
+
+		EXPECT_TRUE(Rect(0, 2, 3, 4) != sdlrect);
+		EXPECT_TRUE(Point(0, 7) != sdlpoint);
 	}
 END_TEST()

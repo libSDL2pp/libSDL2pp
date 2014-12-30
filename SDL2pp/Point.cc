@@ -19,8 +19,6 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <cassert>
-
 #include <SDL2pp/Point.hh>
 
 namespace SDL2pp {
@@ -88,6 +86,14 @@ Point Point::operator-(const Point& other) const {
 	return Point(x - other.x, y - other.y);
 }
 
+Point Point::operator/(int value) const {
+	return Point(x / value, y / value);
+}
+
+Point Point::operator*(int value) const {
+	return Point(x * value, y * value);
+}
+
 Point& Point::operator+=(const Point& other) {
 	x += other.x;
 	y += other.y;
@@ -98,6 +104,20 @@ Point& Point::operator+=(const Point& other) {
 Point& Point::operator-=(const Point& other) {
 	x -= other.x;
 	y -= other.y;
+
+	return *this;
+}
+
+Point& Point::operator/=(int value) {
+	x /= value;
+	y /= value;
+
+	return *this;
+}
+
+Point& Point::operator*=(int value) {
+	x *= value;
+	y *= value;
 
 	return *this;
 }
