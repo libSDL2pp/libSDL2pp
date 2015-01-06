@@ -15,6 +15,9 @@ TARGET_LINK_LIBRARIES(audio_sine SDL2pp)
 ADD_EXECUTABLE(audio_wav audio_wav.cc)
 TARGET_LINK_LIBRARIES(audio_wav SDL2pp)
 
+ADD_EXECUTABLE(cursor cursor.cc)
+TARGET_LINK_LIBRARIES(cursor SDL2pp)
+
 IF(SDL2PP_WITH_IMAGE)
 	ADD_EXECUTABLE(image image.cc)
 	TARGET_LINK_LIBRARIES(image SDL2pp)

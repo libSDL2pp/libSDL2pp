@@ -100,6 +100,7 @@ SET(LIBRARY_SOURCES
 	SDL2pp/AudioDevice.cc
 	SDL2pp/AudioLock.cc
 	SDL2pp/AudioSpec.cc
+	SDL2pp/Cursor.cc
 	SDL2pp/Exception.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
@@ -118,6 +119,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/AudioDevice.hh
 	SDL2pp/AudioSpec.hh
 	SDL2pp/ContainerRWops.hh
+	SDL2pp/Cursor.hh
 	SDL2pp/Exception.hh
 	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
