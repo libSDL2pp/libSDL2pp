@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -142,6 +142,10 @@ int Rect::GetY2() const {
 
 void Rect::SetY2(int y2) {
 	h = y2 - y + 1;
+}
+
+bool Rect::Contains(int px, int py) const {
+	return px >= x && py >= y && px <= GetX2() && py <= GetY2();
 }
 
 bool Rect::Contains(const Point& point) const {

@@ -158,6 +158,14 @@ BEGIN_TEST()
 		EXPECT_TRUE(!r.Contains(Point(15, 20)));
 		EXPECT_TRUE(!r.Contains(Point(10, 25)));
 
+		EXPECT_TRUE(r.Contains(10, 20));
+		EXPECT_TRUE(r.Contains(14, 24));
+
+		EXPECT_TRUE(!r.Contains(9, 20));
+		EXPECT_TRUE(!r.Contains(10, 19));
+		EXPECT_TRUE(!r.Contains(15, 20));
+		EXPECT_TRUE(!r.Contains(10, 25));
+
 		// Rect contains rect
 		EXPECT_TRUE(r.Contains(r));
 		EXPECT_TRUE(r.Contains(Rect(11, 21, 3, 3)));
