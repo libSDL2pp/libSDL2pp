@@ -107,7 +107,7 @@ private:
 	template <class SS>
 	typename std::enable_if<std::is_base_of<std::ostream, SS>::value, int>::type CloseHelper() {
 		stream_.flush();
-		return stream_.rdstate() & std::ios_base::badbit;
+		return (stream_.rdstate() & std::ios_base::badbit) ? -1 : 0;
 	}
 
 	template <class SS>
