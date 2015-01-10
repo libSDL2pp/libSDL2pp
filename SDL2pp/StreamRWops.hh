@@ -31,7 +31,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief RWops adaptor which works with STL streams
+/// \brief RWops adaptor for STL streams
 ///
 /// \ingroup io
 ///

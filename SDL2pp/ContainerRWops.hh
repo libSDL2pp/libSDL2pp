@@ -30,7 +30,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief RWops adaptor which works with verctor-like containers
+/// \brief RWops adaptor for random access STL containers
 ///
 /// \ingroup io
 ///
