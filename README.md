@@ -6,49 +6,47 @@ This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
 ## Synopsis ##
 
-```c++
-try {
-  // Init SDL; will be automatically deinitialized when the object is destroyed
-  SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-
-  // Straightforward wrappers around corresponding SDL2 objects
-  // These take full care of proper object destruction and error checking
-  SDL2pp::Window window("libSDL2pp demo",
-                        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                        640, 480, SDL_WINDOW_RESIZABLE);
-  SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
-  SDL2pp::Texture sprite1(renderer, SDL_PIXELFORMAT_ARGB8888,
-                         SDL_TEXTUREACCESS_STATIC, 16, 16);
-  SDL2pp::Texture sprite2(renderer, "sprite.png"); // SDL_image support
-
-  unsigned char pixels[16 * 16 * 4];
-
-  // Note proper constructor for Rect
-  sprite1.Update(SDL2pp::Rect(0, 0, 16, 16), pixels, 16 * 4);
-
-  renderer.Clear();
-
-  // Also note a way to specify null rects and points
-  renderer.Copy(sprite1, SDL2pp::NullOpt, SDL2pp::NullOpt);
-
-  // Copy() is overloaded, providing access to both SDL_RenderCopy and SDL_RenderCopyEx
-  renderer.Copy(sprite2, SDL2pp::NullOpt, SDL2pp::NullOpt, 45.0);
-
-  renderer.Present();
-
-  // You can still access wrapped C SDL types
-  SDL_Renderer* sdl_renderer = renderer.Get();
-
-  // Of course, C SDL2 API is still perfectly valid
-  SDL_Delay(2000);
-
-  // All SDL objects are released at this point or if an error occurs
-} catch (SDL2pp::Exception& e) {
-  // Exception stores SDL_GetError() result
-  std::cerr << "Exception: " << e.what() << std::endl;
-  std::cerr << "SDL Error: " << e.GetSDLError() << std::endl;
-}
-```
+    try {
+      // Init SDL; will be automatically deinitialized when the object is destroyed
+      SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+    
+      // Straightforward wrappers around corresponding SDL2 objects
+      // These take full care of proper object destruction and error checking
+      SDL2pp::Window window("libSDL2pp demo",
+                            SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                            640, 480, SDL_WINDOW_RESIZABLE);
+      SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
+      SDL2pp::Texture sprite1(renderer, SDL_PIXELFORMAT_ARGB8888,
+                             SDL_TEXTUREACCESS_STATIC, 16, 16);
+      SDL2pp::Texture sprite2(renderer, "sprite.png"); // SDL_image support
+    
+      unsigned char pixels[16 * 16 * 4];
+    
+      // Note proper constructor for Rect
+      sprite1.Update(SDL2pp::Rect(0, 0, 16, 16), pixels, 16 * 4);
+    
+      renderer.Clear();
+    
+      // Also note a way to specify null rects and points
+      renderer.Copy(sprite1, SDL2pp::NullOpt, SDL2pp::NullOpt);
+    
+      // Copy() is overloaded, providing access to both SDL_RenderCopy and SDL_RenderCopyEx
+      renderer.Copy(sprite2, SDL2pp::NullOpt, SDL2pp::NullOpt, 45.0);
+    
+      renderer.Present();
+    
+      // You can still access wrapped C SDL types
+      SDL_Renderer* sdl_renderer = renderer.Get();
+    
+      // Of course, C SDL2 API is still perfectly valid
+      SDL_Delay(2000);
+    
+      // All SDL objects are released at this point or if an error occurs
+    } catch (SDL2pp::Exception& e) {
+      // Exception stores SDL_GetError() result
+      std::cerr << "Exception: " << e.what() << std::endl;
+      std::cerr << "SDL Error: " << e.GetSDLError() << std::endl;
+    }
 
 ## Features ##
 
@@ -105,7 +103,7 @@ Dependencies:
 
 To build standalone version:
 
-```cmake . && make```
+    cmake . && make
 
 Following variabled may be supplied to CMake to affect build:
 
@@ -122,12 +120,12 @@ Following variabled may be supplied to CMake to affect build:
 
 To install the library systemwide, run:
 
-```cmake . && make && make install```
+    cmake . && make && make install
 
 You can change installation prefix with CMAKE_INSTALL_PREFIX cmake
 variable:
 
-```cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install```
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install
 
 SDL2pp installs pkg-config file, so it can be used with any build
 system which interacts with pkg-config, including CMake and GNU
@@ -147,23 +145,19 @@ still recommended).
 Just place the library into dedicated directory in your project
 (for example, lib/SDL2pp) and add
 
-```cmake
-SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
-SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
-ADD_SUBDIRECTORY(lib/SDL2pp)
-```
+    SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+    SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
+    ADD_SUBDIRECTORY(lib/SDL2pp)
 
 into your core CMakeLists.txt. This will act as similar to what
 FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
 and ${SDL2PP_LIBRARIES} variables for your project. You will then
 be able to use them as usual:
 
-```cmake
-INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
 
-ADD_EXECUTABLE(mytarget ...)
-TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
-```
+    ADD_EXECUTABLE(mytarget ...)
+    TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
 
 if bundled, libSDL2pp does not build examples and becomes a static
 library, providing required SDL2 includes/libs in the mentioned
