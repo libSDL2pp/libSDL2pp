@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -118,11 +118,6 @@ private:
 public:
 	StreamRWops(S& stream) : stream_(stream) {
 	}
-
-	StreamRWops(const StreamRWops<S>&) = default;
-	StreamRWops& operator=(const StreamRWops<S>&) = delete;
-	StreamRWops(StreamRWops<S>&&) noexcept = default;
-	StreamRWops& operator=(StreamRWops<S>&&) = delete;
 
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
