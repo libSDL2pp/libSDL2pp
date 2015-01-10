@@ -55,9 +55,11 @@ private:
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief SDL2pp::Surface lock
+	///
 	/// \ingroup rendering
 	///
-	/// \details
+	/// \headerfile SDL2pp/Surface.hh
+	///
 	/// For direct pixel access, SDL surface may need to be locked.
 	/// This class represents the lock and controls its lifetime
 	/// as the lock is released as soon as LockHandle is destroyed.
@@ -83,7 +85,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// \details
 		/// This may be initialized with real lock later with move
 		/// assignment operator
 		///
@@ -93,7 +94,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Destructor
 		///
-		/// \details
 		/// Releases the lock
 		///
 		/// \see http://wiki.libsdl.org/SDL_UnlockSurface

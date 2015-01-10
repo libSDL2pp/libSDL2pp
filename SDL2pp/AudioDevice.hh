@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -45,9 +45,11 @@ class AudioSpec;
 class AudioDevice {
 public:
 	////////////////////////////////////////////////////////////
-	/// \ingroup audio
-	/// \headerfile SDL2pp/AudioDevice.hh
 	/// \brief SDL2pp::AudioDevice lock
+	///
+	/// \ingroup audio
+	///
+	/// \headerfile SDL2pp/AudioDevice.hh
 	///
 	/// Audio devices may be locked, which means that audio
 	/// callback will not be called in a locked state, allowing
@@ -101,7 +103,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// \details
 		/// This may be initialized with real lock later with move
 		/// assignment operator
 		///
@@ -111,7 +112,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Destructor
 		///
-		/// \details
 		/// Releases the lock
 		///
 		/// \see http://wiki.libsdl.org/SDL_UnlockAudioDevice

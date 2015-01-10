@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -55,9 +55,11 @@ private:
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief SDL2pp::Texture lock
+	///
 	/// \ingroup rendering
 	///
-	/// \details
+	/// \headerfile SDL2pp/Texture.hh
+	///
 	/// Textures with SDL_TEXTUREACCESS_STREAMING access mode may
 	/// be locked, which provides (writeonly) access to their raw
 	/// pixel data. This may be used to update texture contents.
@@ -113,7 +115,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// \details
 		/// This may be initialized with real lock later with move
 		/// assignment operator
 		///
@@ -123,7 +124,6 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Destructor
 		///
-		/// \details
 		/// Releases the lock
 		///
 		/// \see http://wiki.libsdl.org/SDL_UnlockTexture
