@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -57,11 +57,6 @@ private:
 public:
 	ContainerRWops(C& container) : container_(container), position_(0) {
 	}
-
-	ContainerRWops(const ContainerRWops<C>&) = default;
-	ContainerRWops& operator=(const ContainerRWops<C>&) = delete;
-	ContainerRWops(ContainerRWops<C>&&) noexcept = default;
-	ContainerRWops& operator=(ContainerRWops<C>&&) = delete;
 
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
