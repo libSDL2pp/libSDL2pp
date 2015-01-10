@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -357,7 +357,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
-	/// \param r Rectange to draw
+	/// \param r Rectangle to draw
 	///
 	/// \throws SDL2pp::Exceptions
 	///
@@ -410,7 +410,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
-	/// \param r Rectange to draw
+	/// \param r Rectangle to draw
 	///
 	/// \throws SDL2pp::Exceptions
 	///
@@ -452,9 +452,9 @@ public:
 	void ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Set the clipping rectange for rendering
+	/// \brief Set the clipping rectangle for rendering
 	///
-	/// \param rect New clipping rectangle or NullOpt to dusable
+	/// \param rect New clipping rectangle or NullOpt to disable
 	///             clipping
 	///
 	/// \throws SDL2pp::Exceptions
@@ -468,7 +468,7 @@ public:
 	/// \brief Set a device independent resolution for rendering
 	///
 	/// \param w Width of the logical resolution
-	/// \param h Heigth of the logical resolution
+	/// \param h Height of the logical resolution
 	///
 	/// \throws SDL2pp::Exceptions
 	///

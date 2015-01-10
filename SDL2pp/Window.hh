@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -73,7 +73,7 @@ public:
 	Window(SDL_Window* window);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Create window with specified title and fimensions
+	/// \brief Create window with specified title and dimensions
 	///
 	/// \param title Title of the windows, in UTF-8 encoding
 	/// \param x X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
@@ -231,8 +231,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
-	/// \param w Width of the window in pixles
-	/// \param h Height of the window in pixles
+	/// \param w Width of the window in pixels
+	/// \param h Height of the window in pixels
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///
@@ -242,7 +242,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
-	/// \param size Point representin window dimensions
+	/// \param size Point representing window dimensions
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///

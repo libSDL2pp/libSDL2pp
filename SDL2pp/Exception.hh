@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -36,7 +36,7 @@ namespace SDL2pp {
 ///
 /// Internally, libSDL2pp checks return value of each SDL2
 /// function it calls which may fail. If the function fails,
-/// SDL2pp::Exception is thrown, and SDL2 error which expains
+/// SDL2pp::Exception is thrown, and SDL2 error which explains
 /// cause of function failure is stored in the exception and
 /// may be extracted later.
 ///

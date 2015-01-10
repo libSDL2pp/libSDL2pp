@@ -232,9 +232,9 @@ public:
 	bool GetKerning() const;
 
     ////////////////////////////////////////////////////////////
-	/// \brief Set whther to use kerning when rendering the loaded font
+	/// \brief Set whether to use kerning when rendering the loaded font
 	///
-	/// \param allowed False to diable kerning, true to enable kerning.
+	/// \param allowed False to disable kerning, true to enable kerning.
 	///                The default is true, enabled
 	///
 	/// Set whether to use kerning when rendering the loaded font.
