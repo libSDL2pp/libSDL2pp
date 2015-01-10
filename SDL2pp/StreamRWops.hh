@@ -30,6 +30,22 @@
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief RWops adaptor which works with STL streams
+///
+/// \ingroup io
+///
+/// \headerfile SDL2pp/StreamRWops.hh
+///
+/// This class extends functionality of RWops concept onto STL
+/// streams. With ContainerRWops, you may read from / write to a
+/// streams with SDL functions.
+///
+/// This template supports both input and output streams, but not
+/// at the same time, as separate input and output pointers of
+/// streams are not compatible with RWops.
+///
+////////////////////////////////////////////////////////////
 template <class S>
 class StreamRWops : public CustomRWops {
 	// since STL streams have different pointers for reading and writing,
@@ -37,7 +53,7 @@ class StreamRWops : public CustomRWops {
 	static_assert(!(std::is_base_of<std::istream, S>::value && std::is_base_of<std::ostream, S>::value), "StreamRWops does not support reading and writing at the same time");
 
 protected:
-	S& stream_;
+	S& stream_; ///< Reference to stream
 
 private:
 	template <class SS>
@@ -116,9 +132,28 @@ private:
 	}
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Construct StreamRWops for specificed stream
+	///
+	/// \param stream Stream to use
+	///
+	////////////////////////////////////////////////////////////
 	StreamRWops(S& stream) : stream_(stream) {
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Seek within the stream
+	///
+	/// \param offset Offset in bytes, relative to whence location; can
+	///               be negative
+	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	///
+	/// \returns Final offset in the stream after the seek or -1 on error
+	///
+	/// \see SDL2pp::RWops::Seek
+	/// \see http://wiki.libsdl.org/SDL_RWseek
+	///
+	////////////////////////////////////////////////////////////
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
 		case RW_SEEK_SET:
@@ -136,14 +171,49 @@ public:
 		return TellHelper<S>();
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Read from a stream
+	///
+	/// \param ptr Pointer to a buffer to read data into
+	/// \param size Size of each object to read, in bytes
+	/// \param maxnum Maximum number of objects to be read
+	///
+	/// \returns Number of objects read, or 0 at error or end of file
+	///
+	/// \see SDL2pp::RWops::Read
+	/// \see http://wiki.libsdl.org/SDL_RWread
+	///
+	////////////////////////////////////////////////////////////
 	virtual size_t Read(void* ptr, size_t size, size_t maxnum) override {
 		return ReadHelper<S>(ptr, size, maxnum);
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Write to a stream
+	///
+	/// \param ptr Pointer to a buffer containing data to write
+	/// \param size Size of each object to write, in bytes
+	/// \param num Number of objects to be write
+	///
+	/// \returns Number of objects written
+	///
+	/// \see SDL2pp::RWops::Write
+	/// \see http://wiki.libsdl.org/SDL_RWwrite
+	///
+	////////////////////////////////////////////////////////////
 	virtual size_t Write(const void* ptr, size_t size, size_t num) override {
 		return WriteHelper<S>(ptr, size, num);
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Close strem
+	///
+	/// \returns 0 on success or a negative error code on failure
+	///
+	/// \see SDL2pp::RWops::Close
+	/// \see http://wiki.libsdl.org/SDL_RWclose
+	///
+	////////////////////////////////////////////////////////////
 	virtual int Close() override {
 		return CloseHelper<S>();
 	}
