@@ -38,8 +38,8 @@ namespace SDL2pp {
 ///
 /// This class extends functionality of RWops concept onto random
 /// access STL containers such as std::vector. With ContainerRWops,
-/// you may read from / write to a container as if it were a plain
-/// file.
+/// you may read from / write to a container with SDL functions as
+/// if it were a plain file.
 ///
 /// Note that this template supports both const and mutable containers.
 /// Writes to const containers always return 0, writes to mutable
@@ -88,7 +88,7 @@ public:
 	///               be negative
 	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
 	///
-	/// \returns Final offset in the container stream after the seek or -1 on error
+	/// \returns Final offset in the container after the seek or -1 on error
 	///
 	/// \see SDL2pp::RWops::Seek
 	/// \see http://wiki.libsdl.org/SDL_RWseek
