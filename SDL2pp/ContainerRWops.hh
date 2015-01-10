@@ -29,11 +29,28 @@
 
 namespace SDL2pp {
 
+////////////////////////////////////////////////////////////
+/// \brief RWops adaptor which works with verctor-like containers
+///
+/// \ingroup io
+///
+/// \headerfile SDL2pp/ContainerRWops.hh
+///
+/// This class extends functionality of RWops concept onto random
+/// access STL containers such as std::vector. With ContainerRWops,
+/// you may read from / write to a container as if it were a plain
+/// file.
+///
+/// Note that this template supports both const and mutable containers.
+/// Writes to const containers always return 0, writes to mutable
+/// containers extend them as needed.
+///
+////////////////////////////////////////////////////////////
 template <class C>
 class ContainerRWops : public CustomRWops {
 protected:
-	C& container_;
-	size_t position_;
+	C& container_;    ///< Reference to container
+	size_t position_; ///< Virtual file pointer position
 
 private:
 	template <class CC>
@@ -55,9 +72,28 @@ private:
 	}
 
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Construct ContainerRWops for specificed container
+	///
+	/// \param container Container to use
+	///
+	////////////////////////////////////////////////////////////
 	ContainerRWops(C& container) : container_(container), position_(0) {
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Seek within the container
+	///
+	/// \param offset Offset in bytes, relative to whence location; can
+	///               be negative
+	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	///
+	/// \returns Final offset in the container stream after the seek or -1 on error
+	///
+	/// \see SDL2pp::RWops::Seek
+	/// \see http://wiki.libsdl.org/SDL_RWseek
+	///
+	////////////////////////////////////////////////////////////
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
 		case RW_SEEK_SET:
@@ -75,6 +111,19 @@ public:
 		return position_;
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Read from a container
+	///
+	/// \param ptr Pointer to a buffer to read data into
+	/// \param size Size of each object to read, in bytes
+	/// \param maxnum Maximum number of objects to be read
+	///
+	/// \returns Number of objects read, or 0 at end of file
+	///
+	/// \see SDL2pp::RWops::Read
+	/// \see http://wiki.libsdl.org/SDL_RWread
+	///
+	////////////////////////////////////////////////////////////
 	virtual size_t Read(void* ptr, size_t size, size_t maxnum) override {
 		if (position_ + size > container_.size())
 			return 0;
@@ -88,10 +137,35 @@ public:
 		return toread / size;
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Write to container
+	///
+	/// \param ptr Pointer to a buffer containing data to write
+	/// \param size Size of each object to write, in bytes
+	/// \param num Number of objects to be write
+	///
+	/// \returns Number of objects written
+	///
+	/// \see SDL2pp::RWops::Write
+	/// \see http://wiki.libsdl.org/SDL_RWwrite
+	///
+	////////////////////////////////////////////////////////////
 	virtual size_t Write(const void* ptr, size_t size, size_t num) override {
 		return WriteHelper<C>(ptr, size, num);
 	}
 
+	////////////////////////////////////////////////////////////
+	/// \brief Close data source
+	///
+	/// \returns Always returns 0
+	///
+	/// This function is a no-op: there's nothing to be done
+	/// to "close" the container
+	///
+	/// \see SDL2pp::RWops::Close
+	/// \see http://wiki.libsdl.org/SDL_RWclose
+	///
+	////////////////////////////////////////////////////////////
 	virtual int Close() override {
 		return 0;
 	}
