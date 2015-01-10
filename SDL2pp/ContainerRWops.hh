@@ -37,15 +37,15 @@ protected:
 
 private:
 	template <class CC>
-	typename std::enable_if<!std::is_const<CC>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t maxnum) {
-		if (position_ + size * maxnum > container_.size())
-			container_.resize(position_ + size * maxnum);
+	typename std::enable_if<!std::is_const<CC>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t num) {
+		if (position_ + size * num > container_.size())
+			container_.resize(position_ + size * num);
 
-		std::copy(reinterpret_cast<const unsigned char*>(ptr), reinterpret_cast<const unsigned char*>(ptr) + size * maxnum, container_.begin() + position_);
+		std::copy(reinterpret_cast<const unsigned char*>(ptr), reinterpret_cast<const unsigned char*>(ptr) + size * num, container_.begin() + position_);
 
-		position_ += size * maxnum;
+		position_ += size * num;
 
-		return maxnum;
+		return num;
 	}
 
 	template <class CC>
@@ -88,8 +88,8 @@ public:
 		return toread / size;
 	}
 
-	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) override {
-		return WriteHelper<C>(ptr, size, maxnum);
+	virtual size_t Write(const void* ptr, size_t size, size_t num) override {
+		return WriteHelper<C>(ptr, size, num);
 	}
 
 	virtual int Close() override {
