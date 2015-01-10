@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -67,7 +67,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font with RWops
 	///
-	/// \param RWops RWops to load font from
+	/// \param rwops RWops to load font from
 	/// \param ptsize Point size (based on 72DPI) to load font as. This basically translates to pixel height
 	/// \param index Choose a font face from a file containing multiple font faces. The first face is always index 0
 	///
@@ -379,7 +379,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get the status of the availability of the glyph from the loaded font
 	///
-	/// \aram ch Unicode character to test glyph availability of
+	/// \param ch Unicode character to test glyph availability of
 	///
 	/// \returns The index of the glyph for ch in font, or 0 for an undefined character code
 	///
