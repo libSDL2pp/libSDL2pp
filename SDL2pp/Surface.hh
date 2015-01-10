@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -284,7 +284,7 @@ public:
 	///
 	/// \param srcrect Rectangle to be copied, or NullOpt to copy the entire surface
 	/// \param dst Blit target surface
-	/// \param srcrect Rectangle that is copied into
+	/// \param dstrect Rectangle that is copied into
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -298,7 +298,7 @@ public:
 	///
 	/// \param srcrect Rectangle to be copied, or NullOpt to copy the entire surface
 	/// \param dst Blit target surface
-	/// \param srcrect Rectangle that is copied into, or NullOpt to copy into entire surface
+	/// \param dstrect Rectangle that is copied into, or NullOpt to copy into entire surface
 	///
 	/// \throws SDL2pp::Exception
 	///
