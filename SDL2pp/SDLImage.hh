@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -94,10 +94,36 @@ public:
 	////////////////////////////////////////////////////////////
 	int GetInitFlags();
 
-	// Deleted copy/move constructors and assignments
+	////////////////////////////////////////////////////////////
+	/// \brief Deleted copy constructor
+	///
+	/// This class is not copyable
+	///
+	////////////////////////////////////////////////////////////
 	SDLImage(const SDLImage& other) = delete;
-	SDLImage(SDLImage&& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Deleted assignment operator
+	///
+	/// This class is not copyable
+	///
+	////////////////////////////////////////////////////////////
 	SDLImage& operator=(const SDLImage& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Deleted move constructor
+	///
+	/// This class is not movable
+	///
+	////////////////////////////////////////////////////////////
+	SDLImage(SDLImage&& other) = delete;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Deleted move assignment operator
+	///
+	/// This class is not movable
+	///
+	////////////////////////////////////////////////////////////
 	SDLImage& operator=(SDLImage&& other) = delete;
 };
 
