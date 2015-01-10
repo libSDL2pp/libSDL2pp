@@ -90,13 +90,13 @@ private:
 	}
 
 	template <class SS>
-	typename std::enable_if<std::is_base_of<std::ostream, SS>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t maxnum) {
-		stream_.write(static_cast<const char*>(ptr), size * maxnum);
+	typename std::enable_if<std::is_base_of<std::ostream, SS>::value, size_t>::type WriteHelper(const void* ptr, size_t size, size_t num) {
+		stream_.write(static_cast<const char*>(ptr), size * num);
 		// XXX: there seem to be no reliable way to tell how much
 		// was actually written
 		if (stream_.rdstate() & std::ios_base::badbit)
 			return 0;
-		return maxnum;
+		return num;
 	}
 
 	template <class SS>
@@ -140,8 +140,8 @@ public:
 		return ReadHelper<S>(ptr, size, maxnum);
 	}
 
-	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) override {
-		return WriteHelper<S>(ptr, size, maxnum);
+	virtual size_t Write(const void* ptr, size_t size, size_t num) override {
+		return WriteHelper<S>(ptr, size, num);
 	}
 
 	virtual int Close() override {
