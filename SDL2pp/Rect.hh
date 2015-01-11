@@ -24,8 +24,7 @@
 
 #include <SDL2/SDL_rect.h>
 
-#include <SDL2pp/Config.hh>
-#include <SDL2pp/Optional.hh> // for deprecated functionality
+#include <SDL2pp/Optional.hh>
 
 struct SDL_Rect;
 
@@ -85,8 +84,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Rect(int x, int y, int w, int h);
-
-	SDL2PP_DEPRECATED static Optional<Rect> Null();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates, width and height
@@ -175,11 +172,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	bool operator!=(const Rect& other) const;
-
-	SDL2PP_DEPRECATED SDL_Rect* Get();
-	SDL2PP_DEPRECATED const SDL_Rect* Get() const;
-
-	SDL2PP_DEPRECATED bool IsNull() const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the rect corner

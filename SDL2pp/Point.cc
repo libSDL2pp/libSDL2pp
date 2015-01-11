@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -38,28 +38,12 @@ Point::Point(int nx, int ny) {
 	y = ny;
 }
 
-Optional<Point> Point::Null() {
-	return NullOpt;
-}
-
 bool Point::operator==(const Point& other) const {
 	return x == other.x && y == other.y;
 }
 
 bool Point::operator!=(const Point& other) const {
 	return !(*this == other);
-}
-
-SDL_Point* Point::Get() {
-	return this;
-}
-
-const SDL_Point* Point::Get() const {
-	return this;
-}
-
-bool Point::IsNull() const {
-	return false;
 }
 
 int Point::GetX() const {

@@ -55,10 +55,6 @@ Rect::Rect(int nx, int ny, int nw, int nh) {
 	h = nh;
 }
 
-Optional<Rect> Rect::Null() {
-	return NullOpt;
-}
-
 bool Rect::operator==(const Rect& other) const {
 	return x == other.x && y == other.y &&
 	       w == other.w && h == other.h;
@@ -66,14 +62,6 @@ bool Rect::operator==(const Rect& other) const {
 
 bool Rect::operator!=(const Rect& other) const {
 	return !(*this == other);
-}
-
-SDL_Rect* Rect::Get() {
-	return this;
-}
-
-const SDL_Rect* Rect::Get() const {
-	return this;
 }
 
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
@@ -90,10 +78,6 @@ Rect Rect::FromCorners(int x1, int y1, int x2, int y2) {
 
 Rect Rect::FromCorners(const Point& p1, const Point& p2) {
 	return Rect(p1, p2 - p1 + Point(1, 1));
-}
-
-bool Rect::IsNull() const {
-	return false;
 }
 
 int Rect::GetX() const {
