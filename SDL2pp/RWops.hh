@@ -85,14 +85,14 @@ public:
 	///
 	/// \param ptr Pointer to a buffer containing data to write
 	/// \param size Size of each object to write, in bytes
-	/// \param maxnum Maximum number of objects to be write
+	/// \param num Maximum number of objects to be write
 	///
 	/// \returns Number of objects written, which will be less than num on error
 	///
 	/// \see http://wiki.libsdl.org/SDL_RWwrite
 	///
 	////////////////////////////////////////////////////////////
-	virtual size_t Write(const void* ptr, size_t size, size_t maxnum) = 0;
+	virtual size_t Write(const void* ptr, size_t size, size_t num) = 0;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Close data source

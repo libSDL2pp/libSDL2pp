@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -40,11 +40,11 @@ size_t RWops::StdReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, siz
 	return sdl_rwops->read(sdl_rwops, ptr, size, maxnum);
 }
 
-size_t RWops::StdWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum) {
+size_t RWops::StdWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t num) {
 	assert(context != nullptr);
 	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
 	assert(sdl_rwops != nullptr);
-	return sdl_rwops->write(sdl_rwops, ptr, size, maxnum);
+	return sdl_rwops->write(sdl_rwops, ptr, size, num);
 }
 
 int RWops::StdCloseFuncWrapper(SDL_RWops* context) {
@@ -77,11 +77,11 @@ size_t RWops::CustomReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, 
 	return custom_rwops->Read(ptr, size, maxnum);
 }
 
-size_t RWops::CustomWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum) {
+size_t RWops::CustomWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t num) {
 	assert(context != nullptr);
 	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
 	assert(custom_rwops != nullptr);
-	return custom_rwops->Write(ptr, size, maxnum);
+	return custom_rwops->Write(ptr, size, num);
 }
 
 int RWops::CustomCloseFuncWrapper(SDL_RWops* context) {
