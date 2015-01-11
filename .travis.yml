@@ -8,8 +8,9 @@ env:
 before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - sudo add-apt-repository --yes ppa:libreoffice/libreoffice-4-2
   - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev g++-4.8 cppcheck
+  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev g++-4.8 cppcheck doxygen
   - sudo sed -i -e 's|friend class hash|friend struct hash|' /usr/include/c++/4.8/bits/stl_bvector.h
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 script:
@@ -18,3 +19,4 @@ script:
   - make test
   - make install
   - cppcheck -I . --enable=style,performance,portability,information,missingInclude --error-exitcode=2 SDL2pp
+  - if make doxygen 2>&1 | grep 'warning:'; then false; else true; fi
