@@ -73,7 +73,7 @@ private:
 
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief Construct exception, storing result of SDL_GetError
+	/// \brief Construct exception, storing result of SDL_GetError()
 	///
 	/// \param what User-specified explanatory string
 	///

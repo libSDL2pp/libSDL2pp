@@ -46,14 +46,14 @@ class RWops;
 ////////////////////////////////////////////////////////////
 class Font {
 private:
-	TTF_Font* font_; ///< Contained TTF_Font structure
+	TTF_Font* font_; ///< Managed TTF_Font object
 
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font from .ttf or .fon file
 	///
 	/// \param file Pointer File name to load font from
-	/// \param ptsize Point size (based on 72DPI) to load font as. This basically translates to pixel height
+	/// \param ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
 	/// \param index Choose a font face from a file containing multiple font faces. The first face is always index 0
 	///
 	/// \throws SDL2pp::Exception
@@ -68,7 +68,7 @@ public:
 	/// \brief Loads font with RWops
 	///
 	/// \param rwops RWops to load font from
-	/// \param ptsize Point size (based on 72DPI) to load font as. This basically translates to pixel height
+	/// \param ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
 	/// \param index Choose a font face from a file containing multiple font faces. The first face is always index 0
 	///
 	/// \throws SDL2pp::Exception
@@ -122,9 +122,9 @@ public:
 	Font& operator=(const Font&) = delete;
 
     ////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained TTF_Font structure
+	/// \brief Get pointer to managed TTF_Font structure
 	///
-	/// \returns Pointer to contained TTF_Font structure
+	/// \returns Pointer to managed TTF_Font structure
 	///
 	////////////////////////////////////////////////////////////
 	TTF_Font* Get() const;
@@ -235,7 +235,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current kerning setting of the loaded font
 	///
-	/// \returns False if kerning is disabled. True when disabled.
+	/// \returns False if kerning is disabled. True when enabled.
 	///          The default for a newly loaded font is true, enabled
 	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC27

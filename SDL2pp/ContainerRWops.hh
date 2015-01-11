@@ -36,9 +36,9 @@ namespace SDL2pp {
 ///
 /// \headerfile SDL2pp/ContainerRWops.hh
 ///
-/// This class extends functionality of RWops concept onto random
+/// This class extends functionality of %RWops concept onto random
 /// access STL containers such as std::vector. With ContainerRWops,
-/// you may read from / write to a container with SDL functions as
+/// you may read from / write to a container with %SDL functions as
 /// if it were a plain file.
 ///
 /// Note that this template supports both const and mutable containers.
@@ -73,7 +73,7 @@ private:
 
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief Construct ContainerRWops for specificed container
+	/// \brief Construct ContainerRWops for specified container
 	///
 	/// \param container Container to use
 	///

@@ -50,7 +50,7 @@ class RWops;
 ////////////////////////////////////////////////////////////
 class Surface {
 private:
-	SDL_Surface* surface_; ///< Contained SDL_Texture structure
+	SDL_Surface* surface_; ///< Managed SDL_Surface object
 
 public:
 	////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ public:
 	///
 	/// \headerfile SDL2pp/Surface.hh
 	///
-	/// For direct pixel access, SDL surface may need to be locked.
+	/// For direct pixel access, %SDL surface may need to be locked.
 	/// This class represents the lock and controls its lifetime
 	/// as the lock is released as soon as LockHandle is destroyed.
 	///
@@ -72,7 +72,7 @@ public:
 
 	private:
 		////////////////////////////////////////////////////////////
-		/// \brief Create lock for specific SDL2pp::Texture
+		/// \brief Create lock for specific SDL2pp::Surface
 		///
 		/// \throws STL2pp::Exception
 		///
@@ -85,8 +85,8 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// This may be initialized with real lock later with move
-		/// assignment operator
+		/// This may be initialized with real lock later via move
+		/// assignment
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle();
@@ -195,7 +195,7 @@ public:
 	/// \param pixels Pointer to existing pixel data
 	/// \param width Width of the surface
 	/// \param height Height of the surface
-	/// \param depth depth of the surface in bits
+	/// \param depth Depth of the surface in bits
 	/// \param pitch Number of bytes in a row of pixel data, including padding between lines
 	/// \param Rmask Red mask for the pixels
 	/// \param Gmask Green mask for the pixels
@@ -270,9 +270,9 @@ public:
 	Surface& operator=(const Surface&) = delete;
 
     ////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_Surface structure
+	/// \brief Get pointer to managed SDL_Surface structure
 	///
-	/// \returns Pointer to contained SDL_Surface structure
+	/// \returns Pointer to managed SDL_Surface structure
 	///
 	////////////////////////////////////////////////////////////
 	SDL_Surface* Get() const;
@@ -406,7 +406,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the clipping rectangle for a surface
 	///
-	/// \param rect SDL22::Rect representing the clipping rectangle, or NullOpt to disable clipping
+	/// \param rect Rect representing the clipping rectangle, or NullOpt to disable clipping
 	///
 	/// \throws SDL2pp::Exception
 	///

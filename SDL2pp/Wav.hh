@@ -38,7 +38,7 @@ class RWops;
 /// \headerfile SDL2pp/Wav.hh
 ///
 /// SDL2pp::Wav is a wrapper around basic SDL2 audio fragment
-/// handling functionality, basically SDL_LoadWAV and related
+/// handling functionality, basically SDL_LoadWAV() and related
 /// functions.
 ///
 /// The class holds raw audio data which is loaded from a disk

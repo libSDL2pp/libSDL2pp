@@ -109,7 +109,7 @@ public:
 	static Rect FromCenter(const Point& center, const Point& size);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Construct the rect from given center coordinates, width and height
+	/// \brief Construct the rect from given corners coordinates
 	///
 	/// \param x1 X coordinate of the top left rectangle corner
 	/// \param y1 Y coordinate of the top left rectangle corner
@@ -120,7 +120,7 @@ public:
 	static Rect FromCorners(int x1, int y1, int x2, int y2);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Construct the rect from given center coordinates and size
+	/// \brief Construct the rect from given centers coordinates
 	///
 	/// \param p1 Coordinates of the top left rectangle corner
 	/// \param p2 Coordinates of the bottom right rectangle corner
@@ -317,7 +317,7 @@ public:
 	///
 	/// \param rect Rect to check
 	///
-	/// \returns True if the rects intersect
+	/// \returns True if rectangles intersect
 	///
 	////////////////////////////////////////////////////////////
 	bool Intersects(const Rect& rect) const;
@@ -327,7 +327,7 @@ public:
 	///
 	/// \param rect Rect to union with
 	///
-	/// \returns Rect representing intersection area or NullOpt if there was no intersection
+	/// \returns Rect representing union of two rectangles
 	///
 	////////////////////////////////////////////////////////////
 	Rect GetUnion(const Rect& rect) const;

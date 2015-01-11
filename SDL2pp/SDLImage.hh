@@ -25,14 +25,14 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of SDL_image library (de-)initialization
+/// \brief Object taking care of SDL_image library initialization and deinitialization
 ///
 /// \ingroup image
 ///
 /// \headerfile SDL2pp/SDLImage.hh
 ///
 /// Though it's possible to use SDL_image without initializing it,
-/// library provide initialization/deinitialization functions to
+/// library provides initialization/deinitialization functions to
 /// be able to preload libraries for specific file format support
 /// (png, jpeg or tiff) beforehand. In SDL2pp, this is handled by
 /// this class.

@@ -112,14 +112,14 @@ public:
 ///
 /// \headerfile SDL2pp/RWops.hh
 ///
-/// RWops is an SDL2 abstraction of file-like I/O. For most functions
+/// %RWops is an SDL2 abstraction of file-like I/O. For most functions
 /// that take file name as a parameter, SDL2 has an alternative which
-/// take RWops, and through RWops it's functionality is extended from
+/// take %RWops, and through %RWops its functionality is extended from
 /// just files to arbitrary objects that support file-like operations.
 ///
-/// For example, SDL2 provide 4 builtin types of RWops: File (take
-/// file name and work with plain file), FP (take stdio's FILE* and
-/// work with it), Mem and ConstMem (take memory chunk and work with
+/// For example, SDL2 provide 4 builtin types of %RWops: File (takes
+/// file name and works with plain file), FP (takes stdio's FILE* and
+/// works with it), Mem and ConstMem (take memory chunk and work with
 /// it like a file) and allow one to write custom RWops.
 ///
 /// SDL2pp::RWops support all this in extended C++11 way.
@@ -139,12 +139,12 @@ public:
 ///
 /// This class is more complicated than just wrapper over SDL_RWops,
 /// but it's needed to both retain compatibility with C SDL2 and to
-/// make it possible to write pure C++ RWops classes, in a safe way.
+/// make it possible to write pure C++ %RWops classes, in a safe way.
 ///
 ////////////////////////////////////////////////////////////
 class RWops {
 protected:
-	SDL_RWops* rwops_; ///< Contained SDL_RWops structure
+	SDL_RWops* rwops_; ///< Managed SDL_RWops object
 
 private:
 	static Sint64 StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
@@ -256,9 +256,13 @@ public:
 	RWops& operator=(const RWops&) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Create RWops from custom RWops class
+	/// \brief Create RWops from CustomRWops derived class
 	///
-	/// \param custom_rwops Custom RWops functions
+	/// \param custom_rwops Custom %RWops functions
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \todo make this take arguments for C constructor
 	///
 	////////////////////////////////////////////////////////////
 	template<class C>
@@ -288,9 +292,9 @@ public:
 	~RWops();
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_RWops structure
+	/// \brief Get pointer to managed SDL_RWops structure
 	///
-	/// \returns Pointer to contained SDL_RWops structure
+	/// \returns Pointer to managed SDL_RWops structure
 	///
 	////////////////////////////////////////////////////////////
 	SDL_RWops* Get() const;

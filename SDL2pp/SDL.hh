@@ -27,7 +27,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of SDL2 library (de-)initialization
+/// \brief Class taking care of SDL2 library initialization and deinitialization
 ///
 /// \ingroup general
 ///

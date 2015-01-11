@@ -41,6 +41,9 @@ class AudioSpec;
 ///
 /// \headerfile SDL2pp/AudioDevice.hh
 ///
+/// This class provides access to basic %SDL (not SDL_mixer!)
+/// audio functionality.
+///
 ////////////////////////////////////////////////////////////
 class AudioDevice {
 public:
@@ -103,8 +106,8 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// This may be initialized with real lock later with move
-		/// assignment operator
+		/// This may be initialized with real lock later via move
+		/// assignment
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle();
@@ -196,7 +199,7 @@ public:
 	/// \param iscapture Non-zero to open device for recording
 	///                  (SDL2 doesn't support this yet)
 	/// \param allowed_changes Flag mask specifying which audio
-	//                         format properties may change
+	///                        format properties may change
 	/// \param spec Desired audio output format (may be changed)
 	/// \param callback Callback which will feed audio to the device
 	///
@@ -248,9 +251,9 @@ public:
 	AudioDevice& operator=(const AudioDevice&) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get container audio device ID
+	/// \brief Get managed audio device ID
 	///
-	/// \returns Contained audio device ID
+	/// \returns Managed audio device ID
 	///
 	////////////////////////////////////////////////////////////
 	SDL_AudioDeviceID Get() const;

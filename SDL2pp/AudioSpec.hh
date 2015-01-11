@@ -103,9 +103,9 @@ public:
 	AudioSpec& operator=(const AudioSpec& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_AudioSpec structure
+	/// \brief Get pointer to managed SDL_AudioSpec structure
 	///
-	/// \returns Pointer to SDL_AudioSpec structure
+	/// \returns Pointer to managed SDL_AudioSpec structure
 	///
 	////////////////////////////////////////////////////////////
 	const SDL_AudioSpec* Get() const;

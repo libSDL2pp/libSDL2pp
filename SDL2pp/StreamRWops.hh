@@ -37,13 +37,13 @@ namespace SDL2pp {
 ///
 /// \headerfile SDL2pp/StreamRWops.hh
 ///
-/// This class extends functionality of RWops concept onto STL
-/// streams. With ContainerRWops, you may read from / write to a
-/// streams with SDL functions.
+/// This class extends functionality of %RWops concept onto STL
+/// streams. With ContainerRWops, you may read from / write to
+/// STL streams with %SDL functions.
 ///
 /// This template supports both input and output streams, but not
 /// at the same time, as separate input and output pointers of
-/// streams are not compatible with RWops.
+/// streams are not compatible with %RWops.
 ///
 ////////////////////////////////////////////////////////////
 template <class S>
@@ -133,7 +133,7 @@ private:
 
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief Construct StreamRWops for specificed stream
+	/// \brief Construct StreamRWops for specified stream
 	///
 	/// \param stream Stream to use
 	///
@@ -206,7 +206,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////////////
-	/// \brief Close strem
+	/// \brief Close stream
 	///
 	/// \returns 0 on success or a negative error code on failure
 	///

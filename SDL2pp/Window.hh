@@ -61,7 +61,7 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 class Window {
 private:
-	SDL_Window* window_; ///< Contained SDL2_Window structure
+	SDL_Window* window_; ///< Managed SDL2_Window object
 
 public:
 	////////////////////////////////////////////////////////////
@@ -132,9 +132,9 @@ public:
 	Window& operator=(const Window& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_Window structure
+	/// \brief Get pointer to managed SDL_Window structure
 	///
-	/// \returns Pointer to SDL_Window structure
+	/// \returns Pointer to managed SDL_Window structure
 	///
 	////////////////////////////////////////////////////////////
 	SDL_Window* Get() const;

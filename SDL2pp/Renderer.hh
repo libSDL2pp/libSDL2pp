@@ -48,7 +48,7 @@ class Point;
 ////////////////////////////////////////////////////////////
 class Renderer {
 private:
-	SDL_Renderer* renderer_; ///< Contained SDL_Renderer structure
+	SDL_Renderer* renderer_; ///< Managed SDL_Renderer object
 
 public:
 	////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ public:
 	///              the requested flags
 	/// \param flags 0 or more SDL_RendererFlags OR'ed together
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_CreateRenderer
 	///
@@ -118,9 +118,9 @@ public:
 	Renderer& operator=(const Renderer& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_Renderer structure
+	/// \brief Get pointer to managed SDL_Renderer structure
 	///
-	/// \returns Pointer to contained SDL_Renderer structure
+	/// \returns Pointer to managed SDL_Renderer structure
 	///
 	////////////////////////////////////////////////////////////
 	SDL_Renderer* Get() const;
@@ -129,14 +129,14 @@ public:
 	/// \brief Update the screen with any rendering performed
 	///        since the previous call
 	///
-	/// SDL's rendering functions operate on a backbuffer; that
+	/// %SDL's rendering functions operate on a backbuffer; that
 	/// is, calling a rendering function such as SDL_RenderDrawLine()
 	/// does not directly put a line on the screen, but rather
 	/// updates the backbuffer. As such, you compose your entire
 	/// scene and present the composed backbuffer to the screen as
 	/// a complete picture.
 	///
-	/// Therefore, when using SDL's rendering API, one does all
+	/// Therefore, when using %SDL's rendering API, one does all
 	/// drawing intended for the frame, and then calls this function
 	/// once per frame to present the final drawing to the user.
 	///
@@ -148,7 +148,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Clear the current rendering target with the drawing color
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderClear
 	///
@@ -161,7 +161,7 @@ public:
 	/// \param info SDL_RendererInfo structure to be filled with
 	///             information about the current renderer
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
 	///
@@ -177,7 +177,7 @@ public:
 	/// \param dstrect Destination rectangle, NullOpt for the entire
 	///                rendering target
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderCopy
 	///
@@ -200,7 +200,7 @@ public:
 	/// \param flip SDL_RendererFlip value stating which flipping
 	///             actions should be performed on the texture
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RendererFlip
 	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
@@ -216,7 +216,7 @@ public:
 	/// \param b Blue value used to draw on the rendering target
 	/// \param a Alpha value used to draw on the rendering target
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawColor
 	///
@@ -226,7 +226,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to default
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
 	///
@@ -239,7 +239,7 @@ public:
 	/// \param texture Target texture, SDL2pp::Texture created with
 	///                SDL_TEXTUREACCESS_TARGET
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
 	///
@@ -251,7 +251,7 @@ public:
 	///
 	/// \param blendMode SDL_BlendMode to use for blending
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_BlendMode
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawBlendMode
@@ -265,7 +265,7 @@ public:
 	/// \param x X coordinate of the point
 	/// \param y Y coordinate of the point
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoint
 	///
@@ -277,7 +277,7 @@ public:
 	///
 	/// \param p Coordinates of the point
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoint
 	///
@@ -290,7 +290,7 @@ public:
 	/// \param points Array of coordinates of points to draw
 	/// \param count Number of points to draw
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoints
 	///
@@ -305,7 +305,7 @@ public:
 	/// \param x2 X coordinate of the end point
 	/// \param y2 Y coordinate of the end point
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLine
 	///
@@ -318,7 +318,7 @@ public:
 	/// \param p1 Coordinates of the start point
 	/// \param p2 Coordinates of the end point
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLine
 	///
@@ -331,7 +331,7 @@ public:
 	/// \param points Array of coordinates of points along the polyline
 	/// \param count Number of points to draw count-1 polyline segments
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLines
 	///
@@ -346,7 +346,7 @@ public:
 	/// \param x2 X coordinate of the end corner
 	/// \param y2 Y coordinate of the end corner
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
@@ -359,7 +359,7 @@ public:
 	/// \param p1 Coordinates of the start corner
 	/// \param p2 Coordinates of the end corner
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
@@ -371,7 +371,7 @@ public:
 	///
 	/// \param r Rectangle to draw
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
@@ -384,7 +384,7 @@ public:
 	/// \param rects Array of rectangles to draw
 	/// \param count Number of rectangles
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRects
 	///
@@ -399,7 +399,7 @@ public:
 	/// \param x2 X coordinate of the end corner
 	/// \param y2 Y coordinate of the end corner
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
@@ -412,7 +412,7 @@ public:
 	/// \param p1 Coordinates of the start corner
 	/// \param p2 Coordinates of the end corner
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
@@ -424,7 +424,7 @@ public:
 	///
 	/// \param r Rectangle to draw
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
@@ -437,7 +437,7 @@ public:
 	/// \param rects Array of rectangles to draw
 	/// \param count Number of rectangles
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRects
 	///
@@ -456,7 +456,7 @@ public:
 	/// \param pitch Number of bytes in a row of pixel data, including
 	///              padding between lines
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderReadPixels
 	///
@@ -469,7 +469,7 @@ public:
 	/// \param rect New clipping rectangle or NullOpt to disable
 	///             clipping
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetClipRect
 	///
@@ -482,7 +482,7 @@ public:
 	/// \param w Width of the logical resolution
 	/// \param h Height of the logical resolution
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetLogicalSize
 	///
@@ -495,7 +495,7 @@ public:
 	/// \param scaleX Horizontal scaling factor
 	/// \param scaleY Vertical scaling factor
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetScale
 	///
@@ -508,7 +508,7 @@ public:
 	/// \param rect Rectangle representing the drawing area or
 	///             NullOpt to set the viewport to the entire target
 	///
-	/// \throws SDL2pp::Exceptions
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetViewport
 	///

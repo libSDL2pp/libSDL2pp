@@ -25,7 +25,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of SDL_ttf library (de-)initialization
+/// \brief Object taking care of SDL_ttf library initialization and deinitialization
 ///
 /// \ingroup ttf
 ///
@@ -34,8 +34,8 @@ namespace SDL2pp {
 /// To use SDL_ttf functions, SDL_ttf library must be initialized first.
 /// This initialization and automatic deinitialization is handled by
 /// this class. You may only use SDL_ttf (Font class) functionality
-/// while SDLTTF object lives. SDL itself must not be initialized to use
-/// TTF
+/// as long as SDLTTF object lives. SDL itself must not be initialized
+/// to use TTF.
 ///
 /// Usage example:
 /// \code

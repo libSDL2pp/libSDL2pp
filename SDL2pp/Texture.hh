@@ -50,7 +50,7 @@ class Surface;
 ////////////////////////////////////////////////////////////
 class Texture {
 private:
-	SDL_Texture* texture_; ///< Contained SDL_Texture structure
+	SDL_Texture* texture_; ///< Managed SDL_Texture object
 
 public:
 	////////////////////////////////////////////////////////////
@@ -115,8 +115,8 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create no-op lock
 		///
-		/// This may be initialized with real lock later with move
-		/// assignment operator
+		/// This may be initialized with real lock later via move
+		/// assignment
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle();
@@ -198,7 +198,7 @@ public:
 	/// \param renderer Rendering context to create texture for
 	/// \param format One of the enumerated values in SDL_PixelFormatEnum
 	/// \param access One of the enumerated values in SDL_TextureAccess
-	/// \param w With of the texture in pixels
+	/// \param w Width of the texture in pixels
 	/// \param h Height of the texture in pixels
 	///
 	/// \throws SDL2pp::Exception
@@ -288,9 +288,9 @@ public:
 	Texture& operator=(const Texture& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to contained SDL_Texture structure
+	/// \brief Get pointer to managed SDL_Texture structure
 	///
-	/// \returns Pointer to contained SDL_Texture structure
+	/// \returns Pointer to managed SDL_Texture structure
 	///
 	////////////////////////////////////////////////////////////
 	SDL_Texture* Get() const;
