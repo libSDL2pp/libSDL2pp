@@ -469,14 +469,14 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the RLE acceleration hint for a surface
 	///
-	/// \param flag 0 to disable, non-zero to enable RLE acceleration
+	/// \param flag False to disable, true to enable RLE acceleration
 	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceRLE
 	///
 	////////////////////////////////////////////////////////////
-	void SetRLE(int flag);
+	void SetRLE(bool flag);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Perform a fast fill of a rectangle with a specific color
