@@ -15,8 +15,6 @@ before_install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 script:
   - cmake . -DSDL2PP_ENABLE_GUI_TEST=OFF -DCMAKE_INSTALL_PREFIX=`pwd`/_prefix -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=$SDL2PP_CXXSTD
-  - make
-  - make test
-  - make install
+  - make && make test && make install
   - cppcheck -I . --enable=style,performance,portability,information,missingInclude --error-exitcode=2 SDL2pp
   - if make doxygen 2>&1 | grep 'warning:'; then false; else true; fi
