@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -72,6 +72,11 @@ void Renderer::Clear() {
 
 void Renderer::GetInfo(SDL_RendererInfo* info) {
 	if (SDL_GetRendererInfo(renderer_, info) != 0)
+		throw Exception("SDL_GetRendererInfo failed");
+}
+
+void Renderer::GetInfo(SDL_RendererInfo& info) {
+	if (SDL_GetRendererInfo(renderer_, &info) != 0)
 		throw Exception("SDL_GetRendererInfo failed");
 }
 

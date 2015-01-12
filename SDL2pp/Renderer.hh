@@ -25,6 +25,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
+#include <SDL2pp/Config.hh>
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
@@ -166,7 +167,20 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
 	///
 	////////////////////////////////////////////////////////////
-	void GetInfo(SDL_RendererInfo* info);
+	SDL2PP_DEPRECATED void GetInfo(SDL_RendererInfo* info);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get information about a rendering context
+	///
+	/// \param info SDL_RendererInfo structure to be filled with
+	///             information about the current renderer
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
+	///
+	////////////////////////////////////////////////////////////
+	void GetInfo(SDL_RendererInfo& info);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy a portion of the texture to the current rendering
