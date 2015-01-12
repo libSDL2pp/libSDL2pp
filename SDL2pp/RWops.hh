@@ -277,7 +277,7 @@ public:
 		rwops_->close = CustomCloseFuncWrapper;
 		rwops_->type = 0x57524370; // "pCRW" for libSDLp[p] [C]ustom [RW]ops
 		try {
-			rwops_->hidden.unknown.data1 = static_cast<void*>(new C(custom_rwops));
+			rwops_->hidden.unknown.data1 = static_cast<void*>(new C(std::move(custom_rwops)));
 		} catch (...) {
 			SDL_FreeRW(rwops_);
 			throw;
