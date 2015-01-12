@@ -75,7 +75,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct exception, storing result of SDL_GetError()
 	///
-	/// \param what User-specified explanatory string
+	/// \param[in] what User-specified explanatory string
 	///
 	////////////////////////////////////////////////////////////
 	Exception(const char* what = "");

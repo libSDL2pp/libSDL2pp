@@ -54,7 +54,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a point from existing SDL_Point
 	///
-	/// \param point Existing SDL_Point
+	/// \param[in] point Existing SDL_Point
 	///
 	////////////////////////////////////////////////////////////
 	Point(const SDL_Point& point);
@@ -62,8 +62,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the point from given coordinates
 	///
-	/// \param nx X coordinate
-	/// \param ny Y coordinate
+	/// \param[in] nx X coordinate
+	/// \param[in] ny Y coordinate
 	///
 	////////////////////////////////////////////////////////////
 	Point(int nx, int ny);
@@ -99,7 +99,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Equality operator
 	///
-	/// \param other Point to compare to
+	/// \param[in] other Point to compare to
 	///
 	/// \returns True if two points are identical
 	///
@@ -109,7 +109,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Inequality operator
 	///
-	/// \param other Point to compare to
+	/// \param[in] other Point to compare to
 	///
 	/// \returns True if two points are not identical
 	///
@@ -127,7 +127,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the point
 	///
-	/// \param nx New X coordinate value
+	/// \param[in] nx New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX(int nx);
@@ -143,7 +143,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the point
 	///
-	/// \param ny New Y coordinate value
+	/// \param[in] ny New Y coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetY(int ny);
@@ -151,7 +151,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise addition with another point
 	///
-	/// \param other Point to add
+	/// \param[in] other Point to add
 	///
 	/// \returns New Point representing memberwise addition with another point
 	///
@@ -161,7 +161,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise subtraction with another point
 	///
-	/// \param other Point to subtract
+	/// \param[in] other Point to subtract
 	///
 	/// \returns New Point representing memberwise subtraction of another point
 	///
@@ -171,7 +171,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise division by an integer
 	///
-	/// \param value Divisor
+	/// \param[in] value Divisor
 	///
 	/// \returns New Point representing memberwise division of point by and integer
 	///
@@ -181,7 +181,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise multiplication by an integer
 	///
-	/// \param value Multiplier
+	/// \param[in] value Multiplier
 	///
 	/// \returns New Point representing memberwise multiplication of point by an integer
 	///
@@ -191,7 +191,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise add another point
 	///
-	/// \param other Point to add to the current one
+	/// \param[in] other Point to add to the current one
 	///
 	/// \returns Reference to self
 	///
@@ -201,7 +201,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise subtract another point
 	///
-	/// \param other Point to subtract from the current one
+	/// \param[in] other Point to subtract from the current one
 	///
 	/// \returns Reference to self
 	///
@@ -211,7 +211,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise divide by an integer
 	///
-	/// \param value Divisor
+	/// \param[in] value Divisor
 	///
 	/// \returns Reference to self
 	///
@@ -221,7 +221,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by an integer
 	///
-	/// \param value Multiplier
+	/// \param[in] value Multiplier
 	///
 	/// \returns Reference to self
 	///

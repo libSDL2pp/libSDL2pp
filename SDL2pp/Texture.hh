@@ -102,7 +102,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create lock for specific SDL2pp::Texture
 		///
-		/// \param rect Specifies region to lock
+		/// \param[in] rect Specifies region to lock
 		///
 		/// \throws STL2pp::Exception
 		///
@@ -134,7 +134,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move constructor
 		///
-		/// \param other SDL2pp::Texture::LockHandle to move data from
+		/// \param[in] other SDL2pp::Texture::LockHandle to move data from
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
@@ -142,7 +142,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move assignment operator
 		///
-		/// \param other SDL2pp::Texture::LockHandle to move data from
+		/// \param[in] other SDL2pp::Texture::LockHandle to move data from
 		///
 		/// \returns Reference to self
 		///
@@ -187,7 +187,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Construct from existing SDL_Texture structure
 	///
-	/// \param texture Existing SDL_Texture to manage
+	/// \param[in] texture Existing SDL_Texture to manage
 	///
 	////////////////////////////////////////////////////////////
 	Texture(SDL_Texture* texture);
@@ -195,11 +195,11 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty texture
 	///
-	/// \param renderer Rendering context to create texture for
-	/// \param format One of the enumerated values in SDL_PixelFormatEnum
-	/// \param access One of the enumerated values in SDL_TextureAccess
-	/// \param w Width of the texture in pixels
-	/// \param h Height of the texture in pixels
+	/// \param[in] renderer Rendering context to create texture for
+	/// \param[in] format One of the enumerated values in SDL_PixelFormatEnum
+	/// \param[in] access One of the enumerated values in SDL_TextureAccess
+	/// \param[in] w Width of the texture in pixels
+	/// \param[in] h Height of the texture in pixels
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -212,8 +212,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create texture loading it via RWops
 	///
-	/// \param renderer Rendering context to create texture for
-	/// \param rwops RWops used to access an image file
+	/// \param[in] renderer Rendering context to create texture for
+	/// \param[in] rwops RWops used to access an image file
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -223,8 +223,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create texture loading it from file
 	///
-	/// \param renderer Rendering context to create texture for
-	/// \param filename Path to an image file
+	/// \param[in] renderer Rendering context to create texture for
+	/// \param[in] filename Path to an image file
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -235,8 +235,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create texture from surface
 	///
-	/// \param renderer Rendering context to create texture for
-	/// \param surface Surface containing pixel data used to fill the texture
+	/// \param[in] renderer Rendering context to create texture for
+	/// \param[in] surface Surface containing pixel data used to fill the texture
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -256,7 +256,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::Texture object to move data from
+	/// \param[in] other SDL2pp::Texture object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	Texture(Texture&& other) noexcept;
@@ -264,7 +264,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment
 	///
-	/// \param other SDL2pp::Texture object to move data from
+	/// \param[in] other SDL2pp::Texture object to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -298,11 +298,11 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Update the given texture rectangle with new pixel data
 	///
-	/// \param rect Rect representing the area to update, or NullOpt to
-	///             update the entire texture
-	/// \param pixels Raw pixel data
-	/// \param pitch Number of bytes in a row of pixel data, including
-	///              padding between lines
+	/// \param[in] rect Rect representing the area to update, or NullOpt to
+	///                 update the entire texture
+	/// \param[in] pixels Raw pixel data
+	/// \param[in] pitch Number of bytes in a row of pixel data, including
+	///                  padding between lines
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -314,7 +314,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
 	///
-	/// \param blendMode SDL_BlendMode to use for texture blending
+	/// \param[in] blendMode SDL_BlendMode to use for texture blending
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -326,7 +326,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional alpha value multiplied into render copy operations
 	///
-	/// \param alpha Source alpha value multiplied into copy operations
+	/// \param[in] alpha Source alpha value multiplied into copy operations
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -338,9 +338,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional color value multiplied into render copy operations
 	///
-	/// \param r Red color value multiplied into copy operations
-	/// \param g Green color value multiplied into copy operations
-	/// \param b Blue color value multiplied into copy operations
+	/// \param[in] r Red color value multiplied into copy operations
+	/// \param[in] g Green color value multiplied into copy operations
+	/// \param[in] b Blue color value multiplied into copy operations
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -352,8 +352,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Lock texture for write-only pixel access
 	///
-	/// \param rect Rect representing area to lock for access
-	///             (NullOpt to lock entire texture)
+	/// \param[in] rect Rect representing area to lock for access
+	///                 (NullOpt to lock entire texture)
 	///
 	/// \return Lock handle used to access pixel data and to control lock lifetime
 	///

@@ -60,7 +60,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a rect from existing SDL_Rect
 	///
-	/// \param rect Existing SDL_Rect
+	/// \param[in] rect Existing SDL_Rect
 	///
 	////////////////////////////////////////////////////////////
 	Rect(const SDL_Rect& rect);
@@ -68,8 +68,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, and size
 	///
-	/// \param corner Coordinates of the top left rectangle corner
-	/// \param size Dimensions of the rectangle
+	/// \param[in] corner Coordinates of the top left rectangle corner
+	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	Rect(const Point& corner, const Point& size);
@@ -77,10 +77,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, width and height
 	///
-	/// \param x X coordinate of the top left rectangle corner
-	/// \param y Y coordinate of the top left rectangle corner
-	/// \param w Width of the rectangle
-	/// \param h Height of the rectangle
+	/// \param[in] x X coordinate of the top left rectangle corner
+	/// \param[in] y Y coordinate of the top left rectangle corner
+	/// \param[in] w Width of the rectangle
+	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	Rect(int x, int y, int w, int h);
@@ -88,10 +88,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates, width and height
 	///
-	/// \param cx X coordinate of the rectangle center
-	/// \param cy Y coordinate of the rectangle center
-	/// \param w Width of the rectangle
-	/// \param h Height of the rectangle
+	/// \param[in] cx X coordinate of the rectangle center
+	/// \param[in] cy Y coordinate of the rectangle center
+	/// \param[in] w Width of the rectangle
+	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCenter(int cx, int cy, int w, int h);
@@ -99,8 +99,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates and size
 	///
-	/// \param center Coordinates of the rectangle center
-	/// \param size Dimensions of the rectangle
+	/// \param[in] center Coordinates of the rectangle center
+	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCenter(const Point& center, const Point& size);
@@ -108,10 +108,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corners coordinates
 	///
-	/// \param x1 X coordinate of the top left rectangle corner
-	/// \param y1 Y coordinate of the top left rectangle corner
-	/// \param x2 X coordinate of the bottom right rectangle corner
-	/// \param y2 Y coordinate of the bottom right rectangle corner
+	/// \param[in] x1 X coordinate of the top left rectangle corner
+	/// \param[in] y1 Y coordinate of the top left rectangle corner
+	/// \param[in] x2 X coordinate of the bottom right rectangle corner
+	/// \param[in] y2 Y coordinate of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCorners(int x1, int y1, int x2, int y2);
@@ -119,8 +119,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given centers coordinates
 	///
-	/// \param p1 Coordinates of the top left rectangle corner
-	/// \param p2 Coordinates of the bottom right rectangle corner
+	/// \param[in] p1 Coordinates of the top left rectangle corner
+	/// \param[in] p2 Coordinates of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
 	static Rect FromCorners(const Point& p1, const Point& p2);
@@ -156,7 +156,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Equality operator
 	///
-	/// \param other Rect to compare to
+	/// \param[in] other Rect to compare to
 	///
 	/// \returns True if two rectangles are identical
 	///
@@ -166,7 +166,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Inequality operator
 	///
-	/// \param other Rect to compare to
+	/// \param[in] other Rect to compare to
 	///
 	/// \returns True if two rectangles are not identical
 	///
@@ -184,7 +184,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect corner
 	///
-	/// \param nx New X coordinate value
+	/// \param[in] nx New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX(int nx);
@@ -200,7 +200,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect corner
 	///
-	/// \param ny New Y coordinate value
+	/// \param[in] ny New Y coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetY(int ny);
@@ -216,7 +216,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set width of the rect
 	///
-	/// \param nw New width of the rect
+	/// \param[in] nw New width of the rect
 	///
 	////////////////////////////////////////////////////////////
 	void SetW(int nw);
@@ -232,7 +232,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set height of the rect
 	///
-	/// \param nh New height of the rect
+	/// \param[in] nh New height of the rect
 	///
 	////////////////////////////////////////////////////////////
 	void SetH(int nh);
@@ -248,7 +248,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect second corner
 	///
-	/// \param x2 New X coordinate value
+	/// \param[in] x2 New X coordinate value
 	///
 	////////////////////////////////////////////////////////////
 	void SetX2(int x2);
@@ -266,7 +266,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect second corner
 	///
-	/// \param y2 New Y coordinate value
+	/// \param[in] y2 New Y coordinate value
 	///
 	/// This modifies rectangle height internally
 	///
@@ -276,8 +276,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
 	///
-	/// \param x X coordinate of a point
-	/// \param y Y coordinate of a point
+	/// \param[in] x X coordinate of a point
+	/// \param[in] y Y coordinate of a point
 	///
 	/// \returns True if the point is contained in the rect
 	///
@@ -287,7 +287,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
 	///
-	/// \param point Point to check
+	/// \param[in] point Point to check
 	///
 	/// \returns True if the point is contained in the rect
 	///
@@ -297,7 +297,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains another rect
 	///
-	/// \param rect Rect to check
+	/// \param[in] rect Rect to check
 	///
 	/// \returns True if the checked rect is contained in this rect
 	///
@@ -307,7 +307,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect intersects another rect
 	///
-	/// \param rect Rect to check
+	/// \param[in] rect Rect to check
 	///
 	/// \returns True if rectangles intersect
 	///
@@ -317,7 +317,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Calculate union with another rect
 	///
-	/// \param rect Rect to union with
+	/// \param[in] rect Rect to union with
 	///
 	/// \returns Rect representing union of two rectangles
 	///
@@ -327,7 +327,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Calculate intersection with another rect
 	///
-	/// \param rect Rect to intersect with
+	/// \param[in] rect Rect to intersect with
 	///
 	/// \returns Rect representing intersection area or NullOpt if there was no intersection
 	///
@@ -337,7 +337,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by a given offset
 	///
-	/// \param offset Point specifying an offset
+	/// \param[in] offset Point specifying an offset
 	///
 	/// \returns Moved rectangle
 	///
@@ -347,7 +347,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by an opposite of given offset
 	///
-	/// \param offset Point specifying an offset
+	/// \param[in] offset Point specifying an offset
 	///
 	/// \returns Moved rectangle
 	///
@@ -357,7 +357,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move by then given offset
 	///
-	/// \param offset Point specifying an offset
+	/// \param[in] offset Point specifying an offset
 	///
 	/// \returns Reference to self
 	///
@@ -367,7 +367,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move by an opposite of the given offset
 	///
-	/// \param offset Point specifying an offset
+	/// \param[in] offset Point specifying an offset
 	///
 	/// \returns Reference to self
 	///

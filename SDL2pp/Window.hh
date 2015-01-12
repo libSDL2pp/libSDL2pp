@@ -67,7 +67,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct from existing SDL_Window structure
 	///
-	/// \param window Existing SDL_Window to manage
+	/// \param[in] window Existing SDL_Window to manage
 	///
 	////////////////////////////////////////////////////////////
 	Window(SDL_Window* window);
@@ -75,12 +75,12 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create window with specified title and dimensions
 	///
-	/// \param title Title of the windows, in UTF-8 encoding
-	/// \param x X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
-	/// \param y X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
-	/// \param w Width of the window
-	/// \param h Height of the window
-	/// \param flags 0 or more SDL_WindowFlags OR'd together
+	/// \param[in] title Title of the windows, in UTF-8 encoding
+	/// \param[in] x X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param[in] y X position of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
+	/// \param[in] w Width of the window
+	/// \param[in] h Height of the window
+	/// \param[in] flags 0 or more SDL_WindowFlags OR'd together
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -100,7 +100,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::Window object to move data from
+	/// \param[in] other SDL2pp::Window object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	Window(Window&& other) noexcept;
@@ -108,7 +108,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
 	///
-	/// \param other SDL2pp::Window object to move data from
+	/// \param[in] other SDL2pp::Window object to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -173,7 +173,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set window title
 	///
-	/// \param title New window title in UTF-8 encoding
+	/// \param[in] title New window title in UTF-8 encoding
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowTitle
 	///
@@ -231,7 +231,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set a window's fullscreen state
 	///
-	/// \param flags SDL_WINDOW_FULLSCREEN, SDL_WINDOW_FULLSCREEN_DESKTOP or 0
+	/// \param[in] flags SDL_WINDOW_FULLSCREEN, SDL_WINDOW_FULLSCREEN_DESKTOP or 0
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -243,8 +243,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
-	/// \param w Width of the window in pixels
-	/// \param h Height of the window in pixels
+	/// \param[in] w Width of the window in pixels
+	/// \param[in] h Height of the window in pixels
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///
@@ -254,7 +254,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
-	/// \param size Point representing window dimensions
+	/// \param[in] size Point representing window dimensions
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///

@@ -57,7 +57,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes SDL_image library
 	///
-	/// \param flags Flags to pass to IMG_Init()
+	/// \param[in] flags Flags to pass to IMG_Init()
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -77,7 +77,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Try to init more SDL_image formats
 	///
-	/// \param flags Flags to pass to IMG_Init()
+	/// \param[in] flags Flags to pass to IMG_Init()
 	///
 	/// \throws SDL2pp::Exception
 	///

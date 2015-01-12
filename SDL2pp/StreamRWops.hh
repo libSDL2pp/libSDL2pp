@@ -135,7 +135,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct StreamRWops for specified stream
 	///
-	/// \param stream Stream to use
+	/// \param[in] stream Stream to use
 	///
 	////////////////////////////////////////////////////////////
 	StreamRWops(S& stream) : stream_(stream) {
@@ -144,9 +144,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Seek within the stream
 	///
-	/// \param offset Offset in bytes, relative to whence location; can
-	///               be negative
-	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	/// \param[in] offset Offset in bytes, relative to whence location; can
+	///                   be negative
+	/// \param[in] whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
 	///
 	/// \returns Final offset in the stream after the seek or -1 on error
 	///
@@ -174,9 +174,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Read from a stream
 	///
-	/// \param ptr Pointer to a buffer to read data into
-	/// \param size Size of each object to read, in bytes
-	/// \param maxnum Maximum number of objects to be read
+	/// \param[in] ptr Pointer to a buffer to read data into
+	/// \param[in] size Size of each object to read, in bytes
+	/// \param[in] maxnum Maximum number of objects to be read
 	///
 	/// \returns Number of objects read, or 0 at error or end of file
 	///
@@ -191,9 +191,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Write to a stream
 	///
-	/// \param ptr Pointer to a buffer containing data to write
-	/// \param size Size of each object to write, in bytes
-	/// \param num Number of objects to be write
+	/// \param[in] ptr Pointer to a buffer containing data to write
+	/// \param[in] size Size of each object to write, in bytes
+	/// \param[in] num Number of objects to be write
 	///
 	/// \returns Number of objects written
 	///

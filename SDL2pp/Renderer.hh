@@ -55,7 +55,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct from existing SDL_Renderer structure
 	///
-	/// \param renderer Existing SDL_Renderer to manage
+	/// \param[in] renderer Existing SDL_Renderer to manage
 	///
 	////////////////////////////////////////////////////////////
 	Renderer(SDL_Renderer* renderer);
@@ -63,11 +63,11 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create renderer
 	///
-	/// \param window Window where rendering is displayed
-	/// \param index Index of the rendering driver to initialize,
-	///              or -1 to initialize the first one supporting
-	///              the requested flags
-	/// \param flags 0 or more SDL_RendererFlags OR'ed together
+	/// \param[in] window Window where rendering is displayed
+	/// \param[in] index Index of the rendering driver to initialize,
+	///                  or -1 to initialize the first one supporting
+	///                  the requested flags
+	/// \param[in] flags 0 or more SDL_RendererFlags OR'ed together
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -87,7 +87,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::Renderer object to move data from
+	/// \param[in] other SDL2pp::Renderer object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	Renderer(Renderer&& other) noexcept;
@@ -95,7 +95,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
 	///
-	/// \param other SDL2pp::Renderer object to move data from
+	/// \param[in] other SDL2pp::Renderer object to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -159,8 +159,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get information about a rendering context
 	///
-	/// \param info SDL_RendererInfo structure to be filled with
-	///             information about the current renderer
+	/// \param[out] info SDL_RendererInfo structure to be filled with
+	///                  information about the current renderer
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -172,8 +172,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get information about a rendering context
 	///
-	/// \param info SDL_RendererInfo structure to be filled with
-	///             information about the current renderer
+	/// \param[out] info SDL_RendererInfo structure to be filled with
+	///                  information about the current renderer
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -186,10 +186,10 @@ public:
 	/// \brief Copy a portion of the texture to the current rendering
 	///        target
 	///
-	/// \param texture Source texture
-	/// \param srcrect Source rectangle, NullOpt for the entire texture
-	/// \param dstrect Destination rectangle, NullOpt for the entire
-	///                rendering target
+	/// \param[in] texture Source texture
+	/// \param[in] srcrect Source rectangle, NullOpt for the entire texture
+	/// \param[in] dstrect Destination rectangle, NullOpt for the entire
+	///                    rendering target
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -202,17 +202,17 @@ public:
 	/// \brief Copy a portion of the texture to the current rendering
 	///        target with optional rotating or flipping
 	///
-	/// \param texture Source texture
-	/// \param srcrect Source rectangle, NullOpt for the entire texture
-	/// \param dstrect Destination rectangle, NullOpt for the entire
-	///                rendering target
-	/// \param angle Angle in degrees that indicates the rotation that
-	///              will be applied to dstrect
-	/// \param center Point indicating the point around which dstrect
-	///               will be rotated (NullOpt to rotate around dstrect
-	///               center)
-	/// \param flip SDL_RendererFlip value stating which flipping
-	///             actions should be performed on the texture
+	/// \param[in] texture Source texture
+	/// \param[in] srcrect Source rectangle, NullOpt for the entire texture
+	/// \param[in] dstrect Destination rectangle, NullOpt for the entire
+	///                    rendering target
+	/// \param[in] angle Angle in degrees that indicates the rotation that
+	///                  will be applied to dstrect
+	/// \param[in] center Point indicating the point around which dstrect
+	///                   will be rotated (NullOpt to rotate around dstrect
+	///                   center)
+	/// \param[in] flip SDL_RendererFlip value stating which flipping
+	///                 actions should be performed on the texture
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -225,10 +225,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set color user for drawing operations
 	///
-	/// \param r Red value used to draw on the rendering target
-	/// \param g Green value used to draw on the rendering target
-	/// \param b Blue value used to draw on the rendering target
-	/// \param a Alpha value used to draw on the rendering target
+	/// \param[in] r Red value used to draw on the rendering target
+	/// \param[in] g Green value used to draw on the rendering target
+	/// \param[in] b Blue value used to draw on the rendering target
+	/// \param[in] a Alpha value used to draw on the rendering target
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -250,8 +250,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to specified texture
 	///
-	/// \param texture Target texture, SDL2pp::Texture created with
-	///                SDL_TEXTUREACCESS_TARGET
+	/// \param[in] texture Target texture, SDL2pp::Texture created with
+	///                    SDL_TEXTUREACCESS_TARGET
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -263,7 +263,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode used for drawing operations
 	///
-	/// \param blendMode SDL_BlendMode to use for blending
+	/// \param[in] blendMode SDL_BlendMode to use for blending
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -276,8 +276,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a point on the current rendering target
 	///
-	/// \param x X coordinate of the point
-	/// \param y Y coordinate of the point
+	/// \param[in] x X coordinate of the point
+	/// \param[in] y Y coordinate of the point
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -289,7 +289,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a point on the current rendering target
 	///
-	/// \param p Coordinates of the point
+	/// \param[in] p Coordinates of the point
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -301,8 +301,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw multiple points on the current rendering target
 	///
-	/// \param points Array of coordinates of points to draw
-	/// \param count Number of points to draw
+	/// \param[in] points Array of coordinates of points to draw
+	/// \param[in] count Number of points to draw
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -314,10 +314,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a line on the current rendering target
 	///
-	/// \param x1 X coordinate of the start point
-	/// \param y1 Y coordinate of the start point
-	/// \param x2 X coordinate of the end point
-	/// \param y2 Y coordinate of the end point
+	/// \param[in] x1 X coordinate of the start point
+	/// \param[in] y1 Y coordinate of the start point
+	/// \param[in] x2 X coordinate of the end point
+	/// \param[in] y2 Y coordinate of the end point
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -329,8 +329,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a line on the current rendering target
 	///
-	/// \param p1 Coordinates of the start point
-	/// \param p2 Coordinates of the end point
+	/// \param[in] p1 Coordinates of the start point
+	/// \param[in] p2 Coordinates of the end point
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -342,8 +342,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a polyline on the current rendering target
 	///
-	/// \param points Array of coordinates of points along the polyline
-	/// \param count Number of points to draw count-1 polyline segments
+	/// \param[in] points Array of coordinates of points along the polyline
+	/// \param[in] count Number of points to draw count-1 polyline segments
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -355,10 +355,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
-	/// \param x1 X coordinate of the start corner
-	/// \param y1 Y coordinate of the start corner
-	/// \param x2 X coordinate of the end corner
-	/// \param y2 Y coordinate of the end corner
+	/// \param[in] x1 X coordinate of the start corner
+	/// \param[in] y1 Y coordinate of the start corner
+	/// \param[in] x2 X coordinate of the end corner
+	/// \param[in] y2 Y coordinate of the end corner
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -370,8 +370,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
-	/// \param p1 Coordinates of the start corner
-	/// \param p2 Coordinates of the end corner
+	/// \param[in] p1 Coordinates of the start corner
+	/// \param[in] p2 Coordinates of the end corner
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -383,7 +383,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
-	/// \param r Rectangle to draw
+	/// \param[in] r Rectangle to draw
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -395,8 +395,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Draw multiple rectangles on the current rendering target
 	///
-	/// \param rects Array of rectangles to draw
-	/// \param count Number of rectangles
+	/// \param[in] rects Array of rectangles to draw
+	/// \param[in] count Number of rectangles
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -408,10 +408,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
-	/// \param x1 X coordinate of the start corner
-	/// \param y1 Y coordinate of the start corner
-	/// \param x2 X coordinate of the end corner
-	/// \param y2 Y coordinate of the end corner
+	/// \param[in] x1 X coordinate of the start corner
+	/// \param[in] y1 Y coordinate of the start corner
+	/// \param[in] x2 X coordinate of the end corner
+	/// \param[in] y2 Y coordinate of the end corner
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -423,8 +423,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
-	/// \param p1 Coordinates of the start corner
-	/// \param p2 Coordinates of the end corner
+	/// \param[in] p1 Coordinates of the start corner
+	/// \param[in] p2 Coordinates of the end corner
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -436,7 +436,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
-	/// \param r Rectangle to draw
+	/// \param[in] r Rectangle to draw
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -448,8 +448,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Fill multiple rectangles on the current rendering target
 	///
-	/// \param rects Array of rectangles to draw
-	/// \param count Number of rectangles
+	/// \param[in] rects Array of rectangles to draw
+	/// \param[in] count Number of rectangles
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -461,14 +461,14 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Read pixels from the current rendering target
 	///
-	/// \param rect Area to read or NullOpt for the entire render
-	///             target
-	/// \param format Desired format of the pixel data, or 0 to
-	///               use the format of the rendering target
-	/// \param pixels Pointer to memory to be filled with pixel
-	///               data
-	/// \param pitch Number of bytes in a row of pixel data, including
-	///              padding between lines
+	/// \param[in] rect Area to read or NullOpt for the entire render
+	///                 target
+	/// \param[in] format Desired format of the pixel data, or 0 to
+	///                   use the format of the rendering target
+	/// \param[in] pixels Pointer to memory to be filled with pixel
+	///                   data
+	/// \param[in] pitch Number of bytes in a row of pixel data, including
+	///                  padding between lines
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -480,8 +480,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the clipping rectangle for rendering
 	///
-	/// \param rect New clipping rectangle or NullOpt to disable
-	///             clipping
+	/// \param[in] rect New clipping rectangle or NullOpt to disable
+	///                 clipping
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -493,8 +493,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set a device independent resolution for rendering
 	///
-	/// \param w Width of the logical resolution
-	/// \param h Height of the logical resolution
+	/// \param[in] w Width of the logical resolution
+	/// \param[in] h Height of the logical resolution
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -506,8 +506,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the drawing scale for rendering on the current target
 	///
-	/// \param scaleX Horizontal scaling factor
-	/// \param scaleY Vertical scaling factor
+	/// \param[in] scaleX Horizontal scaling factor
+	/// \param[in] scaleY Vertical scaling factor
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -519,8 +519,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Set the drawing area for rendering on the current target
 	///
-	/// \param rect Rectangle representing the drawing area or
-	///             NullOpt to set the viewport to the entire target
+	/// \param[in] rect Rectangle representing the drawing area or
+	///                 NullOpt to set the viewport to the entire target
 	///
 	/// \throws SDL2pp::Exception
 	///

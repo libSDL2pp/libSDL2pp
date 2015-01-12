@@ -59,7 +59,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Load audio from file on disk
 	///
-	/// \param file Path to the wav file
+	/// \param[in] file Path to the wav file
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -71,7 +71,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Load audio using RWops
 	///
-	/// \param rwops SDL2pp::RWops used to access wav data
+	/// \param[in] rwops SDL2pp::RWops used to access wav data
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -89,7 +89,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::Wav object to move data from
+	/// \param[in] other SDL2pp::Wav object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	Wav(Wav&& other);
@@ -97,7 +97,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
 	///
-	/// \param other SDL2pp::Wav object to move data from
+	/// \param[in] other SDL2pp::Wav object to move data from
 	///
 	/// \returns Reference to self
 	///

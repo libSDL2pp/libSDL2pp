@@ -55,9 +55,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Seek within the data stream
 	///
-	/// \param offset Offset in bytes, relative to whence location; can
-	///               be negative
-	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	/// \param[in] offset Offset in bytes, relative to whence location; can
+	///                   be negative
+	/// \param[in] whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
 	///
 	/// \returns Final offset in the data stream after the seek or -1 on error
 	///
@@ -69,9 +69,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Read from a data stream
 	///
-	/// \param ptr Pointer to a buffer to read data into
-	/// \param size Size of each object to read, in bytes
-	/// \param maxnum Maximum number of objects to be read
+	/// \param[in] ptr Pointer to a buffer to read data into
+	/// \param[in] size Size of each object to read, in bytes
+	/// \param[in] maxnum Maximum number of objects to be read
 	///
 	/// \returns Number of objects read, or 0 at error or end of file
 	///
@@ -83,9 +83,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Write to a data stream
 	///
-	/// \param ptr Pointer to a buffer containing data to write
-	/// \param size Size of each object to write, in bytes
-	/// \param num Maximum number of objects to be write
+	/// \param[in] ptr Pointer to a buffer containing data to write
+	/// \param[in] size Size of each object to write, in bytes
+	/// \param[in] num Maximum number of objects to be write
 	///
 	/// \returns Number of objects written, which will be less than num on error
 	///
@@ -163,9 +163,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops working through stdio's FILE*
 	///
-	/// \param file Pointer to stdio's FILE type
-	/// \param autoclose True to take ownership of given FILE and
-	///                  close it on RWops destruction
+	/// \param[in] file Pointer to stdio's FILE type
+	/// \param[in] autoclose True to take ownership of given FILE and
+	///                      close it on RWops destruction
 	///
 	/// \returns Created RWops
 	///
@@ -177,8 +177,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops working with a constant memory chunk
 	///
-	/// \param mem Pointer to the memory to work with
-	/// \param size Size of a memory chunk
+	/// \param[in] mem Pointer to the memory to work with
+	/// \param[in] size Size of a memory chunk
 	///
 	/// \returns Created RWops
 	///
@@ -190,8 +190,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops working with a memory chunk
 	///
-	/// \param mem Pointer to the memory to work with
-	/// \param size Size of a memory chunk
+	/// \param[in] mem Pointer to the memory to work with
+	/// \param[in] size Size of a memory chunk
 	///
 	/// \returns Created RWops
 	///
@@ -203,8 +203,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops working with plain file
 	///
-	/// \param file Path to file
-	/// \param mode Open mode in stdio way
+	/// \param[in] file Path to file
+	/// \param[in] mode Open mode in stdio way
 	///
 	/// \returns Created RWops
 	///
@@ -216,7 +216,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops from existing SDL2 SDL_RWops structure
 	///
-	/// \param rwops Pointer to SDL_RWops to use
+	/// \param[in] rwops Pointer to SDL_RWops to use
 	///
 	////////////////////////////////////////////////////////////
 	RWops(SDL_RWops* rwops);
@@ -224,7 +224,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::RWops to move data from
+	/// \param[in] other SDL2pp::RWops to move data from
 	///
 	////////////////////////////////////////////////////////////
 	RWops(RWops&& other) noexcept;
@@ -232,7 +232,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
 	///
-	/// \param other SDL2pp::RWops to move data from
+	/// \param[in] other SDL2pp::RWops to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -258,7 +258,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create RWops from CustomRWops derived class
 	///
-	/// \param custom_rwops Custom %RWops functions
+	/// \param[in] custom_rwops Custom %RWops functions
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -312,9 +312,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Read from a data stream
 	///
-	/// \param ptr Pointer to a buffer to read data into
-	/// \param size Size of each object to read, in bytes
-	/// \param maxnum Maximum number of objects to be read
+	/// \param[in] ptr Pointer to a buffer to read data into
+	/// \param[in] size Size of each object to read, in bytes
+	/// \param[in] maxnum Maximum number of objects to be read
 	///
 	/// \returns Number of objects read, or 0 at error or end of file
 	///
@@ -326,9 +326,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Seek within the data stream
 	///
-	/// \param offset Offset in bytes, relative to whence location; can
-	///               be negative
-	/// \param whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+	/// \param[in] offset Offset in bytes, relative to whence location; can
+	///                   be negative
+	/// \param[in] whence Any of RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
 	///
 	/// \returns Final offset in the data stream after the seek or -1 on error
 	///
@@ -340,9 +340,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Write to a data stream
 	///
-	/// \param ptr Pointer to a buffer containing data to write
-	/// \param size Size of each object to write, in bytes
-	/// \param num Number of objects to be write
+	/// \param[in] ptr Pointer to a buffer containing data to write
+	/// \param[in] size Size of each object to write, in bytes
+	/// \param[in] num Number of objects to be write
 	///
 	/// \returns Number of objects written, which will be less than num on error
 	///
@@ -439,7 +439,7 @@ public:
 	/// \brief Write 16 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -452,7 +452,7 @@ public:
 	/// \brief Write 32 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -465,7 +465,7 @@ public:
 	/// \brief Write 64 bits in native format to a data stream
 	///        as big-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -478,7 +478,7 @@ public:
 	/// \brief Write 16 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -491,7 +491,7 @@ public:
 	/// \brief Write 32 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///
@@ -504,7 +504,7 @@ public:
 	/// \brief Write 64 bits in native format to a data stream
 	///        as little-endian data
 	///
-	/// \param value Data to be written, in native format
+	/// \param[in] value Data to be written, in native format
 	///
 	/// \returns 1 on successful write, 0 on error
 	///

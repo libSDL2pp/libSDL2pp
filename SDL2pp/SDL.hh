@@ -58,7 +58,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes SDL2 library
 	///
-	/// \param flags Flags to pass to SDL_Init()
+	/// \param[in] flags Flags to pass to SDL_Init()
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -110,9 +110,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Checks which SDL2 subsystems were initialized
 	///
-	/// \param flags 0 to return mask of initialized subsystems
-	///              or any combination of flags to return initialization
-	///              status of the specified subsystems
+	/// \param[in] flags 0 to return mask of initialized subsystems
+	///                  or any combination of flags to return initialization
+	///                  status of the specified subsystems
 	///
 	/// \returns Mask of initialized subsystems or the initialization
 	///          status of the specified subsystems
@@ -125,8 +125,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes additional SDL2 subsystems
 	///
-	/// \param flags Set of flags which determines which subsystems
-	///              to initialize
+	/// \param[in] flags Set of flags which determines which subsystems
+	///                  to initialize
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -138,8 +138,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Deinitializes specific SDL2 subsystems
 	///
-	/// \param flags Set of flags which determines which subsystems
-	///              to deinitialize
+	/// \param[in] flags Set of flags which determines which subsystems
+	///                  to deinitialize
 	///
 	/// \see http://wiki.libsdl.org/SDL_QuitSubSystem
 	///

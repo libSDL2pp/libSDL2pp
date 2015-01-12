@@ -52,7 +52,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct from existing TTF_Font structure
 	///
-	/// \param font Existing TTF_Font to manage
+	/// \param[in] font Existing TTF_Font to manage
 	///
 	////////////////////////////////////////////////////////////
 	Font(TTF_Font* font);
@@ -60,9 +60,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font from .ttf or .fon file
 	///
-	/// \param file Pointer File name to load font from
-	/// \param ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
-	/// \param index Choose a font face from a file containing multiple font faces. The first face is always index 0
+	/// \param[in] file Pointer File name to load font from
+	/// \param[in] ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
+	/// \param[in] index Choose a font face from a file containing multiple font faces. The first face is always index 0
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -75,9 +75,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font with RWops
 	///
-	/// \param rwops RWops to load font from
-	/// \param ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
-	/// \param index Choose a font face from a file containing multiple font faces. The first face is always index 0
+	/// \param[in] rwops RWops to load font from
+	/// \param[in] ptsize %Point size (based on 72DPI) to load font as. This basically translates to pixel height
+	/// \param[in] index Choose a font face from a file containing multiple font faces. The first face is always index 0
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -98,7 +98,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::Font object to move data from
+	/// \param[in] other SDL2pp::Font object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	Font(Font&& other) noexcept;
@@ -106,7 +106,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment
 	///
-	/// \param other SDL2pp::Font object to move data from
+	/// \param[in] other SDL2pp::Font object to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -153,10 +153,10 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Set the rendering style of the loaded font
 	///
-	/// \param style The style as a bitmask composed of the following masks:
-	///              TTF_STYLE_BOLD, TTF_STYLE_ITALIC, TTF_STYLE_UNDERLINE,
-	///              TTF_STYLE_STRIKETHROUGH. If no style is desired then use
-	///              TTF_STYLE_NORMAL, which is the default.
+	/// \param[in] style The style as a bitmask composed of the following masks:
+	///                  TTF_STYLE_BOLD, TTF_STYLE_ITALIC, TTF_STYLE_UNDERLINE,
+	///                  TTF_STYLE_STRIKETHROUGH. If no style is desired then use
+	///                  TTF_STYLE_NORMAL, which is the default.
 	///
 	/// \note This will flush the internal cache of previously rendered
 	/// glyphs, even if there is no change in style, so it may be best
@@ -195,8 +195,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Set the outline pixel width of the loaded font
 	///
-	/// \param outline The size of outline desired, in pixels.
-	///                Use 0 (zero) to turn off outlining.
+	/// \param[in] outline The size of outline desired, in pixels.
+	///                    Use 0 (zero) to turn off outlining.
 	///
 	/// \note This will flush the internal cache of previously rendered
 	/// glyphs, even if there is no change in outline size, so it may be best
@@ -222,9 +222,9 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Set the hinting of the loaded font
 	///
-	/// \param hinting The hinting setting desired, which is one of:
-	///                TTF_HINTING_NORMAL, TTF_HINTING_LIGHT, TTF_HINTING_MONO,
-	///                TTF_HINTING_NONE. The default is TTF_HINTING_NORMAL
+	/// \param[in] hinting The hinting setting desired, which is one of:
+	///                    TTF_HINTING_NORMAL, TTF_HINTING_LIGHT, TTF_HINTING_MONO,
+	///                    TTF_HINTING_NONE. The default is TTF_HINTING_NORMAL
 	///
 	/// You should experiment with this setting if you know which font
 	/// you are using beforehand, especially when using smaller sized
@@ -254,8 +254,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Set whether to use kerning when rendering the loaded font
 	///
-	/// \param allowed False to disable kerning, true to enable kerning.
-	///                The default is true, enabled
+	/// \param[in] allowed False to disable kerning, true to enable kerning.
+	///                    The default is true, enabled
 	///
 	/// Set whether to use kerning when rendering the loaded font.
 	/// This has no effect on individual glyphs, but rather when
@@ -399,7 +399,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get the status of the availability of the glyph from the loaded font
 	///
-	/// \param ch Unicode character to test glyph availability of
+	/// \param[in] ch Unicode character to test glyph availability of
 	///
 	/// \returns The index of the glyph for ch in font, or 0 for an undefined character code
 	///
@@ -411,12 +411,12 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get glyph metrics of the UNICODE char
 	///
-	/// \param ch UNICODE char to get the glyph metrics for
-	/// \param minx Variable to store the returned minimum X offset into
-	/// \param maxx Variable to store the returned maximum X offset into
-	/// \param miny Variable to store the returned minimum Y offset into
-	/// \param maxy Variable to store the returned maximum Y offset into
-	/// \param advance Variable to store the returned advance offset into
+	/// \param[out] ch UNICODE char to get the glyph metrics for
+	/// \param[out] minx Variable to store the returned minimum X offset into
+	/// \param[out] maxx Variable to store the returned maximum X offset into
+	/// \param[out] miny Variable to store the returned minimum Y offset into
+	/// \param[out] maxy Variable to store the returned maximum Y offset into
+	/// \param[out] advance Variable to store the returned advance offset into
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -429,7 +429,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get rect part of glyph metrics of the UNICODE char
 	///
-	/// \param ch UNICODE char to get the glyph metrics for
+	/// \param[in] ch UNICODE char to get the glyph metrics for
 	///
 	/// \returns Rect representing glyph offset info
 	///
@@ -444,7 +444,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Get advance part of glyph metrics of the UNICODE char
 	///
-	/// \param ch UNICODE char to get the glyph metrics for
+	/// \param[in] ch UNICODE char to get the glyph metrics for
 	///
 	/// \returns Advance offset into
 	///
@@ -459,7 +459,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Calculate the resulting surface size of the LATIN1 encoded text rendered using font
 	///
-	/// \param text String to size up
+	/// \param[in] text String to size up
 	///
 	/// \returns Point representing dimensions of the rendered text
 	///
@@ -477,7 +477,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Calculate the resulting surface size of the UTF8 encoded text rendered using font
 	///
-	/// \param text UTF8 encoded string to size up
+	/// \param[in] text UTF8 encoded string to size up
 	///
 	/// \returns Point representing dimensions of the rendered text
 	///
@@ -495,7 +495,7 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Calculate the resulting surface size of the UNICODE encoded text rendered using font
 	///
-	/// \param text UNICODE null terminated string to size up
+	/// \param[in] text UNICODE null terminated string to size up
 	///
 	/// \returns Point representing dimensions of the rendered text
 	///
@@ -513,8 +513,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using solid mode
 	///
-	/// \param text LATIN1 string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text LATIN1 string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -528,8 +528,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UTF8 text using solid mode
 	///
-	/// \param text UTF8 string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text UTF8 string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -543,8 +543,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UNICODE encoded text using solid mode
 	///
-	/// \param text UNICODE encoded string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text UNICODE encoded string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -558,8 +558,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render the glyph for UNICODE character using solid mode
 	///
-	/// \param ch UNICODE character to render
-	/// \param fg Color to render the glyph in
+	/// \param[in] ch UNICODE character to render
+	/// \param[in] fg Color to render the glyph in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -573,9 +573,9 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using shaded mode
 	///
-	/// \param text LATIN1 string to render
-	/// \param fg Color to render the text in
-	/// \param bg Color to render the background box in
+	/// \param[in] text LATIN1 string to render
+	/// \param[in] fg Color to render the text in
+	/// \param[in] bg Color to render the background box in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -589,9 +589,9 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UTF8 text using shaded mode
 	///
-	/// \param text UTF8 string to render
-	/// \param fg Color to render the text in
-	/// \param bg Color to render the background box in
+	/// \param[in] text UTF8 string to render
+	/// \param[in] fg Color to render the text in
+	/// \param[in] bg Color to render the background box in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -605,9 +605,9 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UNICODE encoded text using shaded mode
 	///
-	/// \param text UNICODE encoded string to render
-	/// \param fg Color to render the text in
-	/// \param bg Color to render the background box in
+	/// \param[in] text UNICODE encoded string to render
+	/// \param[in] fg Color to render the text in
+	/// \param[in] bg Color to render the background box in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -621,9 +621,9 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render the glyph for UNICODE character using shaded mode
 	///
-	/// \param ch UNICODE character to render
-	/// \param fg Color to render the glyph in
-	/// \param bg Color to render the background box in
+	/// \param[in] ch UNICODE character to render
+	/// \param[in] fg Color to render the glyph in
+	/// \param[in] bg Color to render the background box in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -637,8 +637,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using blended mode
 	///
-	/// \param text LATIN1 string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text LATIN1 string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -652,8 +652,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UTF8 text using blended mode
 	///
-	/// \param text UTF8 string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text UTF8 string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -667,8 +667,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render UNICODE encoded text using blended mode
 	///
-	/// \param text UNICODE encoded string to render
-	/// \param fg Color to render the text in
+	/// \param[in] text UNICODE encoded string to render
+	/// \param[in] fg Color to render the text in
 	///
 	/// \returns Surface containing rendered text
 	///
@@ -682,8 +682,8 @@ public:
     ////////////////////////////////////////////////////////////
 	/// \brief Render the glyph for UNICODE character using blended mode
 	///
-	/// \param ch UNICODE character to render
-	/// \param fg Color to render the glyph in
+	/// \param[in] ch UNICODE character to render
+	/// \param[in] fg Color to render the glyph in
 	///
 	/// \returns Surface containing rendered text
 	///

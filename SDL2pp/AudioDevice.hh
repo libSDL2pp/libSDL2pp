@@ -90,7 +90,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Create lock for specific SDL2pp::AudioDevice
 		///
-		/// \param device Pointer to audio device to lock
+		/// \param[in] device Pointer to audio device to lock
 		///
 		/// This operation locks a device, which remains locked
 		/// until LockHandle is destroyed
@@ -125,7 +125,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move constructor
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param[in] other SDL2pp::AudioDevice::LockHandle to move data from
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(LockHandle&& other) noexcept;
@@ -133,7 +133,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Move assignment operator
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to move data from
+		/// \param[in] other SDL2pp::AudioDevice::LockHandle to move data from
 		///
 		/// \returns Reference to self
 		///
@@ -143,7 +143,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Copy constructor
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to copy data from
+		/// \param[in] other SDL2pp::AudioDevice::LockHandle to copy data from
 		///
 		////////////////////////////////////////////////////////////
 		LockHandle(const LockHandle& other);
@@ -151,7 +151,7 @@ public:
 		////////////////////////////////////////////////////////////
 		/// \brief Assignment operator
 		///
-		/// \param other SDL2pp::AudioDevice::LockHandle to copy data from
+		/// \param[in] other SDL2pp::AudioDevice::LockHandle to copy data from
 		///
 		/// \returns Reference to self
 		///
@@ -179,11 +179,11 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Open audio device with specified output format
 	///
-	/// \param device Name of the device to open
-	/// \param iscapture Non-zero to open device for recording
-	///                  (SDL2 doesn't support this yet)
-	/// \param spec Audio output format
-	/// \param callback Callback which will feed audio to the device
+	/// \param[in] device Name of the device to open
+	/// \param[in] iscapture Non-zero to open device for recording
+	///                      (SDL2 doesn't support this yet)
+	/// \param[in] spec Audio output format
+	/// \param[in] callback Callback which will feed audio to the device
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -195,13 +195,13 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Open audio device with desired output format
 	///
-	/// \param device Name of the device to open
-	/// \param iscapture Non-zero to open device for recording
-	///                  (SDL2 doesn't support this yet)
-	/// \param allowed_changes Flag mask specifying which audio
-	///                        format properties may change
-	/// \param spec Desired audio output format (may be changed)
-	/// \param callback Callback which will feed audio to the device
+	/// \param[in] device Name of the device to open
+	/// \param[in] iscapture Non-zero to open device for recording
+	///                      (SDL2 doesn't support this yet)
+	/// \param[in] allowed_changes Flag mask specifying which audio
+	///                            format properties may change
+	/// \param[in,out] spec Desired audio output format (may be changed)
+	/// \param[in] callback Callback which will feed audio to the device
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -219,7 +219,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::AudioDevice to move data from
+	/// \param[in] other SDL2pp::AudioDevice to move data from
 	///
 	////////////////////////////////////////////////////////////
 	AudioDevice(AudioDevice&& other) noexcept;
@@ -227,7 +227,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::AudioDevice to move data from
+	/// \param[in] other SDL2pp::AudioDevice to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -261,7 +261,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Pause or unpause audio playback
 	///
-	/// \param pause_on Whether audio should be paused
+	/// \param[in] pause_on Whether audio should be paused
 	///
 	/// \see http://wiki.libsdl.org/SDL_PauseAudioDevice
 	///
@@ -281,7 +281,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Replace audio callback
 	///
-	/// \param callback New audio callback
+	/// \param[in] callback New audio callback
 	///
 	////////////////////////////////////////////////////////////
 	void ChangeCallback(AudioCallback&& callback);
@@ -304,8 +304,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Queue more audio for a non-callback device
 	///
-	/// \param data Data to queue for later playback
-	/// \param len Data length in bytes (not samples!)
+	/// \param[in] data Data to queue for later playback
+	/// \param[in] len Data length in bytes (not samples!)
 	///
 	/// \throws SDL2pp::Exception
 	///

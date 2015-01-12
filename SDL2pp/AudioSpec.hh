@@ -52,10 +52,10 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create audio format specification with given properties
 	///
-	/// \param freq Sampling frequency in samples/second
-	/// \param format Sample format, see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
-	/// \param channels Number of separate audio channels
-	/// \param samples Audio buffer size in samples (power of 2)
+	/// \param[in] freq Sampling frequency in samples/second
+	/// \param[in] format Sample format, see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
+	/// \param[in] channels Number of separate audio channels
+	/// \param[in] samples Audio buffer size in samples (power of 2)
 	///
 	/// \see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
 	///
@@ -71,7 +71,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
-	/// \param other SDL2pp::AudioSpec object to move data from
+	/// \param[in] other SDL2pp::AudioSpec object to move data from
 	///
 	////////////////////////////////////////////////////////////
 	AudioSpec(AudioSpec&& other);
@@ -79,7 +79,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
 	///
-	/// \param other SDL2pp::AudioSpec object to move data from
+	/// \param[in] other SDL2pp::AudioSpec object to move data from
 	///
 	/// \returns Reference to self
 	///
@@ -113,7 +113,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Merges audio format changes from another SDL2pp::AudioSpec
 	///
-	/// \param obtained SDL2pp::AudioSpec to merge data from
+	/// \param[in] obtained SDL2pp::AudioSpec to merge data from
 	///
 	////////////////////////////////////////////////////////////
 	void MergeChanges(const SDL_AudioSpec& obtained);
@@ -121,7 +121,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Checks if format of another SDL2pp::AudioSpec is the same
 	///
-	/// \param other SDL2pp::AudioSpec to compare to
+	/// \param[in] other SDL2pp::AudioSpec to compare to
 	///
 	////////////////////////////////////////////////////////////
 	bool IsSameFormat(const AudioSpec& other) const;
