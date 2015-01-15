@@ -285,4 +285,25 @@ void Renderer::GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const {
 		throw Exception("SDL_GetRenderDrawColor failed");
 }
 
+Point Renderer::GetOutputSize() const {
+	int w, h;
+	if (SDL_GetRendererOutputSize(renderer_, &w, &h) != 0)
+		throw Exception("SDL_GetRendererOutputSize failed");
+	return Point(w, h);
+}
+
+int Renderer::GetOutputWidth() const {
+	int w;
+	if (SDL_GetRendererOutputSize(renderer_, &w, nullptr) != 0)
+		throw Exception("SDL_GetRendererOutputSize failed");
+	return w;
+}
+
+int Renderer::GetOutputHeight() const {
+	int h;
+	if (SDL_GetRendererOutputSize(renderer_, nullptr, &h) != 0)
+		throw Exception("SDL_GetRendererOutputSize failed");
+	return h;
+}
+
 }

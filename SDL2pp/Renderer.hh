@@ -659,6 +659,42 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the output size of a rendering context
+	///
+	/// \returns Point representing output size
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRendererOutputSize
+	///
+	////////////////////////////////////////////////////////////
+	Point GetOutputSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the output width of a rendering context
+	///
+	/// \returns Output width
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	////////////////////////////////////////////////////////////
+	int GetOutputWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the output height of a rendering context
+	///
+	/// \returns Output height
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	////////////////////////////////////////////////////////////
+	int GetOutputHeight() const;
 };
 
 }
