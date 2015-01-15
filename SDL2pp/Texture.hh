@@ -312,6 +312,25 @@ public:
 	void Update(const Optional<Rect>& rect, const void* pixels, int pitch);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Update the given texture rectangle with new pixel data
+	///
+	/// \param[in] rect Rect representing the area to update, or NullOpt to
+	///                 update the entire texture
+	/// \param[in] yplane Raw pixel data for the Y plane
+	/// \param[in] ypitch Number of bytes between rows of pixel data for the Y plane
+	/// \param[in] uplane Raw pixel data for the U plane
+	/// \param[in] upitch Number of bytes between rows of pixel data for the U plane
+	/// \param[in] vplane Raw pixel data for the V plane
+	/// \param[in] vpitch Number of bytes between rows of pixel data for the V plane
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_UpdateYUVTexture
+	///
+	////////////////////////////////////////////////////////////
+	void UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
 	///
 	/// \param[in] blendMode SDL_BlendMode to use for texture blending

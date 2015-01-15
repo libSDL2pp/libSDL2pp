@@ -93,6 +93,11 @@ void Texture::Update(const Optional<Rect>& rect, const void* pixels, int pitch) 
 		throw Exception("SDL_UpdateTexture failed");
 }
 
+void Texture::UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch) {
+	if (SDL_UpdateYUVTexture(texture_, rect ? &*rect : nullptr, yplane, ypitch, uplane, upitch, vplane, vpitch) != 0)
+		throw Exception("SDL_UpdateYUVTexture failed");
+}
+
 void Texture::SetBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetTextureBlendMode(texture_, blendMode) != 0)
 		throw Exception("SDL_SetTextureBlendMode failed");
