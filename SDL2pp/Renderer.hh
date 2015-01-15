@@ -595,8 +595,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get the drawing scale for the current target
 	///
-	/// \param[out] Variable to be filled with the horizontal scaling factor
-	/// \param[out] Variable to be filled with the vertical scaling factor
+	/// \param[out] scalex Variable to be filled with the horizontal scaling factor
+	/// \param[out] scaley Variable to be filled with the vertical scaling factor
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderGetScale
 	///
