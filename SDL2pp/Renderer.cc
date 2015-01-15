@@ -273,4 +273,16 @@ Rect Renderer::GetViewport() const {
 	return rect;
 }
 
+SDL_BlendMode Renderer::GetDrawBlendMode() const {
+	SDL_BlendMode mode;
+	if (SDL_GetRenderDrawBlendMode(renderer_, &mode) != 0)
+		throw Exception("SDL_GetRenderDrawBlendMode failed");
+	return mode;
+}
+
+void Renderer::GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const {
+	if (SDL_GetRenderDrawColor(renderer_, &r, &g, &b, &a) != 0)
+		throw Exception("SDL_GetRenderDrawColor failed");
+}
+
 }

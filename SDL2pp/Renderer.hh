@@ -632,6 +632,33 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Rect GetViewport() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the blend mode used for drawing operations
+	///
+	/// \return Current SDL_BlendMode
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRenderDrawBlendMode
+	///
+	////////////////////////////////////////////////////////////
+	SDL_BlendMode GetDrawBlendMode() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into render copy operations
+	///
+	/// \param[out] r Variable to be filled in with red value used to draw on the rendering target
+	/// \param[out] g Variable to be filled in with green value used to draw on the rendering target
+	/// \param[out] b Variable to be filled in with blue value used to draw on the rendering target
+	/// \param[out] a Variable to be filled in with alpha value used to draw on the rendering target
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRenderDrawColor
+	///
+	////////////////////////////////////////////////////////////
+	void GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const;
 };
 
 }
