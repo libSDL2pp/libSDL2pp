@@ -181,6 +181,16 @@ public:
 	void SetTitle(const std::string& title);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get window title
+	///
+	/// \returns Title of the window in UTF-8 format or "" if there is no title
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowTitle
+	///
+	////////////////////////////////////////////////////////////
+	std::string GetTitle() const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Make a window as large as possible
 	///
 	/// \see http://wiki.libsdl.org/SDL_MaximizeWindow
