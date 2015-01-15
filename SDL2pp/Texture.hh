@@ -425,6 +425,44 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Point GetSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional alpha value multiplied into render copy operations
+	///
+	/// \return Current alpha value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetTextureAlphaMod
+	///
+	////////////////////////////////////////////////////////////
+	Uint8 GetAlphaMod() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the blend mode used for texture copy operations
+	///
+	/// \return Current SDL_BlendMode
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetTextureBlendMode
+	///
+	////////////////////////////////////////////////////////////
+	SDL_BlendMode GetBlendMode() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into render copy operations
+	///
+	/// \param[out] r Variable to be filled in with the current red color value
+	/// \param[out] g Variable to be filled in with the current green color value
+	/// \param[out] b Variable to be filled in with the current blue color value
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetTextureColorMod
+	///
+	////////////////////////////////////////////////////////////
+	void GetColorMod(Uint8& r, Uint8& g, Uint8 &b) const;
 };
 
 }

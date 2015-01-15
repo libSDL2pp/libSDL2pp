@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -145,6 +145,25 @@ Point Texture::GetSize() const {
 	if (SDL_QueryTexture(texture_, nullptr, nullptr, &w, &h) != 0)
 		throw Exception("SDL_QueryTexture failed");
 	return Point(w, h);
+}
+
+Uint8 Texture::GetAlphaMod() const {
+	Uint8 alpha;
+	if (SDL_GetTextureAlphaMod(texture_, &alpha) != 0)
+		throw Exception("SDL_GetTextureAlphaMod failed");
+	return alpha;
+}
+
+SDL_BlendMode Texture::GetBlendMode() const {
+	SDL_BlendMode mode;
+	if (SDL_GetTextureBlendMode(texture_, &mode) != 0)
+		throw Exception("SDL_GetTextureBlendMode failed");
+	return mode;
+}
+
+void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8 &b) const {
+	if (SDL_GetTextureColorMod(texture_, &r, &g, &b) != 0)
+		throw Exception("SDL_GetTextureBlendMode failed");
 }
 
 }
