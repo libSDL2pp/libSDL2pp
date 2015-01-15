@@ -538,7 +538,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_RenderTargetSupported
 	///
 	////////////////////////////////////////////////////////////
-	bool TargetSupported();
+	bool TargetSupported() const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the clip rectangle for the current target

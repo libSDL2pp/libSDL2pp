@@ -223,7 +223,7 @@ void Renderer::SetViewport(const Optional<Rect>& rect) {
 		throw Exception("SDL_RenderSetViewport failed");
 }
 
-bool Renderer::TargetSupported() {
+bool Renderer::TargetSupported() const {
 	return SDL_RenderTargetSupported(renderer_) == SDL_TRUE;
 }
 
