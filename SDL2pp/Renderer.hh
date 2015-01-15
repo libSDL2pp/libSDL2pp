@@ -539,6 +539,99 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	bool TargetSupported();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the clip rectangle for the current target
+	///
+	/// \returns Rect representing current clipping area
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetClipRect() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get device independent resolution for rendering
+	///
+	/// \returns Point representing logical resolution
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	/// \note If this function is called on an Renderer who never had
+	///       its logical size set by SetLogicalSize(), this function
+	///       returns {0, 0}
+	///
+	////////////////////////////////////////////////////////////
+	Point GetLogicalSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get device independent width resolution for rendering
+	///
+	/// \returns Logical resolution width
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	/// \note If this function is called on an Renderer who never had
+	///       its logical size set by SetLogicalSize(), this function
+	///       returns 0
+	///
+	////////////////////////////////////////////////////////////
+	int GetLogicalWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get device independent width resolution for rendering
+	///
+	/// \returns Logical resolution height
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	///
+	/// \note If this function is called on an Renderer who never had
+	///       its logical size set by SetLogicalSize(), this function
+	///       returns 0
+	///
+	////////////////////////////////////////////////////////////
+	int GetLogicalHeight() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the drawing scale for the current target
+	///
+	/// \param[out] Variable to be filled with the horizontal scaling factor
+	/// \param[out] Variable to be filled with the vertical scaling factor
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetScale
+	///
+	////////////////////////////////////////////////////////////
+	void GetScale(float& scalex, float& scaley) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the drawing scale for the current target
+	///
+	/// \returns Horizontal scaling factor
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetScale
+	///
+	////////////////////////////////////////////////////////////
+	float GetXScale() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the drawing scale for the current target
+	///
+	/// \returns Vertical scaling factor
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetScale
+	///
+	////////////////////////////////////////////////////////////
+	float GetYScale() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the drawing area for the current target
+	///
+	/// \returns Rect representing current drawing area
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderGetViewport
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetViewport() const;
 };
 
 }

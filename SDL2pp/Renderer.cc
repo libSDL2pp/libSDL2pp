@@ -227,4 +227,50 @@ bool Renderer::TargetSupported() {
 	return SDL_RenderTargetSupported(renderer_) == SDL_TRUE;
 }
 
+Rect Renderer::GetClipRect() const {
+	SDL_Rect rect;
+	SDL_RenderGetClipRect(renderer_, &rect);
+	return rect;
+}
+
+Point Renderer::GetLogicalSize() const {
+	int w, h;
+	SDL_RenderGetLogicalSize(renderer_, &w, &h);
+	return Point(w, h);
+}
+
+int Renderer::GetLogicalWidth() const {
+	int w;
+	SDL_RenderGetLogicalSize(renderer_, &w, nullptr);
+	return w;
+}
+
+int Renderer::GetLogicalHeight() const {
+	int h;
+	SDL_RenderGetLogicalSize(renderer_, nullptr, &h);
+	return h;
+}
+
+void Renderer::GetScale(float& scalex, float& scaley) const {
+	SDL_RenderGetScale(renderer_, &scalex, &scaley);
+}
+
+float Renderer::GetXScale() const {
+	float scalex;
+	SDL_RenderGetScale(renderer_, &scalex, nullptr);
+	return scalex;
+}
+
+float Renderer::GetYScale() const {
+	float scaley;
+	SDL_RenderGetScale(renderer_, nullptr, &scaley);
+	return scaley;
+}
+
+Rect Renderer::GetViewport() const {
+	SDL_Rect rect;
+	SDL_RenderGetViewport(renderer_, &rect);
+	return rect;
+}
+
 }
