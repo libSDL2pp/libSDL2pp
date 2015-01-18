@@ -7,40 +7,56 @@ This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 ## Synopsis ##
 
     try {
+      using namespace SDL2pp;
+
       // Init SDL; will be automatically deinitialized when the object is destroyed
-      SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-    
+      SDL sdl(SDL_INIT_VIDEO);
+
+      // Likewise, init SDL_ttf library
+      SDLTTF sdl_ttf;
+
       // Straightforward wrappers around corresponding SDL2 objects
       // These take full care of proper object destruction and error checking
-      SDL2pp::Window window("libSDL2pp demo",
-                            SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                            640, 480, SDL_WINDOW_RESIZABLE);
-      SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
-      SDL2pp::Texture sprite1(renderer, SDL_PIXELFORMAT_ARGB8888,
-                             SDL_TEXTUREACCESS_STATIC, 16, 16);
-      SDL2pp::Texture sprite2(renderer, "sprite.png"); // SDL_image support
-    
+      Window window("libSDL2pp demo",
+                    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                    640, 480, SDL_WINDOW_RESIZABLE);
+      Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
+      Texture sprite1(renderer, SDL_PIXELFORMAT_ARGB8888,
+                                SDL_TEXTUREACCESS_STATIC, 16, 16);
+      Texture sprite2(renderer, "sprite.png"); // SDL_image support
+
+      Font font("Vera.ttf"); // SDL_ttf font
+
+      // Create texture from surface containing text rendered by SDL_ttf
+      Texture text(font.RenderText_Solid("Hello, world!",
+                   SDL_Color({255, 255, 255, 255})));
+
       unsigned char pixels[16 * 16 * 4];
-    
+
       // Note proper constructor for Rect
-      sprite1.Update(SDL2pp::Rect(0, 0, 16, 16), pixels, 16 * 4);
-    
-      renderer.Clear();
-    
-      // Also note a way to specify null rects and points
-      renderer.Copy(sprite1, SDL2pp::NullOpt, SDL2pp::NullOpt);
-    
+      sprite1.Update(Rect(0, 0, 16, 16), pixels, 16 * 4);
+
+      // Most setter methods are chainable
+      renderer.SetLogicalSize(640, 480).SetRenderColor(0, 16, 32).Clear();
+
+      // Also note a safe way to specify null rects and points
+      renderer.Copy(sprite1, NullOpt, NullOpt);
+
+      // There are multiple convenient ways to construct e.g. a Rect;
+      // Objects provide extensive set of getters
+      renderer.Copy(text, NullOpt, Rect(Point(0, 0), text.GetSize()));
+
       // Copy() is overloaded, providing access to both SDL_RenderCopy and SDL_RenderCopyEx
-      renderer.Copy(sprite2, SDL2pp::NullOpt, SDL2pp::NullOpt, 45.0);
-    
+      renderer.Copy(sprite2, NullOpt, NullOpt, 45.0);
+
       renderer.Present();
-    
+
       // You can still access wrapped C SDL types
       SDL_Renderer* sdl_renderer = renderer.Get();
-    
+
       // Of course, C SDL2 API is still perfectly valid
       SDL_Delay(2000);
-    
+
       // All SDL objects are released at this point or if an error occurs
     } catch (SDL2pp::Exception& e) {
       // Exception stores SDL_GetError() result and name of function which failed
