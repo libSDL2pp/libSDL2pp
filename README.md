@@ -172,9 +172,12 @@ you need specific bits which are not yet implemented in the library,
 feel free to drop an issue. Patches are of course more than welcome.
 
 It should be noted, however, that I currently do not plan to implement
-any wrappers over non object-oriented SDL2 code, as these do not bring
+any wrappers over non object-oriented SDL2 code, as these will not bring
 any benefits over using plain C API. E.g. I see no point in implementing
 SDL2pp::Delay() as it won't bring any convenience over SDL_Delay().
+
+The same strongly applies to the SDL2 bits which duplicate C++11
+standard library, e.g. threads and atomic ops.
 
 ## Users ##
 
