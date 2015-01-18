@@ -269,4 +269,14 @@ BEGIN_TEST()
 		EXPECT_TRUE(Rect(0, 2, 3, 4) != sdlrect);
 		EXPECT_TRUE(Point(0, 7) != sdlpoint);
 	}
+
+	{
+		// clamp
+		Rect rect(1, 2, 3, 4);
+		EXPECT_TRUE(Point(0, 0).GetClamped(rect) == Point(1, 2));
+		EXPECT_TRUE(Point(0, 0).Clamp(rect) == Point(1, 2));
+
+		EXPECT_TRUE(Point(10, 10).GetClamped(rect) == Point(3, 5));
+		EXPECT_TRUE(Point(10, 10).Clamp(rect) == Point(3, 5));
+	}
 END_TEST()

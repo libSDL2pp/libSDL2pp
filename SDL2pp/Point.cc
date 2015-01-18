@@ -21,6 +21,8 @@
 
 #include <SDL2pp/Point.hh>
 
+#include <SDL2pp/Rect.hh>
+
 namespace SDL2pp {
 
 Point::Point() {
@@ -105,6 +107,24 @@ Point& Point::operator*=(int value) {
 	x *= value;
 	y *= value;
 
+	return *this;
+}
+
+Point Point::GetClamped(const Rect& rect) const {
+	Point p = *this;
+	p.Clamp(rect);
+	return p;
+}
+
+Point& Point::Clamp(const Rect& rect) {
+	if (x < rect.x)
+		x = rect.x;
+	if (x > rect.GetX2())
+		x = rect.GetX2();
+	if (y < rect.y)
+		y = rect.y;
+	if (y > rect.GetY2())
+		y = rect.GetY2();
 	return *this;
 }
 
