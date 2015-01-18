@@ -113,6 +113,7 @@ int Rect::GetH() const {
 
 Rect& Rect::SetH(int nh) {
 	h = nh;
+	return *this;
 }
 
 int Rect::GetX2() const {
