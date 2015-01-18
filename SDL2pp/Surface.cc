@@ -154,7 +154,7 @@ Surface& Surface::SetClipRect(const Optional<Rect>& rect) {
 	return *this;
 }
 
-Surface& Surface::SetColorKey(int flag, Uint32 key) {
+Surface& Surface::SetColorKey(bool flag, Uint32 key) {
 	if (SDL_SetColorKey(surface_, flag, key) != 0)
 		throw Exception("SDL_SetColorKey failed");
 	return *this;
