@@ -177,10 +177,12 @@ public:
 	/// In this case, you should probably turn off these styles and draw your
 	/// own strikethroughs and underlines.
 	///
+	/// \returns Reference to self
+	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC22
 	///
 	////////////////////////////////////////////////////////////
-	void SetStyle(int style = TTF_STYLE_NORMAL);
+	Font& SetStyle(int style = TTF_STYLE_NORMAL);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current outline size of the loaded font
@@ -202,10 +204,12 @@ public:
 	/// glyphs, even if there is no change in outline size, so it may be best
 	/// to check the current outline size by using GetOutline() first
 	///
+	/// \returns Reference to self
+	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC24
 	///
 	////////////////////////////////////////////////////////////
-	void SetOutline(int outline = 0);
+	Font& SetOutline(int outline = 0);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current hinting setting of the loaded font
@@ -235,10 +239,12 @@ public:
 	/// glyphs, even if there is no change in hinting, so it may be best
 	/// to check the current hinting by using GetHinting() first
 	///
+	/// \returns Reference to self
+	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC26
 	///
 	////////////////////////////////////////////////////////////
-	void SetHinting(int hinting = TTF_HINTING_NORMAL);
+	Font& SetHinting(int hinting = TTF_HINTING_NORMAL);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the current kerning setting of the loaded font
@@ -264,10 +270,12 @@ public:
 	/// is not working for a specific font, resulting in overlapping
 	/// glyphs or abnormal spacing within words.
 	///
+	/// \returns Reference to self
+	///
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC28
 	///
 	////////////////////////////////////////////////////////////
-	void SetKerning(bool allowed = true);
+	Font& SetKerning(bool allowed = true);
 
     ////////////////////////////////////////////////////////////
 	/// \brief Get the maximum pixel height of all glyphs of the loaded font
