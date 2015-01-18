@@ -84,31 +84,34 @@ int Rect::GetX() const {
 	return x;
 }
 
-void Rect::SetX(int nx) {
+Rect& Rect::SetX(int nx) {
 	x = nx;
+	return *this;
 }
 
 int Rect::GetY() const {
 	return y;
 }
 
-void Rect::SetY(int ny) {
+Rect& Rect::SetY(int ny) {
 	y = ny;
+	return *this;
 }
 
 int Rect::GetW() const {
 	return w;
 }
 
-void Rect::SetW(int nw) {
+Rect& Rect::SetW(int nw) {
 	w = nw;
+	return *this;
 }
 
 int Rect::GetH() const {
 	return h;
 }
 
-void Rect::SetH(int nh) {
+Rect& Rect::SetH(int nh) {
 	h = nh;
 }
 
@@ -116,16 +119,18 @@ int Rect::GetX2() const {
 	return x + w - 1;
 }
 
-void Rect::SetX2(int x2) {
+Rect& Rect::SetX2(int x2) {
 	w = x2 - x + 1;
+	return *this;
 }
 
 int Rect::GetY2() const {
 	return y + h - 1;
 }
 
-void Rect::SetY2(int y2) {
+Rect& Rect::SetY2(int y2) {
 	h = y2 - y + 1;
+	return *this;
 }
 
 bool Rect::Contains(int px, int py) const {

@@ -50,16 +50,18 @@ int Point::GetX() const {
 	return x;
 }
 
-void Point::SetX(int nx) {
+Point& Point::SetX(int nx) {
 	x = nx;
+	return *this;
 }
 
 int Point::GetY() const {
 	return y;
 }
 
-void Point::SetY(int ny) {
+Point& Point::SetY(int ny) {
 	y = ny;
+	return *this;
 }
 
 Point Point::operator+(const Point& other) const {

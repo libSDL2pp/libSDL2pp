@@ -186,8 +186,10 @@ public:
 	///
 	/// \param[in] nx New X coordinate value
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetX(int nx);
+	Rect& SetX(int nx);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the rect corner
@@ -202,8 +204,10 @@ public:
 	///
 	/// \param[in] ny New Y coordinate value
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetY(int ny);
+	Rect& SetY(int ny);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get width of the rect
@@ -218,8 +222,10 @@ public:
 	///
 	/// \param[in] nw New width of the rect
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetW(int nw);
+	Rect& SetW(int nw);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get height of the rect
@@ -234,8 +240,10 @@ public:
 	///
 	/// \param[in] nh New height of the rect
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetH(int nh);
+	Rect& SetH(int nh);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the rect second corner
@@ -250,8 +258,10 @@ public:
 	///
 	/// \param[in] x2 New X coordinate value
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetX2(int x2);
+	Rect& SetX2(int x2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the rect second corner
@@ -270,8 +280,10 @@ public:
 	///
 	/// This modifies rectangle height internally
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetY2(int y2);
+	Rect& SetY2(int y2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
