@@ -68,32 +68,36 @@ int Font::GetStyle() const {
 	return TTF_GetFontStyle(font_);
 }
 
-void Font::SetStyle(int style) {
+Font& Font::SetStyle(int style) {
 	TTF_SetFontStyle(font_, style);
+	return *this;
 }
 
 int Font::GetOutline() const {
 	return TTF_GetFontOutline(font_);
 }
 
-void Font::SetOutline(int outline) {
+Font& Font::SetOutline(int outline) {
 	TTF_SetFontOutline(font_, outline);
+	return *this;
 }
 
 int Font::GetHinting() const {
 	return TTF_GetFontHinting(font_);
 }
 
-void Font::SetHinting(int hinting) {
+Font& Font::SetHinting(int hinting) {
 	TTF_SetFontHinting(font_, hinting);
+	return *this;
 }
 
 bool Font::GetKerning() const {
 	return TTF_GetFontKerning(font_);
 }
 
-void Font::SetKerning(bool allowed) {
+Font& Font::SetKerning(bool allowed) {
 	TTF_SetFontKerning(font_, allowed);
+	return *this;
 }
 
 int Font::GetHeight() const {

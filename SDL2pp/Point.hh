@@ -129,8 +129,10 @@ public:
 	///
 	/// \param[in] nx New X coordinate value
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetX(int nx);
+	Point& SetX(int nx);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the point
@@ -145,8 +147,10 @@ public:
 	///
 	/// \param[in] ny New Y coordinate value
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void SetY(int ny);
+	Point& SetY(int ny);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise addition with another point

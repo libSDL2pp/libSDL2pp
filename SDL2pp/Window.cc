@@ -75,58 +75,69 @@ int Window::GetHeight() const {
 	return h;
 }
 
-void Window::SetTitle(const std::string& title) {
+Window& Window::SetTitle(const std::string& title) {
 	SDL_SetWindowTitle(window_, title.c_str());
+	return *this;
 }
 
 std::string Window::GetTitle() const {
 	return SDL_GetWindowTitle(window_);
 }
 
-void Window::Maximize() {
+Window& Window::Maximize() {
 	SDL_MaximizeWindow(window_);
+	return *this;
 }
 
-void Window::Minimize() {
+Window& Window::Minimize() {
 	SDL_MinimizeWindow(window_);
+	return *this;
 }
 
-void Window::Hide() {
+Window& Window::Hide() {
 	SDL_HideWindow(window_);
+	return *this;
 }
 
-void Window::Restore() {
+Window& Window::Restore() {
 	SDL_RestoreWindow(window_);
+	return *this;
 }
 
-void Window::Raise() {
+Window& Window::Raise() {
 	SDL_RaiseWindow(window_);
+	return *this;
 }
 
-void Window::Show() {
+Window& Window::Show() {
 	SDL_ShowWindow(window_);
+	return *this;
 }
 
-void Window::SetFullscreen(int flags) {
+Window& Window::SetFullscreen(int flags) {
 	if (SDL_SetWindowFullscreen(window_, flags) != 0)
 		throw Exception("SDL_SetWindowFullscreen failed");
+	return *this;
 }
 
-void Window::SetSize(int w, int h) {
+Window& Window::SetSize(int w, int h) {
 	SDL_SetWindowSize(window_, w, h);
+	return *this;
 }
 
-void Window::SetSize(const Point& size) {
+Window& Window::SetSize(const Point& size) {
 	SDL_SetWindowSize(window_, size.x, size.y);
+	return *this;
 }
 
 float Window::GetBrightness() const {
 	return SDL_GetWindowBrightness(window_);
 }
 
-void Window::SetBrightness(float brightness) {
+Window& Window::SetBrightness(float brightness) {
 	if (SDL_SetWindowBrightness(window_, brightness) != 0)
 		throw Exception("SDL_SetWindowBrightness failed");
+	return *this;
 }
 
 Point Window::GetPosition() const {
@@ -135,12 +146,14 @@ Point Window::GetPosition() const {
 	return Point(x, y);
 }
 
-void Window::SetPosition(int x, int y) {
+Window& Window::SetPosition(int x, int y) {
 	SDL_SetWindowPosition(window_, x, y);
+	return *this;
 }
 
-void Window::SetPosition(const Point& pos) {
+Window& Window::SetPosition(const Point& pos) {
 	SDL_SetWindowPosition(window_, pos.x, pos.y);
+	return *this;
 }
 
 Point Window::GetMinimumSize() const {
@@ -149,12 +162,14 @@ Point Window::GetMinimumSize() const {
 	return Point(w, h);
 }
 
-void Window::SetMinimumSize(int w, int h) {
+Window& Window::SetMinimumSize(int w, int h) {
 	SDL_SetWindowMinimumSize(window_, w, h);
+	return *this;
 }
 
-void Window::SetMinimumSize(const Point& size) {
+Window& Window::SetMinimumSize(const Point& size) {
 	SDL_SetWindowMinimumSize(window_, size.x, size.y);
+	return *this;
 }
 
 Point Window::GetMaximumSize() const {
@@ -163,20 +178,23 @@ Point Window::GetMaximumSize() const {
 	return Point(w, h);
 }
 
-void Window::SetMaximumSize(int w, int h) {
+Window& Window::SetMaximumSize(int w, int h) {
 	SDL_SetWindowMaximumSize(window_, w, h);
+	return *this;
 }
 
-void Window::SetMaximumSize(const Point& size) {
+Window& Window::SetMaximumSize(const Point& size) {
 	SDL_SetWindowMaximumSize(window_, size.x, size.y);
+	return *this;
 }
 
 bool Window::GetGrab() const {
 	return SDL_GetWindowGrab(window_) == SDL_TRUE;
 }
 
-void Window::SetGrab(bool grabbed) {
+Window& Window::SetGrab(bool grabbed) {
 	SDL_SetWindowGrab(window_, grabbed ? SDL_TRUE : SDL_FALSE);
+	return *this;
 }
 
 }

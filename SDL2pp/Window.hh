@@ -175,10 +175,12 @@ public:
 	///
 	/// \param[in] title New window title in UTF-8 encoding
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowTitle
 	///
 	////////////////////////////////////////////////////////////
-	void SetTitle(const std::string& title);
+	Window& SetTitle(const std::string& title);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get window title
@@ -193,62 +195,76 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Make a window as large as possible
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_MaximizeWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Maximize();
+	Window& Maximize();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Minimize a window to an iconic representation
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_MinimizeWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Minimize();
+	Window& Minimize();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Hide a window
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_HideWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Hide();
+	Window& Hide();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Restore the size and position of a minimized or maximized window
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_RestoreWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Restore();
+	Window& Restore();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Raise a window above other windows and set the input focus
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_RaiseWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Raise();
+	Window& Raise();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Show a window
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_ShowWindow
 	///
 	////////////////////////////////////////////////////////////
-	void Show();
+	Window& Show();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set a window's fullscreen state
 	///
 	/// \param[in] flags SDL_WINDOW_FULLSCREEN, SDL_WINDOW_FULLSCREEN_DESKTOP or 0
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowFullscreen
 	///
 	////////////////////////////////////////////////////////////
-	void SetFullscreen(int flags);
+	Window& SetFullscreen(int flags);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
@@ -256,20 +272,24 @@ public:
 	/// \param[in] w Width of the window in pixels
 	/// \param[in] h Height of the window in pixels
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetSize(int w, int h);
+	Window& SetSize(int w, int h);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
 	/// \param[in] size Point representing window dimensions
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetSize(const Point& size);
+	Window& SetSize(const Point& size);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the brightness (gamma multiplier) for the display that owns a given window
@@ -286,12 +306,14 @@ public:
 	///
 	/// \param[in] brightness Brightness value to set where 0.0 is completely dark and 1.0 is normal brightness
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowBrightness
 	///
 	////////////////////////////////////////////////////////////
-	void SetBrightness(float brightness);
+	Window& SetBrightness(float brightness);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the position of a window
@@ -309,20 +331,24 @@ public:
 	/// \param[in] x X coordinate of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
 	/// \param[in] y Y coordinate of the window, SDL_WINDOWPOS_CENTERED, or SDL_WINDOWPOS_UNDEFINED
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowPosition
 	///
 	////////////////////////////////////////////////////////////
-	void SetPosition(int x, int y);
+	Window& SetPosition(int x, int y);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the position of a window
 	///
 	/// \param[in] pos Point representin position of the a window
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowPosition
 	///
 	////////////////////////////////////////////////////////////
-	void SetPosition(const Point& pos);
+	Window& SetPosition(const Point& pos);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the minimum size of a window's client area
@@ -340,20 +366,24 @@ public:
 	/// \param[in] w Minimum width of the window in pixels
 	/// \param[in] h Minimum height of the window in pixels
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowMinimumSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetMinimumSize(int w, int h);
+	Window& SetMinimumSize(int w, int h);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the minimum size of a window's client area
 	///
 	/// \param[in] size Minimum area of the window in pixels
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowMinimumSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetMinimumSize(const Point& size);
+	Window& SetMinimumSize(const Point& size);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the maximum size of a window's client area
@@ -371,20 +401,24 @@ public:
 	/// \param[in] w Maximum width of the window in pixels
 	/// \param[in] h Maximum height of the window in pixels
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowMaximumSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetMaximumSize(int w, int h);
+	Window& SetMaximumSize(int w, int h);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the maximum size of a window's client area
 	///
 	/// \param[in] size Maximum area of the window in pixels
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowMaximumSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetMaximumSize(const Point& size);
+	Window& SetMaximumSize(const Point& size);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get a window's input grab mode
@@ -401,10 +435,12 @@ public:
 	///
 	/// \param[in] grabbed True to grab input, false to release input
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowGrab
 	///
 	////////////////////////////////////////////////////////////
-	void SetGrab(bool grabbed);
+	Window& SetGrab(bool grabbed);
 };
 
 }

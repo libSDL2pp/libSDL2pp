@@ -263,10 +263,12 @@ public:
 	///
 	/// \param[in] pause_on Whether audio should be paused
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_PauseAudioDevice
 	///
 	////////////////////////////////////////////////////////////
-	void Pause(bool pause_on);
+	AudioDevice& Pause(bool pause_on);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get playback status
@@ -283,8 +285,10 @@ public:
 	///
 	/// \param[in] callback New audio callback
 	///
+	/// \returns Reference to self
+	///
 	////////////////////////////////////////////////////////////
-	void ChangeCallback(AudioCallback&& callback);
+	AudioDevice& ChangeCallback(AudioCallback&& callback);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Lock audio device to prevent it from calling audio callback
@@ -307,20 +311,24 @@ public:
 	/// \param[in] data Data to queue for later playback
 	/// \param[in] len Data length in bytes (not samples!)
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_QueueAudio
 	///
 	////////////////////////////////////////////////////////////
-	void QueueAudio(const void* data, Uint32 len);
+	AudioDevice& QueueAudio(const void* data, Uint32 len);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Drop queued audio
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_ClearQueuedAudio
 	///
 	////////////////////////////////////////////////////////////
-	void ClearQueuedAudio();
+	AudioDevice& ClearQueuedAudio();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get number of bytes of still-queued audio

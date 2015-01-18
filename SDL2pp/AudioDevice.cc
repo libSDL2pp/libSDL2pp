@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -88,19 +88,22 @@ SDL_AudioDeviceID AudioDevice::Get() const {
 	return device_id_;
 }
 
-void AudioDevice::Pause(bool pause_on) {
+AudioDevice& AudioDevice::Pause(bool pause_on) {
 	SDL_PauseAudioDevice(device_id_, pause_on ? 1 : 0);
+	return *this;
 }
 
 SDL_AudioStatus AudioDevice::GetStatus() const {
 	return SDL_GetAudioDeviceStatus(device_id_);
 }
 
-void AudioDevice::ChangeCallback(AudioDevice::AudioCallback&& callback) {
+AudioDevice& AudioDevice::ChangeCallback(AudioDevice::AudioCallback&& callback) {
 	// make sure callback is not called while it's being replaced
 	LockHandle lock = Lock();
 
 	callback_ = std::move(callback);
+
+	return *this;
 }
 
 AudioDevice::LockHandle AudioDevice::Lock() {
@@ -108,13 +111,15 @@ AudioDevice::LockHandle AudioDevice::Lock() {
 }
 
 #ifdef SDL2PP_WITH_2_0_4
-void AudioDevice::QueueAudio(const void* data, Uint32 len) {
+AudioDevice& AudioDevice::QueueAudio(const void* data, Uint32 len) {
 	if (SDL_QueueAudio(device_id_, data, len) == 0)
 		throw Exception("SDL_QueueAudio failed");
+	return *this;
 }
 
-void AudioDevice::ClearQueuedAudio() {
+AudioDevice& AudioDevice::ClearQueuedAudio() {
 	SDL_ClearQueuedAudio(device_id_);
+	return *this;
 }
 
 Uint32 GetQueuedAudioSize() const {
