@@ -171,7 +171,7 @@ SDL_BlendMode Texture::GetBlendMode() const {
 	return mode;
 }
 
-void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8 &b) const {
+void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 	if (SDL_GetTextureColorMod(texture_, &r, &g, &b) != 0)
 		throw Exception("SDL_GetTextureBlendMode failed");
 }
