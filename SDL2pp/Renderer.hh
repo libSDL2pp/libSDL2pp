@@ -141,20 +141,24 @@ public:
 	/// drawing intended for the frame, and then calls this function
 	/// once per frame to present the final drawing to the user.
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_RenderPresent
 	///
 	////////////////////////////////////////////////////////////
-	void Present();
+	Renderer& Present();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Clear the current rendering target with the drawing color
+	///
+	/// \returns Reference to self
 	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderClear
 	///
 	////////////////////////////////////////////////////////////
-	void Clear();
+	Renderer& Clear();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get information about a rendering context
@@ -191,12 +195,14 @@ public:
 	/// \param[in] dstrect Destination rectangle, NullOpt for the entire
 	///                    rendering target
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderCopy
 	///
 	////////////////////////////////////////////////////////////
-	void Copy(Texture& texture, const Optional<Rect>& srcrect = NullOpt, const Optional<Rect>& dstrect = NullOpt);
+	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect = NullOpt, const Optional<Rect>& dstrect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy a portion of the texture to the current rendering
@@ -214,13 +220,15 @@ public:
 	/// \param[in] flip SDL_RendererFlip value stating which flipping
 	///                 actions should be performed on the texture
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RendererFlip
 	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
 	///
 	////////////////////////////////////////////////////////////
-	void Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
+	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set color user for drawing operations
@@ -230,22 +238,26 @@ public:
 	/// \param[in] b Blue value used to draw on the rendering target
 	/// \param[in] a Alpha value used to draw on the rendering target
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawColor
 	///
 	////////////////////////////////////////////////////////////
-	void SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
+	Renderer& SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to default
+	///
+	/// \returns Reference to self
 	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
 	///
 	////////////////////////////////////////////////////////////
-	void SetTarget();
+	Renderer& SetTarget();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to specified texture
@@ -253,17 +265,21 @@ public:
 	/// \param[in] texture Target texture, SDL2pp::Texture created with
 	///                    SDL_TEXTUREACCESS_TARGET
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetRenderTarget
 	///
 	////////////////////////////////////////////////////////////
-	void SetTarget(Texture& texture);
+	Renderer& SetTarget(Texture& texture);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode used for drawing operations
 	///
 	/// \param[in] blendMode SDL_BlendMode to use for blending
+	///
+	/// \returns Reference to self
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -271,7 +287,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawBlendMode
 	///
 	////////////////////////////////////////////////////////////
-	void SetDrawBlendMode(SDL_BlendMode blendMode);
+	Renderer& SetDrawBlendMode(SDL_BlendMode blendMode);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a point on the current rendering target
@@ -279,24 +295,28 @@ public:
 	/// \param[in] x X coordinate of the point
 	/// \param[in] y Y coordinate of the point
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoint
 	///
 	////////////////////////////////////////////////////////////
-	void DrawPoint(int x, int y);
+	Renderer& DrawPoint(int x, int y);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a point on the current rendering target
 	///
 	/// \param[in] p Coordinates of the point
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoint
 	///
 	////////////////////////////////////////////////////////////
-	void DrawPoint(const Point& p);
+	Renderer& DrawPoint(const Point& p);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw multiple points on the current rendering target
@@ -304,12 +324,14 @@ public:
 	/// \param[in] points Array of coordinates of points to draw
 	/// \param[in] count Number of points to draw
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawPoints
 	///
 	////////////////////////////////////////////////////////////
-	void DrawPoints(const Point* points, int count);
+	Renderer& DrawPoints(const Point* points, int count);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a line on the current rendering target
@@ -319,12 +341,14 @@ public:
 	/// \param[in] x2 X coordinate of the end point
 	/// \param[in] y2 Y coordinate of the end point
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLine
 	///
 	////////////////////////////////////////////////////////////
-	void DrawLine(int x1, int y1, int x2, int y2);
+	Renderer& DrawLine(int x1, int y1, int x2, int y2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a line on the current rendering target
@@ -332,12 +356,14 @@ public:
 	/// \param[in] p1 Coordinates of the start point
 	/// \param[in] p2 Coordinates of the end point
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLine
 	///
 	////////////////////////////////////////////////////////////
-	void DrawLine(const Point& p1, const Point& p2);
+	Renderer& DrawLine(const Point& p1, const Point& p2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a polyline on the current rendering target
@@ -345,12 +371,14 @@ public:
 	/// \param[in] points Array of coordinates of points along the polyline
 	/// \param[in] count Number of points to draw count-1 polyline segments
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawLines
 	///
 	////////////////////////////////////////////////////////////
-	void DrawLines(const Point* points, int count);
+	Renderer& DrawLines(const Point* points, int count);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
@@ -360,12 +388,14 @@ public:
 	/// \param[in] x2 X coordinate of the end corner
 	/// \param[in] y2 Y coordinate of the end corner
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
 	////////////////////////////////////////////////////////////
-	void DrawRect(int x1, int y1, int x2, int y2);
+	Renderer& DrawRect(int x1, int y1, int x2, int y2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
@@ -373,24 +403,28 @@ public:
 	/// \param[in] p1 Coordinates of the start corner
 	/// \param[in] p2 Coordinates of the end corner
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
 	////////////////////////////////////////////////////////////
-	void DrawRect(const Point& p1, const Point& p2);
+	Renderer& DrawRect(const Point& p1, const Point& p2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a rectangle on the current rendering target
 	///
 	/// \param[in] r Rectangle to draw
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRect
 	///
 	////////////////////////////////////////////////////////////
-	void DrawRect(const Rect& r);
+	Renderer& DrawRect(const Rect& r);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw multiple rectangles on the current rendering target
@@ -398,12 +432,14 @@ public:
 	/// \param[in] rects Array of rectangles to draw
 	/// \param[in] count Number of rectangles
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderDrawRects
 	///
 	////////////////////////////////////////////////////////////
-	void DrawRects(const Rect* rects, int count);
+	Renderer& DrawRects(const Rect* rects, int count);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
@@ -413,12 +449,14 @@ public:
 	/// \param[in] x2 X coordinate of the end corner
 	/// \param[in] y2 Y coordinate of the end corner
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
 	////////////////////////////////////////////////////////////
-	void FillRect(int x1, int y1, int x2, int y2);
+	Renderer& FillRect(int x1, int y1, int x2, int y2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
@@ -426,24 +464,28 @@ public:
 	/// \param[in] p1 Coordinates of the start corner
 	/// \param[in] p2 Coordinates of the end corner
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
 	////////////////////////////////////////////////////////////
-	void FillRect(const Point& p1, const Point& p2);
+	Renderer& FillRect(const Point& p1, const Point& p2);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Fill a rectangle on the current rendering target
 	///
 	/// \param[in] r Rectangle to draw
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRect
 	///
 	////////////////////////////////////////////////////////////
-	void FillRect(const Rect& r);
+	Renderer& FillRect(const Rect& r);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Fill multiple rectangles on the current rendering target
@@ -451,12 +493,14 @@ public:
 	/// \param[in] rects Array of rectangles to draw
 	/// \param[in] count Number of rectangles
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderFillRects
 	///
 	////////////////////////////////////////////////////////////
-	void FillRects(const Rect* rects, int count);
+	Renderer& FillRects(const Rect* rects, int count);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Read pixels from the current rendering target
@@ -483,12 +527,14 @@ public:
 	/// \param[in] rect New clipping rectangle or NullOpt to disable
 	///                 clipping
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetClipRect
 	///
 	////////////////////////////////////////////////////////////
-	void SetClipRect(const Optional<Rect>& rect = NullOpt);
+	Renderer& SetClipRect(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set a device independent resolution for rendering
@@ -496,12 +542,14 @@ public:
 	/// \param[in] w Width of the logical resolution
 	/// \param[in] h Height of the logical resolution
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetLogicalSize
 	///
 	////////////////////////////////////////////////////////////
-	void SetLogicalSize(int w, int h);
+	Renderer& SetLogicalSize(int w, int h);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the drawing scale for rendering on the current target
@@ -509,12 +557,14 @@ public:
 	/// \param[in] scaleX Horizontal scaling factor
 	/// \param[in] scaleY Vertical scaling factor
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetScale
 	///
 	////////////////////////////////////////////////////////////
-	void SetScale(float scaleX, float scaleY);
+	Renderer& SetScale(float scaleX, float scaleY);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the drawing area for rendering on the current target
@@ -522,12 +572,14 @@ public:
 	/// \param[in] rect Rectangle representing the drawing area or
 	///                 NullOpt to set the viewport to the entire target
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderSetViewport
 	///
 	////////////////////////////////////////////////////////////
-	void SetViewport(const Optional<Rect>& rect = NullOpt);
+	Renderer& SetViewport(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Determine whether a window supports the use of

@@ -61,13 +61,15 @@ SDL_Renderer* Renderer::Get() const {
 	return renderer_;
 }
 
-void Renderer::Present() {
+Renderer& Renderer::Present() {
 	SDL_RenderPresent(renderer_);
+	return *this;
 }
 
-void Renderer::Clear() {
+Renderer& Renderer::Clear() {
 	if (SDL_RenderClear(renderer_) != 0)
 		throw Exception("SDL_RenderClear failed");
+	return *this;
 }
 
 void Renderer::GetInfo(SDL_RendererInfo* info) {
@@ -80,46 +82,54 @@ void Renderer::GetInfo(SDL_RendererInfo& info) {
 		throw Exception("SDL_GetRendererInfo failed");
 }
 
-void Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect) {
+Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect) {
 	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr) != 0)
 		throw Exception("SDL_RenderCopy failed");
+	return *this;
 }
 
-void Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center, int flip) {
+Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center, int flip) {
 	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr, angle, center ? &*center : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
 		throw Exception("SDL_RenderCopyEx failed");
+	return *this;
 }
 
-void Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (SDL_SetRenderDrawColor(renderer_, r, g, b, a) != 0)
 		throw Exception("SDL_SetRenderDrawColor failed");
+	return *this;
 }
 
-void Renderer::SetTarget() {
+Renderer& Renderer::SetTarget() {
 	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
 		throw Exception("SDL_SetRenderTarget failed");
+	return *this;
 }
 
-void Renderer::SetTarget(Texture& texture) {
+Renderer& Renderer::SetTarget(Texture& texture) {
 	if (SDL_SetRenderTarget(renderer_, texture.Get()) != 0)
 		throw Exception("SDL_SetRenderTarget failed");
+	return *this;
 }
 
-void Renderer::SetDrawBlendMode(SDL_BlendMode blendMode) {
+Renderer& Renderer::SetDrawBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetRenderDrawBlendMode(renderer_, blendMode) != 0)
 		throw Exception("SDL_SetRenderDrawBlendMode failed");
+	return *this;
 }
 
-void Renderer::DrawPoint(int x, int y) {
+Renderer& Renderer::DrawPoint(int x, int y) {
 	if (SDL_RenderDrawPoint(renderer_, x, y) != 0)
 		throw Exception("SDL_RenderDrawPoint failed");
+	return *this;
 }
 
-void Renderer::DrawPoint(const Point& p) {
+Renderer& Renderer::DrawPoint(const Point& p) {
 	DrawPoint(p.x, p.y);
+	return *this;
 }
 
-void Renderer::DrawPoints(const Point* points, int count) {
+Renderer& Renderer::DrawPoints(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
 	sdl_points.reserve(count);
 	for (const Point* p = points; p != points + count; ++p)
@@ -127,18 +137,22 @@ void Renderer::DrawPoints(const Point* points, int count) {
 
 	if (SDL_RenderDrawPoints(renderer_, sdl_points.data(), sdl_points.size()) != 0)
 		throw Exception("SDL_RenderDrawPoints failed");
+
+	return *this;
 }
 
-void Renderer::DrawLine(int x1, int y1, int x2, int y2) {
+Renderer& Renderer::DrawLine(int x1, int y1, int x2, int y2) {
 	if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0)
 		throw Exception("SDL_RenderDrawLine failed");
+	return *this;
 }
 
-void Renderer::DrawLine(const Point& p1, const Point& p2) {
+Renderer& Renderer::DrawLine(const Point& p1, const Point& p2) {
 	DrawLine(p1.x, p1.y, p2.x, p2.y);
+	return *this;
 }
 
-void Renderer::DrawLines(const Point* points, int count) {
+Renderer& Renderer::DrawLines(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
 	sdl_points.reserve(count);
 	for (const Point* p = points; p != points + count; ++p)
@@ -146,24 +160,29 @@ void Renderer::DrawLines(const Point* points, int count) {
 
 	if (SDL_RenderDrawLines(renderer_, sdl_points.data(), sdl_points.size()) != 0)
 		throw Exception("SDL_RenderDrawLines failed");
+
+	return *this;
 }
 
-void Renderer::DrawRect(int x1, int y1, int x2, int y2) {
+Renderer& Renderer::DrawRect(int x1, int y1, int x2, int y2) {
 	SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
 	if (SDL_RenderDrawRect(renderer_, &rect) != 0)
 		throw Exception("SDL_RenderDrawRect failed");
+	return *this;
 }
 
-void Renderer::DrawRect(const Point& p1, const Point& p2) {
+Renderer& Renderer::DrawRect(const Point& p1, const Point& p2) {
 	DrawRect(p1.x, p1.y, p2.x, p2.y);
+	return *this;
 }
 
-void Renderer::DrawRect(const Rect& r) {
+Renderer& Renderer::DrawRect(const Rect& r) {
 	if (SDL_RenderDrawRect(renderer_, &r) != 0)
 		throw Exception("SDL_RenderDrawRect failed");
+	return *this;
 }
 
-void Renderer::DrawRects(const Rect* rects, int count) {
+Renderer& Renderer::DrawRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
 	sdl_rects.reserve(count);
 	for (const Rect* r = rects; r != rects + count; ++r)
@@ -171,24 +190,29 @@ void Renderer::DrawRects(const Rect* rects, int count) {
 
 	if (SDL_RenderDrawRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
 		throw Exception("SDL_RenderDrawRects failed");
+
+	return *this;
 }
 
-void Renderer::FillRect(int x1, int y1, int x2, int y2) {
+Renderer& Renderer::FillRect(int x1, int y1, int x2, int y2) {
 	SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
 	if (SDL_RenderFillRect(renderer_, &rect) != 0)
 		throw Exception("SDL_RenderFillRect failed");
+	return *this;
 }
 
-void Renderer::FillRect(const Point& p1, const Point& p2) {
+Renderer& Renderer::FillRect(const Point& p1, const Point& p2) {
 	FillRect(p1.x, p1.y, p2.x, p2.y);
+	return *this;
 }
 
-void Renderer::FillRect(const Rect& r) {
+Renderer& Renderer::FillRect(const Rect& r) {
 	if (SDL_RenderFillRect(renderer_, &r) != 0)
 		throw Exception("SDL_RenderFillRect failed");
+	return *this;
 }
 
-void Renderer::FillRects(const Rect* rects, int count) {
+Renderer& Renderer::FillRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
 	sdl_rects.reserve(count);
 	for (const Rect* r = rects; r != rects + count; ++r)
@@ -196,6 +220,8 @@ void Renderer::FillRects(const Rect* rects, int count) {
 
 	if (SDL_RenderFillRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
 		throw Exception("SDL_RenderFillRects failed");
+
+	return *this;
 }
 
 void Renderer::ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch) {
@@ -203,24 +229,28 @@ void Renderer::ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixel
 		throw Exception("SDL_RenderReadPixels failed");
 }
 
-void Renderer::SetClipRect(const Optional<Rect>& rect) {
+Renderer& Renderer::SetClipRect(const Optional<Rect>& rect) {
 	if (SDL_RenderSetClipRect(renderer_, rect ? &*rect : nullptr) != 0)
 		throw Exception("SDL_RenderSetClipRect failed");
+	return *this;
 }
 
-void Renderer::SetLogicalSize(int w, int h) {
+Renderer& Renderer::SetLogicalSize(int w, int h) {
 	if (SDL_RenderSetLogicalSize(renderer_, w, h) != 0)
 		throw Exception("SDL_RenderSetLogicalSize failed");
+	return *this;
 }
 
-void Renderer::SetScale(float scaleX, float scaleY) {
+Renderer& Renderer::SetScale(float scaleX, float scaleY) {
 	if (SDL_RenderSetScale(renderer_, scaleX, scaleY) != 0)
 		throw Exception("SDL_RenderSetScale failed");
+	return *this;
 }
 
-void Renderer::SetViewport(const Optional<Rect>& rect) {
+Renderer& Renderer::SetViewport(const Optional<Rect>& rect) {
 	if (SDL_RenderSetViewport(renderer_, rect ? &*rect : nullptr) != 0)
 		throw Exception("SDL_RenderSetViewport failed");
+	return *this;
 }
 
 bool Renderer::TargetSupported() const {
