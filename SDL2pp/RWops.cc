@@ -114,25 +114,25 @@ RWops RWops::CheckedCreateStandardRWops(SDL_RWops* sdl_rwops, const char* errmsg
 }
 
 RWops RWops::FromFP(FILE* file, bool autoclose) {
-	return CheckedCreateStandardRWops(SDL_RWFromFP(file, autoclose ? SDL_TRUE : SDL_FALSE), "SDL_RWFromFP failed");
+	return CheckedCreateStandardRWops(SDL_RWFromFP(file, autoclose ? SDL_TRUE : SDL_FALSE), "SDL_RWFromFP");
 }
 
 RWops RWops::FromConstMem(const void* mem, int size) {
-	return CheckedCreateStandardRWops(SDL_RWFromConstMem(mem, size), "SDL_RWFromConstMem failed");
+	return CheckedCreateStandardRWops(SDL_RWFromConstMem(mem, size), "SDL_RWFromConstMem");
 }
 
 RWops RWops::FromMem(void* mem, int size) {
-	return CheckedCreateStandardRWops(SDL_RWFromMem(mem, size), "SDL_RWFromMem failed");
+	return CheckedCreateStandardRWops(SDL_RWFromMem(mem, size), "SDL_RWFromMem");
 }
 
 RWops RWops::FromFile(const std::string& file, const std::string& mode) {
-	return CheckedCreateStandardRWops(SDL_RWFromFile(file.c_str(), mode.c_str()), "SDL_RWFromFile failed");
+	return CheckedCreateStandardRWops(SDL_RWFromFile(file.c_str(), mode.c_str()), "SDL_RWFromFile");
 }
 
 RWops::RWops(SDL_RWops* rwops) {
 	rwops_ = SDL_AllocRW();
 	if (rwops_ == nullptr)
-		throw Exception("SDL_AllocRW failed");
+		throw Exception("SDL_AllocRW");
 
 	rwops_->seek = StdSeekFuncWrapper;
 	rwops_->read = StdReadFuncWrapper;

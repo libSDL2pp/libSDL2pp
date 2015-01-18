@@ -27,7 +27,6 @@
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Texture.hh>
-#include <SDL2pp/Exception.hh>
 
 using namespace SDL2pp;
 
@@ -120,8 +119,6 @@ int Run() {
 int main() {
 	try {
 		return Run();
-	} catch (Exception& e) {
-		std::cerr << "Error: " << e.what() << " (" << e.GetSDLError() << ")" << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}

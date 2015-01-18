@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,12 +28,12 @@ namespace SDL2pp {
 
 Wav::Wav(const std::string& file) {
 	if (SDL_LoadWAV(file.c_str(), &spec_, &audio_buffer_, &audio_length_) == nullptr)
-		throw Exception("SDL_LoadWAV failed");
+		throw Exception("SDL_LoadWAV");
 }
 
 Wav::Wav(RWops& rwops) {
 	if (SDL_LoadWAV_RW(rwops.Get(), 0, &spec_, &audio_buffer_, &audio_length_) == nullptr)
-		throw Exception("SDL_LoadWAV failed");
+		throw Exception("SDL_LoadWAV_RW");
 }
 
 Wav::~Wav() {

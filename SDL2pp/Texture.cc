@@ -45,24 +45,24 @@ Texture::Texture(SDL_Texture* texture) : texture_(texture) {
 
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
 	if ((texture_ = SDL_CreateTexture(renderer.Get(), format, access, w, h)) == nullptr)
-		throw Exception("SDL_CreateTexture failed");
+		throw Exception("SDL_CreateTexture");
 }
 
 #ifdef SDL2PP_WITH_IMAGE
 Texture::Texture(Renderer& renderer, RWops& rwops) {
 	if ((texture_ = IMG_LoadTexture_RW(renderer.Get(), rwops.Get(), 0)) == nullptr)
-		throw Exception("IMG_LoadTexture_RW failed");
+		throw Exception("IMG_LoadTexture_RW");
 }
 
 Texture::Texture(Renderer& renderer, const std::string& path) {
 	if ((texture_ = IMG_LoadTexture(renderer.Get(), path.c_str())) == nullptr)
-		throw Exception("IMG_LoadTexture failed");
+		throw Exception("IMG_LoadTexture");
 }
 #endif
 
 Texture::Texture(Renderer& renderer, const Surface& surface) {
 	if ((texture_ = SDL_CreateTextureFromSurface(renderer.Get(), surface.Get())) == nullptr)
-		throw Exception("SDL_CreateTextureFromSurface failed");
+		throw Exception("SDL_CreateTextureFromSurface");
 }
 
 Texture::~Texture() {
@@ -90,31 +90,31 @@ SDL_Texture* Texture::Get() const {
 
 Texture& Texture::Update(const Optional<Rect>& rect, const void* pixels, int pitch) {
 	if (SDL_UpdateTexture(texture_, rect ? &*rect : nullptr, pixels, pitch) != 0)
-		throw Exception("SDL_UpdateTexture failed");
+		throw Exception("SDL_UpdateTexture");
 	return *this;
 }
 
 Texture& Texture::UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch) {
 	if (SDL_UpdateYUVTexture(texture_, rect ? &*rect : nullptr, yplane, ypitch, uplane, upitch, vplane, vpitch) != 0)
-		throw Exception("SDL_UpdateYUVTexture failed");
+		throw Exception("SDL_UpdateYUVTexture");
 	return *this;
 }
 
 Texture& Texture::SetBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetTextureBlendMode(texture_, blendMode) != 0)
-		throw Exception("SDL_SetTextureBlendMode failed");
+		throw Exception("SDL_SetTextureBlendMode");
 	return *this;
 }
 
 Texture& Texture::SetAlphaMod(Uint8 alpha) {
 	if (SDL_SetTextureAlphaMod(texture_, alpha) != 0)
-		throw Exception("SDL_SetTextureAlphaMod failed");
+		throw Exception("SDL_SetTextureAlphaMod");
 	return *this;
 }
 
 Texture& Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	if (SDL_SetTextureColorMod(texture_, r, g, b) != 0)
-		throw Exception("SDL_SetTextureColorMod failed");
+		throw Exception("SDL_SetTextureColorMod");
 	return *this;
 }
 
@@ -125,55 +125,55 @@ Texture::LockHandle Texture::Lock(const Optional<Rect>& rect) {
 Uint32 Texture::GetFormat() const {
 	Uint32 format;
 	if (SDL_QueryTexture(texture_, &format, nullptr, nullptr, nullptr) != 0)
-		throw Exception("SDL_QueryTexture failed");
+		throw Exception("SDL_QueryTexture");
 	return format;
 }
 
 int Texture::GetAccess() const {
 	int access;
 	if (SDL_QueryTexture(texture_, nullptr, &access, nullptr, nullptr) != 0)
-		throw Exception("SDL_QueryTexture failed");
+		throw Exception("SDL_QueryTexture");
 	return access;
 }
 
 int Texture::GetWidth() const {
 	int w;
 	if (SDL_QueryTexture(texture_, nullptr, nullptr, &w, nullptr) != 0)
-		throw Exception("SDL_QueryTexture failed");
+		throw Exception("SDL_QueryTexture");
 	return w;
 }
 
 int Texture::GetHeight() const {
 	int h;
 	if (SDL_QueryTexture(texture_, nullptr, nullptr, nullptr, &h) != 0)
-		throw Exception("SDL_QueryTexture failed");
+		throw Exception("SDL_QueryTexture");
 	return h;
 }
 
 Point Texture::GetSize() const {
 	int w, h;
 	if (SDL_QueryTexture(texture_, nullptr, nullptr, &w, &h) != 0)
-		throw Exception("SDL_QueryTexture failed");
+		throw Exception("SDL_QueryTexture");
 	return Point(w, h);
 }
 
 Uint8 Texture::GetAlphaMod() const {
 	Uint8 alpha;
 	if (SDL_GetTextureAlphaMod(texture_, &alpha) != 0)
-		throw Exception("SDL_GetTextureAlphaMod failed");
+		throw Exception("SDL_GetTextureAlphaMod");
 	return alpha;
 }
 
 SDL_BlendMode Texture::GetBlendMode() const {
 	SDL_BlendMode mode;
 	if (SDL_GetTextureBlendMode(texture_, &mode) != 0)
-		throw Exception("SDL_GetTextureBlendMode failed");
+		throw Exception("SDL_GetTextureBlendMode");
 	return mode;
 }
 
 void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 	if (SDL_GetTextureColorMod(texture_, &r, &g, &b) != 0)
-		throw Exception("SDL_GetTextureBlendMode failed");
+		throw Exception("SDL_GetTextureColorMod");
 }
 
 }

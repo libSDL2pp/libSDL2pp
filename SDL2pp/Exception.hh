@@ -68,17 +68,18 @@ namespace SDL2pp {
 ////////////////////////////////////////////////////////////
 class Exception : public std::exception {
 private:
-	const char* what_;      ///< User-specified message
-	std::string sdl_error_; ///< SDL error string
+	std::string sdl_function_; ///< SDL function which caused an error
+	std::string sdl_error_;    ///< SDL error string
+	std::string what_;         ///< User-readable message
 
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct exception, storing result of SDL_GetError()
 	///
-	/// \param[in] what User-specified explanatory string
+	/// \param[in] function Name of SDL function which generated an error
 	///
 	////////////////////////////////////////////////////////////
-	Exception(const char* what = "");
+	Exception(const char* function);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
@@ -95,6 +96,14 @@ public:
 	const char* what() const noexcept;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get name of SDL function which caused an error
+	///
+	/// \returns Name of function which caused an error
+	///
+	////////////////////////////////////////////////////////////
+	std::string GetSDLFunction() const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get SDL2 error text
 	///
 	/// \returns Stored result of SDL_GetError()
@@ -102,7 +111,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_GetError
 	///
 	////////////////////////////////////////////////////////////
-	const char* GetSDLError() const noexcept;
+	std::string GetSDLError() const;
 };
 
 }

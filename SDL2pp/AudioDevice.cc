@@ -40,7 +40,7 @@ AudioDevice::AudioDevice(const Optional<std::string>& device, bool iscapture, co
 	SDL_AudioSpec obtained;
 
 	if ((device_id_ = SDL_OpenAudioDevice(device ? device->c_str() : nullptr, iscapture ? 1 : 0, &spec_with_callback, &obtained, 0)) == 0)
-		throw Exception("SDL_OpenAudioDevice failed");
+		throw Exception("SDL_OpenAudioDevice");
 
 	callback_ = std::move(callback);
 }
@@ -54,7 +54,7 @@ AudioDevice::AudioDevice(const Optional<std::string>& device, bool iscapture, Au
 	SDL_AudioSpec obtained;
 
 	if ((device_id_ = SDL_OpenAudioDevice(device ? device->c_str() : nullptr, iscapture ? 1 : 0, &spec_with_callback, &obtained, allowed_changes)) == 0)
-		throw Exception("SDL_OpenAudioDevice failed");
+		throw Exception("SDL_OpenAudioDevice");
 
 	spec.MergeChanges(obtained);
 
@@ -113,7 +113,7 @@ AudioDevice::LockHandle AudioDevice::Lock() {
 #ifdef SDL2PP_WITH_2_0_4
 AudioDevice& AudioDevice::QueueAudio(const void* data, Uint32 len) {
 	if (SDL_QueueAudio(device_id_, data, len) == 0)
-		throw Exception("SDL_QueueAudio failed");
+		throw Exception("SDL_QueueAudio");
 	return *this;
 }
 

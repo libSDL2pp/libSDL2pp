@@ -31,7 +31,7 @@ Window::Window(SDL_Window* window) : window_(window) {
 
 Window::Window(const std::string& title, int x, int y, int w, int h, Uint32 flags) {
 	if ((window_ = SDL_CreateWindow(title.c_str(), x, y, w, h, flags)) == nullptr)
-		throw Exception("SDL_CreateWindow failed");
+		throw Exception("SDL_CreateWindow");
 }
 
 Window::~Window() {
@@ -116,7 +116,7 @@ Window& Window::Show() {
 
 Window& Window::SetFullscreen(int flags) {
 	if (SDL_SetWindowFullscreen(window_, flags) != 0)
-		throw Exception("SDL_SetWindowFullscreen failed");
+		throw Exception("SDL_SetWindowFullscreen");
 	return *this;
 }
 
@@ -136,7 +136,7 @@ float Window::GetBrightness() const {
 
 Window& Window::SetBrightness(float brightness) {
 	if (SDL_SetWindowBrightness(window_, brightness) != 0)
-		throw Exception("SDL_SetWindowBrightness failed");
+		throw Exception("SDL_SetWindowBrightness");
 	return *this;
 }
 

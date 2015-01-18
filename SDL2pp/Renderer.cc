@@ -35,7 +35,7 @@ Renderer::Renderer(SDL_Renderer* renderer) : renderer_(renderer) {
 
 Renderer::Renderer(Window& window, int index, Uint32 flags) {
 	if ((renderer_ = SDL_CreateRenderer(window.Get(), index, flags)) == nullptr)
-		throw Exception("SDL_CreateRenderer failed");
+		throw Exception("SDL_CreateRenderer");
 }
 
 Renderer::~Renderer() {
@@ -68,59 +68,59 @@ Renderer& Renderer::Present() {
 
 Renderer& Renderer::Clear() {
 	if (SDL_RenderClear(renderer_) != 0)
-		throw Exception("SDL_RenderClear failed");
+		throw Exception("SDL_RenderClear");
 	return *this;
 }
 
 void Renderer::GetInfo(SDL_RendererInfo* info) {
 	if (SDL_GetRendererInfo(renderer_, info) != 0)
-		throw Exception("SDL_GetRendererInfo failed");
+		throw Exception("SDL_GetRendererInfo");
 }
 
 void Renderer::GetInfo(SDL_RendererInfo& info) {
 	if (SDL_GetRendererInfo(renderer_, &info) != 0)
-		throw Exception("SDL_GetRendererInfo failed");
+		throw Exception("SDL_GetRendererInfo");
 }
 
 Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect) {
 	if (SDL_RenderCopy(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr) != 0)
-		throw Exception("SDL_RenderCopy failed");
+		throw Exception("SDL_RenderCopy");
 	return *this;
 }
 
 Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center, int flip) {
 	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr, angle, center ? &*center : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
-		throw Exception("SDL_RenderCopyEx failed");
+		throw Exception("SDL_RenderCopyEx");
 	return *this;
 }
 
 Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (SDL_SetRenderDrawColor(renderer_, r, g, b, a) != 0)
-		throw Exception("SDL_SetRenderDrawColor failed");
+		throw Exception("SDL_SetRenderDrawColor");
 	return *this;
 }
 
 Renderer& Renderer::SetTarget() {
 	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
-		throw Exception("SDL_SetRenderTarget failed");
+		throw Exception("SDL_SetRenderTarget");
 	return *this;
 }
 
 Renderer& Renderer::SetTarget(Texture& texture) {
 	if (SDL_SetRenderTarget(renderer_, texture.Get()) != 0)
-		throw Exception("SDL_SetRenderTarget failed");
+		throw Exception("SDL_SetRenderTarget");
 	return *this;
 }
 
 Renderer& Renderer::SetDrawBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetRenderDrawBlendMode(renderer_, blendMode) != 0)
-		throw Exception("SDL_SetRenderDrawBlendMode failed");
+		throw Exception("SDL_SetRenderDrawBlendMode");
 	return *this;
 }
 
 Renderer& Renderer::DrawPoint(int x, int y) {
 	if (SDL_RenderDrawPoint(renderer_, x, y) != 0)
-		throw Exception("SDL_RenderDrawPoint failed");
+		throw Exception("SDL_RenderDrawPoint");
 	return *this;
 }
 
@@ -136,14 +136,14 @@ Renderer& Renderer::DrawPoints(const Point* points, int count) {
 		sdl_points.emplace_back(*p);
 
 	if (SDL_RenderDrawPoints(renderer_, sdl_points.data(), sdl_points.size()) != 0)
-		throw Exception("SDL_RenderDrawPoints failed");
+		throw Exception("SDL_RenderDrawPoints");
 
 	return *this;
 }
 
 Renderer& Renderer::DrawLine(int x1, int y1, int x2, int y2) {
 	if (SDL_RenderDrawLine(renderer_, x1, y1, x2, y2) != 0)
-		throw Exception("SDL_RenderDrawLine failed");
+		throw Exception("SDL_RenderDrawLine");
 	return *this;
 }
 
@@ -159,7 +159,7 @@ Renderer& Renderer::DrawLines(const Point* points, int count) {
 		sdl_points.emplace_back(*p);
 
 	if (SDL_RenderDrawLines(renderer_, sdl_points.data(), sdl_points.size()) != 0)
-		throw Exception("SDL_RenderDrawLines failed");
+		throw Exception("SDL_RenderDrawLines");
 
 	return *this;
 }
@@ -167,7 +167,7 @@ Renderer& Renderer::DrawLines(const Point* points, int count) {
 Renderer& Renderer::DrawRect(int x1, int y1, int x2, int y2) {
 	SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
 	if (SDL_RenderDrawRect(renderer_, &rect) != 0)
-		throw Exception("SDL_RenderDrawRect failed");
+		throw Exception("SDL_RenderDrawRect");
 	return *this;
 }
 
@@ -178,7 +178,7 @@ Renderer& Renderer::DrawRect(const Point& p1, const Point& p2) {
 
 Renderer& Renderer::DrawRect(const Rect& r) {
 	if (SDL_RenderDrawRect(renderer_, &r) != 0)
-		throw Exception("SDL_RenderDrawRect failed");
+		throw Exception("SDL_RenderDrawRect");
 	return *this;
 }
 
@@ -189,7 +189,7 @@ Renderer& Renderer::DrawRects(const Rect* rects, int count) {
 		sdl_rects.emplace_back(*r);
 
 	if (SDL_RenderDrawRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
-		throw Exception("SDL_RenderDrawRects failed");
+		throw Exception("SDL_RenderDrawRects");
 
 	return *this;
 }
@@ -197,7 +197,7 @@ Renderer& Renderer::DrawRects(const Rect* rects, int count) {
 Renderer& Renderer::FillRect(int x1, int y1, int x2, int y2) {
 	SDL_Rect rect = {x1, y1, x2 - x1 + 1, y2 - y1 + 1};
 	if (SDL_RenderFillRect(renderer_, &rect) != 0)
-		throw Exception("SDL_RenderFillRect failed");
+		throw Exception("SDL_RenderFillRect");
 	return *this;
 }
 
@@ -208,7 +208,7 @@ Renderer& Renderer::FillRect(const Point& p1, const Point& p2) {
 
 Renderer& Renderer::FillRect(const Rect& r) {
 	if (SDL_RenderFillRect(renderer_, &r) != 0)
-		throw Exception("SDL_RenderFillRect failed");
+		throw Exception("SDL_RenderFillRect");
 	return *this;
 }
 
@@ -219,37 +219,37 @@ Renderer& Renderer::FillRects(const Rect* rects, int count) {
 		sdl_rects.emplace_back(*r);
 
 	if (SDL_RenderFillRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
-		throw Exception("SDL_RenderFillRects failed");
+		throw Exception("SDL_RenderFillRects");
 
 	return *this;
 }
 
 void Renderer::ReadPixels(const Optional<Rect>& rect, Uint32 format, void* pixels, int pitch) {
 	if (SDL_RenderReadPixels(renderer_, rect ? &*rect : nullptr, format, pixels, pitch) != 0)
-		throw Exception("SDL_RenderReadPixels failed");
+		throw Exception("SDL_RenderReadPixels");
 }
 
 Renderer& Renderer::SetClipRect(const Optional<Rect>& rect) {
 	if (SDL_RenderSetClipRect(renderer_, rect ? &*rect : nullptr) != 0)
-		throw Exception("SDL_RenderSetClipRect failed");
+		throw Exception("SDL_RenderSetClipRect");
 	return *this;
 }
 
 Renderer& Renderer::SetLogicalSize(int w, int h) {
 	if (SDL_RenderSetLogicalSize(renderer_, w, h) != 0)
-		throw Exception("SDL_RenderSetLogicalSize failed");
+		throw Exception("SDL_RenderSetLogicalSize");
 	return *this;
 }
 
 Renderer& Renderer::SetScale(float scaleX, float scaleY) {
 	if (SDL_RenderSetScale(renderer_, scaleX, scaleY) != 0)
-		throw Exception("SDL_RenderSetScale failed");
+		throw Exception("SDL_RenderSetScale");
 	return *this;
 }
 
 Renderer& Renderer::SetViewport(const Optional<Rect>& rect) {
 	if (SDL_RenderSetViewport(renderer_, rect ? &*rect : nullptr) != 0)
-		throw Exception("SDL_RenderSetViewport failed");
+		throw Exception("SDL_RenderSetViewport");
 	return *this;
 }
 
@@ -306,33 +306,33 @@ Rect Renderer::GetViewport() const {
 SDL_BlendMode Renderer::GetDrawBlendMode() const {
 	SDL_BlendMode mode;
 	if (SDL_GetRenderDrawBlendMode(renderer_, &mode) != 0)
-		throw Exception("SDL_GetRenderDrawBlendMode failed");
+		throw Exception("SDL_GetRenderDrawBlendMode");
 	return mode;
 }
 
 void Renderer::GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const {
 	if (SDL_GetRenderDrawColor(renderer_, &r, &g, &b, &a) != 0)
-		throw Exception("SDL_GetRenderDrawColor failed");
+		throw Exception("SDL_GetRenderDrawColor");
 }
 
 Point Renderer::GetOutputSize() const {
 	int w, h;
 	if (SDL_GetRendererOutputSize(renderer_, &w, &h) != 0)
-		throw Exception("SDL_GetRendererOutputSize failed");
+		throw Exception("SDL_GetRendererOutputSize");
 	return Point(w, h);
 }
 
 int Renderer::GetOutputWidth() const {
 	int w;
 	if (SDL_GetRendererOutputSize(renderer_, &w, nullptr) != 0)
-		throw Exception("SDL_GetRendererOutputSize failed");
+		throw Exception("SDL_GetRendererOutputSize");
 	return w;
 }
 
 int Renderer::GetOutputHeight() const {
 	int h;
 	if (SDL_GetRendererOutputSize(renderer_, nullptr, &h) != 0)
-		throw Exception("SDL_GetRendererOutputSize failed");
+		throw Exception("SDL_GetRendererOutputSize");
 	return h;
 }
 

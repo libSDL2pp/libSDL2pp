@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,7 +28,7 @@ namespace SDL2pp {
 
 SDLImage::SDLImage(int flags) {
 	if ((IMG_Init(flags) & flags) != flags)
-		throw Exception("IMG_Init failed");
+		throw Exception("IMG_Init");
 }
 
 SDLImage::~SDLImage() {
@@ -38,7 +38,7 @@ SDLImage::~SDLImage() {
 int SDLImage::InitMore(int flags) {
 	int ret;
 	if (((ret = IMG_Init(flags)) & flags) != flags)
-		throw Exception("IMG_Init failed");
+		throw Exception("IMG_Init");
 	return ret;
 }
 

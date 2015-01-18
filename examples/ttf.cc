@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,15 +21,12 @@
 
 #include <iostream>
 
-//#include <SDL2/SDL.h>
-
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Font.hh>
 #include <SDL2pp/Window.hh>
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Texture.hh>
-#include <SDL2pp/Exception.hh>
 
 using namespace SDL2pp;
 
@@ -89,8 +86,6 @@ int Run() {
 int main() {
 	try {
 		return Run();
-	} catch (Exception& e) {
-		std::cerr << "Error: " << e.what() << " (" << e.GetSDLError() << ")" << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}

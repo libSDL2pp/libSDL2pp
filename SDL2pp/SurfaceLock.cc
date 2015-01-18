@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -33,7 +33,7 @@ Surface::LockHandle::LockHandle() : surface_(nullptr) {
 Surface::LockHandle::LockHandle(Surface* surface) : surface_(surface) {
 	if (SDL_MUSTLOCK(surface_->Get())) {
 		if (SDL_LockSurface(surface_->Get()))
-			throw Exception("SDL_LockSurface failed");
+			throw Exception("SDL_LockSurface");
 	}
 }
 

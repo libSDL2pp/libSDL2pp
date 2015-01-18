@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,18 +25,25 @@
 
 namespace SDL2pp {
 
-Exception::Exception(const char* what) : what_(what), sdl_error_(SDL_GetError()) {
+Exception::Exception(const char* function)
+	: sdl_function_(function),
+	  sdl_error_(SDL_GetError()),
+	  what_(sdl_function_ + " failed: " + sdl_error_) {
 }
 
 Exception::~Exception() noexcept {
 }
 
 const char* Exception::what() const noexcept {
-	return what_;
+	return what_.c_str();
 }
 
-const char* Exception::GetSDLError() const noexcept {
-	return sdl_error_.c_str();
+std::string Exception::GetSDLFunction() const {
+	return sdl_function_;
+}
+
+std::string Exception::GetSDLError() const {
+	return sdl_error_;
 }
 
 } // namespace SDL2pp

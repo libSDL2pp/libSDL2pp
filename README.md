@@ -43,9 +43,12 @@ This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
     
       // All SDL objects are released at this point or if an error occurs
     } catch (SDL2pp::Exception& e) {
-      // Exception stores SDL_GetError() result
-      std::cerr << "Exception: " << e.what() << std::endl;
-      std::cerr << "SDL Error: " << e.GetSDLError() << std::endl;
+      // Exception stores SDL_GetError() result and name of function which failed
+      std::cerr << "Error in: " << e.GetSDLFunction() << std::endl;
+      std::cerr << "  Reason: " << e.GetSDLError() << std::endl;
+    } catch (std::exception& e) {
+      // This also works (e.g. "SDL_Init failed: No available video device")
+      std::cerr << e.what() << std::endl;
     }
 
 ## Features ##

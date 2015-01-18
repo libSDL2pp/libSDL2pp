@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,7 +28,7 @@ namespace SDL2pp {
 
 SDL::SDL(Uint32 flags) {
 	if (SDL_Init(flags) != 0)
-		throw Exception("SDL_Init failed");
+		throw Exception("SDL_Init");
 }
 
 SDL::~SDL() {
@@ -41,7 +41,7 @@ Uint32 WasInit(Uint32 flags) {
 
 void InitSubsystem(Uint32 flags) {
 	if (SDL_InitSubSystem(flags) != 0)
-		throw Exception("SDL_InitSubsystem failed");
+		throw Exception("SDL_InitSubsystem");
 }
 
 void QuitSubSystem(Uint32 flags) {

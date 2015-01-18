@@ -33,12 +33,12 @@ Font::Font(TTF_Font* font) {
 
 Font::Font(const std::string& file, int ptsize, long index) {
 	if ((font_ = TTF_OpenFontIndex(file.c_str(), ptsize, index)) == nullptr)
-		throw Exception("TTF_OpenFontIndex failed");
+		throw Exception("TTF_OpenFontIndex");
 }
 
 Font::Font(RWops& rwops, int ptsize, long index) {
 	if ((font_ = TTF_OpenFontIndexRW(rwops.Get(), 0, ptsize, index)) == nullptr)
-		throw Exception("TTF_OpenFontIndexRW failed");
+		throw Exception("TTF_OpenFontIndexRW");
 }
 
 Font::~Font() {
@@ -140,125 +140,125 @@ Optional<std::string> Font::GetStyleName() const {
 
 void Font::GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy, int& advance) const {
 	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, &advance) != 0)
-		throw Exception("TTF_GlyphMetrics failed");
+		throw Exception("TTF_GlyphMetrics");
 }
 
 Rect Font::GetGlyphRect(Uint16 ch) const {
 	int minx, maxx, miny, maxy;
 	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, nullptr) != 0)
-		throw Exception("TTF_GlyphMetrics failed");
+		throw Exception("TTF_GlyphMetrics");
 	return Rect(minx, miny, maxx - minx + 1, maxy - miny + 1);
 }
 
 int Font::GetGlyphAdvance(Uint16 ch) const {
 	int advance;
 	if (TTF_GlyphMetrics(font_, ch, nullptr, nullptr, nullptr, nullptr, &advance) != 0)
-		throw Exception("TTF_GlyphMetrics failed");
+		throw Exception("TTF_GlyphMetrics");
 	return advance;
 }
 
 Point Font::GetSizeText(const std::string& text) const {
 	int w, h;
 	if (TTF_SizeText(font_, text.c_str(), &w, &h) != 0)
-		throw Exception("TTF_SizeText failed");
+		throw Exception("TTF_SizeText");
 	return Point(w, h);
 }
 
 Point Font::GetSizeUTF8(const std::string& text) const {
 	int w, h;
 	if (TTF_SizeUTF8(font_, text.c_str(), &w, &h) != 0)
-		throw Exception("TTF_SizeUTF8 failed");
+		throw Exception("TTF_SizeUTF8");
 	return Point(w, h);
 }
 
 Point Font::GetSizeUNICODE(const Uint16* text) const {
 	int w, h;
 	if (TTF_SizeUNICODE(font_, text, &w, &h) != 0)
-		throw Exception("TTF_SizeUNICODE failed");
+		throw Exception("TTF_SizeUNICODE");
 	return Point(w, h);
 }
 
 Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderText_Solid failed");
+		throw Exception("TTF_RenderText_Solid");
 	return Surface(surface);
 }
 
 Surface Font::RenderUTF8_Solid(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderUTF8_Solid(font_, text.c_str(), fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUTF8_Solid failed");
+		throw Exception("TTF_RenderUTF8_Solid");
 	return Surface(surface);
 }
 
 Surface Font::RenderUNICODE_Solid(const Uint16* text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderUNICODE_Solid(font_, text, fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUNICODE_Solid failed");
+		throw Exception("TTF_RenderUNICODE_Solid");
 	return Surface(surface);
 }
 
 Surface Font::RenderGlyph_Solid(Uint16 ch, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderGlyph_Solid(font_, ch, fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderGlyph_Solid failed");
+		throw Exception("TTF_RenderGlyph_Solid");
 	return Surface(surface);
 }
 
 Surface Font::RenderText_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderText_Shaded(font_, text.c_str(), fg, bg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderText_Shaded failed");
+		throw Exception("TTF_RenderText_Shaded");
 	return Surface(surface);
 }
 
 Surface Font::RenderUTF8_Shaded(const std::string& text, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderUTF8_Shaded(font_, text.c_str(), fg, bg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUTF8_Shaded failed");
+		throw Exception("TTF_RenderUTF8_Shaded");
 	return Surface(surface);
 }
 
 Surface Font::RenderUNICODE_Shaded(const Uint16* text, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderUNICODE_Shaded(font_, text, fg, bg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUNICODE_Shaded failed");
+		throw Exception("TTF_RenderUNICODE_Shaded");
 	return Surface(surface);
 }
 
 Surface Font::RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderGlyph_Shaded(font_, ch, fg, bg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderGlyph_Shaded failed");
+		throw Exception("TTF_RenderGlyph_Shaded");
 	return Surface(surface);
 }
 
 Surface Font::RenderText_Blended(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderText_Blended(font_, text.c_str(), fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderText_Blended failed");
+		throw Exception("TTF_RenderText_Blended");
 	return Surface(surface);
 }
 
 Surface Font::RenderUTF8_Blended(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderUTF8_Blended(font_, text.c_str(), fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUTF8_Blended failed");
+		throw Exception("TTF_RenderUTF8_Blended");
 	return Surface(surface);
 }
 
 Surface Font::RenderUNICODE_Blended(const Uint16* text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderUNICODE_Blended(font_, text, fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderUNICODE_Blended failed");
+		throw Exception("TTF_RenderUNICODE_Blended");
 	return Surface(surface);
 }
 
 Surface Font::RenderGlyph_Blended(Uint16 ch, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderGlyph_Blended(font_, ch, fg);
 	if (surface == nullptr)
-		throw Exception("TTF_RenderGlyph_Blended failed");
+		throw Exception("TTF_RenderGlyph_Blended");
 	return Surface(surface);
 }
 

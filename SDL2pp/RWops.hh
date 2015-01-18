@@ -269,7 +269,7 @@ public:
 	RWops(C&& custom_rwops) {
 		rwops_ = SDL_AllocRW();
 		if (rwops_ == nullptr)
-			throw Exception("SDL_AllocRW failed");
+			throw Exception("SDL_AllocRW");
 
 		rwops_->seek = CustomSeekFuncWrapper;
 		rwops_->read = CustomReadFuncWrapper;
