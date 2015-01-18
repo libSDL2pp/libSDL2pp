@@ -88,29 +88,34 @@ SDL_Texture* Texture::Get() const {
 	return texture_;
 }
 
-void Texture::Update(const Optional<Rect>& rect, const void* pixels, int pitch) {
+Texture& Texture::Update(const Optional<Rect>& rect, const void* pixels, int pitch) {
 	if (SDL_UpdateTexture(texture_, rect ? &*rect : nullptr, pixels, pitch) != 0)
 		throw Exception("SDL_UpdateTexture failed");
+	return *this;
 }
 
-void Texture::UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch) {
+Texture& Texture::UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch) {
 	if (SDL_UpdateYUVTexture(texture_, rect ? &*rect : nullptr, yplane, ypitch, uplane, upitch, vplane, vpitch) != 0)
 		throw Exception("SDL_UpdateYUVTexture failed");
+	return *this;
 }
 
-void Texture::SetBlendMode(SDL_BlendMode blendMode) {
+Texture& Texture::SetBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetTextureBlendMode(texture_, blendMode) != 0)
 		throw Exception("SDL_SetTextureBlendMode failed");
+	return *this;
 }
 
-void Texture::SetAlphaMod(Uint8 alpha) {
+Texture& Texture::SetAlphaMod(Uint8 alpha) {
 	if (SDL_SetTextureAlphaMod(texture_, alpha) != 0)
 		throw Exception("SDL_SetTextureAlphaMod failed");
+	return *this;
 }
 
-void Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
+Texture& Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	if (SDL_SetTextureColorMod(texture_, r, g, b) != 0)
 		throw Exception("SDL_SetTextureColorMod failed");
+	return *this;
 }
 
 Texture::LockHandle Texture::Lock(const Optional<Rect>& rect) {

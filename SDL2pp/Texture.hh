@@ -304,12 +304,14 @@ public:
 	/// \param[in] pitch Number of bytes in a row of pixel data, including
 	///                  padding between lines
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_UpdateTexture
 	///
 	////////////////////////////////////////////////////////////
-	void Update(const Optional<Rect>& rect, const void* pixels, int pitch);
+	Texture& Update(const Optional<Rect>& rect, const void* pixels, int pitch);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Update the given texture rectangle with new pixel data
@@ -323,36 +325,42 @@ public:
 	/// \param[in] vplane Raw pixel data for the V plane
 	/// \param[in] vpitch Number of bytes between rows of pixel data for the V plane
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_UpdateYUVTexture
 	///
 	////////////////////////////////////////////////////////////
-	void UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch);
+	Texture& UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode for a texture, used by SDL2pp::Renderer::Copy
 	///
 	/// \param[in] blendMode SDL_BlendMode to use for texture blending
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetTextureBlendMode
 	///
 	////////////////////////////////////////////////////////////
-	void SetBlendMode(SDL_BlendMode blendMode);
+	Texture& SetBlendMode(SDL_BlendMode blendMode);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional alpha value multiplied into render copy operations
 	///
 	/// \param[in] alpha Source alpha value multiplied into copy operations
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetTextureAlphaMod
 	///
 	////////////////////////////////////////////////////////////
-	void SetAlphaMod(Uint8 alpha = 255);
+	Texture& SetAlphaMod(Uint8 alpha = 255);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional color value multiplied into render copy operations
@@ -361,12 +369,14 @@ public:
 	/// \param[in] g Green color value multiplied into copy operations
 	/// \param[in] b Blue color value multiplied into copy operations
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetTextureColorMod
 	///
 	////////////////////////////////////////////////////////////
-	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+	Texture& SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Lock texture for write-only pixel access
