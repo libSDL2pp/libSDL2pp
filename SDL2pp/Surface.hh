@@ -408,12 +408,14 @@ public:
 	///
 	/// \param[in] rect Rect representing the clipping rectangle, or NullOpt to disable clipping
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetClipRect
 	///
 	////////////////////////////////////////////////////////////
-	void SetClipRect(const Optional<Rect>& rect = NullOpt);
+	Surface& SetClipRect(const Optional<Rect>& rect = NullOpt);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the color key (transparent pixel) in a surface
@@ -421,36 +423,42 @@ public:
 	/// \param[in] flag True to enabled color key, false to disable
 	/// \param[in] key Transparent pixel value
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetColorKey
 	///
 	////////////////////////////////////////////////////////////
-	void SetColorKey(int flag, Uint32 key);
+	Surface& SetColorKey(int flag, Uint32 key);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional alpha value used in blit operations
 	///
 	/// \param[in] alpha Alpha value multiplied into blit operations
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceAlphaMod
 	///
 	////////////////////////////////////////////////////////////
-	void SetAlphaMod(Uint8 alpha = 255);
+	Surface& SetAlphaMod(Uint8 alpha = 255);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the blend mode used for blit operations
 	///
 	/// \param[in] blendMode SDL_BlendMode to use for blit blending
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceBlendMode
 	///
 	////////////////////////////////////////////////////////////
-	void SetBlendMode(SDL_BlendMode blendMode);
+	Surface& SetBlendMode(SDL_BlendMode blendMode);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional color value multiplied into blit operations
@@ -459,24 +467,28 @@ public:
 	/// \param[in] g Green color value multiplied into blit operations
 	/// \param[in] b Blue color value multiplied into blit operations
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceColorMod
 	///
 	////////////////////////////////////////////////////////////
-	void SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+	Surface& SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the RLE acceleration hint for a surface
 	///
 	/// \param[in] flag False to disable, true to enable RLE acceleration
 	///
+	/// \returns Reference to self
+	///
 	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceRLE
 	///
 	////////////////////////////////////////////////////////////
-	void SetRLE(bool flag);
+	Surface& SetRLE(bool flag);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Perform a fast fill of a rectangle with a specific color
@@ -489,7 +501,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_FillRect
 	///
 	////////////////////////////////////////////////////////////
-	void FillRect(const Optional<Rect>& rect, Uint32 color);
+	Surface& FillRect(const Optional<Rect>& rect, Uint32 color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Perform a fast fill of a set of rectangles with a specific color
@@ -503,7 +515,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_FillRects
 	///
 	////////////////////////////////////////////////////////////
-	void FillRects(const Rect* rects, int count, Uint32 color);
+	Surface& FillRects(const Rect* rects, int count, Uint32 color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get surface width

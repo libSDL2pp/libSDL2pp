@@ -148,42 +148,49 @@ void Surface::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 		throw Exception("SDL_GetSurfaceColorMod failed");
 }
 
-void Surface::SetClipRect(const Optional<Rect>& rect) {
+Surface& Surface::SetClipRect(const Optional<Rect>& rect) {
 	if (SDL_SetClipRect(surface_, rect ? &*rect : nullptr) != 0)
 		throw Exception("SDL_SetClipRect failed");
+	return *this;
 }
 
-void Surface::SetColorKey(int flag, Uint32 key) {
+Surface& Surface::SetColorKey(int flag, Uint32 key) {
 	if (SDL_SetColorKey(surface_, flag, key) != 0)
 		throw Exception("SDL_SetColorKey failed");
+	return *this;
 }
 
-void Surface::SetAlphaMod(Uint8 alpha) {
+Surface& Surface::SetAlphaMod(Uint8 alpha) {
 	if (SDL_SetSurfaceAlphaMod(surface_, alpha) != 0)
 		throw Exception("SDL_SetSurfaceAlphaMod failed");
+	return *this;
 }
 
-void Surface::SetBlendMode(SDL_BlendMode blendMode) {
+Surface& Surface::SetBlendMode(SDL_BlendMode blendMode) {
 	if (SDL_SetSurfaceBlendMode(surface_, blendMode) != 0)
 		throw Exception("SDL_SetSurfaceBlendMode failed");
+	return *this;
 }
 
-void Surface::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
+Surface& Surface::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	if (SDL_SetSurfaceColorMod(surface_, r, g, b) != 0)
 		throw Exception("SDL_SetSurfaceColorMod failed");
+	return *this;
 }
 
-void Surface::SetRLE(bool flag) {
+Surface& Surface::SetRLE(bool flag) {
 	if (SDL_SetSurfaceRLE(surface_, flag ? 1 : 0) != 0)
 		throw Exception("SDL_SetSurfaceRLE failed");
+	return *this;
 }
 
-void Surface::FillRect(const Optional<Rect>& rect, Uint32 color) {
+Surface& Surface::FillRect(const Optional<Rect>& rect, Uint32 color) {
 	if (SDL_FillRect(surface_, rect ? &*rect : nullptr, color) != 0)
 		throw Exception("SDL_FillRect failed");
+	return *this;
 }
 
-void Surface::FillRects(const Rect* rects, int count, Uint32 color) {
+Surface& Surface::FillRects(const Rect* rects, int count, Uint32 color) {
 	std::vector<SDL_Rect> sdl_rects;
 	sdl_rects.reserve(count);
 	for (const Rect* r = rects; r != rects + count; ++r)
@@ -191,6 +198,7 @@ void Surface::FillRects(const Rect* rects, int count, Uint32 color) {
 
 	if (SDL_FillRects(surface_, sdl_rects.data(), sdl_rects.size(), color) != 0)
 		throw Exception("SDL_FillRects failed");
+	return *this;
 }
 
 int Surface::GetWidth() const {
