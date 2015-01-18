@@ -430,7 +430,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetColorKey
 	///
 	////////////////////////////////////////////////////////////
-	Surface& SetColorKey(int flag, Uint32 key);
+	Surface& SetColorKey(bool flag, Uint32 key);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional alpha value used in blit operations
