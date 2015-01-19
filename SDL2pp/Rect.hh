@@ -458,4 +458,15 @@ public:
 
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Stream output operator overload for SDL2pp::Rect
+///
+/// \param[in] stream Stream to output to
+/// \param[in] rect Rect to output
+///
+/// \returns stream
+///
+////////////////////////////////////////////////////////////
+std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
+
 #endif

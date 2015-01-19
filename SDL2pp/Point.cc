@@ -149,3 +149,8 @@ Point& Point::Wrap(const Rect& rect) {
 }
 
 }
+
+std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point) {
+	stream << "[x:" << point.x << ",y:" << point.y << "]";
+	return stream;
+}

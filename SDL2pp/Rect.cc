@@ -228,3 +228,8 @@ Rect& Rect::operator-=(const Point& offset) {
 }
 
 }
+
+std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect) {
+	stream << "[x:" << rect.x << ",y:" << rect.y << ",w:" << rect.w << ",h:" << rect.h << "]";
+	return stream;
+}

@@ -22,6 +22,8 @@
 #ifndef SDL2PP_POINT_HH
 #define SDL2PP_POINT_HH
 
+#include <iostream>
+
 #include <SDL2/SDL_rect.h>
 
 namespace SDL2pp {
@@ -276,5 +278,16 @@ public:
 };
 
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Stream output operator overload for SDL2pp::Point
+///
+/// \param[in] stream Stream to output to
+/// \param[in] point Point to output
+///
+/// \returns stream
+///
+////////////////////////////////////////////////////////////
+std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
 
 #endif

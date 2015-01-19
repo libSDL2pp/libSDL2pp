@@ -333,4 +333,10 @@ BEGIN_TEST()
 		EXPECT_TRUE(Point(-19, -19).GetWrapped(rect) == Point(11, 21));
 		EXPECT_TRUE(Point(-21, -21).GetWrapped(rect) == Point(39, 59));
 	}
+
+	{
+		// streams
+		EXPECT_EQUAL((std::stringstream() << Point(1, 2)).str(), "[x:1,y:2]");
+		EXPECT_EQUAL((std::stringstream() << Rect(1, 2, 3, 4)).str(), "[x:1,y:2,w:3,h:4]");
+	}
 END_TEST()
