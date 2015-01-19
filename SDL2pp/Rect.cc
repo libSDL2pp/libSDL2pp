@@ -159,6 +159,18 @@ Rect Rect::GetUnion(const Rect& rect) const {
 		);
 }
 
+Rect& Rect::Union(const Rect& rect) {
+	int nx = std::min(x, rect.x);
+	int ny = std::min(y, rect.y);
+	int nx2 = std::max(GetX2(), rect.GetX2());
+	int ny2 = std::max(GetY2(), rect.GetY2());
+	x = nx;
+	y = ny;
+	SetX2(nx2);
+	SetY2(ny2);
+	return *this;
+}
+
 Optional<Rect> Rect::GetIntersection(const Rect& rect) const {
 	if (!Intersects(rect))
 		return NullOpt;

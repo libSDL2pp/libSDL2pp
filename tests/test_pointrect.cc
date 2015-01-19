@@ -233,6 +233,11 @@ BEGIN_TEST()
 		EXPECT_TRUE(Rect(30, 20, 1, 1).GetUnion(Rect(10, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
 		EXPECT_TRUE(Rect(10, 40, 1, 1).GetUnion(Rect(30, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
 		EXPECT_TRUE(Rect(30, 40, 1, 1).GetUnion(Rect(10, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+
+		EXPECT_TRUE(Rect(10, 20, 1, 1).Union(Rect(30, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(30, 20, 1, 1).Union(Rect(10, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(10, 40, 1, 1).Union(Rect(30, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(30, 40, 1, 1).Union(Rect(10, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
 	}
 
 	{

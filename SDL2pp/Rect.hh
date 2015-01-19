@@ -337,6 +337,16 @@ public:
 	Rect GetUnion(const Rect& rect) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Union rect with another rect
+	///
+	/// \param[in] rect Rect to union with
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Rect& Union(const Rect& rect);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Calculate intersection with another rect
 	///
 	/// \param[in] rect Rect to intersect with
