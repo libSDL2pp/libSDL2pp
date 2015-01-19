@@ -171,6 +171,20 @@ Rect& Rect::Union(const Rect& rect) {
 	return *this;
 }
 
+Rect Rect::GetExtension(unsigned int amount) const {
+	Rect r = *this;
+	r.Extend(amount);
+	return r;
+}
+
+Rect& Rect::Extend(unsigned int amount) {
+	x -= amount;
+	y -= amount;
+	w += amount * 2;
+	h += amount * 2;
+	return *this;
+}
+
 Optional<Rect> Rect::GetIntersection(const Rect& rect) const {
 	if (!Intersects(rect))
 		return NullOpt;

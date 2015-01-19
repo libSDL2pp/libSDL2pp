@@ -241,6 +241,15 @@ BEGIN_TEST()
 	}
 
 	{
+		// Rect extend
+		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(0) == Rect(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(10) == Rect(0, 10, 50, 60));
+
+		EXPECT_TRUE(Rect(10, 20, 30, 40).Extend(0) == Rect(10, 20, 30, 40));
+		EXPECT_TRUE(Rect(10, 20, 30, 40).Extend(10) == Rect(0, 10, 50, 60));
+	}
+
+	{
 		// Rect offset
 		Rect r(1, 2, 3, 4);
 

@@ -347,6 +347,26 @@ public:
 	Rect& Union(const Rect& rect);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get a rect extended by specified amount of pixels
+	///
+	/// \param[in] int Number of pixels to extend by
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetExtension(unsigned int amount) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Extend a rect by specified amount of pixels
+	///
+	/// \param[in] int Number of pixels to extend by
+	///
+	/// \returns Extended rect
+	///
+	////////////////////////////////////////////////////////////
+	Rect& Extend(unsigned int amount);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Calculate intersection with another rect
 	///
 	/// \param[in] rect Rect to intersect with
