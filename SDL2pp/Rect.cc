@@ -197,6 +197,14 @@ Optional<Rect> Rect::GetIntersection(const Rect& rect) const {
 		);
 }
 
+bool Rect::IntersectLine(int& x1, int& y1, int& x2, int& y2) const {
+	return SDL_IntersectRectAndLine(this, &x1, &y1, &x2, &y2) == SDL_TRUE;
+}
+
+bool Rect::IntersectLine(Point& p1, Point& p2) const {
+	return SDL_IntersectRectAndLine(this, &p1.x, &p1.y, &p2.x, &p2.y) == SDL_TRUE;
+}
+
 Rect Rect::operator+(const Point& offset) const {
 	return Rect(x + offset.x, y + offset.y, w, h);
 }

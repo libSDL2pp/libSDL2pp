@@ -241,6 +241,23 @@ BEGIN_TEST()
 	}
 
 	{
+		// Rect/line intersections
+		Rect rect = Rect::FromCorners(10, 10, 20, 20);
+
+		Point p1(0, 0), p2(30, 30);
+		EXPECT_TRUE(rect.IntersectLine(p1, p2));
+		EXPECT_TRUE(p1 == Point(10, 10));
+		EXPECT_TRUE(p2 == Point(20, 20));
+
+		int x1 = 30, y1 = 0, x2 = 0, y2 = 30;
+		EXPECT_TRUE(rect.IntersectLine(x1, y1, x2, y2));
+		EXPECT_TRUE(x1 == 20);
+		EXPECT_TRUE(y1 == 10);
+		EXPECT_TRUE(x2 == 10);
+		EXPECT_TRUE(y2 == 20);
+	}
+
+	{
 		// Rect extend
 		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(0) == Rect(10, 20, 30, 40));
 		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(10) == Rect(0, 10, 50, 60));

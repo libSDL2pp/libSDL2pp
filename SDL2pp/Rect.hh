@@ -377,6 +377,45 @@ public:
 	Optional<Rect> GetIntersection(const Rect& rect) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Calculate the intersection of a rectangle and line segment
+	///
+	/// \param[in,out] x1 Starting X-coordinate of the line
+	/// \param[in,out] y1 Starting Y-coordinate of the line
+	/// \param[in,out] x2 Ending X-coordinate of the line
+	/// \param[in,out] y2 Ending Y-coordinate of the line
+	///
+	/// \returns True if there is an intersection, false otherwise
+	///
+	/// This function is used to clip a line segment to a
+	/// rectangle. A line segment contained entirely within the
+	/// rectangle or that does not intersect will remain unchanged.
+	/// A line segment that crosses the rectangle at either or both
+	/// ends will be clipped to the boundary of the rectangle and
+	/// the new coordinates saved in x1, y1, x2, and/or y2 as
+	/// necessary.
+	///
+	////////////////////////////////////////////////////////////
+	bool IntersectLine(int& x1, int& y1, int& x2, int& y2) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Calculate the intersection of a rectangle and line segment
+	///
+	/// \param[in,out] p1 Starting coordinates of the line
+	/// \param[in,out] p2 Ending coordinates of the line
+	///
+	/// \returns True if there is an intersection, false otherwise
+	///
+	/// This function is used to clip a line segment to a
+	/// rectangle. A line segment contained entirely within the
+	/// rectangle or that does not intersect will remain unchanged.
+	/// A line segment that crosses the rectangle at either or both
+	/// ends will be clipped to the boundary of the rectangle and
+	/// the new coordinates saved in p1 and/or p2 as necessary.
+	///
+	////////////////////////////////////////////////////////////
+	bool IntersectLine(Point& p1, Point& p2) const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by a given offset
 	///
 	/// \param[in] offset Point specifying an offset
