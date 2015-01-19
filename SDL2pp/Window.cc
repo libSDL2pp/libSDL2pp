@@ -197,4 +197,20 @@ Window& Window::SetGrab(bool grabbed) {
 	return *this;
 }
 
+int Window::GetDisplayIndex() const {
+	int index = SDL_GetWindowDisplayIndex(window_);
+	if (index < 0)
+		throw SDL2pp::Exception("SDL_GetWindowDisplayIndex");
+	return index;
+}
+
+void Window::GetDisplayMode(SDL_DisplayMode& mode) const {
+	if (SDL_GetWindowDisplayMode(window_, &mode) != 0)
+		throw SDL2pp::Exception("SDL_GetWindowDisplayMode");
+}
+
+Uint32 Window::GetFlags() const {
+	return SDL_GetWindowFlags(window_);
+}
+
 }

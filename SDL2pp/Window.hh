@@ -25,6 +25,7 @@
 #include <string>
 
 #include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_video.h>
 
 #include <SDL2pp/Point.hh>
 
@@ -441,6 +442,38 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetGrab(bool grabbed);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the index of the display associated with a window
+	///
+	/// \returns Index of the display containing the center of the window
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowDisplayIndex
+	///
+	////////////////////////////////////////////////////////////
+	int GetDisplayIndex() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get information about the display mode to use when a
+	///        window is visible at fullscreen
+	///
+	/// \param[out] mode SDL_DisplayMode structure filled in with the
+	///                  fullscreen display mode
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowDisplayMode
+	///
+	////////////////////////////////////////////////////////////
+	void GetDisplayMode(SDL_DisplayMode& mode) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the window flags
+	///
+	/// \returns Mask of the SDL_WindowFlags associated with window
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowFlags
+	///
+	////////////////////////////////////////////////////////////
+	Uint32 GetFlags() const;
 };
 
 }
