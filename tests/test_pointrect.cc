@@ -310,4 +310,27 @@ BEGIN_TEST()
 		EXPECT_TRUE(Point(10, 10).GetClamped(rect) == Point(3, 5));
 		EXPECT_TRUE(Point(10, 10).Clamp(rect) == Point(3, 5));
 	}
+
+	{
+		// wrap
+		Rect rect(10, 20, 30, 40);
+
+		EXPECT_TRUE(Point(10, 20).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(39, 59).GetWrapped(rect) == Point(39, 59));
+
+		EXPECT_TRUE(Point(9, 20).GetWrapped(rect) == Point(39, 20));
+		EXPECT_TRUE(Point(40, 20).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(10, 19).GetWrapped(rect) == Point(10, 59));
+		EXPECT_TRUE(Point(10, 60).GetWrapped(rect) == Point(10, 20));
+
+		EXPECT_TRUE(Point(-50, -60).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(-20, -20).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(10, 20).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(40, 60).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(70, 100).GetWrapped(rect) == Point(10, 20));
+		EXPECT_TRUE(Point(100, 140).GetWrapped(rect) == Point(10, 20));
+
+		EXPECT_TRUE(Point(-19, -19).GetWrapped(rect) == Point(11, 21));
+		EXPECT_TRUE(Point(-21, -21).GetWrapped(rect) == Point(39, 59));
+	}
 END_TEST()

@@ -128,4 +128,24 @@ Point& Point::Clamp(const Rect& rect) {
 	return *this;
 }
 
+Point Point::GetWrapped(const Rect& rect) const {
+	Point p = *this;
+	p.Wrap(rect);
+	return p;
+}
+
+Point& Point::Wrap(const Rect& rect) {
+	if (x < rect.x)
+		x = rect.x + rect.w - 1 - (rect.x - x + rect.w - 1) % rect.w;
+	else if (x >= rect.x + rect.w)
+		x = rect.x + (x - rect.x - rect.w) % rect.w;
+
+	if (y < rect.y)
+		y = rect.y + rect.h - 1 - (rect.y - y + rect.h - 1) % rect.h;
+	else if (y >= rect.y + rect.h)
+		y = rect.y + (y - rect.y - rect.h) % rect.h;
+
+	return *this;
+}
+
 }
