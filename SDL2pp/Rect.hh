@@ -349,7 +349,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get a rect extended by specified amount of pixels
 	///
-	/// \param[in] int Number of pixels to extend by
+	/// \param[in] amount Number of pixels to extend by
 	///
 	/// \returns Reference to self
 	///
@@ -359,7 +359,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Extend a rect by specified amount of pixels
 	///
-	/// \param[in] int Number of pixels to extend by
+	/// \param[in] amount Number of pixels to extend by
 	///
 	/// \returns Extended rect
 	///
