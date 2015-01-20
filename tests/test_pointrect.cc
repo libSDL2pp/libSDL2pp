@@ -139,11 +139,11 @@ BEGIN_TEST()
 
 	{
 		// Constructors
-		EXPECT_TRUE(Rect::FromCenter(100, 100, 5, 7) == Rect(98, 97, 5, 7));
-		EXPECT_TRUE(Rect::FromCenter(Point(100, 100), Point(5, 7)) == Rect(98, 97, 5, 7));
+		EXPECT_EQUAL(Rect::FromCenter(100, 100, 5, 7), Rect(98, 97, 5, 7));
+		EXPECT_EQUAL(Rect::FromCenter(Point(100, 100), Point(5, 7)), Rect(98, 97, 5, 7));
 
-		EXPECT_TRUE(Rect::FromCorners(10, 20, 30, 40) == Rect(10, 20, 21, 21));
-		EXPECT_TRUE(Rect::FromCorners(Point(10, 20), Point(30, 40)) == Rect(10, 20, 21, 21));
+		EXPECT_EQUAL(Rect::FromCorners(10, 20, 30, 40), Rect(10, 20, 21, 21));
+		EXPECT_EQUAL(Rect::FromCorners(Point(10, 20), Point(30, 40)), Rect(10, 20, 21, 21));
 	}
 
 	{
@@ -229,15 +229,15 @@ BEGIN_TEST()
 
 	{
 		// Rect unions
-		EXPECT_TRUE(Rect(10, 20, 1, 1).GetUnion(Rect(30, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(30, 20, 1, 1).GetUnion(Rect(10, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(10, 40, 1, 1).GetUnion(Rect(30, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(30, 40, 1, 1).GetUnion(Rect(10, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 1, 1).GetUnion(Rect(30, 40, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(30, 20, 1, 1).GetUnion(Rect(10, 40, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 40, 1, 1).GetUnion(Rect(30, 20, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(30, 40, 1, 1).GetUnion(Rect(10, 20, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
 
-		EXPECT_TRUE(Rect(10, 20, 1, 1).Union(Rect(30, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(30, 20, 1, 1).Union(Rect(10, 40, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(10, 40, 1, 1).Union(Rect(30, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(30, 40, 1, 1).Union(Rect(10, 20, 1, 1)) == Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 1, 1).Union(Rect(30, 40, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(30, 20, 1, 1).Union(Rect(10, 40, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 40, 1, 1).Union(Rect(30, 20, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(30, 40, 1, 1).Union(Rect(10, 20, 1, 1)), Rect::FromCorners(10, 20, 30, 40));
 	}
 
 	{
@@ -246,40 +246,40 @@ BEGIN_TEST()
 
 		Point p1(0, 0), p2(30, 30);
 		EXPECT_TRUE(rect.IntersectLine(p1, p2));
-		EXPECT_TRUE(p1 == Point(10, 10));
-		EXPECT_TRUE(p2 == Point(20, 20));
+		EXPECT_EQUAL(p1, Point(10, 10));
+		EXPECT_EQUAL(p2, Point(20, 20));
 
 		int x1 = 30, y1 = 0, x2 = 0, y2 = 30;
 		EXPECT_TRUE(rect.IntersectLine(x1, y1, x2, y2));
-		EXPECT_TRUE(x1 == 20);
-		EXPECT_TRUE(y1 == 10);
-		EXPECT_TRUE(x2 == 10);
-		EXPECT_TRUE(y2 == 20);
+		EXPECT_EQUAL(x1, 20);
+		EXPECT_EQUAL(y1, 10);
+		EXPECT_EQUAL(x2, 10);
+		EXPECT_EQUAL(y2, 20);
 	}
 
 	{
 		// Rect extend
-		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(0) == Rect(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(10, 20, 30, 40).GetExtension(10) == Rect(0, 10, 50, 60));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetExtension(0), Rect(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetExtension(10), Rect(0, 10, 50, 60));
 
-		EXPECT_TRUE(Rect(10, 20, 30, 40).Extend(0) == Rect(10, 20, 30, 40));
-		EXPECT_TRUE(Rect(10, 20, 30, 40).Extend(10) == Rect(0, 10, 50, 60));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).Extend(0), Rect(10, 20, 30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).Extend(10), Rect(0, 10, 50, 60));
 	}
 
 	{
 		// Rect offset
 		Rect r(1, 2, 3, 4);
 
-		EXPECT_TRUE(r + Point(10, 20) == Rect(11, 22, 3, 4));
-		EXPECT_TRUE(r - Point(10, 20) == Rect(-9, -18, 3, 4));
+		EXPECT_EQUAL(r + Point(10, 20), Rect(11, 22, 3, 4));
+		EXPECT_EQUAL(r - Point(10, 20), Rect(-9, -18, 3, 4));
 
 		r += Point(10, 20);
 
-		EXPECT_TRUE(r == Rect(11, 22, 3, 4));
+		EXPECT_EQUAL(r, Rect(11, 22, 3, 4));
 
 		r -= Point(20, 40);
 
-		EXPECT_TRUE(r == Rect(-9, -18, 3, 4));
+		EXPECT_EQUAL(r, Rect(-9, -18, 3, 4));
 	}
 
 	{
@@ -304,34 +304,32 @@ BEGIN_TEST()
 	{
 		// clamp
 		Rect rect(1, 2, 3, 4);
-		EXPECT_TRUE(Point(0, 0).GetClamped(rect) == Point(1, 2));
-		EXPECT_TRUE(Point(0, 0).Clamp(rect) == Point(1, 2));
+		EXPECT_EQUAL(Point(0, 0).GetClamped(rect), Point(1, 2));
+		EXPECT_EQUAL(Point(0, 0).Clamp(rect), Point(1, 2));
 
-		EXPECT_TRUE(Point(10, 10).GetClamped(rect) == Point(3, 5));
-		EXPECT_TRUE(Point(10, 10).Clamp(rect) == Point(3, 5));
+		EXPECT_EQUAL(Point(10, 10).GetClamped(rect), Point(3, 5));
+		EXPECT_EQUAL(Point(10, 10).Clamp(rect), Point(3, 5));
 	}
 
 	{
 		// wrap
-		Rect rect(10, 20, 30, 40);
+		EXPECT_EQUAL(Point(10, 20).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(39, 59).GetWrapped(Rect(10, 20, 30, 40)), Point(39, 59));
 
-		EXPECT_TRUE(Point(10, 20).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(39, 59).GetWrapped(rect) == Point(39, 59));
+		EXPECT_EQUAL(Point(9, 20).GetWrapped(Rect(10, 20, 30, 40)), Point(39, 20));
+		EXPECT_EQUAL(Point(40, 20).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(10, 19).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 59));
+		EXPECT_EQUAL(Point(10, 60).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
 
-		EXPECT_TRUE(Point(9, 20).GetWrapped(rect) == Point(39, 20));
-		EXPECT_TRUE(Point(40, 20).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(10, 19).GetWrapped(rect) == Point(10, 59));
-		EXPECT_TRUE(Point(10, 60).GetWrapped(rect) == Point(10, 20));
+		EXPECT_EQUAL(Point(-50, -60).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(-20, -20).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(10, 20).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(40, 60).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(70, 100).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
+		EXPECT_EQUAL(Point(100, 140).GetWrapped(Rect(10, 20, 30, 40)), Point(10, 20));
 
-		EXPECT_TRUE(Point(-50, -60).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(-20, -20).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(10, 20).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(40, 60).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(70, 100).GetWrapped(rect) == Point(10, 20));
-		EXPECT_TRUE(Point(100, 140).GetWrapped(rect) == Point(10, 20));
-
-		EXPECT_TRUE(Point(-19, -19).GetWrapped(rect) == Point(11, 21));
-		EXPECT_TRUE(Point(-21, -21).GetWrapped(rect) == Point(39, 59));
+		EXPECT_EQUAL(Point(-19, -19).GetWrapped(Rect(10, 20, 30, 40)), Point(11, 21));
+		EXPECT_EQUAL(Point(-21, -21).GetWrapped(Rect(10, 20, 30, 40)), Point(39, 59));
 	}
 
 	{
