@@ -170,6 +170,8 @@ public:
 	///
 	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
 	///
+	/// \deprecated Use GetInfo(SDL_RendererInfo&) instead
+	///
 	////////////////////////////////////////////////////////////
 	SDL2PP_DEPRECATED void GetInfo(SDL_RendererInfo* info);
 
