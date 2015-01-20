@@ -334,7 +334,11 @@ BEGIN_TEST()
 
 	{
 		// streams
-		EXPECT_EQUAL((std::stringstream() << Point(1, 2)).str(), "[x:1,y:2]");
-		EXPECT_EQUAL((std::stringstream() << Rect(1, 2, 3, 4)).str(), "[x:1,y:2,w:3,h:4]");
+		std::stringstream stream;
+		stream << Point(1, 2);
+		EXPECT_EQUAL(stream.str(), "[x:1,y:2]");
+		stream.str("");
+		stream << Rect(1, 2, 3, 4);
+		EXPECT_EQUAL(stream.str(), "[x:1,y:2,w:3,h:4]");
 	}
 END_TEST()
