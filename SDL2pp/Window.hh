@@ -33,6 +33,8 @@ struct SDL_Window;
 
 namespace SDL2pp {
 
+class Surface;
+
 ////////////////////////////////////////////////////////////
 /// \brief GUI window object
 ///
@@ -474,6 +476,18 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Uint32 GetFlags() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the icon for a window
+	///
+	/// \param[in] icon Surface containing the icon for the window
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowIcon
+	///
+	/// Icon surface may be destroyed after calling this function
+	///
+	////////////////////////////////////////////////////////////
+	Window& SetIcon(const Surface& icon);
 };
 
 }

@@ -22,6 +22,7 @@
 #include <SDL2/SDL.h>
 
 #include <SDL2pp/Window.hh>
+#include <SDL2pp/Surface.hh>
 #include <SDL2pp/Exception.hh>
 
 namespace SDL2pp {
@@ -211,6 +212,11 @@ void Window::GetDisplayMode(SDL_DisplayMode& mode) const {
 
 Uint32 Window::GetFlags() const {
 	return SDL_GetWindowFlags(window_);
+}
+
+Window& Window::SetIcon(const Surface& icon) {
+	SDL_SetWindowIcon(window_, icon.Get());
+	return *this;
 }
 
 }
