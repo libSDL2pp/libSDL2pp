@@ -26,11 +26,11 @@ This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
                                 SDL_TEXTUREACCESS_STATIC, 16, 16);
       Texture sprite2(renderer, "sprite.png"); // SDL_image support
 
-      Font font("Vera.ttf"); // SDL_ttf font
+      Font font("Vera.ttf", 20); // SDL_ttf font
 
       // Create texture from surface containing text rendered by SDL_ttf
-      Texture text(font.RenderText_Solid("Hello, world!",
-                   SDL_Color({255, 255, 255, 255})));
+      Texture text(renderer, font.RenderText_Solid("Hello, world!",
+                   SDL_Color{255, 255, 255, 255}));
 
       unsigned char pixels[16 * 16 * 4];
 
