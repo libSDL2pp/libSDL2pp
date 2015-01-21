@@ -488,6 +488,16 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetIcon(const Surface& icon);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the border state of a window
+	///
+	/// \param[in] bordered False to remove border, true to add border
+	///
+	/// \see SDL_SetWindowBordered
+	///
+	////////////////////////////////////////////////////////////
+	Window& SetBordered(bool bordered = true);
 };
 
 }

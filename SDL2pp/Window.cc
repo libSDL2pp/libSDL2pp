@@ -219,4 +219,9 @@ Window& Window::SetIcon(const Surface& icon) {
 	return *this;
 }
 
+Window& Window::SetBordered(bool bordered) {
+	SDL_SetWindowBordered(window_, bordered ? SDL_TRUE : SDL_FALSE);
+	return *this;
+}
+
 }
