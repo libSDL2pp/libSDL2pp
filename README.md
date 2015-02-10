@@ -163,11 +163,11 @@ The library is easy to integrate into other CMake-using projects
 still recommended).
 
 Just place the library into dedicated directory in your project
-(for example, lib/SDL2pp) and add
+(for example, extlib/libSDL2pp) and add
 
     SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
     SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
-    ADD_SUBDIRECTORY(lib/SDL2pp)
+    ADD_SUBDIRECTORY(extlib/libSDL2pp)
 
 into your core CMakeLists.txt. This will act as similar to what
 FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
