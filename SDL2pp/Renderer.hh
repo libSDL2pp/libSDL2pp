@@ -208,6 +208,23 @@ public:
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy a portion of the texture to the current rendering
+	///        target (preserve texture dimensions)
+	///
+	/// \param[in] texture Source texture
+	/// \param[in] srcrect Source rectangle, NullOpt for the entire texture
+	/// \param[in] dstpoint Target point for source top left corner
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_RenderCopy
+	///
+	////////////////////////////////////////////////////////////
+	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect, const Point& dstpoint);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Copy a portion of the texture to the current rendering
 	///        target with optional rotating or flipping
 	///
 	/// \param[in] texture Source texture
@@ -231,6 +248,32 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Copy a portion of the texture to the current rendering
+	///        target with optional rotating or flipping (preserve texture
+	///        dimensions)
+	///
+	/// \param[in] texture Source texture
+	/// \param[in] srcrect Source rectangle, NullOpt for the entire texture
+	/// \param[in] dstpoint Target point for source top left corner
+	/// \param[in] angle Angle in degrees that indicates the rotation that
+	///                  will be applied to dstrect
+	/// \param[in] center Point indicating the point around which dstrect
+	///                   will be rotated (NullOpt to rotate around dstrect
+	///                   center)
+	/// \param[in] flip SDL_RendererFlip value stating which flipping
+	///                 actions should be performed on the texture
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_RendererFlip
+	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
+	///
+	////////////////////////////////////////////////////////////
+	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect, const SDL2pp::Point& dstpoint, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set color user for drawing operations

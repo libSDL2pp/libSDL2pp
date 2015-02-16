@@ -88,10 +88,30 @@ Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const 
 	return *this;
 }
 
+Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Point& dstpoint) {
+	Rect dstrect(
+			dstpoint.x,
+			dstpoint.y,
+			srcrect ? srcrect->w : texture.GetWidth(),
+			srcrect ? srcrect->h : texture.GetHeight()
+		);
+	return Copy(texture, srcrect, dstrect);
+}
+
 Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, double angle, const Optional<Point>& center, int flip) {
 	if (SDL_RenderCopyEx(renderer_, texture.Get(), srcrect ? &*srcrect : nullptr, dstrect ? &*dstrect : nullptr, angle, center ? &*center : nullptr, static_cast<SDL_RendererFlip>(flip)) != 0)
 		throw Exception("SDL_RenderCopyEx");
 	return *this;
+}
+
+Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const Point& dstpoint, double angle, const Optional<Point>& center, int flip) {
+	Rect dstrect(
+			dstpoint.x,
+			dstpoint.y,
+			srcrect ? srcrect->w : texture.GetWidth(),
+			srcrect ? srcrect->h : texture.GetHeight()
+		);
+	return Copy(texture, srcrect, dstrect, angle, center, flip);
 }
 
 Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
