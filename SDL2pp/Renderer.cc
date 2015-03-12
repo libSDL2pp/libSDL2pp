@@ -114,6 +114,86 @@ Renderer& Renderer::Copy(Texture& texture, const Optional<Rect>& srcrect, const 
 	return Copy(texture, srcrect, dstrect, angle, center, flip);
 }
 
+Renderer& Renderer::FillCopy(Texture& texture, const Optional<Rect>& srcrect, const Optional<Rect>& dstrect, const Point& offset, int flip) {
+	// resolve rectangles
+	Rect src = srcrect ? *srcrect : Rect(0, 0, texture.GetWidth(), texture.GetHeight());
+	Rect dst = dstrect ? *dstrect : Rect(0, 0, GetOutputWidth(), GetOutputHeight());
+
+	// rectangle for single tile
+	Rect start_tile(
+			offset.x,
+			offset.y,
+			src.w,
+			src.h
+		);
+
+	// ensure tile is leftmost and topmost
+	if (start_tile.x + start_tile.w <= 0)
+		start_tile.x += (-start_tile.x) / start_tile.w * start_tile.w;
+	if (start_tile.x > 0)
+		start_tile.x -= (start_tile.x + start_tile.w - 1) / start_tile.w * start_tile.w;
+
+	if (start_tile.y + start_tile.h <= 0)
+		start_tile.y += (-start_tile.y) / start_tile.h * start_tile.h;
+	if (start_tile.y > 0)
+		start_tile.y -= (start_tile.y + start_tile.h - 1) / start_tile.h * start_tile.h;
+
+	// paint tile array
+	for (int y = start_tile.y; y < dst.h; y += start_tile.h) {
+		for (int x = start_tile.x; x < dst.w; x += start_tile.w) {
+			Rect tile_src = src;
+			Rect tile_dst(x, y, start_tile.w, start_tile.h);
+
+			// clamp with dstrect
+			int xunderflow = -x;
+			if (xunderflow > 0) {
+				tile_src.w -= xunderflow;
+				tile_src.x += xunderflow;
+				tile_dst.w -= xunderflow;
+				tile_dst.x += xunderflow;
+			}
+
+			int yunderflow = -y;
+			if (yunderflow > 0) {
+				tile_src.h -= yunderflow;
+				tile_src.y += yunderflow;
+				tile_dst.h -= yunderflow;
+				tile_dst.y += yunderflow;
+			}
+
+			int xoverflow = tile_dst.x + tile_dst.w - dst.w;
+			if (xoverflow > 0) {
+				tile_src.w -= xoverflow;
+				tile_dst.w -= xoverflow;
+			}
+
+			int yoverflow = tile_dst.y + tile_dst.h - dst.h;
+			if (yoverflow > 0) {
+				tile_src.h -= yoverflow;
+				tile_dst.h -= yoverflow;
+			}
+
+			// make tile_dst absolute
+			tile_dst.x += dst.x;
+			tile_dst.y += dst.y;
+
+			if (flip != 0) {
+				// mirror tile_src inside src to take flipping into account
+				if (flip & SDL_FLIP_HORIZONTAL)
+					tile_src.x = src.w - tile_src.x - tile_src.w;
+
+				if (flip & SDL_FLIP_VERTICAL)
+					tile_src.y = src.h - tile_src.y - tile_src.h;
+
+				Copy(texture, tile_src, tile_dst, 0.0, NullOpt, flip);
+			} else {
+				Copy(texture, tile_src, tile_dst);
+			}
+		}
+	}
+	return *this;
+}
+
 Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (SDL_SetRenderDrawColor(renderer_, r, g, b, a) != 0)
 		throw Exception("SDL_SetRenderDrawColor");
