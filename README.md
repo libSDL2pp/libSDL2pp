@@ -167,19 +167,23 @@ still recommended).
 Just place the library into dedicated directory in your project
 (for example, extlib/libSDL2pp) and add
 
-    SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
-    SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
-    ADD_SUBDIRECTORY(extlib/libSDL2pp)
+```cmake
+SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
+ADD_SUBDIRECTORY(extlib/libSDL2pp)
+```
 
 into your core CMakeLists.txt. This will act as similar to what
 FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
 and ${SDL2PP_LIBRARIES} variables for your project. You will then
 be able to use them as usual:
 
-    INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
+```cmake
+INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
 
-    ADD_EXECUTABLE(mytarget ...)
-    TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
+ADD_EXECUTABLE(mytarget ...)
+TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
+```
 
 if bundled, libSDL2pp does not build examples and becomes a static
 library, providing required SDL2 includes/libs in the mentioned
