@@ -31,7 +31,7 @@
 
 using namespace SDL2pp;
 
-int Run() {
+int main() try {
 	SDL sdl(SDL_INIT_AUDIO);
 
 	Wav wav(TESTDATA_DIR "/test.wav");
@@ -64,14 +64,7 @@ int Run() {
 	SDL_Delay(5000);
 
 	return 0;
-}
-
-int main() {
-	try {
-		return Run();
-	} catch (std::exception& e) {
-		std::cerr << "Error: " << e.what() << std::endl;
-	}
-
-	return -1;
+} catch (std::exception& e) {
+	std::cerr << "Error: " << e.what() << std::endl;
+	return 1;
 }

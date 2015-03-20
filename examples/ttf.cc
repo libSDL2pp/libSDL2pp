@@ -30,7 +30,7 @@
 
 using namespace SDL2pp;
 
-int Run() {
+int main() try {
 	SDL sdl(SDL_INIT_VIDEO);
 	SDLTTF ttf;
 	Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
@@ -81,14 +81,7 @@ int Run() {
 	}
 
 	return 0;
-}
-
-int main() {
-	try {
-		return Run();
-	} catch (std::exception& e) {
-		std::cerr << "Error: " << e.what() << std::endl;
-	}
-
-	return -1;
+} catch (std::exception& e) {
+	std::cerr << "Error: " << e.what() << std::endl;
+	return 1;
 }

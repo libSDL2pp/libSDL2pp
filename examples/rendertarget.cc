@@ -45,7 +45,7 @@ enum {
 	MY_RENDERTARGET_SIZE = 512,
 };
 
-int Run() {
+int main() try {
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
@@ -114,14 +114,7 @@ int Run() {
 	}
 
 	return 0;
-}
-
-int main() {
-	try {
-		return Run();
-	} catch (std::exception& e) {
-		std::cerr << "Error: " << e.what() << std::endl;
-	}
-
-	return -1;
+} catch (std::exception& e) {
+	std::cerr << "Error: " << e.what() << std::endl;
+	return 1;
 }
