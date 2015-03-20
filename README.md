@@ -70,6 +70,8 @@ try {
 }
 ```
 
+There's also more elaborate [tutorial](https://github.com/AMDmi3/libSDL2pp-tutorial).
+
 ## Features ##
 
 Currently, the library provides wrapper classes for
