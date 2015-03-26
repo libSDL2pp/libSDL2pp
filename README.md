@@ -159,6 +159,7 @@ SDL2pp is also already available from following package repositories:
 
 * [Arch Linux AUR](https://aur.archlinux.org/packages/sdl2pp-git/)
 * [FreeBSD ports](http://www.freshports.org/devel/sdl2pp/)
+* [Yet Another Cygwin Ports](https://github.com/fd00/yacp/tree/master/libSDL2pp)
 
 ## Bundling ##
 
