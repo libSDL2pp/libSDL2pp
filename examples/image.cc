@@ -34,6 +34,8 @@
 
 using namespace SDL2pp;
 
+static const float pi = 3.14159265358979323846f;
+
 int main() try {
 	SDL sdl(SDL_INIT_VIDEO);
 	SDLImage image(IMG_INIT_PNG); // optional
@@ -65,10 +67,10 @@ int main() try {
 		render.Clear();
 
 		// Simple copy
-		float angle = SDL_GetTicks() / 5000.0 * 2.0 * M_PI;
-		render.Copy(sprite1, NullOpt, Rect(320 - 64, 240 - 64, 128, 128), angle / M_PI * 180.0);
-		render.Copy(sprite1, NullOpt, Rect(320 - 32 + sin(angle) * 40, 240 - 32 + cos(angle) * 40, 64, 64));
-		render.Copy(sprite2, NullOpt, Rect(320 - 32 - sin(angle) * 40, 240 - 32 - cos(angle) * 40, 64, 64));
+		float angle = SDL_GetTicks() / 5000.0f * 2.0f * pi;
+		render.Copy(sprite1, NullOpt, Rect(320 - 64, 240 - 64, 128, 128), angle / pi * 180.0f);
+		render.Copy(sprite1, NullOpt, Rect(320 - 32 + (int)(std::sin(angle) * 40.0f), 240 - 32 + (int)(std::cos(angle) * 40.0f), 64, 64));
+		render.Copy(sprite2, NullOpt, Rect(320 - 32 - (int)(std::sin(angle) * 40.0f), 240 - 32 - (int)(std::cos(angle) * 40.0f), 64, 64));
 
 		render.Present();
 
