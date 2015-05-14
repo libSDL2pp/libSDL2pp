@@ -20,6 +20,7 @@
 */
 
 #include <iostream>
+#include <vector>
 
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLTTF.hh>
@@ -38,17 +39,23 @@ int main() try {
 
 	Font font(TESTDATA_DIR "/Vera.ttf", 30);
 
-	Surface solid = font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color{255, 255, 255, 255});
-	Surface shaded = font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color{255, 255, 255, 255}, SDL_Color{127, 127, 127, 255});
-	Surface blended = font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color{255, 255, 255, 255});
+	std::vector<Texture> textures;
+
+	textures.emplace_back(render,
+			font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color{255, 255, 255, 255})
+		);
+	textures.emplace_back(render,
+			font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color{255, 255, 255, 255}, SDL_Color{127, 127, 127, 255})
+		);
+	textures.emplace_back(render,
+			font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color{255, 255, 255, 255})
+		);
 
 	font.SetOutline(1);
-	Surface outline = font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color{255, 255, 255, 255});
 
-	Texture solid_tex(render, solid);
-	Texture shaded_tex(render, shaded);
-	Texture blended_tex(render, blended);
-	Texture outline_tex(render, outline);
+	textures.emplace_back(render,
+			font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color{255, 255, 255, 255})
+		);
 
 	while (1) {
 		// Process input
@@ -61,18 +68,12 @@ int main() try {
 		render.SetDrawColor(0, 63, 63);
 		render.Clear();
 
-		// Render 3 strings
+		// Render all strings
 		int h = 0;
-		render.Copy(solid_tex, NullOpt, Rect(0, h, solid.GetWidth(), solid.GetHeight()));
-		h += solid.Get()->h;
-
-		render.Copy(shaded_tex, NullOpt, Rect(0, h, shaded.GetWidth(), shaded.GetHeight()));
-		h += shaded.Get()->h;
-
-		render.Copy(blended_tex, NullOpt, Rect(0, h, blended.GetWidth(), blended.GetHeight()));
-		h += blended.Get()->h;
-
-		render.Copy(outline_tex, NullOpt, Rect(0, h, outline.GetWidth(), outline.GetHeight()));
+		for (auto& texture: textures) {
+			render.Copy(texture, NullOpt, Rect(0, h, texture.GetWidth(), texture.GetHeight()));
+			h += texture.GetHeight();
+		}
 
 		render.Present();
 
