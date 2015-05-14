@@ -22,6 +22,8 @@
 #include <iostream>
 #include <vector>
 
+#include <SDL2/SDL_stdinc.h>
+
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Font.hh>
@@ -55,6 +57,15 @@ int main() try {
 
 	textures.emplace_back(render,
 			font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color{255, 255, 255, 255})
+		);
+
+	font.SetOutline(0);
+
+	textures.emplace_back(render,
+			font.RenderUTF8_Blended(u8"Hello, world! «¼½¾» (UTF-8 support)", SDL_Color{255, 255, 255, 255})
+		);
+	textures.emplace_back(render,
+			font.RenderUNICODE_Blended(u"Hello, world! «¼½¾» (UTF-16 support)", SDL_Color{255, 255, 255, 255})
 		);
 
 	while (1) {
