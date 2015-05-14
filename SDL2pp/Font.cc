@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <vector>
+
 #include <SDL2/SDL_ttf.h>
 
 #include <SDL2pp/Font.hh>
@@ -178,6 +180,12 @@ Point Font::GetSizeUNICODE(const Uint16* text) const {
 	return Point(w, h);
 }
 
+Point Font::GetSizeUNICODE(const std::u16string& text) const {
+	std::vector<Uint16> uint16_text(text.length() + 1);
+	std::copy(text.begin(), text.end(), uint16_text.begin());
+	return GetSizeUNICODE(uint16_text.data());
+}
+
 Surface Font::RenderText_Solid(const std::string& text, SDL_Color fg) {
 	SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), fg);
 	if (surface == nullptr)
@@ -197,6 +205,12 @@ Surface Font::RenderUNICODE_Solid(const Uint16* text, SDL_Color fg) {
 	if (surface == nullptr)
 		throw Exception("TTF_RenderUNICODE_Solid");
 	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Solid(const std::u16string& text, SDL_Color fg) {
+	std::vector<Uint16> uint16_text(text.length() + 1);
+	std::copy(text.begin(), text.end(), uint16_text.begin());
+	return Font::RenderUNICODE_Solid(uint16_text.data(), fg);
 }
 
 Surface Font::RenderGlyph_Solid(Uint16 ch, SDL_Color fg) {
@@ -227,6 +241,12 @@ Surface Font::RenderUNICODE_Shaded(const Uint16* text, SDL_Color fg, SDL_Color b
 	return Surface(surface);
 }
 
+Surface Font::RenderUNICODE_Shaded(const std::u16string& text, SDL_Color fg, SDL_Color bg) {
+	std::vector<Uint16> uint16_text(text.length() + 1);
+	std::copy(text.begin(), text.end(), uint16_text.begin());
+	return Font::RenderUNICODE_Shaded(uint16_text.data(), fg, bg);
+}
+
 Surface Font::RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg) {
 	SDL_Surface* surface = TTF_RenderGlyph_Shaded(font_, ch, fg, bg);
 	if (surface == nullptr)
@@ -253,6 +273,12 @@ Surface Font::RenderUNICODE_Blended(const Uint16* text, SDL_Color fg) {
 	if (surface == nullptr)
 		throw Exception("TTF_RenderUNICODE_Blended");
 	return Surface(surface);
+}
+
+Surface Font::RenderUNICODE_Blended(const std::u16string& text, SDL_Color fg) {
+	std::vector<Uint16> uint16_text(text.length() + 1);
+	std::copy(text.begin(), text.end(), uint16_text.begin());
+	return Font::RenderUNICODE_Blended(uint16_text.data(), fg);
 }
 
 Surface Font::RenderGlyph_Blended(Uint16 ch, SDL_Color fg) {
