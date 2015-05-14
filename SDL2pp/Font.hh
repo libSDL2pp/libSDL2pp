@@ -667,7 +667,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC48
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC52
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderUTF8_Blended(const std::string& text, SDL_Color fg);
@@ -682,7 +682,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC49
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC53
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderUNICODE_Blended(const Uint16* text, SDL_Color fg);
@@ -697,7 +697,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC50
+	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC54
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderGlyph_Blended(Uint16 ch, SDL_Color fg);
