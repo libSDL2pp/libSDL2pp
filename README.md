@@ -223,6 +223,7 @@ Projects using libSDL2pp:
 ## Contributors ##
 
 * [Carl Schwope](https://github.com/Lowest0ne)
+* [kumar8600](https://github.com/kumar8600)
 
 ## License ##
 
