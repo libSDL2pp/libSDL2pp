@@ -276,6 +276,29 @@ public:
 	Renderer& Copy(Texture& texture, const Optional<Rect>& srcrect, const SDL2pp::Point& dstpoint, double angle, const Optional<Point>& center = NullOpt, int flip = 0);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Fill the target with repeated source texture
+	///
+	/// \param[in] texture Source texture
+	/// \param[in] srcrect Source rectangle, NullOpt for the entire texture
+	/// \param[in] dstrect Destination rectangle, NullOpt for the entire
+	///                    rendering target
+	/// \param[in] offset Offset of tiled texture in pixels relative to
+	///                   dstrect
+	/// \param[in] flip SDL_RendererFlip value stating which flipping
+	///                 actions should be performed on the texture
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_RendererFlip
+	/// \see http://wiki.libsdl.org/SDL_RenderCopy
+	/// \see http://wiki.libsdl.org/SDL_RenderCopyEx
+	///
+	////////////////////////////////////////////////////////////
+	Renderer& FillCopy(Texture& texture, const Optional<Rect>& srcrect = NullOpt, const Optional<Rect>& dstrect = NullOpt, const Point& offset = Point(0, 0), int flip = 0);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Set color user for drawing operations
 	///
 	/// \param[in] r Red value used to draw on the rendering target
