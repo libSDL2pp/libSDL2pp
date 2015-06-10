@@ -153,9 +153,19 @@ variable:
 
 SDL2pp installs pkg-config file, so it can be used with any build
 system which interacts with pkg-config, including CMake and GNU
-Autotools.
+Autotools. It also installs CMake module file, which can be used
+from CMake directly:
 
-SDL2pp is also already available from following package repositories:
+```cmake
+FIND_PACKAGE(SDL2PP REQUIRED)
+
+INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
+...
+TARGET_LINK_LIBRARIES(... ${SDL2PP_LIBRARIES})
+```
+
+SDL2pp is also already available from the following package
+repositories:
 
 * [Arch Linux AUR](https://aur.archlinux.org/packages/sdl2pp-git/)
 * [DragonflyBSD DPorts](https://github.com/DragonFlyBSD/DPorts/tree/master/devel/sdl2pp)
