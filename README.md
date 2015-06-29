@@ -234,6 +234,7 @@ Projects using libSDL2pp:
 
 * [Carl Schwope](https://github.com/Lowest0ne)
 * [kumar8600](https://github.com/kumar8600)
+* [Vladimir Gamalian](https://github.com/vladimirgamalian)
 
 ## License ##
 
