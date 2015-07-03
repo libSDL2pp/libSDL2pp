@@ -223,8 +223,10 @@ standard library, e.g. threads and atomic ops.
 
 Projects using libSDL2pp:
 
-* [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
 * [OpenDaed](https://github.com/AMDmi3/opendaed) - Libre reimplementation of The Daedalus Encounter game
+* [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
+* [neopedersia](https://github.com/vladimirgamalian/neopedersia) - Nexus Wars style game
+* [planetonomy](https://github.com/AMDmi3/planetonomy) - Old-school platformer/exploration game with CGA graphics
 
 ## Author ##
 
