@@ -181,7 +181,7 @@ public:
 	///
 	/// \param[in] value Divisor
 	///
-	/// \returns New Point representing memberwise division of point by and integer
+	/// \returns New Point representing memberwise division of point by an integer
 	///
 	////////////////////////////////////////////////////////////
 	Point operator/(int value) const;
