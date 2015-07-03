@@ -157,6 +157,14 @@ public:
 	Point& SetY(int ny);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise negation
+	///
+	/// \returns New Point representing memberwise negation
+	///
+	////////////////////////////////////////////////////////////
+	Point operator-() const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise addition with another point
 	///
 	/// \param[in] other Point to add

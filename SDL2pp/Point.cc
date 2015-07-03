@@ -66,6 +66,10 @@ Point& Point::SetY(int ny) {
 	return *this;
 }
 
+Point Point::operator-() const {
+	return Point(-x, -y);
+}
+
 Point Point::operator+(const Point& other) const {
 	return Point(x + other.x, y + other.y);
 }
