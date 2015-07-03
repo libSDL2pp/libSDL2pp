@@ -198,7 +198,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise division by another point
 	///
-	/// \param[in] value Divisor
+	/// \param[in] other Divisor
 	///
 	/// \returns New Point representing memberwise division of
 	///          point by another point
@@ -222,7 +222,7 @@ public:
 	/// \brief Get point's memberwise remainder from division
 	///        by another point
 	///
-	/// \param[in] value Divisor
+	/// \param[in] other Divisor
 	///
 	/// \returns New Point representing memberwise remainder
 	///          from division by another point
@@ -246,7 +246,7 @@ public:
 	/// \brief Get point's memberwise multiplication by anoter
 	///        point
 	///
-	/// \param[in] value Multiplier
+	/// \param[in] other Multiplier
 	///
 	/// \returns New Point representing memberwise multiplication
 	///          of point by another point
@@ -287,7 +287,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise divide by another point
 	///
-	/// \param[in] value Divisor
+	/// \param[in] other Divisor
 	///
 	/// \returns Reference to self
 	///
@@ -308,7 +308,7 @@ public:
 	/// \brief Memberwise remainder from division by another
 	///        point
 	///
-	/// \param[in] value Divisor
+	/// \param[in] other Divisor
 	///
 	/// \returns Reference to self
 	///
@@ -328,7 +328,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by another point
 	///
-	/// \param[in] value Multiplier
+	/// \param[in] other Multiplier
 	///
 	/// \returns Reference to self
 	///
