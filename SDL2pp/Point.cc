@@ -78,6 +78,10 @@ Point Point::operator/(int value) const {
 	return Point(x / value, y / value);
 }
 
+Point Point::operator%(int value) const {
+	return Point(x % value, y % value);
+}
+
 Point Point::operator*(int value) const {
 	return Point(x * value, y * value);
 }
@@ -99,6 +103,13 @@ Point& Point::operator-=(const Point& other) {
 Point& Point::operator/=(int value) {
 	x /= value;
 	y /= value;
+
+	return *this;
+}
+
+Point& Point::operator%=(int value) {
+	x %= value;
+	y %= value;
 
 	return *this;
 }

@@ -187,6 +187,16 @@ public:
 	Point operator/(int value) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise remainder from integer division
+	///
+	/// \param[in] value Divisor
+	///
+	/// \returns New Point representing memberwise remainder from point divided by an integer
+	///
+	////////////////////////////////////////////////////////////
+	Point operator%(int value) const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise multiplication by an integer
 	///
 	/// \param[in] value Multiplier
@@ -225,6 +235,16 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Point& operator/=(int value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise remainder from integer division
+	///
+	/// \param[in] value Divisor
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator%=(int value);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by an integer
