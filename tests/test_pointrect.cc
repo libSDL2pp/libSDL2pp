@@ -55,26 +55,30 @@ BEGIN_TEST()
 
 	{
 		// Point arith
-		Point sum = Point(1, 2) + Point(10, 20);
-		Point diff = Point(-1, -2) - Point(10, 20);
 
-		EXPECT_TRUE(sum.GetX() == 11 && sum.GetY() == 22);
-		EXPECT_TRUE(diff.GetX() == -11 && diff.GetY() == -22);
+		// Unary
+		EXPECT_EQUAL(-Point(1, 2), Point(-1, -2));
 
-		sum += Point(100, 200);
-		diff -= Point(100, 200);
+		// Binary
+		EXPECT_EQUAL(Point(1, 2) + Point(10, 20), Point(11, 22));
+		EXPECT_EQUAL(Point(-1, -2) - Point(10, 20), Point(-11, -22));
+		EXPECT_EQUAL(Point(20, 60) / 5, Point(4, 12));
+		EXPECT_EQUAL(Point(20, 60) / Point(5, 10), Point(4, 6));
+		EXPECT_EQUAL(Point(20, 60) % 11, Point(9, 5));
+		EXPECT_EQUAL(Point(20, 60) % Point(11, 13), Point(9, 8));
+		EXPECT_EQUAL(Point(2, 3) * 5, Point(10, 15));
+		EXPECT_EQUAL(Point(2, 3) * Point(10, 20), Point(20, 60));
 
-		EXPECT_TRUE(sum.GetX() == 111 && sum.GetY() == 222);
-		EXPECT_TRUE(diff.GetX() == -111 && diff.GetY() == -222);
-
-		sum /= 111;
-		diff *= 2;
-
-		EXPECT_TRUE(sum == Point(1, 2));
-		EXPECT_TRUE(diff == Point(-222, -444));
-
-		EXPECT_TRUE(sum * 2 == Point(2, 4));
-		EXPECT_TRUE(diff / 2 == Point(-111, -222));
+		// Assignments
+		Point p(1, 2);
+		EXPECT_EQUAL(p += Point(10, 20), Point(11, 22));
+		EXPECT_EQUAL(p -= Point(1, 2), Point(10, 20));
+		EXPECT_EQUAL(p /= 2, Point(5, 10));
+		EXPECT_EQUAL(p %= 7, Point(5, 3));
+		EXPECT_EQUAL(p *= 3, Point(15, 9));
+		EXPECT_EQUAL(p /= Point(5, 3), Point(3, 3));
+		EXPECT_EQUAL(p *= Point(10, 20), Point(30, 60));
+		EXPECT_EQUAL(p %= Point(7, 11), Point(2, 5));
 	}
 
 	{
