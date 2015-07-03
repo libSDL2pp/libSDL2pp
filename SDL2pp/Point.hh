@@ -157,6 +157,14 @@ public:
 	Point& SetY(int ny);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise negation
+	///
+	/// \returns New Point representing memberwise negation
+	///
+	////////////////////////////////////////////////////////////
+	Point operator-() const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise addition with another point
 	///
 	/// \param[in] other Point to add
@@ -181,20 +189,70 @@ public:
 	///
 	/// \param[in] value Divisor
 	///
-	/// \returns New Point representing memberwise division of point by and integer
+	/// \returns New Point representing memberwise division of
+	///          point by an integer
 	///
 	////////////////////////////////////////////////////////////
 	Point operator/(int value) const;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get point's memberwise multiplication by an integer
+	/// \brief Get point's memberwise division by another point
+	///
+	/// \param[in] other Divisor
+	///
+	/// \returns New Point representing memberwise division of
+	///          point by another point
+	///
+	////////////////////////////////////////////////////////////
+	Point operator/(const Point& other) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise remainder from division
+	///        by an integer
+	///
+	/// \param[in] value Divisor
+	///
+	/// \returns New Point representing memberwise remainder
+	///          from division by an integer
+	///
+	////////////////////////////////////////////////////////////
+	Point operator%(int value) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise remainder from division
+	///        by another point
+	///
+	/// \param[in] other Divisor
+	///
+	/// \returns New Point representing memberwise remainder
+	///          from division by another point
+	///
+	////////////////////////////////////////////////////////////
+	Point operator%(const Point& other) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise multiplication by an
+	///        integer
 	///
 	/// \param[in] value Multiplier
 	///
-	/// \returns New Point representing memberwise multiplication of point by an integer
+	/// \returns New Point representing memberwise multiplication
+	///          of point by an integer
 	///
 	////////////////////////////////////////////////////////////
 	Point operator*(int value) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get point's memberwise multiplication by anoter
+	///        point
+	///
+	/// \param[in] other Multiplier
+	///
+	/// \returns New Point representing memberwise multiplication
+	///          of point by another point
+	///
+	////////////////////////////////////////////////////////////
+	Point operator*(const Point& other) const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise add another point
@@ -227,6 +285,37 @@ public:
 	Point& operator/=(int value);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Memberwise divide by another point
+	///
+	/// \param[in] other Divisor
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator/=(const Point& other);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise remainder from division by an integer
+	///
+	/// \param[in] value Divisor
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator%=(int value);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Memberwise remainder from division by another
+	///        point
+	///
+	/// \param[in] other Divisor
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator%=(const Point& other);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by an integer
 	///
 	/// \param[in] value Multiplier
@@ -237,7 +326,18 @@ public:
 	Point& operator*=(int value);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get a point with coordinates modified so it fits into a given rect
+	/// \brief Memberwise multiply by another point
+	///
+	/// \param[in] other Multiplier
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Point& operator*=(const Point& other);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get a point with coordinates modified so it fits
+	///        into a given rect
 	///
 	/// \param[in] rect Rectangle to clamp with
 	///
@@ -247,7 +347,8 @@ public:
 	Point GetClamped(const Rect& rect) const;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Clamp point coordinates to make it fit into a given rect
+	/// \brief Clamp point coordinates to make it fit into a
+	///        given rect
 	///
 	/// \param[in] rect Rectangle to clamp with
 	///
