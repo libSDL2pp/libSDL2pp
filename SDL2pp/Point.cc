@@ -25,58 +25,14 @@
 
 namespace SDL2pp {
 
-int Point::GetX() const {
-	return x;
-}
-
 Point& Point::SetX(int nx) {
 	x = nx;
 	return *this;
 }
 
-int Point::GetY() const {
-	return y;
-}
-
 Point& Point::SetY(int ny) {
 	y = ny;
 	return *this;
-}
-
-Point Point::operator-() const {
-	return Point(-x, -y);
-}
-
-Point Point::operator+(const Point& other) const {
-	return Point(x + other.x, y + other.y);
-}
-
-Point Point::operator-(const Point& other) const {
-	return Point(x - other.x, y - other.y);
-}
-
-Point Point::operator/(int value) const {
-	return Point(x / value, y / value);
-}
-
-Point Point::operator/(const Point& other) const {
-	return Point(x / other.x, y / other.y);
-}
-
-Point Point::operator%(int value) const {
-	return Point(x % value, y % value);
-}
-
-Point Point::operator%(const Point& other) const {
-	return Point(x % other.x, y % other.y);
-}
-
-Point Point::operator*(int value) const {
-	return Point(x * value, y * value);
-}
-
-Point Point::operator*(const Point& other) const {
-	return Point(x * other.x, y * other.y);
 }
 
 Point& Point::operator+=(const Point& other) {
