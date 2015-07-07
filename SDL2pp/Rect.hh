@@ -95,7 +95,9 @@ public:
 	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCenter(int cx, int cy, int w, int h);
+	static Rect FromCenter(int cx, int cy, int w, int h) {
+		return Rect(cx - w/2, cy - h/2, w, h);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates and size
@@ -104,7 +106,9 @@ public:
 	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCenter(const Point& center, const Point& size);
+	static Rect FromCenter(const Point& center, const Point& size) {
+		return Rect(center - size / 2, size);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corners coordinates
@@ -115,7 +119,9 @@ public:
 	/// \param[in] y2 Y coordinate of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCorners(int x1, int y1, int x2, int y2);
+	static Rect FromCorners(int x1, int y1, int x2, int y2) {
+		return Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given centers coordinates
@@ -124,7 +130,9 @@ public:
 	/// \param[in] p2 Coordinates of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCorners(const Point& p1, const Point& p2);
+	static Rect FromCorners(const Point& p1, const Point& p2) {
+		return Rect(p1, p2 - p1 + Point(1, 1));
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy constructor
@@ -331,7 +339,9 @@ public:
 	/// \returns True if the point is contained in the rect
 	///
 	////////////////////////////////////////////////////////////
-	bool Contains(int x, int y) const;
+	constexpr bool Contains(int px, int py) const {
+		return px >= x && py >= y && px <= GetX2() && py <= GetY2();
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
@@ -341,7 +351,9 @@ public:
 	/// \returns True if the point is contained in the rect
 	///
 	////////////////////////////////////////////////////////////
-	bool Contains(const Point& point) const;
+	constexpr bool Contains(const Point& point) const {
+		return point.x >= x && point.y >= y && point.x <= GetX2() && point.y <= GetY2();
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains another rect
@@ -351,7 +363,9 @@ public:
 	/// \returns True if the checked rect is contained in this rect
 	///
 	////////////////////////////////////////////////////////////
-	bool Contains(const Rect& rect) const;
+	constexpr bool Contains(const Rect& rect) const {
+		return rect.x >= x && rect.y >= y && rect.GetX2() <= GetX2() && rect.GetY2() <= GetY2();
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect intersects another rect
@@ -361,7 +375,9 @@ public:
 	/// \returns True if rectangles intersect
 	///
 	////////////////////////////////////////////////////////////
-	bool Intersects(const Rect& rect) const;
+	constexpr bool Intersects(const Rect& rect) const {
+		return !(rect.GetX2() < x || rect.GetY2() < y || rect.x > GetX2() || rect.y > GetY2());
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Calculate union with another rect
@@ -484,7 +500,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& operator+=(const Point& offset);
+	Rect& operator+=(const Point& offset) {
+		x += offset.x;
+		y += offset.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move by an opposite of the given offset
@@ -494,7 +514,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& operator-=(const Point& offset);
+	Rect& operator-=(const Point& offset) {
+		x -= offset.x;
+		y -= offset.y;
+		return *this;
+	}
 };
 
 }

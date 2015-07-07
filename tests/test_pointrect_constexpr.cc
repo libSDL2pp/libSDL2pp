@@ -71,5 +71,12 @@ BEGIN_TEST()
 		constexpr Rect sub = r1 - Point(1, 1);
 
 		EXPECT_EQUAL(add - Point(2, 2), sub);
+
+		constexpr bool b3 = r2.Contains(0, 0);
+		constexpr bool b4 = r2.Contains(Point(0, 0));
+		constexpr bool b5 = r2.Contains(Rect(0, 0, 1, 1));
+		constexpr bool b6 = r2.Intersects(Rect(0, 0, 1, 1));
+
+		EXPECT_TRUE(b3 && b4 && b5 && b6);
 	}
 END_TEST()

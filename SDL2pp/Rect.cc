@@ -27,38 +27,6 @@
 
 namespace SDL2pp {
 
-Rect Rect::FromCenter(int cx, int cy, int w, int h) {
-	return Rect(cx - w/2, cy - h/2, w, h);
-}
-
-Rect Rect::FromCenter(const Point& center, const Point& size) {
-	return Rect(center - size / 2, size);
-}
-
-Rect Rect::FromCorners(int x1, int y1, int x2, int y2) {
-	return Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
-}
-
-Rect Rect::FromCorners(const Point& p1, const Point& p2) {
-	return Rect(p1, p2 - p1 + Point(1, 1));
-}
-
-bool Rect::Contains(int px, int py) const {
-	return px >= x && py >= y && px <= GetX2() && py <= GetY2();
-}
-
-bool Rect::Contains(const Point& point) const {
-	return point.x >= x && point.y >= y && point.x <= GetX2() && point.y <= GetY2();
-}
-
-bool Rect::Contains(const Rect& rect) const {
-	return rect.x >= x && rect.y >= y && rect.GetX2() <= GetX2() && rect.GetY2() <= GetY2();
-}
-
-bool Rect::Intersects(const Rect& rect) const {
-	return !(rect.GetX2() < x || rect.GetY2() < y || rect.x > GetX2() || rect.y > GetY2());
-}
-
 Rect Rect::GetUnion(const Rect& rect) const {
 	return Rect::FromCorners(
 			std::min(x, rect.x),
@@ -112,20 +80,6 @@ bool Rect::IntersectLine(int& x1, int& y1, int& x2, int& y2) const {
 
 bool Rect::IntersectLine(Point& p1, Point& p2) const {
 	return SDL_IntersectRectAndLine(this, &p1.x, &p1.y, &p2.x, &p2.y) == SDL_TRUE;
-}
-
-Rect& Rect::operator+=(const Point& offset) {
-	x += offset.x;
-	y += offset.y;
-
-	return *this;
-}
-
-Rect& Rect::operator-=(const Point& offset) {
-	x -= offset.x;
-	y -= offset.y;
-
-	return *this;
 }
 
 }
