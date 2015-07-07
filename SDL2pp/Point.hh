@@ -53,7 +53,8 @@ public:
 	/// Creates a Point(0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	Point();
+	constexpr Point() : SDL_Point{0, 0} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a point from existing SDL_Point
@@ -61,16 +62,18 @@ public:
 	/// \param[in] point Existing SDL_Point
 	///
 	////////////////////////////////////////////////////////////
-	Point(const SDL_Point& point);
+	constexpr Point(const SDL_Point& point) : SDL_Point{point.x, point.y} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the point from given coordinates
 	///
-	/// \param[in] nx X coordinate
-	/// \param[in] ny Y coordinate
+	/// \param[in] x X coordinate
+	/// \param[in] y Y coordinate
 	///
 	////////////////////////////////////////////////////////////
-	Point(int nx, int ny);
+	constexpr Point(int x, int y) : SDL_Point{x, y} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy constructor
@@ -108,7 +111,9 @@ public:
 	/// \returns True if two points are identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator==(const Point& other) const;
+	constexpr bool operator==(const Point& other) const {
+		return x == other.x && y == other.y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Inequality operator
@@ -118,7 +123,9 @@ public:
 	/// \returns True if two points are not identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator!=(const Point& other) const;
+	constexpr bool operator!=(const Point& other) const {
+		return x != other.x || y != other.y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the point

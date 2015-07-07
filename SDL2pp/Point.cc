@@ -25,29 +25,6 @@
 
 namespace SDL2pp {
 
-Point::Point() {
-	x = 0;
-	y = 0;
-}
-
-Point::Point(const SDL_Point& point) {
-	x = point.x;
-	y = point.y;
-}
-
-Point::Point(int nx, int ny) {
-	x = nx;
-	y = ny;
-}
-
-bool Point::operator==(const Point& other) const {
-	return x == other.x && y == other.y;
-}
-
-bool Point::operator!=(const Point& other) const {
-	return !(*this == other);
-}
-
 int Point::GetX() const {
 	return x;
 }

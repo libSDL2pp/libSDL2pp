@@ -1,6 +1,7 @@
 # simple command-line tests
 SET(CLI_TESTS
 	test_pointrect
+	test_pointrect_constexpr
 	test_rwops
 	test_optional
 	test_error
