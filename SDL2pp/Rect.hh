@@ -25,12 +25,9 @@
 #include <SDL2/SDL_rect.h>
 
 #include <SDL2pp/Optional.hh>
-
-struct SDL_Rect;
+#include <SDL2pp/Point.hh>
 
 namespace SDL2pp {
-
-class Point;
 
 ////////////////////////////////////////////////////////////
 /// \brief 2D rectangle
@@ -55,7 +52,8 @@ public:
 	/// Creates a Rect(0, 0, 0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	Rect();
+	constexpr Rect() : SDL_Rect{0, 0, 0, 0} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a rect from existing SDL_Rect
@@ -63,7 +61,8 @@ public:
 	/// \param[in] rect Existing SDL_Rect
 	///
 	////////////////////////////////////////////////////////////
-	Rect(const SDL_Rect& rect);
+	constexpr Rect(const SDL_Rect& rect) : SDL_Rect{rect.x, rect.y, rect.w, rect.h} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, and size
@@ -72,7 +71,8 @@ public:
 	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	Rect(const Point& corner, const Point& size);
+	constexpr Rect(const Point& corner, const Point& size) : SDL_Rect{corner.x, corner.y, size.x, size.y} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given corner coordinates, width and height
@@ -83,7 +83,8 @@ public:
 	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	Rect(int x, int y, int w, int h);
+	constexpr Rect(int x, int y, int w, int h) : SDL_Rect{x, y, w, h} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates, width and height

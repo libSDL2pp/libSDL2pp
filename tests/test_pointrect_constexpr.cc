@@ -38,4 +38,16 @@ BEGIN_TEST()
 
 		EXPECT_EQUAL(neg + sum + diff + mul1 + mul2 + div1 + div2 + rem1 + rem2, Point(0, 0));
 	}
+
+	{
+		constexpr SDL_Rect sr{0, 0, 1, 1};
+		constexpr Rect r1;
+		constexpr Rect r2(sr);
+		constexpr Rect r3(Point(0, 0), Point(1, 1));
+		constexpr Rect r4(0, 0, 1, 1);
+		constexpr Rect r5(r4);
+
+		EXPECT_EQUAL(r4, r2);
+		EXPECT_EQUAL(r5, r3);
+	}
 END_TEST()

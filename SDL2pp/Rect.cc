@@ -27,34 +27,6 @@
 
 namespace SDL2pp {
 
-Rect::Rect() {
-	x = 0;
-	y = 0;
-	w = 0;
-	h = 0;
-}
-
-Rect::Rect(const SDL_Rect& rect) {
-	x = rect.x;
-	y = rect.y;
-	w = rect.w;
-	h = rect.h;
-}
-
-Rect::Rect(const Point& corner, const Point& size) {
-	x = corner.x;
-	y = corner.y;
-	w = size.x;
-	h = size.y;
-}
-
-Rect::Rect(int nx, int ny, int nw, int nh) {
-	x = nx;
-	y = ny;
-	w = nw;
-	h = nh;
-}
-
 bool Rect::operator==(const Rect& other) const {
 	return x == other.x && y == other.y &&
 	       w == other.w && h == other.h;
