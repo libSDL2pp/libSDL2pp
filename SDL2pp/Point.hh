@@ -145,7 +145,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& SetX(int nx);
+	Point& SetX(int nx) {
+		x = nx;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the point
@@ -165,7 +168,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& SetY(int ny);
+	Point& SetY(int ny) {
+		y = ny;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise negation
@@ -291,7 +297,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator+=(const Point& other);
+	Point& operator+=(const Point& other) {
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise subtract another point
@@ -301,7 +311,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator-=(const Point& other);
+	Point& operator-=(const Point& other) {
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise divide by an integer
@@ -311,17 +325,25 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator/=(int value);
+	Point& operator/=(int value) {
+		x /= value;
+		y /= value;
+		return *this;
+	}
 
-	////////////////////////////////////////////////////////////
-	/// \brief Memberwise divide by another point
+	///////////////////////////////////////////////////////////
+	/// nbrief Memberwise divide by another point
 	///
 	/// \param[in] other Divisor
 	///
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator/=(const Point& other);
+	Point& operator/=(const Point& other) {
+		x /= other.x;
+		y /= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise remainder from division by an integer
@@ -331,7 +353,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator%=(int value);
+	Point& operator%=(int value) {
+		x %= value;
+		y %= value;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise remainder from division by another
@@ -342,7 +368,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator%=(const Point& other);
+	Point& operator%=(const Point& other) {
+		x %= other.x;
+		y %= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by an integer
@@ -352,7 +382,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator*=(int value);
+	Point& operator*=(int value) {
+		x *= value;
+		y *= value;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by another point
@@ -362,7 +396,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator*=(const Point& other);
+	Point& operator*=(const Point& other) {
+		x *= other.x;
+		y *= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get a point with coordinates modified so it fits
