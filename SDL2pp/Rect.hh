@@ -333,8 +333,8 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
 	///
-	/// \param[in] x X coordinate of a point
-	/// \param[in] y Y coordinate of a point
+	/// \param[in] px X coordinate of a point
+	/// \param[in] py Y coordinate of a point
 	///
 	/// \returns True if the point is contained in the rect
 	///
