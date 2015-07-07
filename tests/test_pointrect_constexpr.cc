@@ -49,5 +49,27 @@ BEGIN_TEST()
 
 		EXPECT_EQUAL(r4, r2);
 		EXPECT_EQUAL(r5, r3);
+
+		constexpr bool b1 = r2 == r3;
+		constexpr bool b2 = r1 != r3;
+
+		EXPECT_TRUE(b1);
+		EXPECT_TRUE(b2);
+
+		constexpr int x = r5.GetX();
+		constexpr int y = r5.GetY();
+		constexpr int w = r5.GetW();
+		constexpr int h = r5.GetH();
+		constexpr int x2 = r5.GetX2();
+		constexpr int y2 = r5.GetY2();
+
+		EXPECT_TRUE(x == y);
+		EXPECT_TRUE(w == h);
+		EXPECT_TRUE(x2 == y2);
+
+		constexpr Rect add = r1 + Point(1, 1);
+		constexpr Rect sub = r1 - Point(1, 1);
+
+		EXPECT_EQUAL(add - Point(2, 2), sub);
 	}
 END_TEST()

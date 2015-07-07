@@ -27,15 +27,6 @@
 
 namespace SDL2pp {
 
-bool Rect::operator==(const Rect& other) const {
-	return x == other.x && y == other.y &&
-	       w == other.w && h == other.h;
-}
-
-bool Rect::operator!=(const Rect& other) const {
-	return !(*this == other);
-}
-
 Rect Rect::FromCenter(int cx, int cy, int w, int h) {
 	return Rect(cx - w/2, cy - h/2, w, h);
 }
@@ -50,60 +41,6 @@ Rect Rect::FromCorners(int x1, int y1, int x2, int y2) {
 
 Rect Rect::FromCorners(const Point& p1, const Point& p2) {
 	return Rect(p1, p2 - p1 + Point(1, 1));
-}
-
-int Rect::GetX() const {
-	return x;
-}
-
-Rect& Rect::SetX(int nx) {
-	x = nx;
-	return *this;
-}
-
-int Rect::GetY() const {
-	return y;
-}
-
-Rect& Rect::SetY(int ny) {
-	y = ny;
-	return *this;
-}
-
-int Rect::GetW() const {
-	return w;
-}
-
-Rect& Rect::SetW(int nw) {
-	w = nw;
-	return *this;
-}
-
-int Rect::GetH() const {
-	return h;
-}
-
-Rect& Rect::SetH(int nh) {
-	h = nh;
-	return *this;
-}
-
-int Rect::GetX2() const {
-	return x + w - 1;
-}
-
-Rect& Rect::SetX2(int x2) {
-	w = x2 - x + 1;
-	return *this;
-}
-
-int Rect::GetY2() const {
-	return y + h - 1;
-}
-
-Rect& Rect::SetY2(int y2) {
-	h = y2 - y + 1;
-	return *this;
 }
 
 bool Rect::Contains(int px, int py) const {
@@ -177,19 +114,11 @@ bool Rect::IntersectLine(Point& p1, Point& p2) const {
 	return SDL_IntersectRectAndLine(this, &p1.x, &p1.y, &p2.x, &p2.y) == SDL_TRUE;
 }
 
-Rect Rect::operator+(const Point& offset) const {
-	return Rect(x + offset.x, y + offset.y, w, h);
-}
-
 Rect& Rect::operator+=(const Point& offset) {
 	x += offset.x;
 	y += offset.y;
 
 	return *this;
-}
-
-Rect Rect::operator-(const Point& offset) const {
-	return Rect(x - offset.x, y - offset.y, w, h);
 }
 
 Rect& Rect::operator-=(const Point& offset) {

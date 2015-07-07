@@ -162,7 +162,10 @@ public:
 	/// \returns True if two rectangles are identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator==(const Rect& other) const;
+	constexpr bool operator==(const Rect& other) const {
+		return x == other.x && y == other.y &&
+		       w == other.w && h == other.h;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Inequality operator
@@ -172,7 +175,10 @@ public:
 	/// \returns True if two rectangles are not identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator!=(const Rect& other) const;
+	constexpr bool operator!=(const Rect& other) const {
+		return x != other.x || y != other.y ||
+		       w != other.w || h != other.h;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the rect corner
@@ -180,7 +186,9 @@ public:
 	/// \returns X coordinate of the rect corner
 	///
 	////////////////////////////////////////////////////////////
-	int GetX() const;
+	constexpr int GetX() const {
+		return x;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect corner
@@ -190,7 +198,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetX(int nx);
+	Rect& SetX(int nx) {
+		x = nx;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the rect corner
@@ -198,7 +209,9 @@ public:
 	/// \returns Y coordinate of the rect corner
 	///
 	////////////////////////////////////////////////////////////
-	int GetY() const;
+	constexpr int GetY() const {
+		return y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect corner
@@ -208,7 +221,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetY(int ny);
+	Rect& SetY(int ny) {
+		y = ny;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get width of the rect
@@ -216,7 +232,9 @@ public:
 	/// \returns Width of the rect
 	///
 	////////////////////////////////////////////////////////////
-	int GetW() const;
+	constexpr int GetW() const {
+		return w;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set width of the rect
@@ -226,7 +244,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetW(int nw);
+	Rect& SetW(int nw) {
+		w = nw;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get height of the rect
@@ -234,7 +255,9 @@ public:
 	/// \returns Height of the rect
 	///
 	////////////////////////////////////////////////////////////
-	int GetH() const;
+	constexpr int GetH() const {
+		return h;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set height of the rect
@@ -244,7 +267,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetH(int nh);
+	Rect& SetH(int nh) {
+		h = nh;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the rect second corner
@@ -252,7 +278,9 @@ public:
 	/// \returns X coordinate of the rect second corner
 	///
 	////////////////////////////////////////////////////////////
-	int GetX2() const;
+	constexpr int GetX2() const {
+		return x + w - 1;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the rect second corner
@@ -262,7 +290,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetX2(int x2);
+	Rect& SetX2(int x2) {
+		w = x2 - x + 1;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the rect second corner
@@ -272,7 +303,9 @@ public:
 	/// This modifies rectangle width internally
 	///
 	////////////////////////////////////////////////////////////
-	int GetY2() const;
+	constexpr int GetY2() const {
+		return y + h - 1;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the rect second corner
@@ -284,7 +317,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Rect& SetY2(int y2);
+	Rect& SetY2(int y2) {
+		h = y2 - y + 1;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Check whether the rect contains given point
@@ -424,7 +460,9 @@ public:
 	/// \returns Moved rectangle
 	///
 	////////////////////////////////////////////////////////////
-	Rect operator+(const Point& offset) const;
+	constexpr Rect operator+(const Point& offset) const {
+		return Rect(x + offset.x, y + offset.y, w, h);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get rectangle moved by an opposite of given offset
@@ -434,7 +472,9 @@ public:
 	/// \returns Moved rectangle
 	///
 	////////////////////////////////////////////////////////////
-	Rect operator-(const Point& offset) const;
+	constexpr Rect operator-(const Point& offset) const {
+		return Rect(x - offset.x, y - offset.y, w, h);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move by then given offset
