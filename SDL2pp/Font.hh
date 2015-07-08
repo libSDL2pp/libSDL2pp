@@ -70,7 +70,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC16
 	///
 	////////////////////////////////////////////////////////////
-	Font(const std::string& file, int ptsize = 0, long index = 0);
+	Font(const std::string& file, int ptsize, long index = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font with RWops
@@ -85,7 +85,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC17
 	///
 	////////////////////////////////////////////////////////////
-	Font(RWops& rwops, int ptsize = 0, long index = 0);
+	Font(RWops& rwops, int ptsize, long index = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
