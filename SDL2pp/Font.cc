@@ -153,7 +153,7 @@ Rect Font::GetGlyphRect(Uint16 ch) const {
 	int minx, maxx, miny, maxy;
 	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, nullptr) != 0)
 		throw Exception("TTF_GlyphMetrics");
-	return Rect(minx, miny, maxx - minx + 1, maxy - miny + 1);
+	return Rect(minx, miny, maxx - minx, maxy - miny);
 }
 
 int Font::GetGlyphAdvance(Uint16 ch) const {
