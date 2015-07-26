@@ -140,6 +140,10 @@ Optional<std::string> Font::GetStyleName() const {
 	return std::string(str);
 }
 
+int Font::IsGlyphProvided(Uint16 ch) const {
+	return TTF_GlyphIsProvided(font_, ch);
+}
+
 void Font::GetGlyphMetrics(Uint16 ch, int& minx, int& maxx, int& miny, int& maxy, int& advance) const {
 	if (TTF_GlyphMetrics(font_, ch, &minx, &maxx, &miny, &maxy, &advance) != 0)
 		throw Exception("TTF_GlyphMetrics");
