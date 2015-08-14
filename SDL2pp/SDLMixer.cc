@@ -27,23 +27,24 @@
 namespace SDL2pp {
 
 SDLMixer::SDLMixer(int flags) {
-	if ((IMG_Init(flags) & flags) != flags)
-		throw Exception("IMG_Init");
+	if ((Mix_Init(flags) & flags) != flags)
+		throw Exception("Mix_Init");
 }
 
 SDLMixer::~SDLMixer() {
-	IMG_Quit();
+	while(Mix_Init(0))
+		Mix_Quit();
 }
 
 int SDLMixer::InitMore(int flags) {
 	int ret;
-	if (((ret = IMG_Init(flags)) & flags) != flags)
-		throw Exception("IMG_Init");
+	if (((ret = Mix_Init(flags)) & flags) != flags)
+		throw Exception("Mix_Init");
 	return ret;
 }
 
 int SDLMixer::GetInitFlags() {
-	return IMG_Init(0);
+	return Mix_Init(0);
 }
 
 }

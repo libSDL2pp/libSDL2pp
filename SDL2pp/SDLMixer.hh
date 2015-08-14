@@ -31,20 +31,11 @@ namespace SDL2pp {
 ///
 /// \headerfile SDL2pp/SDLMixer.hh
 ///
-/// Though it's possible to use SDL_mixer without initializing it,
-/// library provides initialization/deinitialization functions to
-/// be able to preload libraries for specific file format support
-/// (png, jpeg or tiff) beforehand. In SDL2pp, this is handled by
-/// this class.
-///
 /// Usage example:
 /// \code
 /// int main() {
 ///     SDL2pp::SDL sdl(SDL_INIT_VIDEO);
-///     SDL2pp::SDLMixer mixer(IMG_INIT_PNG);
-///
-///     // use SDL_mixer functions
-///     SDL2pp::Texture t("/path/to/file.png");
+///     SDL2pp::SDLMixer mixer(MIX_INIT_OGG);
 ///
 ///     // SDL_mixer library is automatically deinitialized before exit
 ///     return 0;
@@ -57,7 +48,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes SDL_mixer library
 	///
-	/// \param[in] flags Flags to pass to IMG_Init()
+	/// \param[in] flags Flags to pass to Mix_Init()
 	///
 	/// \throws SDL2pp::Exception
 	///
@@ -77,7 +68,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Try to init more SDL_mixer formats
 	///
-	/// \param[in] flags Flags to pass to IMG_Init()
+	/// \param[in] flags Flags to pass to Mix_Init()
 	///
 	/// \throws SDL2pp::Exception
 	///
