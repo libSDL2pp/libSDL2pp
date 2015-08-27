@@ -114,6 +114,7 @@ SET(LIBRARY_SOURCES
 	SDL2pp/Rect.cc
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
+	SDL2pp/SDLMixer.cc
 	SDL2pp/Surface.cc
 	SDL2pp/SurfaceLock.cc
 	SDL2pp/Texture.cc
@@ -134,6 +135,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
+	SDL2pp/SDLMixer.hh
 	SDL2pp/StreamRWops.hh
 	SDL2pp/Surface.hh
 	SDL2pp/Texture.hh
