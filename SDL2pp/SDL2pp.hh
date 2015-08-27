@@ -116,4 +116,14 @@
 #	include <SDL2pp/SDLImage.hh>
 #endif
 
+////////////////////////////////////////////////////////////
+/// \defgroup mixer SDL_mixer
+///
+/// \brief Functions that are specific to SDL_mixer library
+///
+////////////////////////////////////////////////////////////
+#ifdef SDL2PP_WITH_MIXER
+#	include <SDL2pp/SDLMixer.hh>
+#endif
+
 #endif
