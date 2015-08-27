@@ -52,7 +52,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see TODO:
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC9
 	///
 	////////////////////////////////////////////////////////////
 	SDLMixer(int flags = 0);
@@ -60,7 +60,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor, deinitializes SDL_mixer library
 	///
-	/// \see TODO:
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC10
 	///
 	////////////////////////////////////////////////////////////
 	virtual ~SDLMixer();
@@ -72,7 +72,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see TODO:
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC9
 	///
 	////////////////////////////////////////////////////////////
 	int InitMore(int flags);
@@ -80,7 +80,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get mask of initialized SDL_mixer formats
 	///
-	/// \see TODO:
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC9
 	///
 	////////////////////////////////////////////////////////////
 	int GetInitFlags();
