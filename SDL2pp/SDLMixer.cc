@@ -32,7 +32,8 @@ SDLMixer::SDLMixer(int flags) {
 }
 
 SDLMixer::~SDLMixer() {
-	while(Mix_Init(0))
+	// see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC10
+	while (Mix_Init(0))
 		Mix_Quit();
 }
 
