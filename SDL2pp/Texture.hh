@@ -402,6 +402,7 @@ public:
 	///
 	/// \see http://wiki.libsdl.org/SDL_QueryTexture
 	/// \see http://wiki.libsdl.org/SDL_QueryTexture#format
+	/// \see http://wiki.libsdl.org/SDL_PixelFormatEnum
 	///
 	////////////////////////////////////////////////////////////
 	Uint32 GetFormat() const;
