@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+ * Copyright (c) 2011-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
  * All rights reserved.
  *
  * See https://github.com/AMDmi3/testing.h for updates, bug reports,
@@ -35,6 +35,10 @@
 #include <string>
 #include <sstream>
 #include <functional>
+
+#ifdef _WIN32
+#	define TESTING_NO_COLOR
+#endif
 
 //
 // Helper class for literal quoting / extra processing
@@ -120,7 +124,10 @@ private:
 		default:
 			return str;
 		}
-		return std::string("\033[") + (bright ? "1" : "0") + ";" + std::to_string(30 + color) + "m" + str + "\033[0m";
+
+		std::ostringstream ss;
+		ss << "\033[" << (bright ? '1' : '0') << ';' << (30 + color) << 'm' << str << "\033[0m";
+		return ss.str();
 	}
 
 	//
@@ -202,7 +209,7 @@ public:
 
 		try {
 			func();
-		} catch (E& e) {
+		} catch (E&) {
 			as_expected = true;
 			thrown = true;
 		} catch (std::exception& e) {
@@ -312,13 +319,18 @@ public:
 
 // wrappers to allow true variable number of arguments
 #define METHOD_WRAPPER(method, expr, ...) tester_.method(#expr, expr, __VA_ARGS__)
-#define METHOD_WRAPPER_LAMBDA(method, expr, ...) tester_.method(#expr, [&](){return expr;}, __VA_ARGS__)
 #define METHOD_WRAPPER_EXCEPTION(expr, exception, ...) tester_.ExpectException<exception>(#expr, [&](){expr;}, #exception, __VA_ARGS__)
 
 // checks
-#define EXPECT_TRUE(...)      do { METHOD_WRAPPER(ExpectTrue, __VA_ARGS__, Tester::DummyArgument()); } while(0)
-#define EXPECT_EQUAL(...)     do { METHOD_WRAPPER(ExpectEqual, __VA_ARGS__, Tester::DummyArgument()); } while(0)
-#define EXPECT_EXCEPTION(...) do { METHOD_WRAPPER_EXCEPTION(__VA_ARGS__, Tester::DummyArgument()); } while(0)
+#ifdef _MSC_VER
+#	define EXPECT_TRUE(expr, ...)      do { tester_.ExpectTrue(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_EQUAL(expr, ...)     do { tester_.ExpectEqual(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_EXCEPTION(expr, exception, ...) do { tester_.ExpectException<exception>(#expr, [&](){expr;}, #exception, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#else
+#	define EXPECT_TRUE(...)      do { METHOD_WRAPPER(ExpectTrue, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_EQUAL(...)     do { METHOD_WRAPPER(ExpectEqual, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_EXCEPTION(...) do { METHOD_WRAPPER_EXCEPTION(__VA_ARGS__, Tester::DummyArgument()); } while(0)
+#endif
 
 // functions
 #define ENABLE_FLAGS(flags) do { tester_.EnableFlags(flags); } while(0)
