@@ -19,29 +19,33 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <iostream>
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
-
-#include <SDL2pp/SDL.hh>
-#include <SDL2pp/SDLMixer.hh>
 #include <SDL2pp/Mixer.hh>
-#include <SDL2pp/Chunk.hh>
+#include <SDL2pp/Exception.hh>
 
-using namespace SDL2pp;
+namespace SDL2pp {
 
-int main() try {
-	SDL sdl(SDL_INIT_AUDIO);
-	SDLMixer mixerlib(MIX_INIT_OGG);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096);
+Mixer::Mixer(int frequency, Uint16 format, int channels, int chunksize) : open_(true) {
+	if (Mix_OpenAudio(frequency, format, channels, chunksize) != 0)
+		throw Exception("Mix_OpenAudio");
+}
 
-	// currently fails as audio device hasn't been opened
-	Chunk chunk(TESTDATA_DIR "/test.ogg");
-	chunk.Volume(128);
+Mixer::~Mixer() {
+	if (open_)
+		Mix_CloseAudio();
+}
 
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
+Mixer::Mixer(Mixer&& other) noexcept : open_(other.open_) {
+	other.open_ = false;
+}
+
+Mixer& Mixer::operator=(Mixer&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (open_)
+		Mix_CloseAudio();
+	open_ = other.open_;
+	other.open_ = false;
+	return *this;
+}
+
 }
