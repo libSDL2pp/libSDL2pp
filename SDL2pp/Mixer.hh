@@ -41,6 +41,9 @@ class Chunk;
 ///
 ////////////////////////////////////////////////////////////
 class Mixer {
+public:
+	typedef void (*ChannelFinishedHandler)(int);
+
 private:
 	bool open_;
 
@@ -300,7 +303,20 @@ public:
 	////////////////////////////////////////////////////////////
 	int FadeOutChannel(int channel, int ms);
 
-	// TODO: ChannelFinished
+	////////////////////////////////////////////////////////////
+	/// \brief Set callback for when channel finishes playing
+	///
+	/// \param[in] channel_finished Function to call when any channel
+	///                             finishes playback
+	///
+	/// \note Since Mix_ChannelFinished doesn't take any custom data
+	///       pointer, unfortunately there's no safe way of using
+	///       std::function here.
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC37
+	///
+	////////////////////////////////////////////////////////////
+	void ChannelFinished(ChannelFinishedHandler channel_finished);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the active playing status of a channel
