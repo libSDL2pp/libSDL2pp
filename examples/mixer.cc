@@ -40,20 +40,38 @@ int main() try {
 
 	int chan;
 
+	mixer.ChannelFinished([](int channel){
+			std::cerr << "Channel " << channel << " finished playback" << std::endl;
+		});
+
+	// Fade in
+	chan = mixer.FadeInChannel(-1, chunk, 0, 1000);
+	std::cerr << "Fading sound in on channel " << chan << "\n";
+
+	SDL_Delay(2000);
+
+	// Mix 3 sounds
 	chan = mixer.PlayChannel(-1, chunk);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(500);
+	SDL_Delay(250);
 
 	chan = mixer.PlayChannel(-1, chunk);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(1000);
+	SDL_Delay(250);
 
 	chan = mixer.PlayChannel(-1, chunk);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(4500);
+	SDL_Delay(2000);
+
+	// Fade out
+	chan = mixer.PlayChannel(-1, chunk);
+	std::cerr << "Fading out sound on channel " << chan << "\n";
+	mixer.FadeOutChannel(chan, 2000);
+
+	SDL_Delay(2000);
 
 	// Make sure no chunks are being played before destroying Chunk
 	mixer.HaltChannel();
