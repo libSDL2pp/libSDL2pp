@@ -123,6 +123,7 @@
 ///
 ////////////////////////////////////////////////////////////
 #ifdef SDL2PP_WITH_MIXER
+#	include <SDL2pp/Chunk.hh>
 #	include <SDL2pp/SDLMixer.hh>
 #endif
 
