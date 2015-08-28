@@ -271,7 +271,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC34
 	///
 	////////////////////////////////////////////////////////////
-	void HaltChannel(int channel);
+	void HaltChannel(int channel = -1);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Change the timed stoppage of a channel
