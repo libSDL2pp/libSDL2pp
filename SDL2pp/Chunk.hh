@@ -80,6 +80,13 @@ public:
 	///
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC24
 	///
+	/// \note Despite what Mix_FreeChunk() documentation (and even
+	///       comment in function implementation) says, right after
+	///       the named comment there's a code which stops playback
+	///       of any channel which plays the chunk being freed.
+	///       Thus, it is safe to destroy Chunk before destroying
+	///       Mixer, even if it still plays the chunk.
+	///
 	////////////////////////////////////////////////////////////
 	~Chunk();
 

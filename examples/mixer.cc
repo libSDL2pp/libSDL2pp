@@ -73,9 +73,6 @@ int main() try {
 
 	SDL_Delay(2000);
 
-	// Make sure no sounds are being played before destroying Chunk
-	mixer.HaltChannel();
-
 	return 0;
 } catch (std::exception& e) {
 	std::cerr << "Error: " << e.what() << std::endl;
