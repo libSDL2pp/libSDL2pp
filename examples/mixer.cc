@@ -36,9 +36,24 @@ int main() try {
 	SDLMixer mixerlib(MIX_INIT_OGG);
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096);
 
-	// currently fails as audio device hasn't been opened
 	Chunk chunk(TESTDATA_DIR "/test.ogg");
-	chunk.Volume(128);
+
+	int chan;
+
+	chan = mixer.PlayChannel(-1, chunk);
+	std::cerr << "Playing sound on channel " << chan << "\n";
+
+	SDL_Delay(500);
+
+	chan = mixer.PlayChannel(-1, chunk);
+	std::cerr << "Playing sound on channel " << chan << "\n";
+
+	SDL_Delay(1000);
+
+	chan = mixer.PlayChannel(-1, chunk);
+	std::cerr << "Playing sound on channel " << chan << "\n";
+
+	SDL_Delay(4500);
 
 	return 0;
 } catch (std::exception& e) {
