@@ -42,7 +42,7 @@ class Chunk;
 ////////////////////////////////////////////////////////////
 class Mixer {
 public:
-	typedef void (*ChannelFinishedHandler)(int);
+	typedef void (*ChannelFinishedHandler)(int); ///< Function type for channel finished callback
 
 private:
 	bool open_;
