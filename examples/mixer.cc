@@ -26,14 +26,17 @@
 
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLMixer.hh>
+#include <SDL2pp/Chunk.hh>
 
 using namespace SDL2pp;
 
 int main() try {
-	SDL sdl(SDL_INIT_VIDEO);
+	SDL sdl(SDL_INIT_AUDIO);
 	SDLMixer mixer(MIX_INIT_OGG);
 
-	// that's all for now
+	// currently fails as audio device hasn't been opened
+	Chunk chunk(TESTDATA_DIR "/test.ogg");
+	chunk.Volume(128);
 
 	return 0;
 } catch (std::exception& e) {
