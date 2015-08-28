@@ -34,46 +34,46 @@ using namespace SDL2pp;
 int main() try {
 	SDL sdl(SDL_INIT_AUDIO);
 	SDLMixer mixerlib(MIX_INIT_OGG);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096);
+	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-	Chunk chunk(TESTDATA_DIR "/test.ogg");
-
-	int chan;
+	Chunk sound(TESTDATA_DIR "/test.ogg");
 
 	mixer.ChannelFinished([](int channel){
 			std::cerr << "Channel " << channel << " finished playback" << std::endl;
 		});
 
+	int chan;
+
 	// Fade in
-	chan = mixer.FadeInChannel(-1, chunk, 0, 1000);
+	chan = mixer.FadeInChannel(-1, sound, 0, 1000);
 	std::cerr << "Fading sound in on channel " << chan << "\n";
 
 	SDL_Delay(2000);
 
 	// Mix 3 sounds
-	chan = mixer.PlayChannel(-1, chunk);
+	chan = mixer.PlayChannel(-1, sound);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
 	SDL_Delay(250);
 
-	chan = mixer.PlayChannel(-1, chunk);
+	chan = mixer.PlayChannel(-1, sound);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
 	SDL_Delay(250);
 
-	chan = mixer.PlayChannel(-1, chunk);
+	chan = mixer.PlayChannel(-1, sound);
 	std::cerr << "Playing sound on channel " << chan << "\n";
 
 	SDL_Delay(2000);
 
 	// Fade out
-	chan = mixer.PlayChannel(-1, chunk);
+	chan = mixer.PlayChannel(-1, sound);
 	std::cerr << "Fading out sound on channel " << chan << "\n";
 	mixer.FadeOutChannel(chan, 2000);
 
 	SDL_Delay(2000);
 
-	// Make sure no chunks are being played before destroying Chunk
+	// Make sure no sounds are being played before destroying Chunk
 	mixer.HaltChannel();
 
 	return 0;
