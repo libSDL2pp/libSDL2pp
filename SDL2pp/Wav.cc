@@ -41,12 +41,12 @@ Wav::~Wav() {
 		SDL_FreeWAV(audio_buffer_);
 }
 
-Wav::Wav(Wav&& other) : audio_buffer_(other.audio_buffer_), audio_length_(other.audio_length_), spec_(std::move(other.spec_)) {
+Wav::Wav(Wav&& other) noexcept : audio_buffer_(other.audio_buffer_), audio_length_(other.audio_length_), spec_(std::move(other.spec_)) {
 	other.audio_buffer_ = nullptr;
 	other.audio_length_ = 0;
 }
 
-Wav& Wav::operator=(Wav&& other) {
+Wav& Wav::operator=(Wav&& other) noexcept {
 	if (&other == this)
 		return *this;
 
