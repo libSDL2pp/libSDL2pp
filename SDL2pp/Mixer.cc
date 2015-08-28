@@ -110,7 +110,7 @@ int Mixer::ExpireChannel(int channel, int ticks) {
 }
 
 int Mixer::FadeOutChannel(int channel, int ms) {
-	return Mix_ExpireChannel(channel, ms);
+	return Mix_FadeOutChannel(channel, ms);
 }
 
 int Mixer::Playing(int channel) const {
