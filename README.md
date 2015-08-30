@@ -12,7 +12,7 @@ try {
   using namespace SDL2pp;
 
   // Init SDL; will be automatically deinitialized when the object is destroyed
-  SDL sdl(SDL_INIT_VIDEO);
+  SDL sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
   // Likewise, init SDL_ttf library
   SDLTTF sdl_ttf;
@@ -28,6 +28,11 @@ try {
   Texture sprite2(renderer, "sprite.png"); // SDL_image support
 
   Font font("Vera.ttf", 20); // SDL_ttf font
+
+  // Initialize audio mixer
+  Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+
+  Chunk sound("effect.ogg"); // OGG sound file
 
   // Create texture from surface containing text rendered by SDL_ttf
   Texture text(renderer, font.RenderText_Solid("Hello, world!",
@@ -52,6 +57,9 @@ try {
   renderer.Copy(sprite2, NullOpt, NullOpt, 45.0);
 
   renderer.Present();
+
+  // Play our sound one time on a first available mixer channel
+  mixer.PlayChannel(-1, sound);
 
   // You can still access wrapped C SDL types
   SDL_Renderer* sdl_renderer = renderer.Get();
@@ -94,6 +102,11 @@ Currently, the library provides wrapper classes for
 * SDL_image
   * Library initialization/deinitialization
   * Loading functions integrated into Texture and Surface
+* SDL_mixer
+  * Library initialization/deinitialization
+  * Sound sample handling (Mix_Chunk)
+  * Music handling (Mix_Music)
+  * Mixer class which encapsulates device handling and all playback functions
 * SDL_ttf
   * Library initialization/deinitialization
   * TTF_Font (all functions covered)
@@ -122,8 +135,9 @@ example clang 3.4+ or gcc 4.8+.
 Dependencies:
 * cmake
 * SDL2
-* SDL_image2 (optional)
-* SDL_ttf2 (optional)
+* SDL2_image (optional)
+* SDL2_mixer (optional)
+* SDL2_ttf (optional)
 
 To build standalone version:
 
@@ -132,6 +146,7 @@ To build standalone version:
 Following variabled may be supplied to CMake to affect build:
 
 * ```SDL2PP_WITH_IMAGE``` - enable SDL_image support (default ON)
+* ```SDL2PP_WITH_MIXER``` - enable SDL_mixer support (default ON)
 * ```SDL2PP_WITH_TTF``` - enable SDL_ttf support (default ON)
 * ```SDL2PP_WITH_WERROR``` - treat warnings as errors, useful for CI (default OFF)
 * ```SDL2PP_CXXSTD``` - override C++ standard (default C++11). With C++1y some additional features are enabled such as usage of [[deprecated]] attribute and using stock experimental/optional from C++ standard library
@@ -183,6 +198,7 @@ Just place the library into dedicated directory in your project
 
 ```cmake
 SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+SET(SDL2PP_WITH_MIXER ON) # if you need SDL_mixer support
 SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
 ADD_SUBDIRECTORY(extlib/libSDL2pp)
 ```
