@@ -93,11 +93,11 @@ int Mixer::FadeInChannel(int channel, const Chunk& chunk, int loops, int ms, int
 	return chan;
 }
 
-void Mixer::Pause(int channel) {
+void Mixer::PauseChannel(int channel) {
 	Mix_Pause(channel);
 }
 
-void Mixer::Resume(int channel) {
+void Mixer::ResumeChannel(int channel) {
 	Mix_Resume(channel);
 }
 
@@ -117,15 +117,15 @@ void Mixer::ChannelFinished(ChannelFinishedHandler channel_finished) {
 	Mix_ChannelFinished(channel_finished);
 }
 
-int Mixer::Playing(int channel) const {
+int Mixer::IsChannelPlaying(int channel) const {
 	return Mix_Playing(channel);
 }
 
-int Mixer::Paused(int channel) const {
+int Mixer::IsChannelPaused(int channel) const {
 	return Mix_Paused(channel);
 }
 
-int Mixer::FadingChannel(int which) const {
+int Mixer::IsChannelFading(int which) const {
 	return Mix_FadingChannel(which);
 }
 

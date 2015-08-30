@@ -254,7 +254,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC32
 	///
 	////////////////////////////////////////////////////////////
-	void Pause(int channel = -1);
+	void PauseChannel(int channel = -1);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Resume a paused channel
@@ -264,7 +264,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC33
 	///
 	////////////////////////////////////////////////////////////
-	void Resume(int channel = -1);
+	void ResumeChannel(int channel = -1);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Stop playing on a channel
@@ -332,7 +332,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC38
 	///
 	////////////////////////////////////////////////////////////
-	int Playing(int channel) const;
+	int IsChannelPlaying(int channel) const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the pause status of a channel
@@ -348,7 +348,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC39
 	///
 	////////////////////////////////////////////////////////////
-	int Paused(int channel) const;
+	int IsChannelPaused(int channel) const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the fade status of a channel
@@ -360,7 +360,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC40
 	///
 	////////////////////////////////////////////////////////////
-	int FadingChannel(int which) const;
+	int IsChannelFading(int which) const;
 
 	// TODO: Groups
 	// TODO: Music
