@@ -113,7 +113,7 @@ int Mixer::FadeOutChannel(int channel, int ms) {
 	return Mix_FadeOutChannel(channel, ms);
 }
 
-void Mixer::ChannelFinished(ChannelFinishedHandler channel_finished) {
+void Mixer::SetChannelFinishedHandler(ChannelFinishedHandler channel_finished) {
 	Mix_ChannelFinished(channel_finished);
 }
 

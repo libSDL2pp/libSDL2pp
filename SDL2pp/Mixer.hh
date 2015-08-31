@@ -316,7 +316,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC37
 	///
 	////////////////////////////////////////////////////////////
-	void ChannelFinished(ChannelFinishedHandler channel_finished);
+	void SetChannelFinishedHandler(ChannelFinishedHandler channel_finished);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the active playing status of a channel
