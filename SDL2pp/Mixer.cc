@@ -125,7 +125,7 @@ int Mixer::IsChannelPaused(int channel) const {
 	return Mix_Paused(channel);
 }
 
-int Mixer::IsChannelFading(int which) const {
+Mix_Fading Mixer::GetChannelFading(int which) const {
 	return Mix_FadingChannel(which);
 }
 

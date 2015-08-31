@@ -360,7 +360,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC40
 	///
 	////////////////////////////////////////////////////////////
-	int IsChannelFading(int which) const;
+	Mix_Fading GetChannelFading(int which) const;
 
 	// TODO: Groups
 	// TODO: Music
