@@ -23,6 +23,7 @@
 #define SDL2PP_MIXER_HH
 
 #include <functional>
+#include <memory>
 
 #include <SDL2/SDL_stdinc.h>
 
