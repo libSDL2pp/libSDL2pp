@@ -44,7 +44,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Construct from existing Mix_Music pointer
 	///
-	/// \param[in] chunk Existing Mix_Music to manage
+	/// \param[in] music Existing Mix_Music to manage
 	///
 	////////////////////////////////////////////////////////////
 	Music(Mix_Music* music);
@@ -104,9 +104,9 @@ public:
 	Music& operator=(const Music& other) = delete;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get pointer to managed Mix_Music object
+	/// \brief Get pointer to managed Mix_Music
 	///
-	/// \returns Pointer to managed Mix_Music object
+	/// \returns Pointer to managed Mix_Music
 	///
 	////////////////////////////////////////////////////////////
 	Mix_Music* Get() const;

@@ -436,7 +436,7 @@ public:
 	///
 	/// \param[in] tag A group number
 	///
-	/// \returns The channel found on success. -1 is returned when \
+	/// \returns The channel found on success. -1 is returned when
 	///          no channels in the group are available
 	///
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC47
@@ -449,7 +449,7 @@ public:
 	///
 	/// \param[in] tag A group number
 	///
-	/// \returns The channel found on success. -1 is returned when \
+	/// \returns The channel found on success. -1 is returned when
 	///          no channels in the group are available
 	///
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC48
@@ -462,7 +462,7 @@ public:
 	///
 	/// \param[in] tag A group number
 	///
-	/// \returns The channel found on success. -1 is returned when \
+	/// \returns The channel found on success. -1 is returned when
 	///          no channels in the group are available
 	///
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC49
