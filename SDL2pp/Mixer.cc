@@ -21,6 +21,7 @@
 
 #include <SDL2pp/Mixer.hh>
 #include <SDL2pp/Chunk.hh>
+#include <SDL2pp/Music.hh>
 #include <SDL2pp/Exception.hh>
 
 namespace SDL2pp {
@@ -35,7 +36,7 @@ Mixer::~Mixer() {
 		Mix_CloseAudio();
 }
 
-Mixer::Mixer(Mixer&& other) noexcept : open_(other.open_) {
+Mixer::Mixer(Mixer&& other) noexcept : open_(other.open_), current_music_hook_(std::move(other.current_music_hook_)) {
 	other.open_ = false;
 }
 
@@ -45,6 +46,7 @@ Mixer& Mixer::operator=(Mixer&& other) noexcept {
 	if (open_)
 		Mix_CloseAudio();
 	open_ = other.open_;
+	current_music_hook_ = std::move(other.current_music_hook_);
 	other.open_ = false;
 	return *this;
 }
@@ -127,6 +129,79 @@ int Mixer::IsChannelPaused(int channel) const {
 
 Mix_Fading Mixer::GetChannelFading(int which) const {
 	return Mix_FadingChannel(which);
+}
+
+void Mixer::PlayMusic(const Music& music, int loops) {
+	if (Mix_PlayMusic(music.Get(), loops) == -1)
+		throw Exception("Mix_PlayMusic");
+}
+
+void Mixer::FadeInMusic(const Music& music, int loops, int ms) {
+	if (Mix_FadeInMusic(music.Get(), loops, ms) == -1)
+		throw Exception("Mix_FadeInMusic");
+}
+
+int Mixer::SetMusicVolume(int volume) {
+	return Mix_VolumeMusic(volume);
+}
+
+int Mixer::GetMusicVolume() const {
+	return Mix_VolumeMusic(-1);
+}
+
+void Mixer::PauseMusic() {
+	Mix_PauseMusic();
+}
+
+void Mixer::ResumeMusic() {
+	Mix_ResumeMusic();
+}
+
+void Mixer::RewindMusic() {
+	Mix_RewindMusic();
+}
+
+void Mixer::SetMusicPosition(double position) {
+	if (Mix_SetMusicPosition(position) == -1)
+		throw Exception("Mix_SetMusicPosition");
+}
+
+void Mixer::HaltMusic() {
+	Mix_HaltMusic();
+}
+
+bool Mixer::FadeOutMusic(int ms) {
+	return Mix_FadeOutMusic(ms);
+}
+
+bool Mixer::IsMusicPlaying() const {
+	return Mix_PlayingMusic();
+}
+
+bool Mixer::IsMusicPaused() const {
+	return Mix_PausedMusic();
+}
+
+Mix_Fading Mixer::GetMusicFading() const {
+	return Mix_FadingMusic();
+}
+
+void Mixer::SetMusicFinishedHandler(MusicFinishedHandler music_finished) {
+	Mix_HookMusicFinished(music_finished);
+}
+
+void Mixer::SetMusicHook(MusicHook&& hook) {
+	if (!hook) {
+		Mix_HookMusic(nullptr, nullptr);
+		current_music_hook_.reset(nullptr);
+		return;
+	}
+
+	current_music_hook_.reset(new MusicHook(std::move(hook)));
+
+	Mix_HookMusic([](void *udata, Uint8 *stream, int len) {
+		static_cast<std::function<void(Uint8 *stream, int len)>*>(udata)->operator()(stream, len);
+	}, current_music_hook_.get());
 }
 
 }

@@ -22,11 +22,16 @@
 #ifndef SDL2PP_MIXER_HH
 #define SDL2PP_MIXER_HH
 
+#include <functional>
+
+#include <SDL2/SDL_stdinc.h>
+
 #include <SDL2/SDL_mixer.h>
 
 namespace SDL2pp {
 
 class Chunk;
+class Music;
 
 ////////////////////////////////////////////////////////////
 /// \brief SDL_mixer's audio mixer
@@ -43,9 +48,13 @@ class Chunk;
 class Mixer {
 public:
 	typedef void (*ChannelFinishedHandler)(int); ///< Function type for channel finished callback
+	typedef void (*MusicFinishedHandler)();      ///< Function type for music finished callback
+
+	typedef std::function<void(Uint8 *stream, int len)> MusicHook; ///< Custom music hook
 
 private:
 	bool open_;
+	std::unique_ptr<MusicHook> current_music_hook_;
 
 public:
 	////////////////////////////////////////////////////////////
@@ -363,7 +372,165 @@ public:
 	Mix_Fading GetChannelFading(int which) const;
 
 	// TODO: Groups
-	// TODO: Music
+
+	////////////////////////////////////////////////////////////
+	/// \brief Play music
+	///
+	/// \param[in] music Music to play
+	/// \param[in] loops number of times to play through the music.
+	///                  0 plays the music zero times...
+	///                  -1 plays the music forever
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC57
+	///
+	////////////////////////////////////////////////////////////
+	void PlayMusic(const Music& music, int loops = -1);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Play music, with looping, and fade in
+	///
+	/// \param[in] music Music to play
+	/// \param[in] loops number of times to play through the music.
+	///                  0 plays the music zero times...
+	///                  -1 plays the music forever
+	/// \param[in] ms Milliseconds for the fade-in effect to complete
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC57
+	///
+	////////////////////////////////////////////////////////////
+	void FadeInMusic(const Music& music, int loops = -1, int ms = 0);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set music volume
+	///
+	/// \param[in] volume The volume to use from 0 to MIX_MAX_VOLUME(128)
+	///
+	/// \returns The previous volume setting
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC61
+	///
+	////////////////////////////////////////////////////////////
+	int SetMusicVolume(int volume);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get music volume
+	///
+	/// \returns Current volume setting
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC61
+	///
+	////////////////////////////////////////////////////////////
+	int GetMusicVolume() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Pause music
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC62
+	///
+	////////////////////////////////////////////////////////////
+	void PauseMusic();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Resume paused music
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC63
+	///
+	////////////////////////////////////////////////////////////
+	void ResumeMusic();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Rewind music to beginning
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC64
+	///
+	////////////////////////////////////////////////////////////
+	void RewindMusic();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set position of playback in stream
+	///
+	/// \param[in] position Posistion to play from
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC65
+	///
+	////////////////////////////////////////////////////////////
+	void SetMusicPosition(double position);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Stop music playback
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC67
+	///
+	////////////////////////////////////////////////////////////
+	void HaltMusic();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Stop music, with fade out
+	///
+	/// \param[in] ms Milliseconds of time that the fade-out effect
+	///               should take to go to silence, starting now.
+	///
+	/// \returns True in success, false on failure
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC68
+	///
+	////////////////////////////////////////////////////////////
+	bool FadeOutMusic(int ms);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Test whether music is playing
+	///
+	/// \returns True if music is actively playing
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC71
+	///
+	////////////////////////////////////////////////////////////
+	bool IsMusicPlaying() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Test whether music is paused
+	///
+	/// \returns True if music is paused
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC72
+	///
+	////////////////////////////////////////////////////////////
+	bool IsMusicPaused() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get status of current music fade activity
+	///
+	/// \returns The fading status
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC73
+	///
+	////////////////////////////////////////////////////////////
+	Mix_Fading GetMusicFading() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set a callback for when music stops
+	///
+	/// \param[in] music_finished Function to call when music stops
+	///
+	/// \note Since Mix_HookMusicFinished  doesn't take any custom data
+	///       pointer, unfortunately there's no safe way of using
+	///       std::function here.
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC69
+	///
+	////////////////////////////////////////////////////////////
+	void SetMusicFinishedHandler(MusicFinishedHandler music_finished);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Hook for a custom music player
+	///
+	/// \param[in] hook Music player mixer function
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC60
+	///
+	////////////////////////////////////////////////////////////
+	void SetMusicHook(MusicHook&& hook);
+
 	// TODO: Effects
 };
 

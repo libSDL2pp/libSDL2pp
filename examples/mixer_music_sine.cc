@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -22,56 +22,30 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
 
 #include <SDL2pp/SDL.hh>
-#include <SDL2pp/SDLMixer.hh>
 #include <SDL2pp/Mixer.hh>
-#include <SDL2pp/Chunk.hh>
 
 using namespace SDL2pp;
 
 int main() try {
 	SDL sdl(SDL_INIT_AUDIO);
-	SDLMixer mixerlib(MIX_INIT_OGG);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-	Chunk sound(TESTDATA_DIR "/test.ogg");
+	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 
-	mixer.SetChannelFinishedHandler([](int channel){
-			std::cerr << "Channel " << channel << " finished playback" << std::endl;
-		});
+	float frequency = 2093.00f; // C7 tone
+	int64_t nsample = 0;
 
-	int chan;
+	// Open audio device
+	mixer.SetMusicHook([&nsample, frequency](Uint8* stream, int len) {
+				// fill provided buffer with sine wave
+				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
+					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)MIX_DEFAULT_FREQUENCY * frequency));
+			}
+		);
 
-	// Fade in
-	chan = mixer.FadeInChannel(-1, sound, 0, 1000);
-	std::cerr << "Fading sound in on channel " << chan << "\n";
-
-	SDL_Delay(2000);
-
-	// Mix 3 sounds
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(250);
-
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(250);
-
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(2000);
-
-	// Fade out
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Fading out sound on channel " << chan << "\n";
-	mixer.FadeOutChannel(chan, 2000);
-
-	SDL_Delay(2000);
+	// Play for 1 second, after which everything is stopped and closed
+	SDL_Delay(1000);
 
 	return 0;
 } catch (std::exception& e) {

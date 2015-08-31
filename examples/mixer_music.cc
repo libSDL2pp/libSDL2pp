@@ -27,7 +27,7 @@
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLMixer.hh>
 #include <SDL2pp/Mixer.hh>
-#include <SDL2pp/Chunk.hh>
+#include <SDL2pp/Music.hh>
 
 using namespace SDL2pp;
 
@@ -36,42 +36,11 @@ int main() try {
 	SDLMixer mixerlib(MIX_INIT_OGG);
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-	Chunk sound(TESTDATA_DIR "/test.ogg");
+	Music music(TESTDATA_DIR "/test.ogg");
 
-	mixer.SetChannelFinishedHandler([](int channel){
-			std::cerr << "Channel " << channel << " finished playback" << std::endl;
-		});
+	mixer.FadeInMusic(music, -1, 2000);
 
-	int chan;
-
-	// Fade in
-	chan = mixer.FadeInChannel(-1, sound, 0, 1000);
-	std::cerr << "Fading sound in on channel " << chan << "\n";
-
-	SDL_Delay(2000);
-
-	// Mix 3 sounds
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(250);
-
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(250);
-
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
-
-	SDL_Delay(2000);
-
-	// Fade out
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Fading out sound on channel " << chan << "\n";
-	mixer.FadeOutChannel(chan, 2000);
-
-	SDL_Delay(2000);
+	SDL_Delay(5000);
 
 	return 0;
 } catch (std::exception& e) {

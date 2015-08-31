@@ -111,6 +111,7 @@ SET(LIBRARY_SOURCES
 	SDL2pp/Chunk.cc
 	SDL2pp/Exception.cc
 	SDL2pp/Mixer.cc
+	SDL2pp/Music.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
 	SDL2pp/Rect.cc
@@ -132,6 +133,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
 	SDL2pp/Mixer.hh
+	SDL2pp/Music.hh
 	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
