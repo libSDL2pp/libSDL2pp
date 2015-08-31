@@ -371,7 +371,127 @@ public:
 	////////////////////////////////////////////////////////////
 	Mix_Fading GetChannelFading(int which) const;
 
-	// TODO: Groups
+	////////////////////////////////////////////////////////////
+	/// \brief Prevent channels from being used in default group
+	///
+	/// \param[in] num Number of channels to reserve from default mixing.
+	///                Zero removes all reservations
+	///
+	/// \returns The number of channels reserved. Never fails,
+	///          but may return less channels than you ask for,
+	///          depending on the number of channels previously
+	///          allocated
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC43
+	///
+	////////////////////////////////////////////////////////////
+	int ReserveChannels(int num);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Add/remove channel to/from group
+	///
+	/// \param[in] which Channel number to assign tag to.
+	/// \param[in] tag A group number. Any positive numbers
+	///                (including zero). -1 is the default group.
+	///                Use -1 to remove a group tag essentially.
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC44
+	///
+	////////////////////////////////////////////////////////////
+	void GroupChannel(int which, int tag);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Add/remove segment of channels to/from group
+	///
+	/// \param[in] from First Channel number of channels to assign tag to.
+	/// \param[in] to Last Channel number of channels to assign tag to
+	/// \param[in] tag A group number. Any positive numbers (including zero).
+	///                -1 is the default group. Use -1 to remove a group tag
+	///                essentially.
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC45
+	///
+	////////////////////////////////////////////////////////////
+	void GroupChannels(int from, int to, int tag);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get number of channels in group
+	///
+	/// \param[in] tag A group number
+	///
+	/// \returns The number of channels found in the group
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC46
+	///
+	////////////////////////////////////////////////////////////
+	int GetGroupNumChannels(int tag) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get first inactive channel in group
+	///
+	/// \param[in] tag A group number
+	///
+	/// \returns The channel found on success. -1 is returned when \
+	///          no channels in the group are available
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC47
+	///
+	////////////////////////////////////////////////////////////
+	int GetGroupAvailableChannel(int tag) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get oldest busy channel in group
+	///
+	/// \param[in] tag A group number
+	///
+	/// \returns The channel found on success. -1 is returned when \
+	///          no channels in the group are available
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC48
+	///
+	////////////////////////////////////////////////////////////
+	int GetGroupOldestChannel(int tag) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get youngest busy channel in group
+	///
+	/// \param[in] tag A group number
+	///
+	/// \returns The channel found on success. -1 is returned when \
+	///          no channels in the group are available
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC49
+	///
+	////////////////////////////////////////////////////////////
+	int GetGroupNewestChannel(int tag) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Fade out a group over time
+	///
+	/// \param[in] tag Group to fade out
+	/// \param[in] ms Milliseconds of time that the fade-out effect
+	///               should take to go to silence, starting now
+	///
+	/// \returns The number of channels set to fade out
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC50
+	///
+	////////////////////////////////////////////////////////////
+	int FadeOutGroup(int tag, int ms);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Stop a group
+	///
+	/// \param[in] tag Group to fade out
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC51
+	///
+	////////////////////////////////////////////////////////////
+	void HaltGroup(int tag);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Play music

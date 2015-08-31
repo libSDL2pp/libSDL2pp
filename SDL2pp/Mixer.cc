@@ -131,6 +131,44 @@ Mix_Fading Mixer::GetChannelFading(int which) const {
 	return Mix_FadingChannel(which);
 }
 
+int Mixer::ReserveChannels(int num) {
+	return Mix_ReserveChannels(num);
+}
+
+void Mixer::GroupChannel(int which, int tag) {
+	if (Mix_GroupChannel(which, tag) != 1)
+		throw Exception("Mix_GroupChannel");
+}
+
+void Mixer::GroupChannels(int from, int to, int tag) {
+	if (Mix_GroupChannels(from, to, tag) != to - from + 1)
+		throw Exception("Mix_GroupChannels");
+}
+
+int Mixer::GetGroupNumChannels(int tag) const {
+	return Mix_GroupCount(tag);
+}
+
+int Mixer::GetGroupAvailableChannel(int tag) const {
+	return Mix_GroupAvailable(tag);
+}
+
+int Mixer::GetGroupOldestChannel(int tag) const {
+	return Mix_GroupOldest(tag);
+}
+
+int Mixer::GetGroupNewestChannel(int tag) const {
+	return Mix_GroupNewer(tag);
+}
+
+int Mixer::FadeOutGroup(int tag, int ms) {
+	return Mix_FadeOutGroup(tag, ms);
+}
+
+void Mixer::HaltGroup(int tag) {
+	Mix_HaltGroup(tag);
+}
+
 void Mixer::PlayMusic(const Music& music, int loops) {
 	if (Mix_PlayMusic(music.Get(), loops) == -1)
 		throw Exception("Mix_PlayMusic");
