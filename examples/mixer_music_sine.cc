@@ -30,13 +30,12 @@ using namespace SDL2pp;
 
 int main() try {
 	SDL sdl(SDL_INIT_AUDIO);
-
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 
 	float frequency = 2093.00f; // C7 tone
 	int64_t nsample = 0;
 
-	// Open audio device
+	// Set custom music hook which generates a sine wave
 	mixer.SetMusicHook([&nsample, frequency](Uint8* stream, int len) {
 				// fill provided buffer with sine wave
 				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
