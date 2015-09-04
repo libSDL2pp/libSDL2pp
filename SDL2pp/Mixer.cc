@@ -242,4 +242,44 @@ void Mixer::SetMusicHook(MusicHook&& hook) {
 	}, current_music_hook_.get());
 }
 
+void Mixer::SetPanning(int channel, int left, int right) {
+	if (Mix_SetPanning(channel, left, right) == 0)
+		throw Exception("Mix_SetPanning");
+}
+
+void Mixer::UnsetPanning(int channel) {
+	if (Mix_SetPanning(channel, 255, 255) == 0)
+		throw Exception("Mix_SetPanning");
+}
+
+void Mixer::SetDistance(int channel, int distance) {
+	if (Mix_SetDistance(channel, distance) == 0)
+		throw Exception("Mix_SetDistance");
+}
+
+void Mixer::UnsetDistance(int channel) {
+	if (Mix_SetDistance(channel, 0) == 0)
+		throw Exception("Mix_SetDistance");
+}
+
+void Mixer::SetPosition(int channel, int angle, int distance) {
+	if (Mix_SetPosition(channel, angle, distance) == 0)
+		throw Exception("Mix_SetPosition");
+}
+
+void Mixer::UnsetPosition(int channel) {
+	if (Mix_SetPosition(channel, 0, 0) == 0)
+		throw Exception("Mix_SetPosition");
+}
+
+void Mixer::SetReverseStereo(int channel) {
+	if (Mix_SetReverseStereo(channel, 1) == 0)
+		throw Exception("Mix_SetReverseStereo");
+}
+
+void Mixer::UnsetReverseStereo(int channel) {
+	if (Mix_SetReverseStereo(channel, 0) == 0)
+		throw Exception("Mix_SetReverseStereo");
+}
+
 }

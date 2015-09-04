@@ -652,7 +652,123 @@ public:
 	////////////////////////////////////////////////////////////
 	void SetMusicHook(MusicHook&& hook);
 
-	// TODO: Effects
+	// TODO: custom effects
+
+	////////////////////////////////////////////////////////////
+	/// \brief Stereo panning
+	///
+	/// \param[in] channel Channel number to register this effect on or
+	///                    MIX_CHANNEL_POST to process the postmix stream
+	/// \param[in] left Volume for the left channel, range is 0 (silence)
+	///                 to 255 (loud)
+	/// \param[in] right Volume for the right channel, range is 0 (silence)
+	///                  to 255 (loud)
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC80
+	///
+	////////////////////////////////////////////////////////////
+	void SetPanning(int channel, int left, int right);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Disable stereo panning
+	///
+	/// \param[in] channel Channel number to unregister this effect from or
+	///                    MIX_CHANNEL_POST to unregister from the postmix stream
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC80
+	///
+	////////////////////////////////////////////////////////////
+	void UnsetPanning(int channel);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Distance attenuation (volume)
+	///
+	/// \param[in] channel Channel number to register this effect on or
+	///                    MIX_CHANNEL_POST to process the postmix stream
+	/// \param[in] distance Specify the distance from the listener,
+	///                     from 0 (close/loud) to 255 (far/quiet)
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC81
+	///
+	////////////////////////////////////////////////////////////
+	void SetDistance(int channel, int distance);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Disable distance attenuation
+	///
+	/// \param[in] channel Channel number to unregister this effect from or
+	///                    MIX_CHANNEL_POST to unregister from the postmix stream
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC81
+	///
+	////////////////////////////////////////////////////////////
+	void UnsetDistance(int channel);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Panning (angular) and distance
+	///
+	/// \param[in] channel Channel number to register this effect on or
+	///                    MIX_CHANNEL_POST to process the postmix stream
+	/// \param[in] angle Direction in relation to forward from 0 to 360 degrees.
+	///                  Larger angles will be reduced to this range using angles
+	///                  % 360. 0 = directly in front, 90 = directly to the right
+	///                  etc.
+	/// \param[in] distance Specify the distance from the listener,
+	///                     from 0 (close/loud) to 255 (far/quiet)
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC82
+	///
+	////////////////////////////////////////////////////////////
+	void SetPosition(int channel, int angle, int distance);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Disable panning and distance
+	///
+	/// \param[in] channel Channel number to unregister this effect from or
+	///                    MIX_CHANNEL_POST to unregister from the postmix stream
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC82
+	///
+	////////////////////////////////////////////////////////////
+	void UnsetPosition(int channel);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Swap stereo left and right
+	///
+	/// \param[in] channel Channel number to register this effect on or
+	///                    MIX_CHANNEL_POST to process the postmix stream
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC83
+	///
+	////////////////////////////////////////////////////////////
+	void SetReverseStereo(int channel);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Disable stereo swapping
+	///
+	/// \param[in] channel Channel number to unregister this effect from or
+	///                    MIX_CHANNEL_POST to unregister from the postmix stream
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC83
+	///
+	////////////////////////////////////////////////////////////
+	void UnsetReverseStereo(int channel);
 };
 
 }
