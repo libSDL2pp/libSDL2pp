@@ -98,13 +98,13 @@ Currently, the library provides wrapper classes for
   * Library initialization/deinitialization
   * TTF_Font (all functions covered)
 
-each with subset of methods corresponding to SDL functions working
-with sepcific type of object and in some cases additional convenience
+each with a subset of methods corresponding to SDL functions working
+with sepcific types of objects and in some cases additional convenience
 methods. These classes support:
 
 - RAII-style initialization and destruction
-- Total error checking: exception is thrown if any SDL function fails.
-  Exception itself allows to retrieve SDL error string
+- Total error checking: exceptions are thrown if any SDL function fails.
+  Exception itself allows retrieval of SDL error string
 - C++11 move semantics support, which allow you to store SDL objects
   in containers and pass/return them by value with no overhead
 
@@ -129,7 +129,7 @@ To build standalone version:
 
     cmake . && make
 
-Following variabled may be supplied to CMake to affect build:
+Following variables may be supplied to CMake to affect build:
 
 * ```SDL2PP_WITH_IMAGE``` - enable SDL_image support (default ON)
 * ```SDL2PP_WITH_TTF``` - enable SDL_ttf support (default ON)
@@ -142,7 +142,7 @@ Following variabled may be supplied to CMake to affect build:
 
 ## Installation ##
 
-To install the library systemwide, run:
+To install the library system-wide, run:
 
     cmake . && make && make install
 
@@ -152,7 +152,7 @@ variable:
     cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install
 
 SDL2pp installs pkg-config file, so it can be used with any build
-system which interacts with pkg-config, including CMake and GNU
+system that interacts with pkg-config, including CMake and GNU
 Autotools. It also installs CMake module file, which can be used
 from CMake directly:
 
@@ -174,7 +174,7 @@ repositories:
 
 ## Bundling ##
 
-The library is easy to integrate into other CMake-using projects
+The library is easy to integrate into other CMake projects
 (and as the library has no stable API yet, this way of using it is
 still recommended).
 
@@ -187,7 +187,7 @@ SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
 ADD_SUBDIRECTORY(extlib/libSDL2pp)
 ```
 
-into your core CMakeLists.txt. This will act as similar to what
+into your core CMakeLists.txt. This will act similar to how
 FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
 and ${SDL2PP_LIBRARIES} variables for your project. You will then
 be able to use them as usual:
@@ -199,13 +199,13 @@ ADD_EXECUTABLE(mytarget ...)
 TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
 ```
 
-if bundled, libSDL2pp does not build examples and becomes a static
+If bundled, libSDL2pp does not build examples and becomes a static
 library, providing required SDL2 includes/libs in the mentioned
 variables.
 
 ## Completeness ##
 
-Library still doesn't cover all aspects of SDL2, and the development
+The library still doesn't cover all aspects of SDL2, and the development
 is generally guided by the author's needs and interest without a goal
 for covering all SDL2 functions as soon as possible. However, if
 you need specific bits which are not yet implemented in the library,
