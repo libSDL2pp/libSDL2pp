@@ -25,7 +25,8 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief Object taking care of SDL_image library initialization and deinitialization
+/// \brief Helper class taking care of SDL_image library initialization
+///        and deinitialization
 ///
 /// \ingroup image
 ///

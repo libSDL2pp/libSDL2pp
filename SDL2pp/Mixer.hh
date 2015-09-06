@@ -35,7 +35,7 @@ class Chunk;
 class Music;
 
 ////////////////////////////////////////////////////////////
-/// \brief SDL_mixer's audio mixer
+/// \brief Audio mixer
 ///
 /// \ingroup mixer
 ///

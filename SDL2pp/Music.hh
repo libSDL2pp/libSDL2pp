@@ -29,7 +29,7 @@
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
-/// \brief SDL_mixer music data
+/// \brief Music data
 ///
 /// \ingroup mixer
 ///
