@@ -21,8 +21,9 @@ SET(SDL2PP_CXXSTD "c++11" CACHE STRING "Used c++ standard")
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	OPTION(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
 	OPTION(SDL2PP_WITH_TTF "Enable SDL2_ttf support" ON)
+	OPTION(SDL2PP_WITH_MIXER "Enable SDL2_mixer support" ON)
 ELSE(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
-	# please set SDL2PP_WITH_IMAGE, SDL2PP_WITH_TTF in parent project as needed
+	# please set SDL2PP_WITH_IMAGE, SDL2PP_WITH_TTF, SDL2PP_WITH_MIXER in parent project as needed
 ENDIF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 
 # depends
@@ -43,6 +44,13 @@ IF(SDL2PP_WITH_TTF)
 ELSE(SDL2PP_WITH_TTF)
 	MESSAGE(STATUS "SDL2_ttf support disabled")
 ENDIF(SDL2PP_WITH_TTF)
+IF(SDL2PP_WITH_MIXER)
+	FIND_PACKAGE(SDL2_mixer REQUIRED)
+	SET(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIR})
+	SET(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_MIXER_LIBRARY})
+ELSE(SDL2PP_WITH_MIXER)
+	MESSAGE(STATUS "SDL2_mixer support disabled")
+ENDIF(SDL2PP_WITH_MIXER)
 
 FIND_PACKAGE(Doxygen)
 
@@ -100,12 +108,16 @@ SET(LIBRARY_SOURCES
 	SDL2pp/AudioDevice.cc
 	SDL2pp/AudioLock.cc
 	SDL2pp/AudioSpec.cc
+	SDL2pp/Chunk.cc
 	SDL2pp/Exception.cc
+	SDL2pp/Mixer.cc
+	SDL2pp/Music.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
 	SDL2pp/Rect.cc
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
+	SDL2pp/SDLMixer.cc
 	SDL2pp/Surface.cc
 	SDL2pp/SurfaceLock.cc
 	SDL2pp/Texture.cc
@@ -117,8 +129,11 @@ SET(LIBRARY_SOURCES
 SET(LIBRARY_HEADERS
 	SDL2pp/AudioDevice.hh
 	SDL2pp/AudioSpec.hh
+	SDL2pp/Chunk.hh
 	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
+	SDL2pp/Mixer.hh
+	SDL2pp/Music.hh
 	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
@@ -126,6 +141,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
+	SDL2pp/SDLMixer.hh
 	SDL2pp/StreamRWops.hh
 	SDL2pp/Surface.hh
 	SDL2pp/Texture.hh
@@ -161,6 +177,15 @@ IF(SDL2PP_WITH_IMAGE)
 		SDL2pp/SDLImage.hh
 	)
 ENDIF(SDL2PP_WITH_IMAGE)
+
+IF(SDL2PP_WITH_MIXER)
+	SET(LIBRARY_SOURCES
+		${LIBRARY_SOURCES}
+	)
+	SET(LIBRARY_HEADERS
+		${LIBRARY_HEADERS}
+	)
+ENDIF(SDL2PP_WITH_MIXER)
 
 # targets
 IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)

@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,26 +19,44 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <SDL2pp/Music.hh>
+#include <SDL2pp/Exception.hh>
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+namespace SDL2pp {
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+Music::Music(Mix_Music* music) : music_(music) {
+}
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_TTF
-#cmakedefine SDL2PP_WITH_MIXER
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+Music::Music(const std::string& file) {
+    if ((music_ = Mix_LoadMUS(file.c_str())) == nullptr)
+		throw Exception("Mix_LoadMUS");
+}
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
-#else
-#	define SDL2PP_DEPRECATED
-#endif
+Music::~Music() {
+	if (music_ != nullptr)
+		Mix_FreeMusic(music_);
+}
 
-#endif
+Music::Music(Music&& other) noexcept : music_(other.music_) {
+	other.music_ = nullptr;
+}
+
+Music& Music::operator=(Music&& other) noexcept {
+	if (&other == this)
+		return *this;
+	if (music_ != nullptr)
+		Mix_FreeMusic(music_);
+	music_ = other.music_;
+	other.music_ = nullptr;
+	return *this;
+}
+
+Mix_Music* Music::Get() const {
+	return music_;
+}
+
+Mix_MusicType Music::GetType() const {
+	return Mix_GetMusicType(music_);
+}
+
+}

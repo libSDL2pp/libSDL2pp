@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,26 +19,35 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <iostream>
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+#include <SDL2/SDL.h>
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+#include <SDL2pp/SDL.hh>
+#include <SDL2pp/Mixer.hh>
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_TTF
-#cmakedefine SDL2PP_WITH_MIXER
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+using namespace SDL2pp;
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
-#else
-#	define SDL2PP_DEPRECATED
-#endif
+int main() try {
+	SDL sdl(SDL_INIT_AUDIO);
+	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 
-#endif
+	float frequency = 2093.00f; // C7 tone
+	int64_t nsample = 0;
+
+	// Set custom music hook which generates a sine wave
+	mixer.SetMusicHook([&nsample, frequency](Uint8* stream, int len) {
+				// fill provided buffer with sine wave
+				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
+					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)MIX_DEFAULT_FREQUENCY * frequency));
+			}
+		);
+
+	// Play for 1 second, after which everything is stopped and closed
+	SDL_Delay(1000);
+
+	return 0;
+} catch (std::exception& e) {
+	std::cerr << "Error: " << e.what() << std::endl;
+	return 1;
+}

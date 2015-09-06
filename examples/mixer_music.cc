@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,26 +19,31 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <iostream>
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+#include <SDL2pp/SDL.hh>
+#include <SDL2pp/SDLMixer.hh>
+#include <SDL2pp/Mixer.hh>
+#include <SDL2pp/Music.hh>
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_TTF
-#cmakedefine SDL2PP_WITH_MIXER
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+using namespace SDL2pp;
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
-#else
-#	define SDL2PP_DEPRECATED
-#endif
+int main() try {
+	SDL sdl(SDL_INIT_AUDIO);
+	SDLMixer mixerlib(MIX_INIT_OGG);
+	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-#endif
+	Music music(TESTDATA_DIR "/test.ogg");
+
+	mixer.FadeInMusic(music, -1, 2000);
+
+	SDL_Delay(5000);
+
+	return 0;
+} catch (std::exception& e) {
+	std::cerr << "Error: " << e.what() << std::endl;
+	return 1;
+}

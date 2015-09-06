@@ -27,3 +27,17 @@ IF(SDL2PP_WITH_TTF)
 	ADD_EXECUTABLE(ttf ttf.cc)
 	TARGET_LINK_LIBRARIES(ttf SDL2pp)
 ENDIF(SDL2PP_WITH_TTF)
+
+IF(SDL2PP_WITH_MIXER)
+	ADD_EXECUTABLE(mixer mixer.cc)
+	TARGET_LINK_LIBRARIES(mixer SDL2pp)
+
+	ADD_EXECUTABLE(mixer_music mixer_music.cc)
+	TARGET_LINK_LIBRARIES(mixer_music SDL2pp)
+
+	ADD_EXECUTABLE(mixer_music_sine mixer_music_sine.cc)
+	TARGET_LINK_LIBRARIES(mixer_music_sine SDL2pp)
+
+	ADD_EXECUTABLE(mixer_effects mixer_effects.cc)
+	TARGET_LINK_LIBRARIES(mixer_effects SDL2pp)
+ENDIF(SDL2PP_WITH_MIXER)

@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,26 +19,33 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL2PP_CONFIG_HH
-#define SDL2PP_CONFIG_HH
+#include <SDL2/SDL_mixer.h>
 
-#define SDL2PP_MAJOR_VERSION @SDL2PP_MAJOR_VERSION@
-#define SDL2PP_MINOR_VERSION @SDL2PP_MINOR_VERSION@
-#define SDL2PP_PATCH_VERSION @SDL2PP_PATCH_VERSION@
+#include <SDL2pp/SDLMixer.hh>
+#include <SDL2pp/Exception.hh>
 
-#define SDL2PP_VERSION "@SDL2PP_VERSION@"
+namespace SDL2pp {
 
-#cmakedefine SDL2PP_WITH_IMAGE
-#cmakedefine SDL2PP_WITH_TTF
-#cmakedefine SDL2PP_WITH_MIXER
-#cmakedefine SDL2PP_WITH_2_0_4
-#cmakedefine SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-#cmakedefine SDL2PP_WITH_DEPRECATED
+SDLMixer::SDLMixer(int flags) {
+	if ((Mix_Init(flags) & flags) != flags)
+		throw Exception("Mix_Init");
+}
 
-#if defined(SDL2PP_WITH_DEPRECATED)
-#	define SDL2PP_DEPRECATED [[deprecated]]
-#else
-#	define SDL2PP_DEPRECATED
-#endif
+SDLMixer::~SDLMixer() {
+	// see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC10
+	while (Mix_Init(0))
+		Mix_Quit();
+}
 
-#endif
+int SDLMixer::InitMore(int flags) {
+	int ret;
+	if (((ret = Mix_Init(flags)) & flags) != flags)
+		throw Exception("Mix_Init");
+	return ret;
+}
+
+int SDLMixer::GetInitFlags() {
+	return Mix_Init(0);
+}
+
+}
