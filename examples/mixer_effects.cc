@@ -38,18 +38,16 @@ int main() try {
 
 	Chunk sound(TESTDATA_DIR "/test.ogg");
 
-	int chan;
-
 	// Panning
 	std::cerr << "Panning: left" << std::endl;
 	mixer.SetPanning(MIX_CHANNEL_POST, 255, 0);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Panning: right" << std::endl;
 	mixer.SetPanning(MIX_CHANNEL_POST, 0, 255);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
@@ -58,19 +56,19 @@ int main() try {
 	// Distance
 	std::cerr << "Distance: somewhat far" << std::endl;
 	mixer.SetDistance(MIX_CHANNEL_POST, 128);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Distance: further" << std::endl;
 	mixer.SetDistance(MIX_CHANNEL_POST, 192);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Distance: even further" << std::endl;
 	mixer.SetDistance(MIX_CHANNEL_POST, 224);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
@@ -79,25 +77,25 @@ int main() try {
 	// Position
 	std::cerr << "Position: closest left" << std::endl;
 	mixer.SetPosition(MIX_CHANNEL_POST, 270, 0);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Position: somewhat far front" << std::endl;
 	mixer.SetPosition(MIX_CHANNEL_POST, 0, 128);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Position: further right" << std::endl;
 	mixer.SetPosition(MIX_CHANNEL_POST, 90, 192);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
 	std::cerr << "Position: even further back" << std::endl;
 	mixer.SetPosition(MIX_CHANNEL_POST, 180, 224);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
@@ -107,7 +105,7 @@ int main() try {
 	std::cerr << "Reverse stereo" << std::endl;
 
 	mixer.SetReverseStereo(MIX_CHANNEL_POST);
-	chan = mixer.PlayChannel(-1, sound);
+	mixer.PlayChannel(-1, sound);
 	SDL_Delay(2000);
 	mixer.HaltChannel(-1);
 
