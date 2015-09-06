@@ -53,7 +53,8 @@ public:
 	/// Creates a Point(0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	Point();
+	constexpr Point() : SDL_Point{0, 0} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a point from existing SDL_Point
@@ -61,16 +62,18 @@ public:
 	/// \param[in] point Existing SDL_Point
 	///
 	////////////////////////////////////////////////////////////
-	Point(const SDL_Point& point);
+	constexpr Point(const SDL_Point& point) : SDL_Point{point.x, point.y} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Construct the point from given coordinates
 	///
-	/// \param[in] nx X coordinate
-	/// \param[in] ny Y coordinate
+	/// \param[in] x X coordinate
+	/// \param[in] y Y coordinate
 	///
 	////////////////////////////////////////////////////////////
-	Point(int nx, int ny);
+	constexpr Point(int x, int y) : SDL_Point{x, y} {
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy constructor
@@ -108,7 +111,9 @@ public:
 	/// \returns True if two points are identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator==(const Point& other) const;
+	constexpr bool operator==(const Point& other) const {
+		return x == other.x && y == other.y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Inequality operator
@@ -118,7 +123,9 @@ public:
 	/// \returns True if two points are not identical
 	///
 	////////////////////////////////////////////////////////////
-	bool operator!=(const Point& other) const;
+	constexpr bool operator!=(const Point& other) const {
+		return x != other.x || y != other.y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the point
@@ -126,7 +133,9 @@ public:
 	/// \returns X coordinate of the point
 	///
 	////////////////////////////////////////////////////////////
-	int GetX() const;
+	constexpr int GetX() const {
+		return x;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set X coordinate of the point
@@ -136,7 +145,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& SetX(int nx);
+	Point& SetX(int nx) {
+		x = nx;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get Y coordinate of the point
@@ -144,7 +156,9 @@ public:
 	/// \returns Y coordinate of the point
 	///
 	////////////////////////////////////////////////////////////
-	int GetY() const;
+	constexpr int GetY() const {
+		return y;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set Y coordinate of the point
@@ -154,7 +168,10 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& SetY(int ny);
+	Point& SetY(int ny) {
+		y = ny;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise negation
@@ -162,7 +179,9 @@ public:
 	/// \returns New Point representing memberwise negation
 	///
 	////////////////////////////////////////////////////////////
-	Point operator-() const;
+	constexpr Point operator-() const {
+		return Point(-x, -y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise addition with another point
@@ -172,7 +191,9 @@ public:
 	/// \returns New Point representing memberwise addition with another point
 	///
 	////////////////////////////////////////////////////////////
-	Point operator+(const Point& other) const;
+	constexpr Point operator+(const Point& other) const {
+		return Point(x + other.x, y + other.y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise subtraction with another point
@@ -182,7 +203,9 @@ public:
 	/// \returns New Point representing memberwise subtraction of another point
 	///
 	////////////////////////////////////////////////////////////
-	Point operator-(const Point& other) const;
+	constexpr Point operator-(const Point& other) const {
+		return Point(x - other.x, y - other.y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise division by an integer
@@ -193,7 +216,9 @@ public:
 	///          point by an integer
 	///
 	////////////////////////////////////////////////////////////
-	Point operator/(int value) const;
+	constexpr Point operator/(int value) const {
+		return Point(x / value, y / value);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise division by another point
@@ -204,7 +229,9 @@ public:
 	///          point by another point
 	///
 	////////////////////////////////////////////////////////////
-	Point operator/(const Point& other) const;
+	constexpr Point operator/(const Point& other) const {
+		return Point(x / other.x, y / other.y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise remainder from division
@@ -216,7 +243,9 @@ public:
 	///          from division by an integer
 	///
 	////////////////////////////////////////////////////////////
-	Point operator%(int value) const;
+	constexpr Point operator%(int value) const {
+		return Point(x % value, y % value);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise remainder from division
@@ -228,7 +257,9 @@ public:
 	///          from division by another point
 	///
 	////////////////////////////////////////////////////////////
-	Point operator%(const Point& other) const;
+	constexpr Point operator%(const Point& other) const {
+		return Point(x % other.x, y % other.y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise multiplication by an
@@ -240,7 +271,9 @@ public:
 	///          of point by an integer
 	///
 	////////////////////////////////////////////////////////////
-	Point operator*(int value) const;
+	constexpr Point operator*(int value) const {
+		return Point(x * value, y * value);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get point's memberwise multiplication by anoter
@@ -252,7 +285,9 @@ public:
 	///          of point by another point
 	///
 	////////////////////////////////////////////////////////////
-	Point operator*(const Point& other) const;
+	constexpr Point operator*(const Point& other) const {
+		return Point(x * other.x, y * other.y);
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise add another point
@@ -262,7 +297,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator+=(const Point& other);
+	Point& operator+=(const Point& other) {
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise subtract another point
@@ -272,7 +311,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator-=(const Point& other);
+	Point& operator-=(const Point& other) {
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise divide by an integer
@@ -282,17 +325,25 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator/=(int value);
+	Point& operator/=(int value) {
+		x /= value;
+		y /= value;
+		return *this;
+	}
 
-	////////////////////////////////////////////////////////////
-	/// \brief Memberwise divide by another point
+	///////////////////////////////////////////////////////////
+	/// nbrief Memberwise divide by another point
 	///
 	/// \param[in] other Divisor
 	///
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator/=(const Point& other);
+	Point& operator/=(const Point& other) {
+		x /= other.x;
+		y /= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise remainder from division by an integer
@@ -302,7 +353,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator%=(int value);
+	Point& operator%=(int value) {
+		x %= value;
+		y %= value;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise remainder from division by another
@@ -313,7 +368,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator%=(const Point& other);
+	Point& operator%=(const Point& other) {
+		x %= other.x;
+		y %= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by an integer
@@ -323,7 +382,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator*=(int value);
+	Point& operator*=(int value) {
+		x *= value;
+		y *= value;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Memberwise multiply by another point
@@ -333,7 +396,11 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	Point& operator*=(const Point& other);
+	Point& operator*=(const Point& other) {
+		x *= other.x;
+		y *= other.y;
+		return *this;
+	}
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get a point with coordinates modified so it fits
