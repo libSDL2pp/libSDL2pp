@@ -213,4 +213,8 @@ Point Surface::GetSize() const {
 	return Point(surface_->w, surface_->h);
 }
 
+Uint32 Surface::GetFormat() const {
+	return surface_->format->format;
+}
+
 }

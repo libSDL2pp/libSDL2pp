@@ -94,6 +94,24 @@ Texture& Texture::Update(const Optional<Rect>& rect, const void* pixels, int pit
 	return *this;
 }
 
+Texture& Texture::Update(const Optional<Rect>& rect, Surface& surface) {
+	Rect real_rect = rect ? *rect : Rect(0, 0, GetWidth(), GetHeight());
+
+	real_rect.w = std::min(real_rect.w, surface.GetWidth());
+	real_rect.h = std::min(real_rect.h, surface.GetHeight());
+
+	if (GetFormat() == surface.GetFormat()) {
+		Surface::LockHandle lock = surface.Lock();
+
+		return Update(real_rect, lock.GetPixels(), lock.GetPitch());
+	} else {
+		Surface converted = surface.Convert(GetFormat());
+		Surface::LockHandle lock = converted.Lock();
+
+		return Update(real_rect, lock.GetPixels(), lock.GetPitch());
+	}
+}
+
 Texture& Texture::UpdateYUV(const Optional<Rect>& rect, const Uint8* yplane, int ypitch, const Uint8* uplane, int upitch, const Uint8* vplane, int vpitch) {
 	if (SDL_UpdateYUVTexture(texture_, rect ? &*rect : nullptr, yplane, ypitch, uplane, upitch, vplane, vpitch) != 0)
 		throw Exception("SDL_UpdateYUVTexture");
