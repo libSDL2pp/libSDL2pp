@@ -99,7 +99,7 @@ Currently, the library provides wrapper classes for
   * TTF_Font (all functions covered)
 
 each with a subset of methods corresponding to SDL functions working
-with sepcific types of objects and in some cases additional convenience
+with specific types of objects and, in some cases, additional convenience
 methods. These classes support:
 
 - RAII-style initialization and destruction
