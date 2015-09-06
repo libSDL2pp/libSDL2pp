@@ -31,7 +31,7 @@ namespace SDL2pp {
 class RWops;
 
 ////////////////////////////////////////////////////////////
-/// \brief Chunk of audio data read from a .WAV file
+/// \brief %Chunk of audio data read from a .WAV file
 ///
 /// \ingroup audio
 ///

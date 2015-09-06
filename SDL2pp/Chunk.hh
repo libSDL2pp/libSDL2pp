@@ -31,7 +31,7 @@ namespace SDL2pp {
 class RWops;
 
 ////////////////////////////////////////////////////////////
-/// \brief Chunk of audio data
+/// \brief Fragment of audio data
 ///
 /// \ingroup mixer
 ///
