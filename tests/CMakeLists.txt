@@ -6,10 +6,9 @@ SET(CLI_TESTS
 	test_error
 )
 
-# tests which test graphics functionality and thus requre working
-# and OpenGL-enabled X11 display
-SET(GUI_TESTS
-	gui_rendering
+# live tests require X11 display and/or audio output
+SET(LIVE_TESTS
+	live_rendering
 )
 
 # disable self-move warning: it's deliberately used in tests
@@ -36,10 +35,10 @@ FOREACH(TEST ${CLI_TESTS})
 	ADD_TEST(${TEST} ${TEST})
 ENDFOREACH(TEST ${TESTS})
 
-FOREACH(TEST ${GUI_TESTS})
+FOREACH(TEST ${LIVE_TESTS})
 	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
 	TARGET_LINK_LIBRARIES(${TEST} SDL2pp)
-	IF(SDL2PP_ENABLE_GUI_TEST)
+	IF(SDL2PP_ENABLE_LIVE_TESTS)
 		ADD_TEST(${TEST} ${TEST})
-	ENDIF(SDL2PP_ENABLE_GUI_TEST)
+	ENDIF(SDL2PP_ENABLE_LIVE_TESTS)
 ENDFOREACH(TEST ${TESTS})

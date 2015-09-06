@@ -202,7 +202,7 @@ IF(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	# examples and tests
 	OPTION(SDL2PP_WITH_EXAMPLES "Build examples" ON)
 	OPTION(SDL2PP_WITH_TESTS "Build tests" ON)
-	OPTION(SDL2PP_ENABLE_GUI_TEST "Enable GUI test (requires X11 display)" ON)
+	OPTION(SDL2PP_ENABLE_LIVE_TESTS "Enable live tests (require X11 display and audio device)" ON)
 
 	IF(SDL2PP_WITH_EXAMPLES)
 		ADD_SUBDIRECTORY(examples)
