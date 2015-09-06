@@ -61,8 +61,12 @@ Mix_Chunk* Chunk::Get() const {
 	return chunk_;
 }
 
-int Chunk::Volume(int volume) {
+int Chunk::SetVolume(int volume) {
 	return Mix_VolumeChunk(chunk_, volume);
+}
+
+int Chunk::GetVolume() const {
+	return Mix_VolumeChunk(chunk_, -1);
 }
 
 }

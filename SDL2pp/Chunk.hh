@@ -142,7 +142,17 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC23
 	///
 	////////////////////////////////////////////////////////////
-	int Volume(int volume);
+	int SetVolume(int volume);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get volume of a chunk
+	///
+	/// \returns Current volume setting
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC23
+	///
+	////////////////////////////////////////////////////////////
+	int GetVolume() const;
 };
 
 }
