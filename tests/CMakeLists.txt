@@ -11,6 +11,10 @@ SET(LIVE_TESTS
 	live_rendering
 )
 
+IF(SDL2PP_WITH_MIXER)
+	SET(LIVE_TESTS ${LIVE_TESTS} live_mixer)
+ENDIF(SDL2PP_WITH_MIXER)
+
 # disable self-move warning: it's deliberately used in tests
 INCLUDE(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-Wno-self-move" COMPILER_SUPPORTS_WNOSELFMOVE)
