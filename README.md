@@ -229,6 +229,11 @@ Projects using libSDL2pp:
 * [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
 * [planetonomy](https://github.com/AMDmi3/planetonomy) - Old-school platformer/exploration game with CGA graphics
 
+## WWW ##
+
+* [GitHub page](https://github.com/AMDmi3/libSDL2pp)
+* [Online documentation](http://sdl2pp.amdmi3.ru/)
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru>
