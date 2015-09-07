@@ -115,17 +115,22 @@ each with a subset of methods corresponding to SDL functions working
 with specific types of objects and, in some cases, additional convenience
 methods. These classes support:
 
-- RAII-style initialization and destruction
-- Total error checking: exceptions are thrown if any SDL function fails.
-  Exception itself allows retrieval of SDL error string
-- C++11 move semantics support, which allow you to store SDL objects
-  in containers and pass/return them by value with no overhead
+* RAII-style initialization and destruction, automatic resource lifetime
+  control (you no longer need to care of manually freeing your stuff)
+* Total error checking: exceptions are thrown if any SDL function fails.
+  Exception itself allows retrieval of SDL error string (you no longer
+  need to manually check return code after each function call)
+* Method overloading, default arguments, method chaining allow shorter
+  and cleaner code
+* C++11 move semantics support, which allow you to store SDL objects
+  in containers and pass/return them by value without noticeable overhead
 
-Set of functional exensions above SDL2 is also available:
+Set of functional extensions above SDL2 is also available:
 
 * RWops adapters for C++ containers and streams
 * Optional object to safely handle values which may not be present,
   (for which SDL2 usually uses NULL pointers)
+* Number of additional methods and operator support for Point and Rect
 
 ## Building ##
 
