@@ -33,6 +33,7 @@ tests/live_rendering
 tests/test_error
 tests/test_optional
 tests/test_pointrect
+tests/test_pointrect_constexpr
 tests/test_rwops
 
 # Generated tests
