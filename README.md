@@ -152,7 +152,7 @@ Following variables may be supplied to CMake to affect build:
 * ```SDL2PP_CXXSTD``` - override C++ standard (default C++11). With C++1y some additional features are enabled such as usage of [[deprecated]] attribute and using stock experimental/optional from C++ standard library
 * ```SDL2PP_WITH_EXAMPLES``` - enable building example programs (only for standalone build, default ON)
 * ```SDL2PP_WITH_TESTS``` - enable building tests (only for standalone build, default ON)
-* ```SDL2PP_ENABLE_GUI_TEST``` - enable tests which require X11 to run (only for standalone build, default ON)
+* ```SDL2PP_ENABLE_LIVE_TESTS``` - enable tests which require X11 and/or audio device to run (only for standalone build, default ON)
 * ```SDL2PP_WITH_2_0_4``` - enable experimental features available since SDL 2.0.4 (default OFF). These were not tested and may not even compile.
 
 ## Installation ##
