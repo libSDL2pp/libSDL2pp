@@ -32,6 +32,10 @@
 #include <SDL2pp/Texture.hh>
 #include <SDL2pp/Surface.hh>
 
+#if !defined(M_PI)
+#define M_PI 3.14159265358979323846f
+#endif
+
 using namespace SDL2pp;
 
 int Run() {
