@@ -32,11 +32,9 @@
 #include <SDL2pp/Texture.hh>
 #include <SDL2pp/Surface.hh>
 
-#if !defined(M_PI)
-#define M_PI 3.14159265358979323846f
-#endif
-
 using namespace SDL2pp;
+
+static const float pi = 3.14159265358979323846f;
 
 int Run() {
 	SDL sdl(SDL_INIT_VIDEO);
@@ -63,8 +61,8 @@ int Run() {
 		render.Clear();
 
 		// Fill
-		float dx = sin(SDL_GetTicks() / 5000.0 * M_PI) * 32;
-		float dy = cos(SDL_GetTicks() / 10000.0 * M_PI) * 32;
+		float dx = sin(SDL_GetTicks() / 5000.0f * pi) * 32.0f;
+		float dy = cos(SDL_GetTicks() / 10000.0f * pi) * 32.0f;
 
 		render.FillCopy(sprite, NullOpt, Rect(32, 32, window.GetWidth() - 64, window.GetHeight() - 64), SDL2pp::Point(dx, dy), SDL_FLIP_HORIZONTAL);
 
