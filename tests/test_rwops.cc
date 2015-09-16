@@ -117,46 +117,50 @@ BEGIN_TEST()
 
 	// Short test for ContainerRWops
 	{
-		const std::vector<char> buffer = { 'a', 'b', 'c', 'd' };
-
-		RWops rw((ContainerRWops<const std::vector<char>>(buffer)));
-
 		{
-			// Read via C++
-			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
+			const std::vector<char> buffer = { 'a', 'b', 'c', 'd' };
 
-			char buf[4] = {0};
-			EXPECT_TRUE(rw.Read(buf, 1, 4) == 4);
-			EXPECT_TRUE(buf[0] == 'a' && buf[3] == 'd');
+			RWops rw((ContainerRWops<const std::vector<char>>(buffer)));
 
-			// Position after read
-			EXPECT_TRUE(rw.Tell() == 4);
+			{
+				// Read via C++
+				EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
+
+				char buf[4] = {0};
+				EXPECT_TRUE(rw.Read(buf, 1, 4) == 4);
+				EXPECT_TRUE(buf[0] == 'a' && buf[3] == 'd');
+
+				// Position after read
+				EXPECT_TRUE(rw.Tell() == 4);
+			}
+
+			{
+				// Write to const container fails
+				char buf[4] = {0};
+
+				EXPECT_TRUE(rw.Write(buf, 1, 4) == 0);
+				EXPECT_TRUE(rw.Write(buf, 4, 1) == 0);
+			}
 		}
 
 		{
-			// Write to const container fails
-			char buf[4] = {0};
-
-			EXPECT_TRUE(rw.Write(buf, 1, 4) == 0);
-			EXPECT_TRUE(rw.Write(buf, 4, 1) == 0);
-		}
-
-		{
-			// Write to non-const container
 			std::vector<char> vec;
 
 			RWops rw((ContainerRWops<std::vector<char>>(vec)));
 
-			char buf[4] = {'a', 'b', 'c', 'd'};
+			{
+				// Write to non-const container
+				char buf[4] = {'a', 'b', 'c', 'd'};
 
-			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
-			EXPECT_TRUE(rw.Write(buf, 4, 1) == 1);
+				EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+				EXPECT_TRUE(rw.Write(buf, 4, 1) == 1);
 
-			EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
-			EXPECT_TRUE(rw.Write(buf, 2, 2) == 2);
+				EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
+				EXPECT_TRUE(rw.Write(buf, 2, 2) == 2);
 
-			EXPECT_TRUE(vec.size() == 8);
-			EXPECT_TRUE(std::string(vec.data(), 8) == "ababcdcd");
+				EXPECT_TRUE(vec.size() == 8);
+				EXPECT_TRUE(std::string(vec.data(), 8) == "ababcdcd");
+			}
 		}
 	}
 
