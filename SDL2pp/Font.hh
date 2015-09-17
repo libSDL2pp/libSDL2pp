@@ -362,7 +362,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC33
 	///
 	////////////////////////////////////////////////////////////
-	int GetNumFaces() const;
+	long GetNumFaces() const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Test if the current font face of the loaded font is a fixed width font

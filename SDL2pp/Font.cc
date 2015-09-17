@@ -118,7 +118,7 @@ int Font::GetLineSkip() const {
 	return TTF_FontLineSkip(font_);
 }
 
-int Font::GetNumFaces() const {
+long Font::GetNumFaces() const {
 	return TTF_FontFaces(font_);
 }
 
