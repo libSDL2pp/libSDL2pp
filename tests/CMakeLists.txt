@@ -17,8 +17,8 @@ IF(SDL2PP_WITH_MIXER)
 ENDIF(SDL2PP_WITH_MIXER)
 
 # disable self-move warning: it's deliberately used in tests
-INCLUDE(EnableCXXFlagIfSupported)
-ENABLE_CXX_FLAG_IF_SUPPORTED(-Wno-self-move)
+INCLUDE(AppendCXXFlagIfSupported)
+APPEND_CXX_FLAG_IF_SUPPORTED(-Wno-self-move CMAKE_CXX_FLAGS)
 
 ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
