@@ -115,7 +115,7 @@ Window& Window::Show() {
 	return *this;
 }
 
-Window& Window::SetFullscreen(int flags) {
+Window& Window::SetFullscreen(Uint32 flags) {
 	if (SDL_SetWindowFullscreen(window_, flags) != 0)
 		throw Exception("SDL_SetWindowFullscreen");
 	return *this;

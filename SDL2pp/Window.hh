@@ -267,7 +267,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetWindowFullscreen
 	///
 	////////////////////////////////////////////////////////////
-	Window& SetFullscreen(int flags);
+	Window& SetFullscreen(Uint32 flags);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area

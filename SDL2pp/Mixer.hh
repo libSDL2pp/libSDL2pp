@@ -687,7 +687,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC80
 	///
 	////////////////////////////////////////////////////////////
-	void SetPanning(int channel, int left, int right);
+	void SetPanning(int channel, Uint8 left, Uint8 right);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Disable stereo panning
@@ -715,7 +715,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC81
 	///
 	////////////////////////////////////////////////////////////
-	void SetDistance(int channel, int distance);
+	void SetDistance(int channel, Uint8 distance);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Disable distance attenuation
@@ -747,7 +747,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC82
 	///
 	////////////////////////////////////////////////////////////
-	void SetPosition(int channel, int angle, int distance);
+	void SetPosition(int channel, Sint16 angle, Uint8 distance);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Disable panning and distance

@@ -242,7 +242,7 @@ void Mixer::SetMusicHook(MusicHook&& hook) {
 	}, current_music_hook_.get());
 }
 
-void Mixer::SetPanning(int channel, int left, int right) {
+void Mixer::SetPanning(int channel, Uint8 left, Uint8 right) {
 	if (Mix_SetPanning(channel, left, right) == 0)
 		throw Exception("Mix_SetPanning");
 }
@@ -252,7 +252,7 @@ void Mixer::UnsetPanning(int channel) {
 		throw Exception("Mix_SetPanning");
 }
 
-void Mixer::SetDistance(int channel, int distance) {
+void Mixer::SetDistance(int channel, Uint8 distance) {
 	if (Mix_SetDistance(channel, distance) == 0)
 		throw Exception("Mix_SetDistance");
 }
@@ -262,7 +262,7 @@ void Mixer::UnsetDistance(int channel) {
 		throw Exception("Mix_SetDistance");
 }
 
-void Mixer::SetPosition(int channel, int angle, int distance) {
+void Mixer::SetPosition(int channel, Sint16 angle, Uint8 distance) {
 	if (Mix_SetPosition(channel, angle, distance) == 0)
 		throw Exception("Mix_SetPosition");
 }
