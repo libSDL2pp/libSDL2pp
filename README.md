@@ -7,7 +7,7 @@ This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
 ## Synopsis ##
 
-```c++
+```cpp
 try {
   using namespace SDL2pp;
 
