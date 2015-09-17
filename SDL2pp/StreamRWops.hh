@@ -93,8 +93,10 @@ private:
 			size_t count = nread % size;
 
 			// put partially read object back into the stream
-			while (--count >= 0)
+			while (count != 0) {
 				stream_.putback(*--pos);
+				--count;
+			}
 		}
 
 		return nread / size;
