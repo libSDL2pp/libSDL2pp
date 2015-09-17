@@ -231,11 +231,11 @@ Renderer& Renderer::DrawPoint(const Point& p) {
 
 Renderer& Renderer::DrawPoints(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
-	sdl_points.reserve(count);
+	sdl_points.reserve(static_cast<size_t>(count));
 	for (const Point* p = points; p != points + count; ++p)
 		sdl_points.emplace_back(*p);
 
-	if (SDL_RenderDrawPoints(renderer_, sdl_points.data(), sdl_points.size()) != 0)
+	if (SDL_RenderDrawPoints(renderer_, sdl_points.data(), count) != 0)
 		throw Exception("SDL_RenderDrawPoints");
 
 	return *this;
@@ -254,11 +254,11 @@ Renderer& Renderer::DrawLine(const Point& p1, const Point& p2) {
 
 Renderer& Renderer::DrawLines(const Point* points, int count) {
 	std::vector<SDL_Point> sdl_points;
-	sdl_points.reserve(count);
+	sdl_points.reserve(static_cast<size_t>(count));
 	for (const Point* p = points; p != points + count; ++p)
 		sdl_points.emplace_back(*p);
 
-	if (SDL_RenderDrawLines(renderer_, sdl_points.data(), sdl_points.size()) != 0)
+	if (SDL_RenderDrawLines(renderer_, sdl_points.data(), count) != 0)
 		throw Exception("SDL_RenderDrawLines");
 
 	return *this;
@@ -284,11 +284,11 @@ Renderer& Renderer::DrawRect(const Rect& r) {
 
 Renderer& Renderer::DrawRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
-	sdl_rects.reserve(count);
+	sdl_rects.reserve(static_cast<size_t>(count));
 	for (const Rect* r = rects; r != rects + count; ++r)
 		sdl_rects.emplace_back(*r);
 
-	if (SDL_RenderDrawRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
+	if (SDL_RenderDrawRects(renderer_, sdl_rects.data(), count) != 0)
 		throw Exception("SDL_RenderDrawRects");
 
 	return *this;
@@ -314,11 +314,11 @@ Renderer& Renderer::FillRect(const Rect& r) {
 
 Renderer& Renderer::FillRects(const Rect* rects, int count) {
 	std::vector<SDL_Rect> sdl_rects;
-	sdl_rects.reserve(count);
+	sdl_rects.reserve(static_cast<size_t>(count));
 	for (const Rect* r = rects; r != rects + count; ++r)
 		sdl_rects.emplace_back(*r);
 
-	if (SDL_RenderFillRects(renderer_, sdl_rects.data(), sdl_rects.size()) != 0)
+	if (SDL_RenderFillRects(renderer_, sdl_rects.data(), count) != 0)
 		throw Exception("SDL_RenderFillRects");
 
 	return *this;

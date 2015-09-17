@@ -192,11 +192,11 @@ Surface& Surface::FillRect(const Optional<Rect>& rect, Uint32 color) {
 
 Surface& Surface::FillRects(const Rect* rects, int count, Uint32 color) {
 	std::vector<SDL_Rect> sdl_rects;
-	sdl_rects.reserve(count);
+	sdl_rects.reserve(static_cast<size_t>(count));
 	for (const Rect* r = rects; r != rects + count; ++r)
 		sdl_rects.emplace_back(*r);
 
-	if (SDL_FillRects(surface_, sdl_rects.data(), sdl_rects.size(), color) != 0)
+	if (SDL_FillRects(surface_, sdl_rects.data(), count, color) != 0)
 		throw Exception("SDL_FillRects");
 	return *this;
 }

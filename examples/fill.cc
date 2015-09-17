@@ -61,10 +61,10 @@ static int Run() {
 		render.Clear();
 
 		// Fill
-		float dx = sin(SDL_GetTicks() / 5000.0f * pi) * 32.0f;
-		float dy = cos(SDL_GetTicks() / 10000.0f * pi) * 32.0f;
+		float dx = std::sin(SDL_GetTicks() / 5000.0f * pi) * 32.0f;
+		float dy = std::cos(SDL_GetTicks() / 10000.0f * pi) * 32.0f;
 
-		render.FillCopy(sprite, NullOpt, Rect(32, 32, window.GetWidth() - 64, window.GetHeight() - 64), SDL2pp::Point(dx, dy), SDL_FLIP_HORIZONTAL);
+		render.FillCopy(sprite, NullOpt, Rect(32, 32, window.GetWidth() - 64, window.GetHeight() - 64), SDL2pp::Point((int)dx, (int)dy), SDL_FLIP_HORIZONTAL);
 
 		render.Present();
 
