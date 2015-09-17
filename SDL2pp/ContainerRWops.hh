@@ -128,7 +128,7 @@ public:
 		if (position_ + size > container_.size())
 			return 0;
 
-		int toread = std::min((container_.size() - position_), maxnum * size);
+		size_t toread = std::min((container_.size() - position_), maxnum * size);
 
 		std::copy(container_.begin() + position_, container_.begin() + position_ + toread, reinterpret_cast<unsigned char*>(ptr));
 

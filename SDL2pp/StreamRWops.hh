@@ -90,7 +90,7 @@ private:
 			char* pos = static_cast<char*>(ptr);
 			pos += nread;
 
-			int count = nread % size;
+			size_t count = nread % size;
 
 			// put partially read object back into the stream
 			while (--count >= 0)

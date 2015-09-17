@@ -46,7 +46,7 @@ int main() try {
 				while (stream_pos < stream_end) {
 					Uint8* wav_end = wav.GetBuffer() + wav.GetLength();
 
-					int copylen = std::min(wav_end - wav_pos, stream_end - stream_pos);
+					size_t copylen = std::min(wav_end - wav_pos, stream_end - stream_pos);
 
 					std::copy(wav_pos, wav_pos + copylen, stream_pos);
 					stream_pos += copylen;
