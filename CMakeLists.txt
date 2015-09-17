@@ -116,16 +116,12 @@ SET(LIBRARY_SOURCES
 	SDL2pp/AudioDevice.cc
 	SDL2pp/AudioLock.cc
 	SDL2pp/AudioSpec.cc
-	SDL2pp/Chunk.cc
 	SDL2pp/Exception.cc
-	SDL2pp/Mixer.cc
-	SDL2pp/Music.cc
 	SDL2pp/Point.cc
 	SDL2pp/RWops.cc
 	SDL2pp/Rect.cc
 	SDL2pp/Renderer.cc
 	SDL2pp/SDL.cc
-	SDL2pp/SDLMixer.cc
 	SDL2pp/Surface.cc
 	SDL2pp/SurfaceLock.cc
 	SDL2pp/Texture.cc
@@ -137,11 +133,8 @@ SET(LIBRARY_SOURCES
 SET(LIBRARY_HEADERS
 	SDL2pp/AudioDevice.hh
 	SDL2pp/AudioSpec.hh
-	SDL2pp/Chunk.hh
 	SDL2pp/ContainerRWops.hh
 	SDL2pp/Exception.hh
-	SDL2pp/Mixer.hh
-	SDL2pp/Music.hh
 	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
 	SDL2pp/RWops.hh
@@ -149,7 +142,6 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Renderer.hh
 	SDL2pp/SDL.hh
 	SDL2pp/SDL2pp.hh
-	SDL2pp/SDLMixer.hh
 	SDL2pp/StreamRWops.hh
 	SDL2pp/Surface.hh
 	SDL2pp/Texture.hh
@@ -189,9 +181,17 @@ ENDIF(SDL2PP_WITH_IMAGE)
 IF(SDL2PP_WITH_MIXER)
 	SET(LIBRARY_SOURCES
 		${LIBRARY_SOURCES}
+		SDL2pp/Chunk.cc
+		SDL2pp/Mixer.cc
+		SDL2pp/Music.cc
+		SDL2pp/SDLMixer.cc
 	)
 	SET(LIBRARY_HEADERS
 		${LIBRARY_HEADERS}
+		SDL2pp/Chunk.hh
+		SDL2pp/Mixer.hh
+		SDL2pp/Music.hh
+		SDL2pp/SDLMixer.hh
 	)
 ENDIF(SDL2PP_WITH_MIXER)
 
