@@ -80,13 +80,13 @@ INCLUDE_DIRECTORIES(SYSTEM ${SDL2_ALL_INCLUDE_DIRS})
 INCLUDE(CheckCompile)
 CHECK_COMPILE(
 	SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-	${PROJECT_SOURCE_DIR}/cmake/std_experimental_optional_test.cc
-	"Checking for experimental/optional header"
+	"#include <experimental/optional>\nint main() { std::experimental::optional<int> o; return !o; }"
+	"experimental/optional header"
 )
 CHECK_COMPILE(
 	SDL2PP_WITH_DEPRECATED
-	${PROJECT_SOURCE_DIR}/cmake/attribute_deprecated_test.cc
-	"Checking for [[deprecated]] attribute"
+	"[[deprecated]]\nstatic void f() {} int main() { return 0; }"
+	"[[deprecated]] attribute"
 )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL2PP_WARNINGS}")
