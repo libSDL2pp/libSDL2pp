@@ -49,6 +49,10 @@ private:
 	TTF_Font* font_; ///< Managed TTF_Font object
 
 public:
+
+	///@{
+	/// \name Construction and destruction
+
 	////////////////////////////////////////////////////////////
 	/// \brief Construct from existing TTF_Font structure
 	///
@@ -95,6 +99,11 @@ public:
 	////////////////////////////////////////////////////////////
 	virtual ~Font();
 
+	///@}
+
+	///@{
+	/// \name Copy and move
+
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
 	///
@@ -129,6 +138,11 @@ public:
 	////////////////////////////////////////////////////////////
 	Font& operator=(const Font&) = delete;
 
+	///@}
+
+	///@{
+	/// \name Compatibility with legacy SDL code
+
 	////////////////////////////////////////////////////////////
 	/// \brief Get pointer to managed TTF_Font structure
 	///
@@ -138,7 +152,7 @@ public:
 	TTF_Font* Get() const;
 
 	///@{
-	/// \name Attributes
+	/// \name Attributes: font style
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the rendering style of the loaded font
@@ -214,6 +228,11 @@ public:
 	////////////////////////////////////////////////////////////
 	Font& SetOutline(int outline = 0);
 
+	///@}
+
+	///@{
+	/// \name Attributes: font settings
+
 	////////////////////////////////////////////////////////////
 	/// \brief Get the current hinting setting of the loaded font
 	///
@@ -279,6 +298,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Font& SetKerning(bool allowed = true);
+
+	///@}
+
+	///@{
+	/// \name Attributes: font metrics
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the maximum pixel height of all glyphs of the loaded font
@@ -349,6 +373,11 @@ public:
 	////////////////////////////////////////////////////////////
 	int GetLineSkip() const;
 
+	///@}
+
+	///@{
+	/// \name Attributes: face attributes
+
 	////////////////////////////////////////////////////////////
 	/// \brief Get the number of faces ("sub-fonts") available in the loaded font
 	///
@@ -406,6 +435,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Optional<std::string> GetStyleName() const;
+
+	///@}
+
+	///@{
+	/// \name Attributes: glyphs
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the status of the availability of the glyph from the loaded font
@@ -466,6 +500,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	int GetGlyphAdvance(Uint16 ch) const;
+
+	///@}
+
+	///@{
+	/// \name Attributes: text metrics
 
 	////////////////////////////////////////////////////////////
 	/// \brief Calculate the resulting surface size of the LATIN1 encoded text rendered using font
@@ -542,7 +581,7 @@ public:
 	///@}
 
 	///@{
-	/// \name Rendering
+	/// \name Rendering: solid
 
 	////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using solid mode
@@ -618,6 +657,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderGlyph_Solid(Uint16 ch, SDL_Color fg);
+
+	///@}
+
+	///@{
+	/// \name Rendering: shaded
 
 	////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using shaded mode
@@ -698,6 +742,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface RenderGlyph_Shaded(Uint16 ch, SDL_Color fg, SDL_Color bg);
+
+	///@}
+
+	///@{
+	/// \name Rendering: blended
 
 	////////////////////////////////////////////////////////////
 	/// \brief Render LATIN1 text using blended mode
