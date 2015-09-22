@@ -20,6 +20,7 @@
 */
 
 #include <utility>
+#include <algorithm>
 
 #include <SDL2pp/Config.hh>
 
