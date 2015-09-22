@@ -58,6 +58,10 @@ private:
 	std::unique_ptr<MusicHook> current_music_hook_;
 
 public:
+
+	///@{
+	/// \name Construction and destruction
+
 	////////////////////////////////////////////////////////////
 	/// \brief Construct a mixer and open an audio device
 	///
@@ -85,6 +89,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	~Mixer();
+
+	///@}
+
+	///@{
+	/// \name Copy and move
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
@@ -120,8 +129,10 @@ public:
 	////////////////////////////////////////////////////////////
 	Mixer& operator=(const Mixer& other) = delete;
 
+	///@}
+
 	///@{
-	/// \name Channels
+	/// \name Channels: setup
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the number of channels to mix
@@ -174,6 +185,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	int GetVolume(int channel) const;
+
+	///@}
+
+	///@{
+	/// \name Channels: playing
 
 	////////////////////////////////////////////////////////////
 	/// \brief Play loop
@@ -259,6 +275,11 @@ public:
 	////////////////////////////////////////////////////////////
 	int FadeInChannel(int channel, const Chunk& chunk, int loops, int ms, int ticks);
 
+	///@}
+
+	///@{
+	/// \name Channels: pausing
+
 	////////////////////////////////////////////////////////////
 	/// \brief Pause a channel
 	///
@@ -278,6 +299,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void ResumeChannel(int channel = -1);
+
+	///@}
+
+	///@{
+	/// \name Channels: stopping
 
 	////////////////////////////////////////////////////////////
 	/// \brief Stop playing on a channel
@@ -331,6 +357,11 @@ public:
 	////////////////////////////////////////////////////////////
 	void SetChannelFinishedHandler(ChannelFinishedHandler channel_finished);
 
+	///@}
+
+	///@{
+	/// \name Channels: info
+
 	////////////////////////////////////////////////////////////
 	/// \brief Get the active playing status of a channel
 	///
@@ -378,7 +409,7 @@ public:
 	///@}
 
 	///@{
-	/// \name Groups
+	/// \name Groups: setup
 
 	////////////////////////////////////////////////////////////
 	/// \brief Prevent channels from being used in default group
@@ -426,6 +457,11 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void GroupChannels(int from, int to, int tag);
+
+	///@}
+
+	///@{
+	/// \name Groups: info
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get number of channels in group
@@ -478,6 +514,11 @@ public:
 	////////////////////////////////////////////////////////////
 	int GetGroupNewestChannel(int tag) const;
 
+	///@}
+
+	///@{
+	/// \name Groups: stopping
+
 	////////////////////////////////////////////////////////////
 	/// \brief Fade out a group over time
 	///
@@ -505,7 +546,7 @@ public:
 	///@}
 
 	///@{
-	/// \name Music
+	/// \name Music: playing
 
 	////////////////////////////////////////////////////////////
 	/// \brief Play music
@@ -533,6 +574,21 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void FadeInMusic(const Music& music, int loops = -1, int ms = 0);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Hook for a custom music player
+	///
+	/// \param[in] hook Music player mixer function
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC60
+	///
+	////////////////////////////////////////////////////////////
+	void SetMusicHook(MusicHook&& hook);
+
+	///@}
+
+	///@{
+	/// \name Music: settings
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set music volume
@@ -590,6 +646,11 @@ public:
 	////////////////////////////////////////////////////////////
 	void SetMusicPosition(double position);
 
+	///@}
+
+	///@{
+	/// \name Music: stopping
+
 	////////////////////////////////////////////////////////////
 	/// \brief Stop music playback
 	///
@@ -610,6 +671,25 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	bool FadeOutMusic(int ms);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set a callback for when music stops
+	///
+	/// \param[in] music_finished Function to call when music stops
+	///
+	/// \note Since Mix_HookMusicFinished  doesn't take any custom data
+	///       pointer, unfortunately there's no safe way of using
+	///       std::function here.
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC69
+	///
+	////////////////////////////////////////////////////////////
+	void SetMusicFinishedHandler(MusicFinishedHandler music_finished);
+
+	///@}
+
+	///@{
+	/// \name Music: info
 
 	////////////////////////////////////////////////////////////
 	/// \brief Test whether music is playing
@@ -640,30 +720,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Mix_Fading GetMusicFading() const;
-
-	////////////////////////////////////////////////////////////
-	/// \brief Set a callback for when music stops
-	///
-	/// \param[in] music_finished Function to call when music stops
-	///
-	/// \note Since Mix_HookMusicFinished  doesn't take any custom data
-	///       pointer, unfortunately there's no safe way of using
-	///       std::function here.
-	///
-	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC69
-	///
-	////////////////////////////////////////////////////////////
-	void SetMusicFinishedHandler(MusicFinishedHandler music_finished);
-
-	////////////////////////////////////////////////////////////
-	/// \brief Hook for a custom music player
-	///
-	/// \param[in] hook Music player mixer function
-	///
-	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC60
-	///
-	////////////////////////////////////////////////////////////
-	void SetMusicHook(MusicHook&& hook);
 
 	///@}
 
