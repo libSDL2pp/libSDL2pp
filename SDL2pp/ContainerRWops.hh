@@ -97,13 +97,13 @@ public:
 	virtual Sint64 Seek(Sint64 offset, int whence) override {
 		switch (whence) {
 		case RW_SEEK_SET:
-			position_ = offset;
+			position_ = static_cast<size_t>(offset);
 			break;
 		case RW_SEEK_CUR:
-			position_ = position_ + offset;
+			position_ = static_cast<size_t>(position_ + offset);
 			break;
 		case RW_SEEK_END:
-			position_ = container_.size() + offset;
+			position_ = static_cast<size_t>(container_.size() + offset);
 			break;
 		default:
 			throw std::logic_error("Unexpected whence value for ContainerRWops::Seek");
