@@ -76,6 +76,24 @@ int Window::GetHeight() const {
 	return h;
 }
 
+Point Window::GetDrawableSize() const {
+	int w, h;
+	SDL_GL_GetDrawableSize(window_, &w, &h);
+	return Point(w, h);
+}
+
+int Window::GetDrawableWidth() const {
+	int w, h;
+	SDL_GL_GetDrawableSize(window_, &w, &h);
+	return w;
+}
+
+int Window::GetDrawableHeight() const {
+	int w, h;
+	SDL_GL_GetDrawableSize(window_, &w, &h);
+	return h;
+}
+
 Window& Window::SetTitle(const std::string& title) {
 	SDL_SetWindowTitle(window_, title.c_str());
 	return *this;
