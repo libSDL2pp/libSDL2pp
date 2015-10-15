@@ -65,14 +65,14 @@ Point Window::GetSize() const {
 }
 
 int Window::GetWidth() const {
-	int w, h;
-	SDL_GetWindowSize(window_, &w, &h);
+	int w;
+	SDL_GetWindowSize(window_, &w, nullptr);
 	return w;
 }
 
 int Window::GetHeight() const {
-	int w, h;
-	SDL_GetWindowSize(window_, &w, &h);
+	int h;
+	SDL_GetWindowSize(window_, nullptr, &h);
 	return h;
 }
 
@@ -83,14 +83,14 @@ Point Window::GetDrawableSize() const {
 }
 
 int Window::GetDrawableWidth() const {
-	int w, h;
-	SDL_GL_GetDrawableSize(window_, &w, &h);
+	int w;
+	SDL_GL_GetDrawableSize(window_, &w, nullptr);
 	return w;
 }
 
 int Window::GetDrawableHeight() const {
-	int w, h;
-	SDL_GL_GetDrawableSize(window_, &w, &h);
+	int h;
+	SDL_GL_GetDrawableSize(window_, nullptr, &h);
 	return h;
 }
 
