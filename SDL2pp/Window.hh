@@ -177,7 +177,7 @@ public:
 	/// \brief Get drawable dimensions of the window
 	///
 	/// \returns SDL2pp::Point representing dimensions (width and
-	///          height) of the window in pixels
+	///          height) of the window drawable area in pixels
 	///
 	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
 	///
@@ -187,7 +187,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get drawable width of the window
 	///
-	/// \returns Width of the window in pixels
+	/// \returns Width of the window drawable area in pixels
 	///
 	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
 	///
@@ -197,7 +197,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get drawable height of the window
 	///
-	/// \returns Height of the window in pixels
+	/// \returns Height of the window drawable area in pixels
 	///
 	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
 	///
