@@ -174,6 +174,37 @@ public:
 	int GetHeight() const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get drawable dimensions of the window
+	///
+	/// \returns SDL2pp::Point representing dimensions (width and
+	///          height) of the window drawable area in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
+	///
+	////////////////////////////////////////////////////////////
+	Point GetDrawableSize() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get drawable width of the window
+	///
+	/// \returns Width of the window drawable area in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
+	///
+	////////////////////////////////////////////////////////////
+	int GetDrawableWidth() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get drawable height of the window
+	///
+	/// \returns Height of the window drawable area in pixels
+	///
+	/// \see http://wiki.libsdl.org/SDL_GL_GetDrawableSize
+	///
+	////////////////////////////////////////////////////////////
+	int GetDrawableHeight() const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Set window title
 	///
 	/// \param[in] title New window title in UTF-8 encoding
