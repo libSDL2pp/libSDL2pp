@@ -550,15 +550,19 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
 namespace std {
 
 ////////////////////////////////////////////////////////////
-/// \brief Hash function for SDL2pp::Rect
-///
-/// \param[in] r Input Rect
-///
-/// \returns Hash value
+/// \brief std::hash specialization for SDL2pp::Rect
 ///
 ////////////////////////////////////////////////////////////
 template<>
 struct hash<SDL2pp::Rect> {
+	////////////////////////////////////////////////////////////
+	/// \brief Hash function for SDL2pp::Rect
+	///
+	/// \param[in] r Input Rect
+	///
+	/// \returns Hash value
+	///
+	////////////////////////////////////////////////////////////
 	size_t operator()(const SDL2pp::Rect& r) const {
 		size_t seed = std::hash<int>()(r.x);
 		seed ^= std::hash<int>()(r.y) + 0x9e3779b9 + (seed<<6) + (seed>>2);
