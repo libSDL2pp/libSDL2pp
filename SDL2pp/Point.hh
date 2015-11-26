@@ -104,30 +104,6 @@ public:
 	Point& operator=(Point&&) noexcept = default;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Equality operator
-	///
-	/// \param[in] other Point to compare to
-	///
-	/// \returns True if two points are identical
-	///
-	////////////////////////////////////////////////////////////
-	constexpr bool operator==(const Point& other) const {
-		return x == other.x && y == other.y;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \brief Inequality operator
-	///
-	/// \param[in] other Point to compare to
-	///
-	/// \returns True if two points are not identical
-	///
-	////////////////////////////////////////////////////////////
-	constexpr bool operator!=(const Point& other) const {
-		return x != other.x || y != other.y;
-	}
-
-	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the point
 	///
 	/// \returns X coordinate of the point
@@ -448,6 +424,43 @@ public:
 }
 
 ////////////////////////////////////////////////////////////
+/// \brief Equality operator for SDL2pp::Point
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if two points are identical
+///
+////////////////////////////////////////////////////////////
+constexpr bool operator==(const SDL2pp::Point&a, const SDL2pp::Point& b) {
+	return a.x == b.x && a.y == b.y;
+}
+
+////////////////////////////////////////////////////////////
+/// \brief Inequality operator for SDL2pp::Point
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if two points are not identical
+///
+////////////////////////////////////////////////////////////
+constexpr bool operator!=(const SDL2pp::Point& a, const SDL2pp::Point& b) {
+	return !(a == b);
+}
+
+////////////////////////////////////////////////////////////
+/// \brief Less-than operator for SDL2pp::Point
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if a < b
+///
+////////////////////////////////////////////////////////////
+bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
+
+////////////////////////////////////////////////////////////
 /// \brief Stream output operator overload for SDL2pp::Point
 ///
 /// \param[in] stream Stream to output to
@@ -457,16 +470,5 @@ public:
 ///
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
-
-////////////////////////////////////////////////////////////
-/// \brief Less-than operator for SDL2pp::Point
-///
-/// \param[in] a First comparison argument
-/// \param[in] b Second comparison argument
-///
-/// \returns true if a < b
-///
-////////////////////////////////////////////////////////////
-bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
 
 #endif

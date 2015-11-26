@@ -163,32 +163,6 @@ public:
 	Rect& operator=(Rect&&) noexcept = default;
 
 	////////////////////////////////////////////////////////////
-	/// \brief Equality operator
-	///
-	/// \param[in] other Rect to compare to
-	///
-	/// \returns True if two rectangles are identical
-	///
-	////////////////////////////////////////////////////////////
-	constexpr bool operator==(const Rect& other) const {
-		return x == other.x && y == other.y &&
-		       w == other.w && h == other.h;
-	}
-
-	////////////////////////////////////////////////////////////
-	/// \brief Inequality operator
-	///
-	/// \param[in] other Rect to compare to
-	///
-	/// \returns True if two rectangles are not identical
-	///
-	////////////////////////////////////////////////////////////
-	constexpr bool operator!=(const Rect& other) const {
-		return x != other.x || y != other.y ||
-		       w != other.w || h != other.h;
-	}
-
-	////////////////////////////////////////////////////////////
 	/// \brief Get X coordinate of the rect corner
 	///
 	/// \returns X coordinate of the rect corner
@@ -524,6 +498,43 @@ public:
 }
 
 ////////////////////////////////////////////////////////////
+/// \brief Equality operator for SDL2pp::Rect
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if two rectangles are identical
+///
+////////////////////////////////////////////////////////////
+constexpr bool operator==(const SDL2pp::Rect& a, const SDL2pp::Rect& b) {
+	return a.x == b.x && a.y == b.y && a.w == b.w && a.h == b.h;
+}
+
+////////////////////////////////////////////////////////////
+/// \brief Inequality operator for SDL2pp::Rect
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if two rectangles are not identical
+///
+////////////////////////////////////////////////////////////
+constexpr bool operator!=(const SDL2pp::Rect& a, const SDL2pp::Rect& b) {
+	return !(a == b);
+}
+
+////////////////////////////////////////////////////////////
+/// \brief Less-than operator for SDL2pp::Rect
+///
+/// \param[in] a First argument for comparison
+/// \param[in] b Second argument for comparison
+///
+/// \returns True if a < b
+///
+////////////////////////////////////////////////////////////
+bool operator<(const SDL2pp::Rect& a, const SDL2pp::Rect& b);
+
+////////////////////////////////////////////////////////////
 /// \brief Stream output operator overload for SDL2pp::Rect
 ///
 /// \param[in] stream Stream to output to
@@ -533,16 +544,5 @@ public:
 ///
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
-
-////////////////////////////////////////////////////////////
-/// \brief Less-than operator for SDL2pp::Rect
-///
-/// \param[in] a First comparison argument
-/// \param[in] b Second comparison argument
-///
-/// \returns true if a < b
-///
-////////////////////////////////////////////////////////////
-bool operator<(const SDL2pp::Rect& a, const SDL2pp::Rect& b);
 
 #endif
