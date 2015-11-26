@@ -79,6 +79,18 @@ BEGIN_TEST()
 		EXPECT_EQUAL(p /= Point(5, 3), Point(3, 3));
 		EXPECT_EQUAL(p *= Point(10, 20), Point(30, 60));
 		EXPECT_EQUAL(p %= Point(7, 11), Point(2, 5));
+
+		// Less-than
+		EXPECT_TRUE(Point(0, 0) < Point(1, 0));
+		EXPECT_TRUE(Point(0, 1) < Point(1, 0));
+		EXPECT_TRUE(Point(0, 1) < Point(1, 1));
+		EXPECT_TRUE(Point(0, 0) < Point(0, 1));
+
+		EXPECT_TRUE(!(Point(1, 0) < Point(0, 0)));
+		EXPECT_TRUE(!(Point(1, 0) < Point(0, 1)));
+		EXPECT_TRUE(!(Point(1, 1) < Point(0, 1)));
+		EXPECT_TRUE(!(Point(0, 1) < Point(0, 0)));
+		EXPECT_TRUE(!(Point(1, 1) < Point(1, 1)));
 	}
 
 	{
@@ -284,6 +296,39 @@ BEGIN_TEST()
 		r -= Point(20, 40);
 
 		EXPECT_EQUAL(r, Rect(-9, -18, 3, 4));
+	}
+
+	{
+		// Less-than
+		EXPECT_TRUE(!(Rect(0, 0, 0, 0) < Rect(0, 0, 0, 0)));
+		EXPECT_TRUE(Rect(0, 0, 0, 0) < Rect(0, 0, 0, 1));
+		EXPECT_TRUE(Rect(0, 0, 0, 0) < Rect(0, 0, 1, 0));
+		EXPECT_TRUE(Rect(0, 0, 0, 0) < Rect(0, 1, 0, 0));
+		EXPECT_TRUE(Rect(0, 0, 0, 0) < Rect(1, 0, 0, 0));
+
+		EXPECT_TRUE(!(Rect(0, 0, 0, 1) < Rect(0, 0, 0, 0)));
+		EXPECT_TRUE(!(Rect(0, 0, 0, 1) < Rect(0, 0, 0, 1)));
+		EXPECT_TRUE(Rect(0, 0, 0, 1) < Rect(0, 0, 1, 0));
+		EXPECT_TRUE(Rect(0, 0, 0, 1) < Rect(0, 1, 0, 0));
+		EXPECT_TRUE(Rect(0, 0, 0, 1) < Rect(1, 0, 0, 0));
+
+		EXPECT_TRUE(!(Rect(0, 0, 1, 0) < Rect(0, 0, 0, 0)));
+		EXPECT_TRUE(!(Rect(0, 0, 1, 0) < Rect(0, 0, 0, 1)));
+		EXPECT_TRUE(!(Rect(0, 0, 1, 0) < Rect(0, 0, 1, 0)));
+		EXPECT_TRUE(Rect(0, 0, 1, 0) < Rect(0, 1, 0, 0));
+		EXPECT_TRUE(Rect(0, 0, 1, 0) < Rect(1, 0, 0, 0));
+
+		EXPECT_TRUE(!(Rect(0, 1, 0, 0) < Rect(0, 0, 0, 0)));
+		EXPECT_TRUE(!(Rect(0, 1, 0, 0) < Rect(0, 0, 0, 1)));
+		EXPECT_TRUE(!(Rect(0, 1, 0, 0) < Rect(0, 0, 1, 0)));
+		EXPECT_TRUE(!(Rect(0, 1, 0, 0) < Rect(0, 1, 0, 0)));
+		EXPECT_TRUE(Rect(0, 1, 0, 0) < Rect(1, 0, 0, 0));
+
+		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 0, 0, 0)));
+		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 0, 0, 1)));
+		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 0, 1, 0)));
+		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 1, 0, 0)));
+		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(1, 0, 0, 0)));
 	}
 
 	{

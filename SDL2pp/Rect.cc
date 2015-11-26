@@ -88,3 +88,15 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect) {
 	stream << "[x:" << rect.x << ",y:" << rect.y << ",w:" << rect.w << ",h:" << rect.h << "]";
 	return stream;
 }
+
+bool operator<(const SDL2pp::Rect& a, const SDL2pp::Rect& b) {
+    if (a.x == b.x) {
+		if (a.y == b.y) {
+			if (a.w == b.w)
+				return a.h < b.h;
+			return a.w < b.w;
+		}
+		return a.y < b.y;
+	}
+	return a.x < b.x;
+}

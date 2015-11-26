@@ -458,4 +458,15 @@ public:
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
 
+////////////////////////////////////////////////////////////
+/// \brief Less-than operator for SDL2pp::Point
+///
+/// \param[in] a First comparison argument
+/// \param[in] b Second comparison argument
+///
+/// \returns true if a < b
+///
+////////////////////////////////////////////////////////////
+bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
+
 #endif

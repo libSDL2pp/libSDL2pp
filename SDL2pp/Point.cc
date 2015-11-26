@@ -69,3 +69,9 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point) {
 	stream << "[x:" << point.x << ",y:" << point.y << "]";
 	return stream;
 }
+
+bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b) {
+	if (a.x == b.x)
+		return a.y < b.y;
+	return a.x < b.x;
+}
