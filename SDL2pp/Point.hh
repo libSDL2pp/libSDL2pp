@@ -23,6 +23,7 @@
 #define SDL2PP_POINT_HH
 
 #include <iostream>
+#include <functional>
 
 #include <SDL2/SDL_rect.h>
 
@@ -470,5 +471,26 @@ bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
 ///
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
+
+namespace std {
+
+////////////////////////////////////////////////////////////
+/// \brief Hash function for SDL2pp::Point
+///
+/// \param[in] p Input Point
+///
+/// \returns Hash value
+///
+////////////////////////////////////////////////////////////
+template<>
+struct hash<SDL2pp::Point> {
+	size_t operator()(const SDL2pp::Point& p) const {
+		size_t seed = std::hash<int>()(p.x);
+		seed ^= std::hash<int>()(p.y) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+		return seed;
+	}
+};
+
+}
 
 #endif

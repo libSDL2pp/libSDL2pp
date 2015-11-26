@@ -91,6 +91,12 @@ BEGIN_TEST()
 		EXPECT_TRUE(!(Point(1, 1) < Point(0, 1)));
 		EXPECT_TRUE(!(Point(0, 1) < Point(0, 0)));
 		EXPECT_TRUE(!(Point(1, 1) < Point(1, 1)));
+
+		// Hashes
+		EXPECT_TRUE(std::hash<Point>()(Point(123, 456)) == std::hash<Point>()(Point(123, 456)));
+		EXPECT_TRUE(std::hash<Point>()(Point(0, 0)) != std::hash<Point>()(Point(0, 1)));
+		EXPECT_TRUE(std::hash<Point>()(Point(0, 0)) != std::hash<Point>()(Point(1, 0)));
+		EXPECT_TRUE(std::hash<Point>()(Point(1, 0)) != std::hash<Point>()(Point(0, 1)));
 	}
 
 	{
@@ -329,6 +335,13 @@ BEGIN_TEST()
 		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 0, 1, 0)));
 		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(0, 1, 0, 0)));
 		EXPECT_TRUE(!(Rect(1, 0, 0, 0) < Rect(1, 0, 0, 0)));
+	}
+
+	{
+		// Hashes
+		EXPECT_TRUE(std::hash<Rect>()(Rect(1, 2, 3, 4)) == std::hash<Rect>()(Rect(1, 2, 3, 4)));
+		EXPECT_TRUE(std::hash<Rect>()(Rect(1, 2, 3, 4)) != std::hash<Rect>()(Rect(2, 1, 3, 4)));
+		EXPECT_TRUE(std::hash<Rect>()(Rect(1, 2, 3, 4)) != std::hash<Rect>()(Rect(1, 2, 4, 3)));
 	}
 
 	{

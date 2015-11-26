@@ -22,6 +22,8 @@
 #ifndef SDL2PP_RECT_HH
 #define SDL2PP_RECT_HH
 
+#include <functional>
+
 #include <SDL2/SDL_rect.h>
 
 #include <SDL2pp/Optional.hh>
@@ -544,5 +546,28 @@ bool operator<(const SDL2pp::Rect& a, const SDL2pp::Rect& b);
 ///
 ////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
+
+namespace std {
+
+////////////////////////////////////////////////////////////
+/// \brief Hash function for SDL2pp::Rect
+///
+/// \param[in] r Input Rect
+///
+/// \returns Hash value
+///
+////////////////////////////////////////////////////////////
+template<>
+struct hash<SDL2pp::Rect> {
+	size_t operator()(const SDL2pp::Rect& r) const {
+		size_t seed = std::hash<int>()(r.x);
+		seed ^= std::hash<int>()(r.y) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+		seed ^= std::hash<int>()(r.w) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+		seed ^= std::hash<int>()(r.h) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+		return seed;
+	}
+};
+
+}
 
 #endif
