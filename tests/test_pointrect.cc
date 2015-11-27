@@ -291,6 +291,16 @@ BEGIN_TEST()
 	}
 
 	{
+		// Rect point getters
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetTopLeft(), Point(10, 20));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetTopRight(), Point(39, 20));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetBottomLeft(), Point(10, 59));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetBottomRight(), Point(39, 59));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetSize(), Point(30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetCentroid(), Point(25, 40));
+	}
+
+	{
 		// Rect offset
 		Rect r(1, 2, 3, 4);
 
