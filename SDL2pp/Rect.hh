@@ -386,6 +386,19 @@ public:
 	Rect GetExtension(unsigned int amount) const;
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get a rect extended by specified amount of pixels
+	///
+	/// \param[in] hamount Number of pixels to extend by
+	///                    in horizontal direction
+	/// \param[in] vamount Number of pixels to extend by
+	///                    in vertical direction
+	///
+	/// \returns Reference to self
+	///
+	////////////////////////////////////////////////////////////
+	Rect GetExtension(unsigned int hamount, unsigned int vamount) const;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Extend a rect by specified amount of pixels
 	///
 	/// \param[in] amount Number of pixels to extend by
@@ -394,6 +407,19 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Rect& Extend(unsigned int amount);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Extend a rect by specified amount of pixels
+	///
+	/// \param[in] hamount Number of pixels to extend by
+	///                    in horizontal direction
+	/// \param[in] vamount Number of pixels to extend by
+	///                    in vertical direction
+	///
+	/// \returns Extended rect
+	///
+	////////////////////////////////////////////////////////////
+	Rect& Extend(unsigned int hamount, unsigned int vamount);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Calculate intersection with another rect

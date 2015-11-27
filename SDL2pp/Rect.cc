@@ -54,11 +54,21 @@ Rect Rect::GetExtension(unsigned int amount) const {
 	return r;
 }
 
+Rect Rect::GetExtension(unsigned int hamount, unsigned int vamount) const {
+	Rect r = *this;
+	r.Extend(hamount, vamount);
+	return r;
+}
+
 Rect& Rect::Extend(unsigned int amount) {
-	x -= amount;
-	y -= amount;
-	w += amount * 2;
-	h += amount * 2;
+	return Extend(amount, amount);
+}
+
+Rect& Rect::Extend(unsigned int hamount, unsigned int vamount) {
+	x -= hamount;
+	y -= vamount;
+	w += hamount * 2;
+	h += vamount * 2;
 	return *this;
 }
 

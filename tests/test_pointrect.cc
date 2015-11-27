@@ -283,9 +283,11 @@ BEGIN_TEST()
 		// Rect extend
 		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetExtension(0), Rect(10, 20, 30, 40));
 		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetExtension(10), Rect(0, 10, 50, 60));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).GetExtension(10, 20), Rect(0, 0, 50, 80));
 
 		EXPECT_EQUAL(Rect(10, 20, 30, 40).Extend(0), Rect(10, 20, 30, 40));
 		EXPECT_EQUAL(Rect(10, 20, 30, 40).Extend(10), Rect(0, 10, 50, 60));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40).Extend(10, 20), Rect(0, 0, 50, 80));
 	}
 
 	{
