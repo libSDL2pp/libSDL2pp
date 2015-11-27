@@ -380,7 +380,7 @@ public:
 	///
 	/// \param[in] amount Number of pixels to extend by
 	///
-	/// \returns Reference to self
+	/// \returns Extended rect
 	///
 	////////////////////////////////////////////////////////////
 	Rect GetExtension(unsigned int amount) const;
@@ -393,7 +393,7 @@ public:
 	/// \param[in] vamount Number of pixels to extend by
 	///                    in vertical direction
 	///
-	/// \returns Reference to self
+	/// \returns Extended rect
 	///
 	////////////////////////////////////////////////////////////
 	Rect GetExtension(unsigned int hamount, unsigned int vamount) const;
@@ -403,7 +403,7 @@ public:
 	///
 	/// \param[in] amount Number of pixels to extend by
 	///
-	/// \returns Extended rect
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Rect& Extend(unsigned int amount);
@@ -416,7 +416,7 @@ public:
 	/// \param[in] vamount Number of pixels to extend by
 	///                    in vertical direction
 	///
-	/// \returns Extended rect
+	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
 	Rect& Extend(unsigned int hamount, unsigned int vamount);
