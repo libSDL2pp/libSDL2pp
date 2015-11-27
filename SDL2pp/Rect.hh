@@ -97,7 +97,7 @@ public:
 	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCenter(int cx, int cy, int w, int h) {
+	static constexpr Rect FromCenter(int cx, int cy, int w, int h) {
 		return Rect(cx - w/2, cy - h/2, w, h);
 	}
 
@@ -108,7 +108,7 @@ public:
 	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCenter(const Point& center, const Point& size) {
+	static constexpr Rect FromCenter(const Point& center, const Point& size) {
 		return Rect(center - size / 2, size);
 	}
 
@@ -121,7 +121,7 @@ public:
 	/// \param[in] y2 Y coordinate of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCorners(int x1, int y1, int x2, int y2) {
+	static constexpr Rect FromCorners(int x1, int y1, int x2, int y2) {
 		return Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
 
@@ -132,7 +132,7 @@ public:
 	/// \param[in] p2 Coordinates of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static Rect FromCorners(const Point& p1, const Point& p2) {
+	static constexpr Rect FromCorners(const Point& p1, const Point& p2) {
 		return Rect(p1, p2 - p1 + Point(1, 1));
 	}
 
