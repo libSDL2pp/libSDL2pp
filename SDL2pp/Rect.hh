@@ -271,6 +271,8 @@ public:
 	///
 	/// \param[in] x2 New X coordinate value
 	///
+	/// This modifies rectangle width internally
+	///
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
@@ -283,8 +285,6 @@ public:
 	/// \brief Get Y coordinate of the rect second corner
 	///
 	/// \returns Y coordinate of the rect second corner
-	///
-	/// This modifies rectangle width internally
 	///
 	////////////////////////////////////////////////////////////
 	constexpr int GetY2() const {
