@@ -149,7 +149,7 @@ void Surface::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 }
 
 Surface& Surface::SetClipRect(const Optional<Rect>& rect) {
-	if (SDL_SetClipRect(surface_, rect ? &*rect : nullptr) != 0)
+	if (SDL_SetClipRect(surface_, rect ? &*rect : nullptr) != SDL_TRUE)
 		throw Exception("SDL_SetClipRect");
 	return *this;
 }
