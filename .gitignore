@@ -26,6 +26,7 @@ examples/mixer_music_sine
 examples/rendertarget
 examples/sprites
 examples/ttf
+libSDL2pp.a
 libSDL2pp.so
 libSDL2pp.so.*
 tests/live_mixer
