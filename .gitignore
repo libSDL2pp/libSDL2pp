@@ -12,6 +12,10 @@ Doxyfile
 FindSDL2PP.cmake
 SDL2pp/Config.hh
 sdl2pp.pc
+*.vcxproj*
+*.sln
+Debug/
+Win32/
 
 # Binaries
 examples/audio_sine
