@@ -26,6 +26,7 @@
 
 #include <type_traits>
 #include <stdexcept>
+#include <algorithm>
 
 namespace SDL2pp {
 

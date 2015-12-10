@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 #include <SDL2/SDL.h>
 
