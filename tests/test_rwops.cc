@@ -9,7 +9,7 @@
 
 using namespace SDL2pp;
 
-BEGIN_TEST()
+BEGIN_TEST(int, char*[])
 	// First check our custom ContainerRWops, not touching
 	// SDL-provided RWops services
 	{

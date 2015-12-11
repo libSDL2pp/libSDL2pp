@@ -28,7 +28,7 @@
 
 using namespace SDL2pp;
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 

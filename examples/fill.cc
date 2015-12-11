@@ -75,7 +75,7 @@ static int Run() {
 	return 0;
 }
 
-int main() {
+int main(int, char*[]) {
 	try {
 		return Run();
 	} catch (std::exception& e) {

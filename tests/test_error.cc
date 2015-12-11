@@ -6,7 +6,7 @@
 
 using namespace SDL2pp;
 
-BEGIN_TEST()
+BEGIN_TEST(int, char*[])
 	SDL_SetError("foo");
 
 	try {

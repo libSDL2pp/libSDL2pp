@@ -45,7 +45,7 @@ enum {
 	MY_RENDERTARGET_SIZE = 512,
 };
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);

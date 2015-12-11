@@ -5,7 +5,7 @@
 
 using namespace SDL2pp;
 
-BEGIN_TEST()
+BEGIN_TEST(int, char*[])
 	// note that this is merely a compilation test; EXPECT_s are mainly
 	// used to silence `unused variable' warnings
 	{

@@ -7,7 +7,7 @@
 
 using namespace SDL2pp;
 
-BEGIN_TEST()
+BEGIN_TEST(int, char*[])
 	SDL sdl(SDL_INIT_AUDIO);
 	SDLMixer mixerlib;
 
