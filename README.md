@@ -1,8 +1,8 @@
 # libSDL2pp #
 
-[![Build Status](https://travis-ci.org/AMDmi3/libSDL2pp.svg?branch=master)](https://travis-ci.org/AMDmi3/libSDL2pp)
+[![Build Status](https://travis-ci.org/libSDL2pp/libSDL2pp.svg?branch=master)](https://travis-ci.org/libSDL2pp/libSDL2pp)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/3980/badge.svg)](https://scan.coverity.com/projects/3980)
-[![Latest release](https://img.shields.io/github/release/AMDmi3/libSDL2pp.svg)](https://github.com/AMDmi3/libSDL2pp/releases)
+[![Latest release](https://img.shields.io/github/release/libSDL2pp/libSDL2pp.svg)](https://github.com/libSDL2pp/libSDL2pp/releases)
 
 This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
@@ -79,7 +79,7 @@ try {
 }
 ```
 
-There's also more elaborate [tutorial](https://github.com/AMDmi3/libSDL2pp-tutorial).
+There's also more elaborate [tutorial](https://github.com/libSDL2pp/libSDL2pp-tutorial).
 
 ## Features ##
 
@@ -254,7 +254,7 @@ Projects using libSDL2pp:
 
 ## WWW ##
 
-* [GitHub page](https://github.com/AMDmi3/libSDL2pp)
+* [GitHub page](https://github.com/libSDL2pp/libSDL2pp)
 * [Online documentation](http://sdl2pp.amdmi3.ru/)
 
 ## Author ##
