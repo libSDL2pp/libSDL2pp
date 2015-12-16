@@ -31,6 +31,13 @@ before_build:
   - copy SDL2_ttf-2.0.12\lib\x86\* "%PREFIX%\lib" > nul
 
   - cd "%APPVEYOR_BUILD_FOLDER%"
+
+  # Note that we only use appveyor for testing the build, it cannot produce any usable binaries
+  # or libraries as of now because SDL2 depends are built for VC 2012, and we build with VC 2015
+  # (old VC doesn't support C++11), and there's binary incompatibility which shows itself when
+  # linking an executable, I couldn't resolve, see [1] for more info
+  #
+  # [1] http://stackoverflow.com/questions/30412951/unresolved-external-symbol-imp-fprintf-and-imp-iob-func-sdl2
   - cmake -DSDL2PP_WITH_TESTS=OFF -DSDL2PP_WITH_EXAMPLES=OFF -DCMAKE_PREFIX_PATH="%PREFIX%" -G "Visual Studio 14 2015"
 build:
   project: libSDL2pp.sln
