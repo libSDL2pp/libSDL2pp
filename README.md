@@ -46,7 +46,7 @@ try {
   sprite1.Update(Rect(0, 0, 16, 16), pixels, 16 * 4);
 
   // Most setter methods are chainable
-  renderer.SetLogicalSize(640, 480).SetRenderColor(0, 16, 32).Clear();
+  renderer.SetLogicalSize(640, 480).SetDrawColor(0, 16, 32).Clear();
 
   // Also note a safe way to specify null rects and points
   renderer.Copy(sprite1, NullOpt, NullOpt);
