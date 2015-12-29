@@ -251,6 +251,7 @@ Projects using libSDL2pp:
 * [neopedersia](https://github.com/vladimirgamalian/neopedersia) - Nexus Wars style game
 * [OpenDaed](https://github.com/AMDmi3/opendaed) - Libre reimplementation of The Daedalus Encounter game
 * [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
+* [osmview](https://bitbucket.org/ipopov/osmview) - Desktop OpenStreetMap viewer
 * [planetonomy](https://github.com/AMDmi3/planetonomy) - Old-school platformer/exploration game with CGA graphics
 
 ## WWW ##
