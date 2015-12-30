@@ -268,6 +268,7 @@ Projects using libSDL2pp:
 * [Aargonian](https://github.com/Aargonian)
 * [Carl Schwope](https://github.com/Lowest0ne)
 * [Carsten Elton Sorensen](https://github.com/csoren)
+* [Ilya Popov](https://github.com/ilyapopov)
 * [kumar8600](https://github.com/kumar8600)
 * [ooxi](https://github.com/ooxi)
 * [Vladimir Gamalian](https://github.com/vladimirgamalian)
