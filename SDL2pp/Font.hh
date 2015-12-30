@@ -456,7 +456,7 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get glyph metrics of the UNICODE char
 	///
-	/// \param[out] ch UNICODE char to get the glyph metrics for
+	/// \param[in] ch UNICODE char to get the glyph metrics for
 	/// \param[out] minx Variable to store the returned minimum X offset into
 	/// \param[out] maxx Variable to store the returned maximum X offset into
 	/// \param[out] miny Variable to store the returned minimum Y offset into
