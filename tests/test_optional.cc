@@ -1,5 +1,7 @@
 #include <string>
 
+#include <SDL2/SDL_main.h>
+
 #include <SDL2pp/Optional.hh>
 
 #include "testing.h"

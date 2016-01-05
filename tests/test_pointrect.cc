@@ -1,3 +1,5 @@
+#include <SDL2/SDL_main.h>
+
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
 
