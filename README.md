@@ -46,7 +46,7 @@ try {
   sprite1.Update(Rect(0, 0, 16, 16), pixels, 16 * 4);
 
   // Most setter methods are chainable
-  renderer.SetLogicalSize(640, 480).SetRenderColor(0, 16, 32).Clear();
+  renderer.SetLogicalSize(640, 480).SetDrawColor(0, 16, 32).Clear();
 
   // Also note a safe way to specify null rects and points
   renderer.Copy(sprite1, NullOpt, NullOpt);
@@ -251,6 +251,7 @@ Projects using libSDL2pp:
 * [neopedersia](https://github.com/vladimirgamalian/neopedersia) - Nexus Wars style game
 * [OpenDaed](https://github.com/AMDmi3/opendaed) - Libre reimplementation of The Daedalus Encounter game
 * [OpenStrike](https://github.com/AMDmi3/openstrike) - Libre reimplementation of Jungle and Desert Strike games
+* [osmview](https://bitbucket.org/ipopov/osmview) - Desktop OpenStreetMap viewer
 * [planetonomy](https://github.com/AMDmi3/planetonomy) - Old-school platformer/exploration game with CGA graphics
 
 ## WWW ##
@@ -267,7 +268,9 @@ Projects using libSDL2pp:
 * [Aargonian](https://github.com/Aargonian)
 * [Carl Schwope](https://github.com/Lowest0ne)
 * [Carsten Elton Sorensen](https://github.com/csoren)
+* [Ilya Popov](https://github.com/ilyapopov)
 * [kumar8600](https://github.com/kumar8600)
+* [ooxi](https://github.com/ooxi)
 * [Vladimir Gamalian](https://github.com/vladimirgamalian)
 
 ## License ##
