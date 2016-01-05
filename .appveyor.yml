@@ -13,7 +13,7 @@ environment:
 #    PREFIX: c:\usr_msvc
 #    MSVC:
 #    MINGW32: rem
-  - CMAKE_ARGS: -DCMAKE_C_COMPILER=mingw32-cc -DCMAKE_CXX_COMPILER=mingw32-c++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXE_LINKER_FLAGS="-lmingw32" -G "MinGW Makefiles"
+  - CMAKE_ARGS: -DCMAKE_C_COMPILER=mingw32-cc -DCMAKE_CXX_COMPILER=mingw32-c++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXE_LINKER_FLAGS="-lmingw32" -DSDL2PP_ENABLE_LIVE_TESTS=OFF -G "MinGW Makefiles"
     PREFIX: c:\usr_mingw32
     MINGW32:
     MSVC: rem
@@ -95,6 +95,7 @@ before_build:
     %NEEDDEPENDS% %MINGW32% copy SDL_platform.h %PREFIX%\include\SDL2
 
 build_script:
+  # build
   - |-
     %MINGW% set PATH=c:\mingw\bin;%Path%
     cd %APPVEYOR_BUILD_FOLDER%
@@ -102,6 +103,11 @@ build_script:
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%
     %MSVC% msbuild "libSDL2pp.sln" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     %MINGW32% mingw32-make
+
+  # tests; PATH here lists library search paths
+  - |-
+    %MINGW32% set PATH=%APPVEYOR_BUILD_FOLDER%;%PREFIX%\lib;c:\mingw\bin;%Path%
+    %MINGW32% mingw32-make test
 
 after_build:
   - git status
