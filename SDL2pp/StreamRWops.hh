@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2014-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -57,22 +57,22 @@ protected:
 
 private:
 	template <class SS>
-	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(off_t off, std::ios_base::seekdir dir) {
+	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(typename SS::off_type off, std::ios_base::seekdir dir) {
 		stream_.seekg(off, dir);
 	}
 
 	template <class SS>
-	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(off_t off, std::ios_base::seekdir dir) {
+	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, void>::type SeekHelper(typename SS::off_type off, std::ios_base::seekdir dir) {
 		stream_.seekp(off, dir);
 	}
 
 	template <class SS>
-	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, off_t>::type TellHelper() {
+	typename std::enable_if<std::is_base_of<std::istream, SS>::value && !std::is_base_of<std::ostream, SS>::value, typename SS::off_type>::type TellHelper() {
 		return stream_.tellg();
 	}
 
 	template <class SS>
-	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, off_t>::type TellHelper() {
+	typename std::enable_if<!std::is_base_of<std::istream, SS>::value && std::is_base_of<std::ostream, SS>::value, typename SS::off_type>::type TellHelper() {
 		return stream_.tellp();
 	}
 
