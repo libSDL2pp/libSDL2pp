@@ -18,6 +18,7 @@ Debug/
 Win32/
 
 # Binaries
+examples/*.exe
 examples/audio_sine
 examples/audio_wav
 examples/fill
@@ -31,8 +32,11 @@ examples/rendertarget
 examples/sprites
 examples/ttf
 libSDL2pp.a
+libSDL2pp.dll
+libSDL2pp.dll.a
 libSDL2pp.so
 libSDL2pp.so.*
+tests/*.exe
 tests/live_mixer
 tests/live_rendering
 tests/test_error
