@@ -32,7 +32,7 @@
 
 using namespace SDL2pp;
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
 
 	Wav wav(TESTDATA_DIR "/test.wav");

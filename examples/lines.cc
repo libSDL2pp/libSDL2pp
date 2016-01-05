@@ -29,7 +29,7 @@
 
 using namespace SDL2pp;
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);

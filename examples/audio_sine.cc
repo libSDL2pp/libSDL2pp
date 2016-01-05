@@ -29,7 +29,7 @@
 
 using namespace SDL2pp;
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
 
 	const int samplerate = 48000;

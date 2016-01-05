@@ -36,7 +36,7 @@ using namespace SDL2pp;
 
 static const float pi = 3.14159265358979323846f;
 
-int main() try {
+int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_VIDEO);
 	SDLImage image(IMG_INIT_PNG); // optional
 	Window window("libSDL2pp demo: loading", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);

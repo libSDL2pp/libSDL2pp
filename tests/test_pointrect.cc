@@ -5,7 +5,7 @@
 
 using namespace SDL2pp;
 
-BEGIN_TEST()
+BEGIN_TEST(int, char*[])
 	{
 		// Point basic ops
 		Point p(1,2);
