@@ -8,12 +8,15 @@
 using namespace SDL2pp;
 
 BEGIN_TEST(int, char*[])
-	SDL_SetError("foo");
+	SDL_SetError("BarError");
 
 	try {
-		throw Exception("");
+		throw Exception("FooFunction");
 	} catch (SDL2pp::Exception& e) {
-		SDL_SetError("bar");
-		EXPECT_EQUAL((std::string)e.GetSDLError(), "foo");
+		// this SDL_SetError should not clobber Exception contents
+		SDL_SetError("AnotherError");
+		EXPECT_EQUAL(e.GetSDLFunction(), "FooFunction");
+		EXPECT_EQUAL(e.GetSDLError(), "BarError");
+		EXPECT_EQUAL((std::string)e.what(), "FooFunction failed: BarError");
 	}
 END_TEST()
