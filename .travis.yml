@@ -4,15 +4,15 @@ dist: trusty
 matrix:
   include:
     - compiler: gcc
-      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11"
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++11"
     - compiler: gcc
-      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++1y"
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++1y"
     - compiler: gcc
-      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11 -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_EXE_LINKER_FLAGS=--coverage -DCMAKE_SHARED_LINKER_FLAGS=--coverage -DCMAKE_BUILD_TYPE=Debug" COVERAGE=yes
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++11 -DCMAKE_BUILD_TYPE=Coverage" COVERAGE=yes
     - compiler: clang
-      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11"
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++11"
     - compiler: clang
-      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++1y"
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++1y"
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen
