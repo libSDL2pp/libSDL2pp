@@ -15,13 +15,24 @@ matrix:
       env: CMAKE_FLAGS="-DSDL2PP_CXXSTD=c++1y"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen
+  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
   - if [ -n "$COVERAGE" ]; then pip install --user pyyaml; pip install --user cpp-coveralls; fi
+
+  # evironment for live tests
+  - dbus-launch pulseaudio --start
+  - export SDL_AUDIODRIVER=pulseaudio
+
+  - /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
+  - export SDL_VIDEODRIVER=x11
+  - export DISPLAY=:99.0
+
 script:
-  - cmake . -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=`pwd`.prefix -DSDL2PP_WITH_WERROR=YES $CMAKE_FLAGS
+  - cmake . -DCMAKE_INSTALL_PREFIX=`pwd`.prefix -DSDL2PP_WITH_WERROR=YES $CMAKE_FLAGS
   - VERBOSE=1 make && make test && make install
-  - if [ -n "$COVERAGE" ]; then coveralls -i SDL2pp; fi
   - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
   - "if make doxygen 2>&1 | grep 'warning:'; then echo 'FATAL: doxygen warnings!'; false; fi"
   - "if git ls-files --others --exclude-standard | grep ''; then echo 'FATAL: incomplete .gitignore'; false; fi"
+
+after_success:
+  - if [ -n "$COVERAGE" ]; then coveralls -i SDL2pp; fi
