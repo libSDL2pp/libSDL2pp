@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/libSDL2pp/libSDL2pp.svg?branch=master)](https://travis-ci.org/libSDL2pp/libSDL2pp)
 [![Build status](https://ci.appveyor.com/api/projects/status/qhfpa29qd8bt619t/branch/master?svg=true)](https://ci.appveyor.com/project/AMDmi3/libsdl2pp)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/3980/badge.svg)](https://scan.coverity.com/projects/3980)
+[![Coverage Status](https://coveralls.io/repos/github/libSDL2pp/libSDL2pp/badge.svg?branch=master)](https://coveralls.io/github/libSDL2pp/libSDL2pp?branch=master)
 [![Latest release](https://img.shields.io/github/release/libSDL2pp/libSDL2pp.svg)](https://github.com/libSDL2pp/libSDL2pp/releases)
 
 This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
