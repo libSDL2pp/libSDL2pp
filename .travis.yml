@@ -1,19 +1,27 @@
 language: cpp
 sudo: required
 dist: trusty
-compiler:
-  - gcc
-  - clang
-env:
-  - CXXSTD=c++11
-  - CXXSTD=c++1y
+matrix:
+  include:
+    - compiler: gcc
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11"
+    - compiler: gcc
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++1y"
+    - compiler: gcc
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11 -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_EXE_LINKER_FLAGS=--coverage -DCMAKE_SHARED_LINKER_FLAGS=--coverage -DCMAKE_BUILD_TYPE=Debug" COVERAGE=yes
+    - compiler: clang
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++11"
+    - compiler: clang
+      env: CMAKE_FLAGS="-DSDL2PP_CXXSTDCXXSTD=c++1y"
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
+  - if [ -n "$COVERAGE" ]; then pip install --user pyyaml; pip install --user cpp-coveralls; fi
 script:
-  - cmake . -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=`pwd`.prefix -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=$CXXSTD
+  - cmake . -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=`pwd`.prefix -DSDL2PP_WITH_WERROR=YES $CMAKE_FLAGS
   - VERBOSE=1 make && make test && make install
+  - if [ -n "$COVERAGE" ]; then coveralls -i SDL2pp; fi
   - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
   - "if make doxygen 2>&1 | grep 'warning:'; then echo 'FATAL: doxygen warnings!'; false; fi"
   - "if git ls-files --others --exclude-standard | grep ''; then echo 'FATAL: incomplete .gitignore'; false; fi"
