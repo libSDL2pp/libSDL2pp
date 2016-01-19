@@ -39,6 +39,7 @@ libSDL2pp.so.*
 tests/*.exe
 tests/live_mixer
 tests/live_rendering
+tests/live_window
 tests/test_error
 tests/test_optional
 tests/test_pointrect
