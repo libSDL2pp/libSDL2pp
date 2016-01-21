@@ -65,4 +65,45 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(window.GetPosition(), old_pos + Point(4, 2));
 	}
 
+	{
+		// Min/max size
+		window.SetMinimumSize(16, 16);
+		window.SetMaximumSize(1600, 1600);
+
+		EXPECT_EQUAL(window.GetMinimumSize(), Point(16, 16));
+		EXPECT_EQUAL(window.GetMaximumSize(), Point(1600, 1600));
+
+		window.SetMinimumSize(Point(32, 32));
+		window.SetMaximumSize(Point(3200, 3200));
+
+		EXPECT_EQUAL(window.GetMinimumSize(), Point(32, 32));
+		EXPECT_EQUAL(window.GetMaximumSize(), Point(3200, 3200));
+	}
+
+	{
+		// Grab
+		EXPECT_TRUE(!window.GetGrab());
+
+		window.SetGrab(true);
+
+		EXPECT_TRUE(window.GetGrab());
+
+		window.SetGrab(false);
+
+		EXPECT_TRUE(!window.GetGrab());
+	}
+
+	{
+		// Brightness
+		EXPECT_EQUAL(window.GetBrightness(), 1.0f);
+
+		window.SetBrightness(1.2f);
+
+		EXPECT_EQUAL(window.GetBrightness(), 1.2f);
+
+		window.SetBrightness(1.0f);
+
+		EXPECT_EQUAL(window.GetBrightness(), 1.0f);
+	}
+
 END_TEST()
