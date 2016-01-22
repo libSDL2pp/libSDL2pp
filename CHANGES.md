@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.11.0 - 2015-11-30
 ### Added
 * New ```Window``` methods: ```Window::GetDrawableWidth()```, ```Window::GetDrawableHeight()```, ```Window::GetSize()``` (@csoren)
-* ```Point``` and ```Rect``` less-than operators and std::hash support which makes them usable as map/unordered_map/set/unordered_set keys
+* ```Point``` and ```Rect``` less-than operators and std::hash support which makes them usable as ```std::map```/```std::unordered_map```/```std::set```/```std::unordered_set``` keys
 * More ```Rect``` methods and wider constexpr support
 
 ### Fixed
@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Improved cygwin compatibility
 * Missing ```SDL``` method implementations
-* Return and argument types to match upstream API for ```Window```, ```Font``` and ```Mixer```
+* Fixed return and argument types for some ```Window```, ```Font``` and ```Mixer``` methods to match upstream API
 * Infinite loop in ```StreamRWops```
 * Documentation improvements
 * Build without [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/) support
@@ -25,7 +25,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.9.0 - 2015-09-07
 ### Added
 * [SDL_mixer](https://www.libsdl.org/projects/SDL_mixer/) support
-* More ```Point``` operators: ```*```, ```/```, ```%``` for integer multiplication, division and remainder by a number of another ```Point```
+* More ```Point``` operators: ```*```, ```/```, ```%``` for integer multiplication, division and remainder by a number or another ```Point```
 * ```Point``` and ```Rect``` better inlining and constexpr support
 * New method: ```Surface::GetFormat()```
 * ```Texture::Update()``` overload which takes Surface as pixel source
@@ -58,20 +58,20 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 * Most setters now return reference to self to allow method chaining
-* Exception now stores both SDL error and name of function which caused it; ```what()``` message now contains these both, so SDL2pp exceptions may be conveniently handled with ```catch (std::exception&)```
+* Exception now stores both SDL error and name of function which caused it; ```what()``` message now includes these both in a readable way, so SDL2pp exceptions may be conveniently handled with ```catch (std::exception&)```
 * pkg-config file now provides SDL libraries along with SDL2pp, so users don't need to care of SDL2 flags in addition to SDL2pp's
 
 ### Removed
-* Deprecated ```Point``` and ```Rect``` methods (```Null()```, ```IsNull()```, ```Get()```)
+* Deprecated ```Point``` and ```Rect``` methods: ```Null()```, ```IsNull()```, ```Get()```
 
 ### Fixed
 * Use move, not copy in constructing ```RWops``` from ```CustomRWops```-derived class
 
 ## 0.6.0 - 2015-01-11
 ### Added
-* Doxygen documentation for the whole library
+* [Doxygen](http://doxygen.org/) documentation for the whole library
 * Wrapper around [SDL_image](https://www.libsdl.org/projects/SDL_image/) initialization/deinitialization: ```SDLImage``` class
-* [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) wrapper with [SDL_image](https://www.libsdl.org/projects/SDL_image/) support. It's now also possible to construct ```Texture``` from ```Surface```.
+* ```Surface````, a wrapepr for [SDL_Surface](https://wiki.libsdl.org/SDL_Surface) including [SDL_image](https://www.libsdl.org/projects/SDL_image/) support. It's now also possible to construct ```Texture``` from ```Surface```.
 * Bunch of constructors from existing SDL objects (e.g. ```Window::Window(SDL_Window*)```) for ```Point```, ```Rect```, ```Window```, ```Renderer```, ```Texture```
 * Complete [SDL_ttf](https://www.libsdl.org/projects/SDL_ttf/) support
 * Consistent ```GetWidth()```/```GetHeight()```/```GetSize()``` for ```Texture``` and ```Surface```
@@ -92,7 +92,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.5.0 - 2014-12-26
 ### Added
 * ```AudioDevice::LockHandle``` is now copyable
-* ```+``` ```-``` ```+=``` ```-=``` operators supported to offset a ```Rect``` by a ```Point```
+* ```Rect``` now has ```+``` ```-``` ```+=``` ```-=``` operators to offset it by a ```Point```
 * ```Optional``` class to pass optional values
 * Possibility to use c++1y standard and detection of available useful c++1y features with c++11
 * Default argument for ```Texture::Lock()```
@@ -100,13 +100,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * More granular build options for tests and examples
 
 ### Changed
-* ```Point``` and ```Rect``` no longer have invalid (Null) states and are now directly derived from [SDL_Point](https://wiki.libsdl.org/SDL_Point) and [SDL_Rect](https://wiki.libsdl.org/SDL_Rect) structures. In places where null states were usable (e.g. usually null ```Rect``` would mean "whole area", like in ```Texture::Lock()```), ```Optional``` class is now used. Use ```NullOpt``` instead of ```Point::Null()``` and ```Rect::Null()```
+* ```Point``` and ```Rect``` no longer have invalid (null) states and are now directly derived from [SDL_Point](https://wiki.libsdl.org/SDL_Point) and [SDL_Rect](https://wiki.libsdl.org/SDL_Rect) structures. In places where null states were usable (e.g. usually null ```Rect``` would mean "whole area", like in ```Texture::Lock()```), ```Optional``` class is now used. Use ```NullOpt``` instead of ```Point::Null()``` and ```Rect::Null()```
 
 ## 0.4.0 - 2014-12-19
 ### Added
-* ```StreamRWops``` which work with STL streams
-* ```AudioDevice``` and ```Texture``` ```LockHandle```s now have empty constructors, locks now may be initialized after construction
-* ```RWops``` (Read|Write)(LE|BE)(16|32|64) methods
+* ```StreamRWops``` which works with STL streams
+* ```AudioDevice``` and ```Texture``` ```LockHandle```s now have empty constructors and may be initialized after construction
+* ```RWops``` ```(Read|Write)(LE|BE)(16|32|64)``` methods
 * pkg-config file
 
 ### Changed
@@ -131,7 +131,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Getters for ```Texture``` properties: ```Texture::GetWidth()```, ```Texture::GetHeight()```, ```Texture::GetFormat()```, ```Texture::GetAccess()```
 * ```Texture``` locking
-* ```Rect``` method to check if it contains a ```Point```: ```Rect::Contains()```
+* New ```Rect``` method ```Rect::Contains()``` to check if it contains a ```Point```
 
 ## 0.1.1 - 2014-09-09
 ### Added
