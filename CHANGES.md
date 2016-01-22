@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.12.0 - unreleased
+### Fixed
+* Link SDL2main library, which is needed on many systems
+* Numerous improvements in Windows support
+* Documentation fixes
+
 ## 0.11.0 - 2015-11-30
 ### Added
 * New ```Window``` methods: ```Window::GetDrawableWidth()```, ```Window::GetDrawableHeight()```, ```Window::GetSize()``` (@csoren)
