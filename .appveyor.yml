@@ -103,6 +103,8 @@ build_script:
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%
     %MSVC% msbuild "libSDL2pp.sln" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     %MINGW32% mingw32-make
+    %MINGW32% type FindSDL2PP.cmake
+    %MINGW32% type sdl2pp.pc
 
   # tests; PATH here lists library search paths
   - |-
