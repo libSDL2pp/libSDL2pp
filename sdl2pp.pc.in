@@ -6,7 +6,7 @@ includedir=${prefix}/include
 Name: sdl2pp
 Description: C++11 bindings/wrappers for SDL2
 Version: @SDL2PP_VERSION@
-Requires: @SDL2_ALL_PKGCONFIG_MODULES@
+Requires: @SDL2_ALL_PKGCONFIG_MODULES_STR@
 Conflicts:
-Libs: @SDL2PP_EXTRA_LIBRARIES@ -L${libdir} -lSDL2pp
+Libs: @SDL2PP_EXTRA_LIBRARIES_STR@ -L${libdir} -lSDL2pp
 Cflags: -I${includedir}
