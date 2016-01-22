@@ -1,12 +1,10 @@
-# libSDL2pp pkg-config source file
-
 prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: sdl2pp
-Description: C++11 bindings/wrappers for SDL2.
+Description: C++11 bindings/wrappers for SDL2
 Version: @SDL2PP_VERSION@
 Requires:
 Conflicts:
