@@ -13,7 +13,7 @@ environment:
     PREFIX: c:\usr_msvc
     MSVC:
     MINGW32: rem
-  - CMAKE_ARGS: -DCMAKE_C_COMPILER=mingw32-cc -DCMAKE_CXX_COMPILER=mingw32-c++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXE_LINKER_FLAGS="-lmingw32" -DSDL2PP_ENABLE_LIVE_TESTS=OFF -G "MinGW Makefiles"
+  - CMAKE_ARGS: -DCMAKE_C_COMPILER=mingw32-cc -DCMAKE_CXX_COMPILER=mingw32-c++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_VERBOSE_MAKEFILE=ON -DSDL2PP_ENABLE_LIVE_TESTS=OFF -G "MinGW Makefiles"
     PREFIX: c:\usr_mingw32
     MINGW32:
     MSVC: rem
@@ -103,6 +103,8 @@ build_script:
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%
     %MSVC% msbuild "libSDL2pp.sln" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     %MINGW32% mingw32-make
+    %MINGW32% type FindSDL2PP.cmake
+    %MINGW32% type sdl2pp.pc
 
   # tests; PATH here lists library search paths
   - |-
