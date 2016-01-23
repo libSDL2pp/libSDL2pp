@@ -2,11 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.12.0 - unreleased
+## 0.12.0 - 2016-01-23
 ### Fixed
-* Link SDL2main library, which is needed on many systems
+* Link SDL2main library, which is needed on some systems
 * Numerous improvements in Windows support
 * Documentation fixes
+* Multiple fixes in pkg-config and CMake module files 
 
 ## 0.11.0 - 2015-11-30
 ### Added
