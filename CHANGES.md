@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Link SDL2main library, which is needed on some systems
 * Numerous improvements in Windows support
 * Documentation fixes
-* Multiple fixes in pkg-config and CMake module files 
+* Multiple fixes in pkg-config and CMake module files
 
 ## 0.11.0 - 2015-11-30
 ### Added
