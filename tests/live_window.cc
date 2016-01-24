@@ -137,10 +137,12 @@ BEGIN_TEST(int, char*[])
 		EventSleep(1000);
 
 		window.Minimize();
+		EventSleep(1000); // Minimization may take some time, e.g. on Ubuntu due to animations
 		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_MINIMIZED, "May fail on some WMs", NON_FATAL);
 		EventSleep(1000);
 
 		window.Restore();
+		EventSleep(1000); // Restore from minimized state may take some time, e.g. on Ubuntu due to animations
 		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_MINIMIZED));
 		EventSleep(1000);
 
