@@ -28,7 +28,7 @@ before_install:
 script:
   - export PREFIX=`pwd`.prefix
   - cmake . -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=$CXXSTD -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-  - VERBOSE=1 make && make test && make install
+  - VERBOSE=1 make && make ARGS=-V test && make install
   - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
   - "if make doxygen 2>&1 | grep 'warning:'; then echo 'FATAL: doxygen warnings!'; false; fi"
   - "if git ls-files --others --exclude-standard | grep ''; then echo 'FATAL: incomplete .gitignore'; false; fi"
