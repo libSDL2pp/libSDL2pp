@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -513,6 +513,8 @@ public:
 	///
 	/// \param[in] icon Surface containing the icon for the window
 	///
+	/// \returns Reference to self
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowIcon
 	///
 	/// Icon surface may be destroyed after calling this function
@@ -525,7 +527,9 @@ public:
 	///
 	/// \param[in] bordered False to remove border, true to add border
 	///
-	/// \see SDL_SetWindowBordered
+	/// \returns Reference to self
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowBordered
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetBordered(bool bordered = true);
