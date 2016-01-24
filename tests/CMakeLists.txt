@@ -1,10 +1,11 @@
 # simple command-line tests
 SET(CLI_TESTS
+	test_error
+	test_optional
 	test_pointrect
 	test_pointrect_constexpr
 	test_rwops
-	test_optional
-	test_error
+	test_wav
 )
 
 # live tests require X11 display and/or audio output
