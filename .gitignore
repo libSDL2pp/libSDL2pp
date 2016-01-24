@@ -36,15 +36,10 @@ libSDL2pp.dll
 libSDL2pp.dll.a
 libSDL2pp.so
 libSDL2pp.so.*
-tests/*.exe
-tests/live_mixer
-tests/live_rendering
-tests/live_window
-tests/test_error
-tests/test_optional
-tests/test_pointrect
-tests/test_pointrect_constexpr
-tests/test_rwops
+tests/live_*
+tests/test_*
+!tests/live_*.cc
+!tests/test_*.cc
 
 # Generated tests
 tests/SDL2pp_*_hh_test*
