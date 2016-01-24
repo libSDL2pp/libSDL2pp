@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+ * Copyright (c) 2011-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
  * All rights reserved.
  *
  * See https://github.com/AMDmi3/testing.h for updates, bug reports,
@@ -234,6 +234,35 @@ public:
 		RegisterTest(thrown && as_expected, flags, message, description);
 	}
 
+	// ExpectNoException
+	void ExpectNoException(const std::string& expression_str, std::function<void()>&& func, const std::string& description, int flags, DummyArgument) {
+		bool thrown = false;
+		bool std_exception = false;
+
+		std::string what;
+
+		try {
+			func();
+		} catch (std::exception& e) {
+			thrown = true;
+			std_exception = true;
+			what = e.what();
+		} catch (...) {
+			thrown = true;
+		}
+
+		std::string message;
+
+		if (thrown && std_exception)
+			message = Stylify(EXPRESSION, expression_str) + " has thrown unexpected exception derived from std::exception (what(): " + Stylify(LITERAL, what) + ")";
+		else if (thrown)
+			message = Stylify(EXPRESSION, expression_str) + " has thrown unexpected exception not derived from std::exception";
+		else
+			message = Stylify(EXPRESSION, expression_str) + " hasn't thrown any exceptions as expected";
+
+		RegisterTest(!thrown, flags, message, description);
+	}
+
 	// ExpectTrue overloads
 	void ExpectTrue(const std::string& expression_str, bool sample, DummyArgument dummy) {
 		ExpectTrue(expression_str, sample, "", 0, dummy);
@@ -279,12 +308,25 @@ public:
 		return ExpectException<E>(expression_str, std::move(func), exception_str, "", flags, dummy);
 	}
 
+	// ExpectNoException overloads
+	void ExpectNoException(const std::string& expression_str, std::function<void()>&& func, DummyArgument dummy) {
+		return ExpectNoException(expression_str, std::move(func), "", 0, dummy);
+	}
+
+	void ExpectNoException(const std::string& expression_str, std::function<void()>&& func, const std::string& description, DummyArgument dummy) {
+		return ExpectNoException(expression_str, std::move(func), description, 0, dummy);
+	}
+
+	void ExpectNoException(const std::string& expression_str, std::function<void()>&& func, int flags, DummyArgument dummy) {
+		return ExpectNoException(expression_str, std::move(func), "", flags, dummy);
+	}
+
 	void RegisterUnexpectedException() {
 		unexpected_exception_ = true;
 	}
 
 	void PrintSummary() {
-		std::cerr << num_failures_ << " failures out of " << num_tests_ << " tests";
+		std::cerr << num_failures_ << " failure(s) out of " << num_tests_ << " tests";
 		if (unexpected_exception_)
 			std::cerr << ", and was terminated prematurely due to unexpected exception";
 		std::cerr << "\n";
@@ -320,16 +362,19 @@ public:
 // wrappers to allow true variable number of arguments
 #define METHOD_WRAPPER(method, expr, ...) tester_.method(#expr, expr, __VA_ARGS__)
 #define METHOD_WRAPPER_EXCEPTION(expr, exception, ...) tester_.ExpectException<exception>(#expr, [&](){expr;}, #exception, __VA_ARGS__)
+#define METHOD_WRAPPER_NO_EXCEPTION(expr, ...) tester_.ExpectNoException(#expr, [&](){expr;}, __VA_ARGS__)
 
 // checks
 #ifdef _MSC_VER
 #	define EXPECT_TRUE(expr, ...)      do { tester_.ExpectTrue(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EQUAL(expr, ...)     do { tester_.ExpectEqual(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EXCEPTION(expr, exception, ...) do { tester_.ExpectException<exception>(#expr, [&](){expr;}, #exception, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_NO_EXCEPTION(expr, ...) do { tester_.ExpectNoException<exception>(#expr, [&](){expr;}, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #else
 #	define EXPECT_TRUE(...)      do { METHOD_WRAPPER(ExpectTrue, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EQUAL(...)     do { METHOD_WRAPPER(ExpectEqual, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EXCEPTION(...) do { METHOD_WRAPPER_EXCEPTION(__VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_NO_EXCEPTION(...) do { METHOD_WRAPPER_NO_EXCEPTION(__VA_ARGS__, Tester::DummyArgument()); } while(0)
 #endif
 
 // functions
