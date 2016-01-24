@@ -1,4 +1,4 @@
-#include <vector>
+#include <ios>
 
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
@@ -7,29 +7,37 @@
 
 using namespace SDL2pp;
 
-static void ProcessEvents() {
+static void EventSleep(Uint32 ms) {
+	Uint32 now = SDL_GetTicks();
+	Uint32 deadline = now + ms;
+
 	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-	}
+	while ((now = SDL_GetTicks()) < deadline)
+		SDL_WaitEventTimeout(&event, deadline - now);
 }
 
 BEGIN_TEST(int, char*[])
 	SDL sdl(SDL_INIT_VIDEO);
-	Window window("libSDL2pp test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 240, 0);
+	Window window("libSDL2pp test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 240, SDL_WINDOW_RESIZABLE);
 
-	ProcessEvents();
+	EventSleep(0);
 
 	{
 		// Size
-		EXPECT_EQUAL(window.GetSize(), Point(320, 240));
-		EXPECT_EQUAL(window.GetWidth(), 320);
-		EXPECT_EQUAL(window.GetHeight(), 240);
+		EXPECT_EQUAL(window.GetSize(), Point(320, 240), "May fail on tiled WMs", NON_FATAL);
+		EXPECT_EQUAL(window.GetWidth(), 320, "May fail on tiled WMs", NON_FATAL);
+		EXPECT_EQUAL(window.GetHeight(), 240, "May fail on tiled WMs", NON_FATAL);
 
 		window.SetSize(400, 300);
-
 		EXPECT_EQUAL(window.GetSize(), Point(400, 300));
 		EXPECT_EQUAL(window.GetWidth(), 400);
 		EXPECT_EQUAL(window.GetHeight(), 300);
+		EventSleep(1000);
+
+		window.SetSize(Point(500, 400));
+		EXPECT_EQUAL(window.GetWidth(), 500);
+		EXPECT_EQUAL(window.GetHeight(), 400);
+		EventSleep(1000);
 	}
 
 	{
@@ -37,8 +45,8 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(window.GetTitle(), "libSDL2pp test");
 
 		window.SetTitle("libSDL2pp window test");
-
 		EXPECT_EQUAL(window.GetTitle(), "libSDL2pp window test");
+		EventSleep(1000);
 	}
 
 	{
@@ -57,12 +65,12 @@ BEGIN_TEST(int, char*[])
 		Point old_pos = window.GetPosition();
 
 		window.SetPosition(old_pos + Point(2, 1));
-
 		EXPECT_EQUAL(window.GetPosition(), old_pos + Point(2, 1));
+		EventSleep(1000);
 
 		window.SetPosition(old_pos.x + 4, old_pos.y + 2);
-
 		EXPECT_EQUAL(window.GetPosition(), old_pos + Point(4, 2));
+		EventSleep(1000);
 	}
 
 	{
@@ -83,14 +91,13 @@ BEGIN_TEST(int, char*[])
 	{
 		// Grab
 		EXPECT_TRUE(!window.GetGrab());
-
 		window.SetGrab(true);
-
 		EXPECT_TRUE(window.GetGrab());
+		EventSleep(1000);
 
 		window.SetGrab(false);
-
 		EXPECT_TRUE(!window.GetGrab());
+		EventSleep(1000);
 	}
 
 	{
@@ -98,12 +105,82 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(window.GetBrightness(), 1.0f);
 
 		window.SetBrightness(1.2f);
-
 		EXPECT_EQUAL(window.GetBrightness(), 1.2f);
+		EventSleep(1000);
 
 		window.SetBrightness(1.0f);
-
 		EXPECT_EQUAL(window.GetBrightness(), 1.0f);
+		EventSleep(1000);
+	}
+
+	{
+		// Flags
+		std::cerr << "Window flags: " << std::hex << "0x" << window.GetFlags() << std::dec << std::endl;
+
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_SHOWN);
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+
+		window.Hide();
+		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_SHOWN));
+		EventSleep(1000);
+
+		window.Show();
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_SHOWN);
+		EventSleep(1000);
+
+		window.Maximize();
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_MAXIMIZED);
+		EventSleep(1000);
+
+		window.Restore();
+		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_MAXIMIZED));
+		EventSleep(1000);
+
+		window.Minimize();
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_MINIMIZED, "May fail on tiled WMs", NON_FATAL);
+		EventSleep(1000);
+
+		window.Restore();
+		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_MINIMIZED));
+		EventSleep(1000);
+
+		window.SetBordered(false);
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_BORDERLESS);
+		EventSleep(1000);
+
+		window.SetBordered(true);
+		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_BORDERLESS));
+		EventSleep(1000);
+
+		window.Raise();
+		EventSleep(1000);
+	}
+
+	{
+		// Display index & mode
+
+		// XXX: may throw
+		std::cerr << "Display index: " << window.GetDisplayIndex() << std::endl;
+
+		SDL_DisplayMode mode;
+		window.GetDisplayMode(mode);
+
+		std::cerr << "Display mode:" << std::endl;
+		std::cerr << "  Format: 0x" << std::hex << mode.format << std::dec << std::endl;
+		std::cerr << "  Width: " << mode.w << std::endl;
+		std::cerr << "  Height: " << mode.h << std::endl;
+		std::cerr << "  Refresh rate: " << mode.refresh_rate << std::endl;
+	}
+
+	{
+		// Fullscreen
+		window.SetFullscreen(SDL_WINDOW_FULLSCREEN_DESKTOP);
+		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+		EventSleep(1000);
+
+		window.SetFullscreen(0);
+		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP));
+		EventSleep(1000);
 	}
 
 END_TEST()
