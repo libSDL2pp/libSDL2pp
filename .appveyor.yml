@@ -109,7 +109,7 @@ build_script:
   # tests; PATH here lists library search paths
   - |-
     %MINGW32% set PATH=%APPVEYOR_BUILD_FOLDER%;%PREFIX%\lib;c:\mingw\bin;%Path%
-    %MINGW32% mingw32-make test
+    %MINGW32% mingw32-make ARGS=-V test
 
 after_build:
   - git status
