@@ -39,5 +39,7 @@ script:
   - cat ${TRAVIS_BUILD_DIR}/FindSDL2PP.cmake
   - cd ${TRAVIS_BUILD_DIR}/exttests/cmake && cmake -DCMAKE_MODULE_PATH=${PREFIX}/share/cmake/Modules . && make
 
+  - cd ${TRAVIS_BUILD_DIR}
+
 after_success:
   - if [ "$BUILD_TYPE" = "Coverage" ]; then coveralls -i SDL2pp; fi
