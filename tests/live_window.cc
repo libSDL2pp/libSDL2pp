@@ -163,10 +163,12 @@ BEGIN_TEST(int, char*[])
 		// Display index & mode
 
 		// XXX: may throw
-		std::cerr << "Display index: " << window.GetDisplayIndex() << std::endl;
+		int displayindex = 0;
+		EXPECT_NO_EXCEPTION(displayindex = window.GetDisplayIndex());
+		std::cerr << "Display index: " << displayindex << std::endl;
 
 		SDL_DisplayMode mode;
-		window.GetDisplayMode(mode);
+		EXPECT_NO_EXCEPTION(window.GetDisplayMode(mode));
 
 		std::cerr << "Display mode:" << std::endl;
 		std::cerr << "  Format: 0x" << std::hex << mode.format << std::dec << std::endl;
