@@ -2,6 +2,7 @@
 
 #include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Font.hh>
+#include <SDL2pp/Exception.hh>
 
 #include "testing.h"
 
@@ -98,5 +99,37 @@ BEGIN_TEST(int, char*[])
 
 		EXPECT_TRUE(family && *family == "Bitstream Vera Sans");
 		EXPECT_TRUE(style && *style == "Roman");
+	}
+
+	{
+		// Glyphs provided
+		EXPECT_TRUE(font.IsGlyphProvided(u'A'));
+		EXPECT_TRUE(font.IsGlyphProvided(u'¼'));
+		EXPECT_TRUE(!font.IsGlyphProvided(u'л'));
+		EXPECT_TRUE(!font.IsGlyphProvided(u'Ы'));
+	}
+
+	{
+		// Glyph metrics
+		int minx, maxx, miny, maxy, advance;
+
+		// Why doesn't TTF_GlyphMetrics on non-existing glyph not return -1?!
+		//EXPECT_EXCEPTION(font.GetGlyphMetrics(u'л', minx, maxx, miny, maxy, advance), Exception);
+
+		EXPECT_NO_EXCEPTION(font.GetGlyphMetrics(u'A', minx, maxx, miny, maxy, advance));
+
+		EXPECT_EQUAL(minx, 0);
+		EXPECT_EQUAL(maxx, 20);
+		EXPECT_EQUAL(miny, 0);
+		EXPECT_EQUAL(maxy, 22);
+		EXPECT_EQUAL(advance, 21);
+
+		EXPECT_EQUAL(font.GetGlyphRect(u'A'), Rect(0, 0, 20, 22));
+		EXPECT_EQUAL(font.GetGlyphAdvance(u'A'), 21);
+
+		// Text size
+		EXPECT_EQUAL(font.GetSizeText("AA"), Point(43, 36));
+		EXPECT_EQUAL(font.GetSizeUTF8(u8"AA"), Point(43, 36));
+		EXPECT_EQUAL(font.GetSizeUNICODE(u"AA"), Point(43, 36));
 	}
 END_TEST()
