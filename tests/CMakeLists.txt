@@ -26,6 +26,12 @@ IF(SDL2PP_WITH_IMAGE)
 	)
 ENDIF(SDL2PP_WITH_IMAGE)
 
+IF(SDL2PP_WITH_TTF)
+	SET(CLI_TESTS ${CLI_TESTS}
+		test_font
+	)
+ENDIF(SDL2PP_WITH_TTF)
+
 # disable self-move warning: it's deliberately used in tests
 INCLUDE(AppendCXXFlagIfSupported)
 APPEND_CXX_FLAG_IF_SUPPORTED(-Wno-self-move CMAKE_CXX_FLAGS)
