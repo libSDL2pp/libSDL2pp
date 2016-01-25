@@ -15,8 +15,16 @@ SET(LIVE_TESTS
 )
 
 IF(SDL2PP_WITH_MIXER)
-	SET(LIVE_TESTS ${LIVE_TESTS} live_mixer)
+	SET(LIVE_TESTS ${LIVE_TESTS}
+		live_mixer
+	)
 ENDIF(SDL2PP_WITH_MIXER)
+
+IF(SDL2PP_WITH_IMAGE)
+	SET(CLI_TESTS ${CLI_TESTS}
+		test_surface
+	)
+ENDIF(SDL2PP_WITH_IMAGE)
 
 # disable self-move warning: it's deliberately used in tests
 INCLUDE(AppendCXXFlagIfSupported)
