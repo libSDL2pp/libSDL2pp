@@ -132,4 +132,20 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(font.GetSizeUTF8(u8"AA"), Point(43, 36));
 		EXPECT_EQUAL(font.GetSizeUNICODE(u"AA"), Point(43, 36));
 	}
+
+	{
+		// Rendering
+		// XXX: add real pixel color tests
+		EXPECT_EQUAL(font.RenderText_Solid("AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUTF8_Solid(u8"AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUNICODE_Solid(u"AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+
+		EXPECT_EQUAL(font.RenderText_Shaded("AA", SDL_Color{255, 255, 255, 255}, SDL_Color{0, 0, 0, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUTF8_Shaded(u8"AA", SDL_Color{255, 255, 255, 255}, SDL_Color{0, 0, 0, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUNICODE_Shaded(u"AA", SDL_Color{255, 255, 255, 255}, SDL_Color{0, 0, 0, 255}).GetSize(), Point(43, 36));
+
+		EXPECT_EQUAL(font.RenderText_Blended("AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUTF8_Blended(u8"AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+		EXPECT_EQUAL(font.RenderUNICODE_Blended(u"AA", SDL_Color{255, 255, 255, 255}).GetSize(), Point(43, 36));
+	}
 END_TEST()
