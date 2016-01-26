@@ -141,11 +141,11 @@ To build libSDL2pp, you need a compiler with C++11 support, for
 example clang 3.4+ or gcc 4.8+.
 
 Dependencies:
-* cmake
-* SDL2
-* SDL2_image (optional)
-* SDL2_mixer (optional)
-* SDL2_ttf (optional)
+* [cmake](https://cmake.org/)
+* [SDL2](https://libsdl.org/)
+* [SDL2_image](https://www.libsdl.org/projects/SDL_image/) (optional)
+* [SDL2_mixer](https://www.libsdl.org/projects/SDL_mixer/) (optional)
+* [SDL2_ttf](https://www.libsdl.org/projects/SDL_ttf/) (optional)
 
 To build standalone version:
 
