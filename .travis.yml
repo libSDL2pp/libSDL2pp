@@ -14,7 +14,7 @@ matrix:
       env: CXXSTD=c++1y BUILD_NOOPTLIBS=yes
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen pulseaudio
+  - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
   - |-
     if [ -n "${BUILD_COVERAGE}" ]; then
@@ -23,6 +23,8 @@ before_install:
     fi
     if [ -n "${BUILD_NOOPTLIBS}" ]; then
         export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO"
+    else
+        sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
     fi
 
   # evironment for live tests
