@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.11.0 - 2015-11-30
 ### Added
-* New ```Window``` methods: ```Window::GetDrawableWidth()```, ```Window::GetDrawableHeight()```, ```Window::GetSize()``` (@csoren)
+* New ```Window``` methods: ```Window::GetDrawableWidth()```, ```Window::GetDrawableHeight()```, ```Window::GetDrawableSize()``` (@csoren)
 * ```Point``` and ```Rect``` less-than operators and std::hash support which makes them usable as ```std::map```/```std::unordered_map```/```std::set```/```std::unordered_set``` keys
 * More ```Rect``` methods and wider constexpr support
 
