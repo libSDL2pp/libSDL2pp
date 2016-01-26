@@ -3,19 +3,27 @@ sudo: required
 dist: trusty
 matrix:
   include:
+    # Note that we stick some additional variations to some builds
     - compiler: gcc
-      env: CXXSTD=c++11 BUILD_TYPE=Coverage
+      env: CXXSTD=c++11 BUILD_COVERAGE=yes
     - compiler: gcc
       env: CXXSTD=c++1y
     - compiler: clang
       env: CXXSTD=c++11
     - compiler: clang
-      env: CXXSTD=c++1y
+      env: CXXSTD=c++1y BUILD_NOOPTLIBS=yes
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
-  - if [ "$BUILD_TYPE" = "Coverage" ]; then pip install --user pyyaml cpp-coveralls; fi
+  - |-
+    if [ -n "${BUILD_COVERAGE}" ]; then
+        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DCMAKE_BUILD_TYPE=Coverage"
+        pip install --user pyyaml cpp-coveralls
+    fi
+    if [ -n "${BUILD_NOOPTLIBS}" ]; then
+        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO"
+    fi
 
   # evironment for live tests
   - dbus-launch pulseaudio --start
@@ -27,7 +35,7 @@ before_install:
 
 script:
   - export PREFIX=`pwd`.prefix
-  - cmake . -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=$CXXSTD -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+  - cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=${CXXSTD} ${CMAKE_EXTRA_ARGS}
   - VERBOSE=1 make && make ARGS=-V test && make install
   - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
   - "if make doxygen 2>&1 | grep 'warning:'; then echo 'FATAL: doxygen warnings!'; false; fi"
@@ -42,4 +50,4 @@ script:
   - cd ${TRAVIS_BUILD_DIR}
 
 after_success:
-  - if [ "$BUILD_TYPE" = "Coverage" ]; then coveralls -i SDL2pp; fi
+  - if [ -n "${BUILD_COVERAGE}" ]; then coveralls -i SDL2pp; fi
