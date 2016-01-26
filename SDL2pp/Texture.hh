@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -367,7 +367,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetTextureBlendMode
 	///
 	////////////////////////////////////////////////////////////
-	Texture& SetBlendMode(SDL_BlendMode blendMode);
+	Texture& SetBlendMode(SDL_BlendMode blendMode = SDL_BLENDMODE_NONE);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set an additional alpha value multiplied into render copy operations

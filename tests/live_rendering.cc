@@ -57,7 +57,7 @@ BEGIN_TEST(int, char*[])
 	PixelInspector pixels(320, 240, 4);
 
 	{
-		// clear
+		// Clear
 		renderer.SetDrawColor(1, 2, 3);
 		renderer.Clear();
 		pixels.Retrieve(renderer);
@@ -69,7 +69,7 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
-		// draw points
+		// Draw points
 		renderer.SetDrawColor(0,0,0);
 		renderer.Clear();
 
@@ -93,7 +93,7 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
-		// draw lines
+		// Draw lines
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
@@ -118,7 +118,7 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
-		// draw rects
+		// Draw rects
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
@@ -162,7 +162,7 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
-		// fill rects
+		// Fill rects
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
@@ -206,7 +206,7 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
-		// blend
+		// Blend
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
@@ -224,4 +224,92 @@ BEGIN_TEST(int, char*[])
 		renderer.Present();
 		SDL_Delay(1000);
 	}
+
+#ifdef SDL2PP_WITH_IMAGE
+	{
+		// Texture
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		Texture texture(renderer, TESTDATA_DIR "/crate.png");
+
+		EXPECT_EQUAL(texture.GetWidth(), 32);
+		EXPECT_EQUAL(texture.GetHeight(), 32);
+		EXPECT_EQUAL(texture.GetSize(), Point(32, 32));
+
+		renderer.Copy(texture, NullOpt, Point(0, 0));
+
+		pixels.Retrieve(renderer);
+
+		EXPECT_TRUE(pixels.Test3x3(1, 1, 0x032, 238, 199, 0));
+
+		renderer.Present();
+		SDL_Delay(1000);
+
+		// Texture: fill copy
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		renderer.FillCopy(texture, NullOpt, Rect(0, 0, 48, 48), Point(16, 16), 0);
+
+		pixels.Retrieve(renderer);
+
+		EXPECT_TRUE(pixels.Test3x3(1+16, 1+16, 0x032, 238, 199, 0));
+
+		renderer.Present();
+		SDL_Delay(1000);
+
+		// Texture: alpha blending/modulation
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		EXPECT_EQUAL(texture.GetBlendMode(), SDL_BLENDMODE_NONE);
+		texture.SetBlendMode(SDL_BLENDMODE_BLEND);
+		EXPECT_EQUAL(texture.GetBlendMode(), SDL_BLENDMODE_BLEND);
+
+		EXPECT_EQUAL((int)texture.GetAlphaMod(), 255);
+		texture.SetAlphaMod(127);
+		EXPECT_EQUAL((int)texture.GetAlphaMod(), 127);
+
+		renderer.Copy(texture, NullOpt, Point(0, 0));
+
+		pixels.Retrieve(renderer);
+
+		EXPECT_TRUE(pixels.Test3x3(1, 1, 0x032, 119, 99, 0));
+
+		renderer.Present();
+		SDL_Delay(1000);
+
+		texture.SetBlendMode();
+		EXPECT_EQUAL(texture.GetBlendMode(), SDL_BLENDMODE_NONE);
+		texture.SetAlphaMod();
+		EXPECT_EQUAL((int)texture.GetAlphaMod(), 255);
+
+		// Texture: color modulation
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		Uint8 r, g, b;
+		texture.GetColorMod(r, g, b);
+		EXPECT_EQUAL((int)r, 255);
+		EXPECT_EQUAL((int)g, 255);
+		EXPECT_EQUAL((int)b, 255);
+		texture.SetColorMod(89, 241, 50);
+
+		renderer.Copy(texture, NullOpt, Point(0, 0));
+
+		pixels.Retrieve(renderer);
+
+		EXPECT_TRUE(pixels.Test3x3(1, 1, 0x032, 83, 188, 0));
+
+		renderer.Present();
+		SDL_Delay(1000);
+
+		texture.SetColorMod();
+		texture.GetColorMod(r, g, b);
+		EXPECT_EQUAL((int)r, 255);
+		EXPECT_EQUAL((int)g, 255);
+		EXPECT_EQUAL((int)b, 255);
+	}
+#endif // SDL2PP_WITH_IMAGE
 END_TEST()
