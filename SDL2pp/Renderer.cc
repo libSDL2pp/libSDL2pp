@@ -352,10 +352,14 @@ bool Renderer::TargetSupported() const {
 	return SDL_RenderTargetSupported(renderer_) == SDL_TRUE;
 }
 
-Rect Renderer::GetClipRect() const {
+Optional<Rect> Renderer::GetClipRect() const {
 	SDL_Rect rect;
 	SDL_RenderGetClipRect(renderer_, &rect);
-	return rect;
+
+	if (SDL_RectEmpty(&rect))
+		return NullOpt;
+	else
+		return Rect(rect);
 }
 
 Point Renderer::GetLogicalSize() const {

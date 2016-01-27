@@ -206,6 +206,30 @@ BEGIN_TEST(int, char*[])
 	}
 
 	{
+		// Clip rect
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		renderer.SetClipRect(Rect(1, 1, 1, 1));
+
+		renderer.SetDrawColor(255, 255, 255);
+		renderer.FillRect(0, 0, 10, 10);
+
+		EXPECT_TRUE(renderer.GetClipRect() && renderer.GetClipRect() == Rect(1, 1, 1, 1));
+
+		renderer.SetClipRect(NullOpt);
+
+		EXPECT_TRUE(!renderer.GetClipRect());
+
+		pixels.Retrieve(renderer);
+
+		EXPECT_TRUE(pixels.Test3x3(1, 1, 0x020, 255, 255, 255));
+
+		renderer.Present();
+		SDL_Delay(1000);
+	}
+
+	{
 		// Blend
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();

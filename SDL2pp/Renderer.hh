@@ -648,12 +648,13 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get the clip rectangle for the current target
 	///
-	/// \returns Rect representing current clipping area
+	/// \returns Rect representing current clipping area or
+	///          NullOpt if clipping is disabled
 	///
 	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
 	///
 	////////////////////////////////////////////////////////////
-	Rect GetClipRect() const;
+	Optional<Rect> GetClipRect() const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get device independent resolution for rendering
