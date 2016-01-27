@@ -77,7 +77,7 @@ BEGIN_TEST(int, char*[])
 		renderer.DrawPoint(10, 10);
 
 		renderer.SetDrawColor(0, 255, 128);
-		renderer.DrawPoint(20, 20);
+		renderer.DrawPoint(Point(20, 20));
 
 		renderer.SetDrawColor(128, 0, 255);
 		Point points[] = { {30, 30} };
