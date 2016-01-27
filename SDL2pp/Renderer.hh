@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -159,21 +159,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Renderer& Clear();
-
-	////////////////////////////////////////////////////////////
-	/// \brief Get information about a rendering context
-	///
-	/// \param[out] info SDL_RendererInfo structure to be filled with
-	///                  information about the current renderer
-	///
-	/// \throws SDL2pp::Exception
-	///
-	/// \see http://wiki.libsdl.org/SDL_GetRendererInfo
-	///
-	/// \deprecated Use GetInfo(SDL_RendererInfo&) instead
-	///
-	////////////////////////////////////////////////////////////
-	SDL2PP_DEPRECATED void GetInfo(SDL_RendererInfo* info);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get information about a rendering context

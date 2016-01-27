@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.13.0 - unreleased
+### Removed
+* Deprecated ```Renderer::GetInfo()``` variant which takes pointer (use variant which takes reference)
+
 ## 0.12.0 - 2016-01-23
 ### Fixed
 * Link SDL2main library, which is needed on some systems
