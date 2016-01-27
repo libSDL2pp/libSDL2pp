@@ -57,8 +57,13 @@ BEGIN_TEST(int, char*[])
 	PixelInspector pixels(320, 240, 4);
 
 	{
-		// Clear
+		// Clear, draw color
 		renderer.SetDrawColor(1, 2, 3);
+
+		Uint8 r, g, b, a;
+		renderer.GetDrawColor(r, g, b, a);
+		EXPECT_TRUE(r == 1 && g == 2 && b == 3 && a == 255);
+
 		renderer.Clear();
 		pixels.Retrieve(renderer);
 
