@@ -661,7 +661,7 @@ public:
 	///
 	/// \returns Point representing logical resolution
 	///
-	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	/// \see http://wiki.libsdl.org/SDL_RenderGetLogicalSize
 	///
 	/// \note If this function is called on an Renderer who never had
 	///       its logical size set by SetLogicalSize(), this function
@@ -675,7 +675,7 @@ public:
 	///
 	/// \returns Logical resolution width
 	///
-	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	/// \see http://wiki.libsdl.org/SDL_RenderGetLogicalSize
 	///
 	/// \note If this function is called on an Renderer who never had
 	///       its logical size set by SetLogicalSize(), this function
@@ -689,7 +689,7 @@ public:
 	///
 	/// \returns Logical resolution height
 	///
-	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	/// \see http://wiki.libsdl.org/SDL_RenderGetLogicalSize
 	///
 	/// \note If this function is called on an Renderer who never had
 	///       its logical size set by SetLogicalSize(), this function
@@ -785,7 +785,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	/// \see http://wiki.libsdl.org/SDL_GetRendererOutputSize
 	///
 	////////////////////////////////////////////////////////////
 	int GetOutputWidth() const;
@@ -797,7 +797,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
-	/// \see http://wiki.libsdl.org/SDL_RenderGetClipRect
+	/// \see http://wiki.libsdl.org/SDL_GetRendererOutputSize
 	///
 	////////////////////////////////////////////////////////////
 	int GetOutputHeight() const;
