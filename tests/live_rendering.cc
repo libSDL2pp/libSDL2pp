@@ -57,6 +57,22 @@ BEGIN_TEST(int, char*[])
 	PixelInspector pixels(320, 240, 4);
 
 	{
+		// Info
+		SDL_RendererInfo info;
+
+		EXPECT_NO_EXCEPTION(renderer.GetInfo(info));
+
+		std::cerr << "Renderer name: " << info.name << std::endl;
+		std::cerr << "Renderer flags: " << info.flags << std::endl;
+		std::cerr << "Number of texture formats: " << info.num_texture_formats << std::endl;
+		std::cerr << "Max texture width: " << info.max_texture_width << std::endl;
+		std::cerr << "Max texture height: " << info.max_texture_height << std::endl;
+
+		EXPECT_TRUE(info.max_texture_width > 0);
+		EXPECT_TRUE(info.max_texture_height > 0);
+	}
+
+	{
 		// Clear, draw color
 		renderer.SetDrawColor(1, 2, 3);
 
