@@ -239,9 +239,16 @@ BEGIN_TEST(int, char*[])
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
+		EXPECT_EQUAL(renderer.GetDrawBlendMode(), SDL_BLENDMODE_NONE);
+
 		renderer.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
+		EXPECT_EQUAL(renderer.GetDrawBlendMode(), SDL_BLENDMODE_BLEND);
+
 		renderer.SetDrawColor(255, 255, 255, 127);
 		renderer.FillRect(10, 10, 19, 19);
+
+		renderer.SetDrawBlendMode();
+		EXPECT_EQUAL(renderer.GetDrawBlendMode(), SDL_BLENDMODE_NONE);
 
 		pixels.Retrieve(renderer);
 

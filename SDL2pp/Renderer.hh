@@ -340,7 +340,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawBlendMode
 	///
 	////////////////////////////////////////////////////////////
-	Renderer& SetDrawBlendMode(SDL_BlendMode blendMode);
+	Renderer& SetDrawBlendMode(SDL_BlendMode blendMode = SDL_BLENDMODE_NONE);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Draw a point on the current rendering target
