@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2015-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -357,6 +357,14 @@ public:
 	////////////////////////////////////////////////////////////
 	void SetChannelFinishedHandler(ChannelFinishedHandler channel_finished);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Remove callback for when channel finishes playing
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC37
+	///
+	////////////////////////////////////////////////////////////
+	void RemoveChannelFinishedHandler();
+
 	///@}
 
 	///@{
@@ -685,6 +693,14 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void SetMusicFinishedHandler(MusicFinishedHandler music_finished);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Remove a callback for when music stops
+	///
+	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC69
+	///
+	////////////////////////////////////////////////////////////
+	void RemoveMusicFinishedHandler();
 
 	///@}
 

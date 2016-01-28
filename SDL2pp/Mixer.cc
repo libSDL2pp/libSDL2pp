@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2015-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -119,6 +119,10 @@ void Mixer::SetChannelFinishedHandler(ChannelFinishedHandler channel_finished) {
 	Mix_ChannelFinished(channel_finished);
 }
 
+void Mixer::RemoveChannelFinishedHandler() {
+	Mix_ChannelFinished(nullptr);
+}
+
 int Mixer::IsChannelPlaying(int channel) const {
 	return Mix_Playing(channel);
 }
@@ -226,6 +230,10 @@ Mix_Fading Mixer::GetMusicFading() const {
 
 void Mixer::SetMusicFinishedHandler(MusicFinishedHandler music_finished) {
 	Mix_HookMusicFinished(music_finished);
+}
+
+void Mixer::RemoveMusicFinishedHandler() {
+	Mix_HookMusicFinished(nullptr);
 }
 
 void Mixer::SetMusicHook(MusicHook&& hook) {
