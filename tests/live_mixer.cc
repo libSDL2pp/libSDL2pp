@@ -43,6 +43,12 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(mixer.GetVolume(0), MIX_MAX_VOLUME/2);
 	}
 
+	// Mixer: sound finished handler
+	// Since we can't pass a closure to SetChannelFinishedHandler,
+	// we have to use static var
+	static int finchan = -1;
+	mixer.SetChannelFinishedHandler([](int chan){ finchan = chan; });
+
 	// Mixer: idle channel status
 	EXPECT_EQUAL(mixer.IsChannelPlaying(0), 0);
 	EXPECT_EQUAL(mixer.IsChannelPaused(0), 0);
@@ -61,24 +67,30 @@ BEGIN_TEST(int, char*[])
 	EXPECT_EQUAL(mixer.IsChannelPlaying(chan), 1);
 	EXPECT_EQUAL(mixer.IsChannelPaused(chan), 1);
 	EXPECT_EQUAL(mixer.GetChannelFading(chan), MIX_NO_FADING);
+	EXPECT_EQUAL(finchan, -1);
 
 	mixer.ResumeChannel(chan);
 
 	EXPECT_EQUAL(mixer.IsChannelPlaying(chan), 1);
 	EXPECT_EQUAL(mixer.IsChannelPaused(chan), 0);
 	EXPECT_EQUAL(mixer.GetChannelFading(chan), MIX_NO_FADING);
+	EXPECT_EQUAL(finchan, -1);
 
 	mixer.ExpireChannel(chan, delay);
 
 	EXPECT_EQUAL(mixer.IsChannelPlaying(chan), 1);
 	EXPECT_EQUAL(mixer.IsChannelPaused(chan), 0);
 	EXPECT_EQUAL(mixer.GetChannelFading(chan), MIX_NO_FADING);
+	EXPECT_EQUAL(finchan, -1);
 
 	SDL_Delay(delay * 2);
 
 	EXPECT_EQUAL(mixer.IsChannelPlaying(chan), 0);
 	EXPECT_EQUAL(mixer.IsChannelPaused(chan), 0);
 	EXPECT_EQUAL(mixer.GetChannelFading(chan), MIX_NO_FADING);
+	EXPECT_EQUAL(finchan, chan);
+
+	mixer.RemoveChannelFinishedHandler();
 
 	// Mixer: timed play
 	chan = mixer.PlayChannel(-1, sound, -1, delay);
@@ -144,7 +156,12 @@ BEGIN_TEST(int, char*[])
 		EXPECT_EQUAL(mixer.GetMusicVolume(), MIX_MAX_VOLUME/2);
 	}
 
+	// Mixer: music finished handler
+	static bool finmusic = false;
+	mixer.SetMusicFinishedHandler([](){ finmusic = true; });
+
 	// Mixer: music
+
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), false);
 
 	mixer.PlayMusic(music, -1);
@@ -152,30 +169,37 @@ BEGIN_TEST(int, char*[])
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), true);
 	EXPECT_EQUAL(mixer.IsMusicPaused(), false);
 	EXPECT_EQUAL(mixer.GetMusicFading(), MIX_NO_FADING);
+	EXPECT_EQUAL(finmusic, false);
 
 	mixer.PauseMusic();
 
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), true);
 	EXPECT_EQUAL(mixer.IsMusicPaused(), true);
 	EXPECT_EQUAL(mixer.GetMusicFading(), MIX_NO_FADING);
+	EXPECT_EQUAL(finmusic, false);
 
 	mixer.ResumeMusic();
 
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), true);
 	EXPECT_EQUAL(mixer.IsMusicPaused(), false);
 	EXPECT_EQUAL(mixer.GetMusicFading(), MIX_NO_FADING);
+	EXPECT_EQUAL(finmusic, false);
 
 	EXPECT_EQUAL(mixer.FadeOutMusic(delay), true);
 
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), true);
 	EXPECT_EQUAL(mixer.IsMusicPaused(), false);
 	EXPECT_EQUAL(mixer.GetMusicFading(), MIX_FADING_OUT);
+	EXPECT_EQUAL(finmusic, false);
 
 	SDL_Delay(delay * 2);
 
 	EXPECT_EQUAL(mixer.IsMusicPlaying(), false);
 	EXPECT_EQUAL(mixer.IsMusicPaused(), false);
 	EXPECT_EQUAL(mixer.GetMusicFading(), MIX_NO_FADING);
+	EXPECT_EQUAL(finmusic, true);
+
+	mixer.RemoveMusicFinishedHandler();
 
 	// Mixer: music fadein, rewind, halt
 	mixer.FadeInMusic(music, -1, delay);
