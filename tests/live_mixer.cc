@@ -4,6 +4,7 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
@@ -16,8 +17,8 @@ BEGIN_TEST(int, char*[])
 	Chunk sound(TESTDATA_DIR "/test.ogg");
 	Music music(TESTDATA_DIR "/test.ogg");
 
-	EXPECT_TRUE(sound.Get());
-	EXPECT_TRUE(music.Get());
+	MOVE_TEST(Chunk, sound, Get, nullptr);
+	MOVE_TEST(Music, music, Get, nullptr);
 
 	constexpr int delay = 500;
 
