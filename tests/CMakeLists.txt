@@ -10,6 +10,7 @@ SET(CLI_TESTS
 
 # live tests require X11 display and/or audio output
 SET(LIVE_TESTS
+	live_audiodevice
 	live_rendering
 	live_window
 )
