@@ -26,39 +26,70 @@ BEGIN_TEST(int, char*[])
 	MOVE_TEST(AudioDevice, device, Get, 0)
 
 	{
+		// Default state
 		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PAUSED);
 		EXPECT_TRUE(callback_requests == 0);
 
-		long saved_reqs1 = callback_requests;
+		long saved_reqs = callback_requests;
 
+		// Unpause
 		device.Pause(false);
 		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PLAYING);
 
 		SDL_Delay(1000);
-		EXPECT_TRUE(callback_requests > saved_reqs1);
+		EXPECT_TRUE(callback_requests > saved_reqs);
 
+		// Pause
 		device.Pause(true);
 		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PLAYING);
 
-		long saved_reqs2 = callback_requests;
+		saved_reqs = callback_requests;
 
 		SDL_Delay(1000);
-		EXPECT_TRUE(callback_requests == saved_reqs2);
+		EXPECT_TRUE(callback_requests == saved_reqs);
 
 		device.Pause(false);
 
-		long saved_reqs3;
 		{
+			// Lock
 			AudioDevice::LockHandle lock = device.Lock();
-			saved_reqs3 = callback_requests;
+			saved_reqs = callback_requests;
 
 			SDL_Delay(1000);
 
-			EXPECT_TRUE(callback_requests == saved_reqs3);
+			EXPECT_TRUE(callback_requests == saved_reqs);
+
+			{
+				// Recursive lock
+				AudioDevice::LockHandle lock1(lock);
+
+				AudioDevice::LockHandle lock2, lock4;
+
+				lock2 = lock1;
+
+				AudioDevice::LockHandle lock3(std::move(lock1));
+
+				lock4 = std::move(lock2);
+
+				SDL_Delay(1000);
+			}
+
+			EXPECT_TRUE(callback_requests == saved_reqs);
 		}
 
+		// Unlocked
 		SDL_Delay(1000);
+		EXPECT_TRUE(callback_requests > saved_reqs);
 
-		EXPECT_TRUE(callback_requests > saved_reqs3);
+		// Change callback
+		device.ChangeCallback([&callback_requests](Uint8* stream, int len) {
+				std::fill(stream, stream + len, 0);
+				--callback_requests;
+			});
+
+		saved_reqs = callback_requests;
+
+		SDL_Delay(1000);
+		EXPECT_TRUE(callback_requests < saved_reqs);
 	}
 END_TEST()
