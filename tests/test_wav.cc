@@ -3,11 +3,14 @@
 #include <SDL2pp/Wav.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
 BEGIN_TEST(int, char*[])
 	Wav wav(TESTDATA_DIR "/test.wav");
+
+	MOVE_TEST(Wav, wav, GetBuffer, nullptr);
 
 	{
 		// Wav tests
@@ -28,21 +31,5 @@ BEGIN_TEST(int, char*[])
 		AudioSpec spec2(spec.Get()->freq, spec.Get()->format, spec.Get()->channels, spec.Get()->samples);
 
 		EXPECT_TRUE(spec.IsSameFormat(spec2));
-	}
-
-	{
-		// Move tests
-		Uint8* buf = wav.GetBuffer();
-
-		Wav wav1(std::move(wav));
-		EXPECT_TRUE(wav1.GetBuffer() == buf);
-		EXPECT_TRUE(wav.GetBuffer() == nullptr);
-
-		std::swap(wav, wav1);
-		EXPECT_TRUE(wav.GetBuffer() == buf);
-		EXPECT_TRUE(wav1.GetBuffer() == nullptr);
-
-		wav = std::move(wav); // self-move
-		EXPECT_TRUE(wav.GetBuffer() == buf);
 	}
 END_TEST()

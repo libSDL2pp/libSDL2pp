@@ -4,6 +4,7 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
@@ -55,6 +56,8 @@ BEGIN_TEST(int, char*[])
 	Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	PixelInspector pixels(320, 240, 4);
+
+	MOVE_TEST(Renderer, renderer, Get, nullptr);
 
 	{
 		// Info
@@ -284,6 +287,8 @@ BEGIN_TEST(int, char*[])
 		renderer.Clear();
 
 		Texture texture(renderer, TESTDATA_DIR "/crate.png");
+
+		MOVE_TEST(Texture, texture, Get, nullptr);
 
 		EXPECT_EQUAL(texture.GetWidth(), 32);
 		EXPECT_EQUAL(texture.GetHeight(), 32);

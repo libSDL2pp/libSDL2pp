@@ -5,6 +5,7 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
@@ -21,6 +22,8 @@ BEGIN_TEST(int, char*[])
 				std::fill(stream, stream + len, 0);
 				++callback_requests;
 			});
+
+	MOVE_TEST(AudioDevice, device, Get, 0)
 
 	{
 		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PAUSED);

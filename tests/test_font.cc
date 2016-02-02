@@ -5,6 +5,7 @@
 #include <SDL2pp/Exception.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
@@ -12,23 +13,7 @@ BEGIN_TEST(int, char*[])
 	SDLTTF ttf;
 	Font font(TESTDATA_DIR "/Vera.ttf", 30);
 
-    {
-        // Move tests
-        TTF_Font* ptr = font.Get();
-
-		EXPECT_TRUE(ptr != nullptr);
-
-        Font font1(std::move(font));
-        EXPECT_TRUE(font1.Get() == ptr);
-        EXPECT_TRUE(font.Get() == nullptr);
-
-        std::swap(font, font1);
-        EXPECT_TRUE(font.Get() == ptr);
-        EXPECT_TRUE(font1.Get() == nullptr);
-
-        font = std::move(font); // self-move
-        EXPECT_TRUE(font.Get() == ptr);
-    }
+	MOVE_TEST(Font, font, Get, nullptr);
 
 	{
 		// Font style

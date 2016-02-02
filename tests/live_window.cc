@@ -4,6 +4,7 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "testing.h"
+#include "movetest.hh"
 
 using namespace SDL2pp;
 
@@ -20,21 +21,7 @@ BEGIN_TEST(int, char*[])
 	SDL sdl(SDL_INIT_VIDEO);
 	Window window("libSDL2pp test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 240, SDL_WINDOW_RESIZABLE);
 
-	{
-		// Move tests
-		SDL_Window* win = window.Get();
-
-		Window window1(std::move(window));
-		EXPECT_EQUAL(window1.Get(), win);
-		EXPECT_TRUE(window.Get() == nullptr);
-
-		std::swap(window, window1);
-		EXPECT_EQUAL(window.Get(), win);
-		EXPECT_TRUE(window1.Get() == nullptr);
-
-		window = std::move(window); // self-move
-		EXPECT_EQUAL(window.Get(), win);
-	}
+	MOVE_TEST(Window, window, Get, nullptr);
 
 	EventSleep(1000); // Process events for newborn window
 
