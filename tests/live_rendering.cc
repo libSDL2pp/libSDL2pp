@@ -52,6 +52,20 @@ public:
 
 BEGIN_TEST(int, char*[])
 	SDL sdl(SDL_INIT_VIDEO);
+
+	{
+		// SDL initialization stuff
+		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO));
+
+		sdl.QuitSubSystem(SDL_INIT_VIDEO);
+
+		EXPECT_TRUE(!sdl.WasInit(SDL_INIT_VIDEO));
+
+		sdl.InitSubSystem(SDL_INIT_VIDEO);
+
+		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO));
+	}
+
 	Window window("libSDL2pp test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 240, 0);
 	Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
