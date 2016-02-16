@@ -3,6 +3,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
+#ifdef SDL2PP_WITH_IMAGE
+#	include <SDL2/SDL_image.h>
+#endif
+
 #include "testing.h"
 #include "movetest.hh"
 
@@ -295,6 +299,15 @@ BEGIN_TEST(int, char*[])
 	}
 
 #ifdef SDL2PP_WITH_IMAGE
+	{
+		// Init
+		SDLImage img(IMG_INIT_PNG);
+		EXPECT_EQUAL(img.GetInitFlags(), IMG_INIT_PNG);
+
+		img.InitMore(IMG_INIT_JPG);
+		EXPECT_EQUAL(img.GetInitFlags(), IMG_INIT_PNG | IMG_INIT_JPG);
+	}
+
 	{
 		// Texture
 		renderer.SetDrawColor(0, 0, 0);
