@@ -10,7 +10,16 @@ using namespace SDL2pp;
 
 BEGIN_TEST(int, char*[])
 	SDL sdl(SDL_INIT_AUDIO);
-	SDLMixer mixerlib;
+	SDLMixer mixerlib(MIX_INIT_OGG);
+
+	{
+		// Init
+		EXPECT_EQUAL(mixerlib.GetInitFlags(), MIX_INIT_OGG, "Mix_Init(0) doesn't return mask of init'd loaders", NON_FATAL);
+
+		EXPECT_TRUE(mixerlib.InitMore(MIX_INIT_FLAC) & MIX_INIT_FLAC);
+
+		EXPECT_EQUAL(mixerlib.GetInitFlags(), MIX_INIT_OGG | MIX_INIT_FLAC, "Mix_Init(0) doesn't return mask of init'd loaders", NON_FATAL);
+	}
 
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
