@@ -33,10 +33,6 @@ IF(SDL2PP_WITH_TTF)
 	)
 ENDIF(SDL2PP_WITH_TTF)
 
-# disable self-move warning: it's deliberately used in tests
-INCLUDE(AppendCXXFlagIfSupported)
-APPEND_CXX_FLAG_IF_SUPPORTED(-Wno-self-move CMAKE_CXX_FLAGS)
-
 ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
 # header tests: these just include specific headers to check if

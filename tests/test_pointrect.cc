@@ -50,7 +50,8 @@ BEGIN_TEST(int, char*[])
 		Point p(12,13);
 		p = Point(14,15);
 
-		p = std::move(p);
+		Point& pref = p;
+		p = std::move(pref);
 
 		EXPECT_TRUE(p.GetX() == 14 && p.GetY() == 15);
 	}
@@ -144,7 +145,8 @@ BEGIN_TEST(int, char*[])
 		Rect r(21,22,23,24);
 		r = Rect(25,26,27,28);
 
-		r = std::move(r);
+		Rect& rref = r;
+		r = std::move(rref);
 
 		EXPECT_TRUE(r.GetX() == 25 && r.GetY() == 26 && r.GetW() == 27 && r.GetH() == 28);
 	}

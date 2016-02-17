@@ -10,6 +10,7 @@
 	EXPECT_EQUAL(obj.getmethod(), ptr); \
 	EXPECT_TRUE(obj1.getmethod() == nullval); \
 	\
-	obj = std::move(obj);  \
+	cl& obj_ref = obj;  \
+	obj = std::move(obj_ref);  \
 	EXPECT_EQUAL(obj.getmethod(), ptr); \
 }
