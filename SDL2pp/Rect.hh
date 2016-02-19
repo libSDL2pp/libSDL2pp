@@ -89,6 +89,28 @@ public:
 	}
 
 	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given corner coordinates, width and height
+	///
+	/// \param[in] corner Coordinates of the top left rectangle corner
+	/// \param[in] w Width of the rectangle
+	/// \param[in] h Height of the rectangle
+	///
+	////////////////////////////////////////////////////////////
+	constexpr Rect(const Point& corner, int w, int h) : SDL_Rect{corner.x, corner.y, w, h} {
+	}
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given corner coordinates, width and height
+	///
+	/// \param[in] x X coordinate of the top left rectangle corner
+	/// \param[in] y Y coordinate of the top left rectangle corner
+	/// \param[in] size Dimensions of the rectangle
+	///
+	////////////////////////////////////////////////////////////
+	constexpr Rect(int x, int y, const Point& size) : SDL_Rect{x, y, size.x, size.y} {
+	}
+
+	////////////////////////////////////////////////////////////
 	/// \brief Construct the rect from given center coordinates, width and height
 	///
 	/// \param[in] cx X coordinate of the rectangle center
@@ -134,6 +156,30 @@ public:
 	////////////////////////////////////////////////////////////
 	static constexpr Rect FromCorners(const Point& p1, const Point& p2) {
 		return Rect(p1, p2 - p1 + Point(1, 1));
+	}
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given corners coordinates
+	///
+	/// \param[in] p1 Coordinates of the top left rectangle corner
+	/// \param[in] x2 X coordinate of the bottom right rectangle corner
+	/// \param[in] y2 Y coordinate of the bottom right rectangle corner
+	///
+	////////////////////////////////////////////////////////////
+	static constexpr Rect FromCorners(const Point& p1, int x2, int y2) {
+		return Rect(p1, Point(x2, y2) - p1 + Point(1, 1));
+	}
+
+	////////////////////////////////////////////////////////////
+	/// \brief Construct the rect from given corners coordinates
+	///
+	/// \param[in] x1 X coordinate of the top left rectangle corner
+	/// \param[in] y1 Y coordinate of the top left rectangle corner
+	/// \param[in] p2 Coordinates of the bottom right rectangle corner
+	///
+	////////////////////////////////////////////////////////////
+	static constexpr Rect FromCorners(int x1, int y1, const Point& p2) {
+		return Rect(x1, y1, p2 - Point(x1, y1) + Point(1, 1));
 	}
 
 	////////////////////////////////////////////////////////////

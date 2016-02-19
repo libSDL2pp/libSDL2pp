@@ -40,7 +40,8 @@ BEGIN_TEST(int, char*[])
 		Point p(8,9);
 		p = Point(10,11);
 
-		p = p;
+		Point& pref = p;
+		p = pref;
 
 		EXPECT_TRUE(p.GetX() == 10 && p.GetY() == 11);
 	}
@@ -135,7 +136,8 @@ BEGIN_TEST(int, char*[])
 		Rect r(13,14,15,16);
 		r = Rect(17,18,19,20);
 
-		r = r;
+		Rect& rref = r;
+		r = rref;
 
 		EXPECT_TRUE(r.GetX() == 17 && r.GetY() == 18 && r.GetW() == 19 && r.GetH() == 20);
 	}
@@ -165,10 +167,16 @@ BEGIN_TEST(int, char*[])
 
 	{
 		// Constructors
+		EXPECT_EQUAL(Rect(10, 20, 30, 40), Rect(10, 20, Point(30, 40)));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40), Rect(Point(10, 20), 30, 40));
+		EXPECT_EQUAL(Rect(10, 20, 30, 40), Rect(Point(10, 20), Point(30, 40)));
+
 		EXPECT_EQUAL(Rect::FromCenter(100, 100, 5, 7), Rect(98, 97, 5, 7));
 		EXPECT_EQUAL(Rect::FromCenter(Point(100, 100), Point(5, 7)), Rect(98, 97, 5, 7));
 
 		EXPECT_EQUAL(Rect::FromCorners(10, 20, 30, 40), Rect(10, 20, 21, 21));
+		EXPECT_EQUAL(Rect::FromCorners(Point(10, 20), 30, 40), Rect(10, 20, 21, 21));
+		EXPECT_EQUAL(Rect::FromCorners(10, 20, Point(30, 40)), Rect(10, 20, 21, 21));
 		EXPECT_EQUAL(Rect::FromCorners(Point(10, 20), Point(30, 40)), Rect(10, 20, 21, 21));
 	}
 
