@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -126,7 +126,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////////////
-	/// \brief Construct the rect from given centers coordinates
+	/// \brief Construct the rect from given corners coordinates
 	///
 	/// \param[in] p1 Coordinates of the top left rectangle corner
 	/// \param[in] p2 Coordinates of the bottom right rectangle corner
