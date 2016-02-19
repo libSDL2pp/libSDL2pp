@@ -298,6 +298,35 @@ BEGIN_TEST(int, char*[])
 		SDL_Delay(1000);
 	}
 
+	if (renderer.TargetSupported()) {
+		// Render target
+		Texture target(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 32, 32);
+
+		EXPECT_EQUAL(target.GetAccess(), SDL_TEXTUREACCESS_TARGET);
+
+		renderer.SetTarget(target);
+		renderer.SetDrawColor(255, 1, 2);
+		renderer.Clear();
+		renderer.Present();
+
+		renderer.SetTarget();
+		renderer.SetDrawColor(0, 0, 0);
+		renderer.Clear();
+
+		pixels.Retrieve(renderer);
+		EXPECT_TRUE(pixels.Test(0, 0, 0, 0, 0));
+
+		renderer.Copy(target);
+
+		pixels.Retrieve(renderer);
+		EXPECT_TRUE(pixels.Test(0, 0, 255, 1, 2));
+
+		renderer.Present();
+		SDL_Delay(1000);
+	} else {
+		EXPECT_TRUE(false, "render target is not supported here, some tests were skipped", NON_FATAL);
+	}
+
 #ifdef SDL2PP_WITH_IMAGE
 	{
 		// Init
@@ -314,6 +343,8 @@ BEGIN_TEST(int, char*[])
 		renderer.Clear();
 
 		Texture texture(renderer, TESTDATA_DIR "/crate.png");
+
+		EXPECT_EQUAL(texture.GetAccess(), SDL_TEXTUREACCESS_STATIC);
 
 		MOVE_TEST(Texture, texture, Get, nullptr);
 
