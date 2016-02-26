@@ -121,8 +121,6 @@ private:
 		case LITERAL:     bright =  true; color = 5; break;
 		case EXPRESSION:  bright =  true; color = 7; break;
 		case DESCRIPTION: bright =  true; color = 4; break;
-		default:
-			return str;
 		}
 
 		std::ostringstream ss;
@@ -383,7 +381,9 @@ public:
 #define RESET_FLAGS() do { tester_.ResetFlags(); } while(0)
 
 // flags
-#define NON_FATAL Tester::NON_FATAL
-#define HIDE_MESSAGE Tester::HIDE_MESSAGE
+enum {
+	NON_FATAL = Tester::Flags::NON_FATAL,
+	HIDE_MESSAGE = Tester::Flags::HIDE_MESSAGE
+};
 
 #endif // TESTING_H_INCLUDED
