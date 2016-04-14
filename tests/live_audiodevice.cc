@@ -1,5 +1,6 @@
 #include <atomic>
 #include <algorithm>
+#include <vector>
 
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
@@ -92,4 +93,32 @@ BEGIN_TEST(int, char*[])
 		SDL_Delay(1000);
 		EXPECT_TRUE(callback_requests < saved_reqs);
 	}
+
+
+#if SDL_VERSION_ATLEAST(2, 0, 4)
+	{
+		// Queue won't work for callbacked device
+		EXPECT_EXCEPTION(device.QueueAudio(0, 0), Exception);
+
+		AudioDevice device2 = AudioDevice(NullOpt, 0, spec);
+
+		static constexpr size_t buflen = 1024 * 1024;
+
+		std::vector<char> zeroes(buflen);
+		device2.QueueAudio(zeroes.data(), buflen);
+
+		// Not sure if safe to check for equality; may it
+		// already suck in some data?
+		EXPECT_EQUAL(device2.GetQueuedAudioSize(), buflen);
+
+		device2.Pause(false);
+
+		// This will suck in some data
+		SDL_Delay(1000);
+		EXPECT_TRUE(device2.GetQueuedAudioSize() < buflen);
+
+		device2.ClearQueuedAudio();
+		EXPECT_EQUAL(device2.GetQueuedAudioSize(), (Uint32)0);
+	}
+#endif
 END_TEST()
