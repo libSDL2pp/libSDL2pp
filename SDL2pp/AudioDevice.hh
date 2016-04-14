@@ -26,6 +26,7 @@
 #include <string>
 
 #include <SDL2/SDL_audio.h>
+#include <SDL2/SDL_version.h>
 
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Config.hh>
@@ -304,7 +305,7 @@ public:
 	////////////////////////////////////////////////////////////
 	LockHandle Lock();
 
-#ifdef SDL2PP_WITH_2_0_4
+#if SDL_VERSION_ATLEAST(2, 0, 4)
 	////////////////////////////////////////////////////////////
 	/// \brief Queue more audio for a non-callback device
 	///

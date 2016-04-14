@@ -110,7 +110,7 @@ AudioDevice::LockHandle AudioDevice::Lock() {
 	return LockHandle(this);
 }
 
-#ifdef SDL2PP_WITH_2_0_4
+#if SDL_VERSION_ATLEAST(2, 0, 4)
 AudioDevice& AudioDevice::QueueAudio(const void* data, Uint32 len) {
 	if (SDL_QueueAudio(device_id_, data, len) != 0)
 		throw Exception("SDL_QueueAudio");
