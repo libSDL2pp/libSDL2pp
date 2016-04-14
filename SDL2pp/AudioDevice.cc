@@ -122,7 +122,7 @@ AudioDevice& AudioDevice::ClearQueuedAudio() {
 	return *this;
 }
 
-Uint32 GetQueuedAudioSize() const {
+Uint32 AudioDevice::GetQueuedAudioSize() const {
 	return SDL_GetQueuedAudioSize(device_id_);
 }
 #endif
