@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.13.0 - unreleased
 ### Changed
 * ```Renderer::GetClipRect``` now returns ```Optional<Rect>``` instead of (possibly empty) ```Rect```
+* Fixed SDL 2.0.4 specific ```AudioDevice``` methods: ```AudioDevice::QueueAudio()```, ```AudioDevice::GetQueuedAudioSize()```
 
 ### Removed
 * Deprecated ```Renderer::GetInfo()``` variant which takes pointer (use variant which takes reference)
