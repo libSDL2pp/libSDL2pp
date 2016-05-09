@@ -23,6 +23,7 @@
 #define SDL2PP_WAV_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2pp/AudioSpec.hh>
 
@@ -151,8 +152,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	const AudioSpec& GetSpec() const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Wav& a, Wav& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Wav
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Wav& a, SDL2pp::Wav& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif

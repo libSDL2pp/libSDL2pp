@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <utility>
+
 #include <SDL2pp/Mixer.hh>
 #include <SDL2pp/Chunk.hh>
 #include <SDL2pp/Music.hh>

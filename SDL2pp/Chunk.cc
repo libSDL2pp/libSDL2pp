@@ -25,7 +25,7 @@
 
 namespace SDL2pp {
 
-Chunk::Chunk(Mix_Chunk* chunk) : chunk_(chunk) {
+Chunk::Chunk(Mix_Chunk* chunk) noexcept : chunk_(chunk) {
 }
 
 Chunk::Chunk(const std::string& file) {
@@ -67,6 +67,12 @@ int Chunk::SetVolume(int volume) {
 
 int Chunk::GetVolume() const {
 	return Mix_VolumeChunk(chunk_, -1);
+}
+
+void swap(Chunk& a, Chunk& b) noexcept {
+        using std::swap;
+
+        swap(a.chunk_, b.chunk_);
 }
 
 }

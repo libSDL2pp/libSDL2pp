@@ -22,6 +22,8 @@
 #ifndef SDL2PP_SURFACE_HH
 #define SDL2PP_SURFACE_HH
 
+#include <utility>
+
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
@@ -168,7 +170,7 @@ public:
 	/// \param[in] surface Existing SDL_Surface to manage
 	///
 	////////////////////////////////////////////////////////////
-	Surface(SDL_Surface* surface);
+	Surface(SDL_Surface* surface) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface
@@ -551,8 +553,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Uint32 GetFormat() const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Surface& a, Surface& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Surface
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Surface& a, SDL2pp::Surface& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif

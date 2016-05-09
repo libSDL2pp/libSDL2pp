@@ -20,6 +20,7 @@
 */
 
 #include <vector>
+#include <utility>
 
 #include <SDL2/SDL.h>
 
@@ -30,7 +31,7 @@
 
 namespace SDL2pp {
 
-Renderer::Renderer(SDL_Renderer* renderer) : renderer_(renderer) {
+Renderer::Renderer(SDL_Renderer* renderer) noexcept : renderer_(renderer) {
 }
 
 Renderer::Renderer(Window& window, int index, Uint32 flags) {
@@ -433,6 +434,12 @@ int Renderer::GetOutputHeight() const {
 	if (SDL_GetRendererOutputSize(renderer_, nullptr, &h) != 0)
 		throw Exception("SDL_GetRendererOutputSize");
 	return h;
+}
+
+void swap(Renderer& a, Renderer& b) noexcept {
+        using std::swap;
+
+        swap(a.renderer_, b.renderer_);
 }
 
 }

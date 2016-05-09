@@ -23,6 +23,7 @@
 #define SDL2PP_FONT_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2/SDL_ttf.h>
 
@@ -59,7 +60,7 @@ public:
 	/// \param[in] font Existing TTF_Font to manage
 	///
 	////////////////////////////////////////////////////////////
-	Font(TTF_Font* font);
+	Font(TTF_Font* font) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font from .ttf or .fon file
@@ -97,7 +98,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC18
 	///
 	////////////////////////////////////////////////////////////
-	virtual ~Font();
+	~Font();
 
 	///@}
 
@@ -824,8 +825,28 @@ public:
 	Surface RenderGlyph_Blended(Uint16 ch, SDL_Color fg);
 
 	///@}
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Font& a, Font& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Font
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Font& a, SDL2pp::Font& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif

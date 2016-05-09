@@ -23,6 +23,7 @@
 #define SDL2PP_CHUNK_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2/SDL_mixer.h>
 
@@ -49,7 +50,7 @@ public:
 	/// \param[in] chunk Existing Mix_Chunk to manage
 	///
 	////////////////////////////////////////////////////////////
-	Chunk(Mix_Chunk* chunk);
+	Chunk(Mix_Chunk* chunk) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load file for use as a sample
@@ -153,8 +154,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	int GetVolume() const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Chunk& a, Chunk& b) noexcept;
 };
 
+}
+
+namespace std {
+	////////////////////////////////////////////////////////////
+	/// \brief std::swap specialization for SDL2pp::Chunk
+	///
+	////////////////////////////////////////////////////////////
+	template<>
+	inline void swap(SDL2pp::Chunk& a, SDL2pp::Chunk& b) noexcept {
+		using std::swap;
+		swap(a, b);
+	}
 }
 
 #endif

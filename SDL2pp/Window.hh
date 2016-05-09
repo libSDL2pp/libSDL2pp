@@ -23,6 +23,7 @@
 #define SDL2PP_WINDOW_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_video.h>
@@ -73,7 +74,7 @@ public:
 	/// \param[in] window Existing SDL_Window to manage
 	///
 	////////////////////////////////////////////////////////////
-	Window(SDL_Window* window);
+	Window(SDL_Window* window) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create window with specified title and dimensions
@@ -98,7 +99,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_DestroyWindow
 	///
 	////////////////////////////////////////////////////////////
-	virtual ~Window();
+	~Window();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
@@ -533,8 +534,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetBordered(bool bordered = true);
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Window& a, Window& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Window
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Window& a, SDL2pp::Window& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif
