@@ -652,7 +652,7 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
 namespace std {
 
 ////////////////////////////////////////////////////////////
-/// \brief std::hash/std::swap specialization for SDL2pp::Rect
+/// \brief std::hash specialization for SDL2pp::Rect
 ///
 ////////////////////////////////////////////////////////////
 template<>

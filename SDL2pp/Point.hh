@@ -489,7 +489,7 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
 namespace std {
 
 ////////////////////////////////////////////////////////////
-/// \brief std::hash/std::swap specialization for SDL2pp::Point
+/// \brief std::hash specialization for SDL2pp::Point
 ///
 ////////////////////////////////////////////////////////////
 template<>
