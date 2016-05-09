@@ -22,6 +22,7 @@
 #ifndef SDL2PP_RECT_HH
 #define SDL2PP_RECT_HH
 
+#include <utility>
 #include <functional>
 
 #include <SDL2/SDL_rect.h>
@@ -54,7 +55,7 @@ public:
 	/// Creates a Rect(0, 0, 0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Rect() : SDL_Rect{0, 0, 0, 0} {
+	constexpr Rect() noexcept : SDL_Rect{0, 0, 0, 0} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -63,7 +64,7 @@ public:
 	/// \param[in] rect Existing SDL_Rect
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Rect(const SDL_Rect& rect) : SDL_Rect{rect.x, rect.y, rect.w, rect.h} {
+	constexpr Rect(const SDL_Rect& rect) noexcept : SDL_Rect{rect.x, rect.y, rect.w, rect.h} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ public:
 	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Rect(const Point& corner, const Point& size) : SDL_Rect{corner.x, corner.y, size.x, size.y} {
+	constexpr Rect(const Point& corner, const Point& size) noexcept : SDL_Rect{corner.x, corner.y, size.x, size.y} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -85,7 +86,7 @@ public:
 	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Rect(int x, int y, int w, int h) : SDL_Rect{x, y, w, h} {
+	constexpr Rect(int x, int y, int w, int h) noexcept : SDL_Rect{x, y, w, h} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -97,7 +98,7 @@ public:
 	/// \param[in] h Height of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static constexpr Rect FromCenter(int cx, int cy, int w, int h) {
+	static constexpr Rect FromCenter(int cx, int cy, int w, int h) noexcept {
 		return Rect(cx - w/2, cy - h/2, w, h);
 	}
 
@@ -108,7 +109,7 @@ public:
 	/// \param[in] size Dimensions of the rectangle
 	///
 	////////////////////////////////////////////////////////////
-	static constexpr Rect FromCenter(const Point& center, const Point& size) {
+	static constexpr Rect FromCenter(const Point& center, const Point& size) noexcept {
 		return Rect(center - size / 2, size);
 	}
 
@@ -121,7 +122,7 @@ public:
 	/// \param[in] y2 Y coordinate of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static constexpr Rect FromCorners(int x1, int y1, int x2, int y2) {
+	static constexpr Rect FromCorners(int x1, int y1, int x2, int y2) noexcept {
 		return Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
 
@@ -132,7 +133,7 @@ public:
 	/// \param[in] p2 Coordinates of the bottom right rectangle corner
 	///
 	////////////////////////////////////////////////////////////
-	static constexpr Rect FromCorners(const Point& p1, const Point& p2) {
+	static constexpr Rect FromCorners(const Point& p1, const Point& p2) noexcept {
 		return Rect(p1, p2 - p1 + Point(1, 1));
 	}
 
@@ -581,6 +582,21 @@ public:
 		y -= offset.y;
 		return *this;
 	}
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Rect& a, Rect& b) noexcept {
+		using std::swap;
+
+		swap(a.x, b.x);
+		swap(a.y, b.y);
+		swap(a.w, b.w);
+		swap(a.h, b.h);
+	}
 };
 
 }
@@ -636,7 +652,7 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect);
 namespace std {
 
 ////////////////////////////////////////////////////////////
-/// \brief std::hash specialization for SDL2pp::Rect
+/// \brief std::hash/std::swap specialization for SDL2pp::Rect
 ///
 ////////////////////////////////////////////////////////////
 template<>
@@ -657,6 +673,16 @@ struct hash<SDL2pp::Rect> {
 		return seed;
 	}
 };
+
+////////////////////////////////////////////////////////////
+/// \brief std::swap specialization for SDL2pp::Rect
+///
+////////////////////////////////////////////////////////////
+template<>
+inline void swap(SDL2pp::Rect& a, SDL2pp::Rect& b) noexcept {
+	using std::swap;
+	swap(a, b);
+}
 
 }
 

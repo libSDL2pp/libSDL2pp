@@ -19,12 +19,14 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <utility>
+
 #include <SDL2pp/Music.hh>
 #include <SDL2pp/Exception.hh>
 
 namespace SDL2pp {
 
-Music::Music(Mix_Music* music) : music_(music) {
+Music::Music(Mix_Music* music) noexcept : music_(music) {
 }
 
 Music::Music(const std::string& file) {
@@ -57,6 +59,12 @@ Mix_Music* Music::Get() const {
 
 Mix_MusicType Music::GetType() const {
 	return Mix_GetMusicType(music_);
+}
+
+void swap(Music& a, Music& b) noexcept {
+        using std::swap;
+
+        swap(a.music_, b.music_);
 }
 
 }

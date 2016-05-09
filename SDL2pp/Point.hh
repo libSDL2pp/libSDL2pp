@@ -22,6 +22,7 @@
 #ifndef SDL2PP_POINT_HH
 #define SDL2PP_POINT_HH
 
+#include <utility>
 #include <iostream>
 #include <functional>
 
@@ -54,7 +55,7 @@ public:
 	/// Creates a Point(0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point() : SDL_Point{0, 0} {
+	constexpr Point() noexcept : SDL_Point{0, 0} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -63,7 +64,7 @@ public:
 	/// \param[in] point Existing SDL_Point
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point(const SDL_Point& point) : SDL_Point{point.x, point.y} {
+	constexpr Point(const SDL_Point& point) noexcept : SDL_Point{point.x, point.y} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ public:
 	/// \param[in] y Y coordinate
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point(int x, int y) : SDL_Point{x, y} {
+	constexpr Point(int x, int y) noexcept : SDL_Point{x, y} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -156,7 +157,7 @@ public:
 	/// \returns New Point representing memberwise negation
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point operator-() const {
+	constexpr Point operator-() const & {
 		return Point(-x, -y);
 	}
 
@@ -420,6 +421,19 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Point& Wrap(const Rect& rect);
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Point& a, Point& b) noexcept {
+		using std::swap;
+
+		swap(a.x, b.x);
+		swap(a.y, b.y);
+	}
 };
 
 }
@@ -475,7 +489,7 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
 namespace std {
 
 ////////////////////////////////////////////////////////////
-/// \brief std::hash specialization for SDL2pp::Rect
+/// \brief std::hash/std::swap specialization for SDL2pp::Point
 ///
 ////////////////////////////////////////////////////////////
 template<>
@@ -494,6 +508,16 @@ struct hash<SDL2pp::Point> {
 		return seed;
 	}
 };
+
+////////////////////////////////////////////////////////////
+/// \brief std::swap specialization for SDL2pp::Point
+///
+////////////////////////////////////////////////////////////
+template<>
+inline void swap(SDL2pp::Point& a, SDL2pp::Point& b) noexcept {
+	using std::swap;
+	swap(a, b);
+}
 
 }
 

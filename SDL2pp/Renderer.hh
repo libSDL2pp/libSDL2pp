@@ -22,6 +22,8 @@
 #ifndef SDL2PP_RENDERER_HH
 #define SDL2PP_RENDERER_HH
 
+#include <utility>
+
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
 
@@ -58,7 +60,7 @@ public:
 	/// \param[in] renderer Existing SDL_Renderer to manage
 	///
 	////////////////////////////////////////////////////////////
-	Renderer(SDL_Renderer* renderer);
+	Renderer(SDL_Renderer* renderer) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create renderer
@@ -82,7 +84,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_DestroyRenderer
 	///
 	////////////////////////////////////////////////////////////
-	virtual ~Renderer();
+	~Renderer();
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
@@ -801,8 +803,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	int GetOutputHeight() const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Renderer& a, Renderer& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Renderer
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Renderer& a, SDL2pp::Renderer& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif

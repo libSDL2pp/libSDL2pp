@@ -19,7 +19,9 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <string>
 #include <vector>
+#include <utility>
 
 #include <SDL2/SDL_ttf.h>
 
@@ -29,8 +31,7 @@
 
 namespace SDL2pp {
 
-Font::Font(TTF_Font* font) {
-	font_ = font;
+Font::Font(TTF_Font* font) noexcept : font_(font) {
 }
 
 Font::Font(const std::string& file, int ptsize, long index) {
@@ -290,6 +291,12 @@ Surface Font::RenderGlyph_Blended(Uint16 ch, SDL_Color fg) {
 	if (surface == nullptr)
 		throw Exception("TTF_RenderGlyph_Blended");
 	return Surface(surface);
+}
+
+void swap(Font& a, Font& b) noexcept {
+	using std::swap;
+
+	swap(a.font_, b.font_);
 }
 
 }

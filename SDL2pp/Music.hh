@@ -23,6 +23,7 @@
 #define SDL2PP_MUSIC_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2/SDL_mixer.h>
 
@@ -47,7 +48,7 @@ public:
 	/// \param[in] music Existing Mix_Music to manage
 	///
 	////////////////////////////////////////////////////////////
-	Music(Mix_Music* music);
+	Music(Mix_Music* music) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load music file
@@ -118,8 +119,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Mix_MusicType GetType() const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Music& a, Music& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Music
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Music& a, SDL2pp::Music& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif

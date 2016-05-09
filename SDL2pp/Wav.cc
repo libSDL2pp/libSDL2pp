@@ -79,4 +79,13 @@ const AudioSpec& Wav::GetSpec() const {
 	return spec_;
 }
 
+void swap(Wav& a, Wav& b) noexcept {
+        using std::swap;
+
+        swap(a.audio_buffer_, b.audio_buffer_);
+        swap(a.audio_length_, b.audio_length_);
+
+        swap(a.spec_, b.spec_);
+}
+
 }

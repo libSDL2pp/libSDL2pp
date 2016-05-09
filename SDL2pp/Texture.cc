@@ -41,7 +41,7 @@
 
 namespace SDL2pp {
 
-Texture::Texture(SDL_Texture* texture) : texture_(texture) {
+Texture::Texture(SDL_Texture* texture) noexcept : texture_(texture) {
 }
 
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
@@ -193,6 +193,12 @@ SDL_BlendMode Texture::GetBlendMode() const {
 void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 	if (SDL_GetTextureColorMod(texture_, &r, &g, &b) != 0)
 		throw Exception("SDL_GetTextureColorMod");
+}
+
+void swap(Texture& a, Texture& b) noexcept {
+        using std::swap;
+
+        swap(a.texture_, b.texture_);
 }
 
 }

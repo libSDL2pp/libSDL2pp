@@ -27,7 +27,7 @@
 
 namespace SDL2pp {
 
-Window::Window(SDL_Window* window) : window_(window) {
+Window::Window(SDL_Window* window) noexcept : window_(window) {
 }
 
 Window::Window(const std::string& title, int x, int y, int w, int h, Uint32 flags) {
@@ -240,6 +240,12 @@ Window& Window::SetIcon(const Surface& icon) {
 Window& Window::SetBordered(bool bordered) {
 	SDL_SetWindowBordered(window_, bordered ? SDL_TRUE : SDL_FALSE);
 	return *this;
+}
+
+void swap(Window& a, Window& b) noexcept {
+	using std::swap;
+
+	swap(a.window_, b.window_);
 }
 
 }

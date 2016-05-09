@@ -23,6 +23,7 @@
 #define SDL2PP_TEXTURE_HH
 
 #include <string>
+#include <utility>
 
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>
@@ -190,7 +191,7 @@ public:
 	/// \param[in] texture Existing SDL_Texture to manage
 	///
 	////////////////////////////////////////////////////////////
-	Texture(SDL_Texture* texture);
+	Texture(SDL_Texture* texture) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty texture
@@ -514,8 +515,28 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void GetColorMod(Uint8& r, Uint8& g, Uint8 &b) const;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Friend swap function
+        ///
+        /// This class does allow swapping, and this supports ADL
+        ///
+        ////////////////////////////////////////////////////////////
+        friend void swap(Texture& a, Texture& b) noexcept;
 };
 
+}
+
+namespace std {
+        ////////////////////////////////////////////////////////////
+        /// \brief std::swap specialization for SDL2pp::Texture
+        ///
+        ////////////////////////////////////////////////////////////
+        template<>
+	inline void swap(SDL2pp::Texture& a, SDL2pp::Texture& b) noexcept {
+                using std::swap;
+                swap(a, b);
+        }
 }
 
 #endif
