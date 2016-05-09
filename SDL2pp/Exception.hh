@@ -23,7 +23,7 @@
 #define SDL2PP_EXCEPTION_HH
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 namespace SDL2pp {
 
