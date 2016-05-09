@@ -157,7 +157,7 @@ public:
 	/// \returns New Point representing memberwise negation
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point operator-() const & {
+	constexpr Point operator-() const {
 		return Point(-x, -y);
 	}
 
