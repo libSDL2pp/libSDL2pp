@@ -41,7 +41,7 @@
 
 namespace SDL2pp {
 
-Texture::Texture(SDL_Texture* texture) : texture_(texture) {
+Texture::Texture(SDL_Texture* texture) noexcept : texture_(texture) {
 }
 
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {

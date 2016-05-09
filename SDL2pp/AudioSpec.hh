@@ -47,7 +47,15 @@ public:
 	/// \brief Create empty (invalid) audio format specification
 	///
 	////////////////////////////////////////////////////////////
-	AudioSpec();
+	AudioSpec() noexcept;
+
+        ////////////////////////////////////////////////////////////
+        /// \brief Construct an AudioSpec from existing SDL_AudioSpec
+        ///
+        /// \param[in] audiospec Existing SDL_AudioSpec
+        ///
+        ////////////////////////////////////////////////////////////
+        AudioSpec(const SDL_AudioSpec& audiospec) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create audio format specification with given properties
@@ -60,13 +68,13 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_AudioSpec#Remarks
 	///
 	////////////////////////////////////////////////////////////
-	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples);
+	AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
 	///
 	////////////////////////////////////////////////////////////
-	~AudioSpec();
+	~AudioSpec() = default;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
@@ -74,7 +82,7 @@ public:
 	/// \param[in] other SDL2pp::AudioSpec object to move data from
 	///
 	////////////////////////////////////////////////////////////
-	AudioSpec(AudioSpec&& other);
+	AudioSpec(AudioSpec&& other) noexcept = default;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move assignment operator
@@ -84,7 +92,7 @@ public:
 	/// \returns Reference to self
 	///
 	////////////////////////////////////////////////////////////
-	AudioSpec& operator=(AudioSpec&& other);
+	AudioSpec& operator=(AudioSpec&& other) noexcept = default;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Deleted copy constructor

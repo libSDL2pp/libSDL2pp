@@ -25,7 +25,7 @@
 
 namespace SDL2pp {
 
-Chunk::Chunk(Mix_Chunk* chunk) : chunk_(chunk) {
+Chunk::Chunk(Mix_Chunk* chunk) noexcept : chunk_(chunk) {
 }
 
 Chunk::Chunk(const std::string& file) {

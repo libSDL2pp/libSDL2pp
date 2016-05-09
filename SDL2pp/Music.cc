@@ -24,7 +24,7 @@
 
 namespace SDL2pp {
 
-Music::Music(Mix_Music* music) : music_(music) {
+Music::Music(Mix_Music* music) noexcept : music_(music) {
 }
 
 Music::Music(const std::string& file) {

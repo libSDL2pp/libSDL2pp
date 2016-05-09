@@ -54,7 +54,7 @@ public:
 	/// Creates a Point(0, 0)
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point() : SDL_Point{0, 0} {
+	constexpr Point() noexcept : SDL_Point{0, 0} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ public:
 	/// \param[in] point Existing SDL_Point
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point(const SDL_Point& point) : SDL_Point{point.x, point.y} {
+	constexpr Point(const SDL_Point& point) noexcept : SDL_Point{point.x, point.y} {
 	}
 
 	////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ public:
 	/// \param[in] y Y coordinate
 	///
 	////////////////////////////////////////////////////////////
-	constexpr Point(int x, int y) : SDL_Point{x, y} {
+	constexpr Point(int x, int y) noexcept : SDL_Point{x, y} {
 	}
 
 	////////////////////////////////////////////////////////////

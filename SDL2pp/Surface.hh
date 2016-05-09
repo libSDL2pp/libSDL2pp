@@ -168,7 +168,7 @@ public:
 	/// \param[in] surface Existing SDL_Surface to manage
 	///
 	////////////////////////////////////////////////////////////
-	Surface(SDL_Surface* surface);
+	Surface(SDL_Surface* surface) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface

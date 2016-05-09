@@ -36,7 +36,7 @@
 
 namespace SDL2pp {
 
-Surface::Surface(SDL_Surface* surface) : surface_(surface) {
+Surface::Surface(SDL_Surface* surface) noexcept : surface_(surface) {
 }
 
 Surface::Surface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask) {

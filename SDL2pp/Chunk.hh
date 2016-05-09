@@ -49,7 +49,7 @@ public:
 	/// \param[in] chunk Existing Mix_Chunk to manage
 	///
 	////////////////////////////////////////////////////////////
-	Chunk(Mix_Chunk* chunk);
+	Chunk(Mix_Chunk* chunk) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load file for use as a sample

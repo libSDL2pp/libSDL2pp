@@ -190,7 +190,7 @@ public:
 	/// \param[in] texture Existing SDL_Texture to manage
 	///
 	////////////////////////////////////////////////////////////
-	Texture(SDL_Texture* texture);
+	Texture(SDL_Texture* texture) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty texture
