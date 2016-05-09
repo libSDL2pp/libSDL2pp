@@ -1,6 +1,6 @@
 /*
   libSDL2pp - C++11 bindings/wrapper for SDL2
-  Copyright (C) 2013-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+  Copyright (C) 2013-2016 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -23,7 +23,7 @@
 #define SDL2PP_EXCEPTION_HH
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 namespace SDL2pp {
 
@@ -66,11 +66,13 @@ namespace SDL2pp {
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////
-class Exception : public std::exception {
+class Exception : public std::runtime_error {
 private:
 	std::string sdl_function_; ///< SDL function which caused an error
 	std::string sdl_error_;    ///< SDL error string
-	std::string what_;         ///< User-readable message
+
+private:
+	static std::string make_what(const char* sdl_function, const char* sdl_error);
 
 public:
 	////////////////////////////////////////////////////////////
@@ -92,14 +94,6 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	virtual ~Exception() noexcept;
-
-	////////////////////////////////////////////////////////////
-	/// \brief Get explanatory string
-	///
-	/// \returns Explanatory string stored in the exception object
-	///
-	////////////////////////////////////////////////////////////
-	const char* what() const noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get name of SDL function which caused an error
