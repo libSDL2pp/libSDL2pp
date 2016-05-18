@@ -46,6 +46,9 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty (invalid) audio format specification
 	///
+	/// This is needed for cases where e.g. SDL_LoadWAV() fills
+	/// existing SDL_AudioSpec structure with values.
+	///
 	////////////////////////////////////////////////////////////
 	AudioSpec();
 
