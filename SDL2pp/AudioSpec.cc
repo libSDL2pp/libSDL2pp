@@ -19,18 +19,14 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <algorithm>
-
 #include <SDL2pp/AudioSpec.hh>
 
 namespace SDL2pp {
 
-AudioSpec::AudioSpec() {
-	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
+AudioSpec::AudioSpec() : SDL_AudioSpec{} {
 }
 
-AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) {
-	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
+AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) : SDL_AudioSpec{} {
 	SDL_AudioSpec::freq = freq;
 	SDL_AudioSpec::format = format;
 	SDL_AudioSpec::channels = channels;
