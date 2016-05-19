@@ -3,13 +3,7 @@ os: Visual Studio 2015
 clone_depth: 1
 environment:
   matrix:
-  # Note that we can't build any executables with MSVC for now because SDL2 depends
-  # are built for VC 2012, and we build with VC 2015 (old VC doesn't support C++11),
-  # and there's binary incompatibility which shows itself when linking an executable,
-  # I couldn't resolve, see [1] for more info
-  #
-  # [1] http://stackoverflow.com/questions/30412951/unresolved-external-symbol-imp-fprintf-and-imp-iob-func-sdl2
-  - CMAKE_ARGS: -DSDL2PP_WITH_TESTS=OFF -DSDL2PP_WITH_EXAMPLES=OFF -G "Visual Studio 14 2015"
+  - CMAKE_ARGS: -DSDL2PP_ENABLE_LIVE_TESTS=OFF -G "Visual Studio 14 2015"
     PREFIX: c:\usr_msvc
     MSVC:
     MINGW32: rem
@@ -96,9 +90,9 @@ build_script:
     %MINGW% set PATH=c:\mingw\bin;%Path%
     cd %APPVEYOR_BUILD_FOLDER%
     echo Running "cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%"
-    cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%
-    %MSVC% msbuild "libSDL2pp.sln" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    %MINGW32% mingw32-make
+    cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
+    cmake --build .
+    ctest
     %MINGW32% type FindSDL2PP.cmake
     %MINGW32% type sdl2pp.pc
 
