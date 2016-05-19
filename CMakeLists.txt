@@ -105,11 +105,6 @@ CHECK_COMPILE(
 	"#include <experimental/optional>\nint main() { std::experimental::optional<int> o; return !o; }"
 	"experimental/optional header"
 )
-CHECK_COMPILE(
-	SDL2PP_WITH_DEPRECATED
-	"[[deprecated]]\nstatic void f() {} int main() { return 0; }"
-	"[[deprecated]] attribute"
-)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL2PP_WARNINGS}")
 
