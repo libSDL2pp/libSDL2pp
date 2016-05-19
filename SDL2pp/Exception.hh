@@ -25,6 +25,8 @@
 #include <string>
 #include <stdexcept>
 
+#include <SDL2pp/Export.hh>
+
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
@@ -66,7 +68,7 @@ namespace SDL2pp {
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////
-class Exception : public std::runtime_error {
+class SDL2PP_EXPORT Exception : public std::runtime_error {
 private:
 	std::string sdl_function_; ///< SDL function which caused an error
 	std::string sdl_error_;    ///< SDL error string
