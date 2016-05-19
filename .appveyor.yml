@@ -87,12 +87,18 @@ before_build:
 build_script:
   # build
   - |-
-    %MINGW% set PATH=c:\mingw\bin;%Path%
+    set PATH=%PREFIX%\lib;%PATH%
+
+    %MINGW% set PATH=c:\mingw\bin;%PATH%
+
     cd %APPVEYOR_BUILD_FOLDER%
-    echo Running "cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%"
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
     cmake --build .
+
+    %MSVC% set PATH=%APPVEYOR_BUILD_FOLDER%\Debug;%PATH%
+    %MINGW% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
     ctest -V
+
     %MINGW32% type FindSDL2PP.cmake
     %MINGW32% type sdl2pp.pc
 
