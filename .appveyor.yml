@@ -18,8 +18,8 @@ environment:
     MINGW32:
     MSVC: rem
 cache:
-  - c:\usr_msvc
-  - c:\usr_mingw32
+  - c:\usr_msvc -> appveyor.yml
+  - c:\usr_mingw32 -> appveyor.yml
 before_build:
   - |-
     set MINGW32_ARCH=i686-w64-mingw32
