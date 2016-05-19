@@ -92,7 +92,7 @@ build_script:
     echo Running "cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%"
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
     cmake --build .
-    ctest
+    ctest -V
     %MINGW32% type FindSDL2PP.cmake
     %MINGW32% type sdl2pp.pc
 
