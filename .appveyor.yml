@@ -90,10 +90,6 @@ before_build:
     %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.14\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
     %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.14\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
 
-  - |-
-    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile https://hg.libsdl.org/SDL/raw-file/e217ed463f25/include/SDL_platform.h
-    %NEEDDEPENDS% %MINGW32% copy SDL_platform.h %PREFIX%\include\SDL2
-
 build_script:
   # build
   - |-
