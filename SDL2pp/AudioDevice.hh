@@ -30,6 +30,7 @@
 
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Config.hh>
+#include <SDL2pp/Export.hh>
 
 namespace SDL2pp {
 
@@ -46,7 +47,7 @@ class AudioSpec;
 /// audio functionality.
 ///
 ////////////////////////////////////////////////////////////
-class AudioDevice {
+class SDL2PP_EXPORT AudioDevice {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief SDL2pp::AudioDevice lock
@@ -82,7 +83,7 @@ public:
 	/// \endcode
 	///
 	////////////////////////////////////////////////////////////
-	class LockHandle {
+	class SDL2PP_EXPORT LockHandle {
 		friend class AudioDevice;
 	private:
 		AudioDevice* device_; ///< SDL2pp::AudioDevice the lock belongs to

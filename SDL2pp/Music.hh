@@ -26,6 +26,8 @@
 
 #include <SDL2/SDL_mixer.h>
 
+#include <SDL2pp/Export.hh>
+
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
@@ -36,7 +38,7 @@ namespace SDL2pp {
 /// \headerfile SDL2pp/Music.hh
 ///
 ////////////////////////////////////////////////////////////
-class Music {
+class SDL2PP_EXPORT Music {
 private:
 	Mix_Music* music_;    ///< Managed Mix_Music object
 

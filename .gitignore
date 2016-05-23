@@ -11,6 +11,7 @@ install_manifest.txt
 Doxyfile
 FindSDL2PP.cmake
 SDL2pp/Config.hh
+SDL2pp/Export.hh
 sdl2pp.pc
 *.vcxproj*
 *.sln

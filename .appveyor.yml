@@ -3,13 +3,7 @@ os: Visual Studio 2015
 clone_depth: 1
 environment:
   matrix:
-  # Note that we can't build any executables with MSVC for now because SDL2 depends
-  # are built for VC 2012, and we build with VC 2015 (old VC doesn't support C++11),
-  # and there's binary incompatibility which shows itself when linking an executable,
-  # I couldn't resolve, see [1] for more info
-  #
-  # [1] http://stackoverflow.com/questions/30412951/unresolved-external-symbol-imp-fprintf-and-imp-iob-func-sdl2
-  - CMAKE_ARGS: -DSDL2PP_WITH_TESTS=OFF -DSDL2PP_WITH_EXAMPLES=OFF -G "Visual Studio 14 2015"
+  - CMAKE_ARGS: -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_CXX_FLAGS=/wd4275 -G "Visual Studio 14 2015"
     PREFIX: c:\usr_msvc
     MSVC:
     MINGW32: rem
@@ -18,8 +12,8 @@ environment:
     MINGW32:
     MSVC: rem
 cache:
-  - c:\usr_msvc
-  - c:\usr_mingw32
+  - c:\usr_msvc -> appveyor.yml
+  - c:\usr_mingw32 -> appveyor.yml
 before_build:
   - |-
     set MINGW32_ARCH=i686-w64-mingw32
@@ -34,45 +28,45 @@ before_build:
 
   # Depends for MSVC
   - |-
-    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.3-VC.zip
-    %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.3-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.3\include\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.3\lib\x86\* %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.4-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\lib\x86\* %PREFIX%\lib > nul
 
   - |-
-    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.0-VC.zip
-    %NEEDDEPENDS% %MSVC% 7z x SDL2_image-devel-2.0.0-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.0\include\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.0\lib\x86\* %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.1-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2_image-devel-2.0.1-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\lib\x86\* %PREFIX%\lib > nul
 
   - |-
-    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.0-VC.zip
-    %NEEDDEPENDS% %MSVC% 7z x SDL2_mixer-devel-2.0.0-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.0\include\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.0\lib\x86\* %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.1-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2_mixer-devel-2.0.1-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.1\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.1\lib\x86\* %PREFIX%\lib > nul
 
   - |-
-    %NEEDDEPENDS% %MSVC% appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.12-VC.zip
-    %NEEDDEPENDS% %MSVC% 7z x SDL2_ttf-devel-2.0.12-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.12\include\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.12\lib\x86\* %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip
+    %NEEDDEPENDS% %MSVC% 7z x SDL2_ttf-devel-2.0.14-VC.zip > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.14\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.14\lib\x86\* %PREFIX%\lib > nul
 
   # Depends for MinGW32
   - |-
-    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.3-mingw.tar.gz
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2-devel-2.0.3-mingw.tar.gz > nul
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2-devel-2.0.3-mingw.tar > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.3\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.3\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.3\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.4-mingw.tar.gz
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2-devel-2.0.4-mingw.tar.gz > nul
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2-devel-2.0.4-mingw.tar > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.4\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.4\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2-2.0.4\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
 
   - |-
-    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile http://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.0-mingw.tar.gz
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2_image-devel-2.0.0-mingw.tar.gz > nul
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2_image-devel-2.0.0-mingw.tar > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.0\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.0\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.0\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile http://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.1-mingw.tar.gz
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2_image-devel-2.0.1-mingw.tar.gz > nul
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2_image-devel-2.0.1-mingw.tar > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.1\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.1\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_image-2.0.1\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
 
   - |-
     %NEEDDEPENDS% %MINGW32% appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.1-mingw.tar.gz
@@ -83,26 +77,28 @@ before_build:
     %NEEDDEPENDS% %MINGW32% copy SDL2_mixer-2.0.1\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
 
   - |-
-    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.12-mingw.tar.gz
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2_ttf-devel-2.0.12-mingw.tar.gz > nul
-    %NEEDDEPENDS% %MINGW32% 7z x SDL2_ttf-devel-2.0.12-mingw.tar > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.12\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.12\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
-    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.12\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
-
-  - |-
-    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile https://hg.libsdl.org/SDL/raw-file/e217ed463f25/include/SDL_platform.h
-    %NEEDDEPENDS% %MINGW32% copy SDL_platform.h %PREFIX%\include\SDL2
+    %NEEDDEPENDS% %MINGW32% appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-mingw.tar.gz
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2_ttf-devel-2.0.14-mingw.tar.gz > nul
+    %NEEDDEPENDS% %MINGW32% 7z x SDL2_ttf-devel-2.0.14-mingw.tar > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.14\%MINGW32_ARCH%\include\SDL2\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.14\%MINGW32_ARCH%\lib\*.a %PREFIX%\lib > nul
+    %NEEDDEPENDS% %MINGW32% copy SDL2_ttf-2.0.14\%MINGW32_ARCH%\bin\*.dll %PREFIX%\lib > nul
 
 build_script:
   # build
   - |-
-    %MINGW% set PATH=c:\mingw\bin;%Path%
+    set PATH=%PREFIX%\lib;%PATH%
+
+    %MINGW% set PATH=c:\mingw\bin;%PATH%
+
     cd %APPVEYOR_BUILD_FOLDER%
-    echo Running "cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%"
-    cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS%
-    %MSVC% msbuild "libSDL2pp.sln" /verbosity:normal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-    %MINGW32% mingw32-make
+    cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
+    cmake --build .
+
+    %MSVC% set PATH=%APPVEYOR_BUILD_FOLDER%\Debug;%PATH%
+    %MINGW% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
+    ctest -V
+
     %MINGW32% type FindSDL2PP.cmake
     %MINGW32% type sdl2pp.pc
 

@@ -28,6 +28,7 @@
 #include <SDL2/SDL_video.h>
 
 #include <SDL2pp/Point.hh>
+#include <SDL2pp/Export.hh>
 
 struct SDL_Window;
 
@@ -62,7 +63,7 @@ class Surface;
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////
-class Window {
+class SDL2PP_EXPORT Window {
 private:
 	SDL_Window* window_; ///< Managed SDL2_Window object
 

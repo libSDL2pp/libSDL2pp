@@ -369,7 +369,7 @@ public:
 #	define EXPECT_TRUE(expr, ...)      do { tester_.ExpectTrue(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EQUAL(expr, ...)     do { tester_.ExpectEqual(#expr, expr, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EXCEPTION(expr, exception, ...) do { tester_.ExpectException<exception>(#expr, [&](){expr;}, #exception, __VA_ARGS__, Tester::DummyArgument()); } while(0)
-#	define EXPECT_NO_EXCEPTION(expr, ...) do { tester_.ExpectNoException<exception>(#expr, [&](){expr;}, __VA_ARGS__, Tester::DummyArgument()); } while(0)
+#	define EXPECT_NO_EXCEPTION(expr, ...) do { tester_.ExpectNoException(#expr, [&](){expr;}, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #else
 #	define EXPECT_TRUE(...)      do { METHOD_WRAPPER(ExpectTrue, __VA_ARGS__, Tester::DummyArgument()); } while(0)
 #	define EXPECT_EQUAL(...)     do { METHOD_WRAPPER(ExpectEqual, __VA_ARGS__, Tester::DummyArgument()); } while(0)

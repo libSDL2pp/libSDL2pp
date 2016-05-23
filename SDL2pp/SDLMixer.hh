@@ -22,6 +22,8 @@
 #ifndef SDL2PP_SDLMIXER_HH
 #define SDL2PP_SDLMIXER_HH
 
+#include <SDL2pp/Export.hh>
+
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
@@ -44,7 +46,7 @@ namespace SDL2pp {
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////
-class SDLMixer {
+class SDL2PP_EXPORT SDLMixer {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes SDL_mixer library

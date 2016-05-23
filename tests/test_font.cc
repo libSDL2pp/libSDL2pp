@@ -89,9 +89,11 @@ BEGIN_TEST(int, char*[])
 	{
 		// Glyphs provided
 		EXPECT_TRUE(font.IsGlyphProvided(u'A'));
+#ifndef _MSC_VER // MSVC has problems with unicode literals
 		EXPECT_TRUE(font.IsGlyphProvided(u'¼'));
 		EXPECT_TRUE(!font.IsGlyphProvided(u'л'));
 		EXPECT_TRUE(!font.IsGlyphProvided(u'Ы'));
+#endif
 	}
 
 	{
