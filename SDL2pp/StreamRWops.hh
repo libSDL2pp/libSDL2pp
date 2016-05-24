@@ -79,7 +79,11 @@ private:
 	template <class SS>
 	typename std::enable_if<std::is_base_of<std::istream, SS>::value, size_t>::type ReadHelper(void* ptr, size_t size, size_t maxnum) {
 		stream_.read(static_cast<char*>(ptr), size * maxnum);
-		size_t nread = stream_.gcount();
+
+		// http://en.cppreference.com/w/cpp/io/streamsize:
+		// "Except in the constructors of std::strstreambuf,
+		// negative values of std::streamsize are never used"
+		size_t nread = static_cast<size_t>(stream_.gcount());
 
 		// eof is OK
 		if (stream_.rdstate() == (std::ios_base::eofbit | std::ios_base::failbit))
