@@ -87,25 +87,21 @@ before_build:
 build_script:
   # build
   - |-
-    set PATH=%PREFIX%\lib;%PATH%
-
     %MINGW% set PATH=c:\mingw\bin;%PATH%
 
     cd %APPVEYOR_BUILD_FOLDER%
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
     cmake --build .
 
-    %MSVC% set PATH=%APPVEYOR_BUILD_FOLDER%\Debug;%PATH%
-    %MINGW% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
-    ctest -V
-
     %MINGW32% type FindSDL2PP.cmake
     %MINGW32% type sdl2pp.pc
 
   # tests; PATH here lists library search paths
   - |-
-    %MINGW32% set PATH=%APPVEYOR_BUILD_FOLDER%;%PREFIX%\lib;c:\mingw\bin;%Path%
-    %MINGW32% mingw32-make ARGS=-V test
+    set PATH=%PREFIX%\lib;%PATH%
+    %MSVC% set PATH=%APPVEYOR_BUILD_FOLDER%\Debug;%PATH%
+    %MINGW% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
+    ctest -V
 
 after_build:
   - git status
