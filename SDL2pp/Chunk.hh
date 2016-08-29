@@ -26,8 +26,6 @@
 
 #include <SDL2/SDL_mixer.h>
 
-#include <SDL2pp/Export.hh>
-
 namespace SDL2pp {
 
 class RWops;
@@ -40,7 +38,7 @@ class RWops;
 /// \headerfile SDL2pp/Chunk.hh
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Chunk {
+class Chunk {
 private:
 	Mix_Chunk* chunk_;    ///< Managed Mix_Chunk object
 

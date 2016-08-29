@@ -24,8 +24,6 @@
 
 #include <SDL2/SDL_audio.h>
 
-#include <SDL2pp/Export.hh>
-
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
@@ -43,7 +41,7 @@ namespace SDL2pp {
 /// \see http://wiki.libsdl.org/SDL_AudioSpec
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT AudioSpec : public SDL_AudioSpec {
+class AudioSpec : public SDL_AudioSpec {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Create empty (invalid) audio format specification

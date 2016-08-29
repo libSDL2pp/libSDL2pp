@@ -30,7 +30,6 @@
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Config.hh>
-#include <SDL2pp/Export.hh>
 
 struct SDL_Texture;
 
@@ -49,7 +48,7 @@ class Surface;
 /// \headerfile SDL2pp/Texture.hh
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Texture {
+class Texture {
 private:
 	SDL_Texture* texture_; ///< Managed SDL_Texture object
 

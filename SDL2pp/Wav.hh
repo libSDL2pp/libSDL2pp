@@ -25,7 +25,6 @@
 #include <string>
 
 #include <SDL2pp/AudioSpec.hh>
-#include <SDL2pp/Export.hh>
 
 namespace SDL2pp {
 
@@ -49,7 +48,7 @@ class RWops;
 /// See audio_wav demo for an example.
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Wav {
+class Wav {
 private:
 	Uint8* audio_buffer_; ///< Raw audio data
 	Uint32 audio_length_; ///< Raw audio data length in bytes

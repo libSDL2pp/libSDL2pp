@@ -26,7 +26,6 @@
 
 #include <SDL2/SDL_rwops.h>
 #include <SDL2pp/Exception.hh>
-#include <SDL2pp/Export.hh>
 
 namespace SDL2pp {
 
@@ -45,7 +44,7 @@ namespace SDL2pp {
 /// \see SDL2pp::ContainerRWops, SDL2pp::StreamRWops
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT CustomRWops {
+class CustomRWops {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor
@@ -143,7 +142,7 @@ public:
 /// make it possible to write pure C++ %RWops classes, in a safe way.
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT RWops {
+class RWops {
 protected:
 	SDL_RWops* rwops_; ///< Managed SDL_RWops object
 

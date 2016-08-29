@@ -29,7 +29,6 @@
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Point.hh>
-#include <SDL2pp/Export.hh>
 
 struct SDL_Surface;
 struct SDL_PixelFormat;
@@ -49,7 +48,7 @@ class RWops;
 /// \see http://wiki.libsdl.org/SDL_Surface
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Surface {
+class Surface {
 private:
 	SDL_Surface* surface_; ///< Managed SDL_Surface object
 

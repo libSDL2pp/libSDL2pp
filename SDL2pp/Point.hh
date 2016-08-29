@@ -27,8 +27,6 @@
 
 #include <SDL2/SDL_rect.h>
 
-#include <SDL2pp/Export.hh>
-
 namespace SDL2pp {
 
 class Rect;
@@ -48,7 +46,7 @@ class Rect;
 /// \see http://wiki.libsdl.org/SDL_Point
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Point : public SDL_Point {
+class Point : public SDL_Point {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Default constructor
@@ -461,7 +459,7 @@ constexpr bool operator!=(const SDL2pp::Point& a, const SDL2pp::Point& b) {
 /// \returns True if a < b
 ///
 ////////////////////////////////////////////////////////////
-SDL2PP_EXPORT bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
+bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
 
 ////////////////////////////////////////////////////////////
 /// \brief Stream output operator overload for SDL2pp::Point
@@ -472,7 +470,7 @@ SDL2PP_EXPORT bool operator<(const SDL2pp::Point& a, const SDL2pp::Point& b);
 /// \returns stream
 ///
 ////////////////////////////////////////////////////////////
-SDL2PP_EXPORT std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
+std::ostream& operator<<(std::ostream& stream, const SDL2pp::Point& point);
 
 namespace std {
 

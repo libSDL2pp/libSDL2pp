@@ -29,7 +29,6 @@
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
-#include <SDL2pp/Export.hh>
 
 struct SDL_RendererInfo;
 struct SDL_Renderer;
@@ -48,7 +47,7 @@ class Point;
 /// \headerfile SDL2pp/Renderer.hh
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Renderer {
+class Renderer {
 private:
 	SDL_Renderer* renderer_; ///< Managed SDL_Renderer object
 

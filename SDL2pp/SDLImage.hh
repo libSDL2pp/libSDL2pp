@@ -22,8 +22,6 @@
 #ifndef SDL2PP_SDLIMAGE_HH
 #define SDL2PP_SDLIMAGE_HH
 
-#include <SDL2pp/Export.hh>
-
 namespace SDL2pp {
 
 ////////////////////////////////////////////////////////////
@@ -55,7 +53,7 @@ namespace SDL2pp {
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT SDLImage {
+class SDLImage {
 public:
 	////////////////////////////////////////////////////////////
 	/// \brief Initializes SDL_image library

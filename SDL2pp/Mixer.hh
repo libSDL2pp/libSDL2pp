@@ -28,8 +28,6 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_mixer.h>
 
-#include <SDL2pp/Export.hh>
-
 namespace SDL2pp {
 
 class Chunk;
@@ -47,7 +45,7 @@ class Music;
 /// SDL2pp:Chunk's.
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Mixer {
+class Mixer {
 public:
 	typedef void (*ChannelFinishedHandler)(int); ///< Function type for channel finished callback
 	typedef void (*MusicFinishedHandler)();      ///< Function type for music finished callback

@@ -29,7 +29,6 @@
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Surface.hh>
-#include <SDL2pp/Export.hh>
 
 namespace SDL2pp {
 
@@ -45,7 +44,7 @@ class RWops;
 /// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC56
 ///
 ////////////////////////////////////////////////////////////
-class SDL2PP_EXPORT Font {
+class Font {
 private:
 	TTF_Font* font_; ///< Managed TTF_Font object
 
