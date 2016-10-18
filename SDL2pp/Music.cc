@@ -28,7 +28,7 @@ Music::Music(Mix_Music* music) : music_(music) {
 }
 
 Music::Music(const std::string& file) {
-    if ((music_ = Mix_LoadMUS(file.c_str())) == nullptr)
+	if ((music_ = Mix_LoadMUS(file.c_str())) == nullptr)
 		throw Exception("Mix_LoadMUS");
 }
 

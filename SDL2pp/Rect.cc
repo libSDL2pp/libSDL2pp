@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& stream, const SDL2pp::Rect& rect) {
 }
 
 bool operator<(const SDL2pp::Rect& a, const SDL2pp::Rect& b) {
-    if (a.x == b.x) {
+	if (a.x == b.x) {
 		if (a.y == b.y) {
 			if (a.w == b.w)
 				return a.h < b.h;

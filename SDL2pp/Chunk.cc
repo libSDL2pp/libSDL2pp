@@ -29,12 +29,12 @@ Chunk::Chunk(Mix_Chunk* chunk) : chunk_(chunk) {
 }
 
 Chunk::Chunk(const std::string& file) {
-    if ((chunk_ = Mix_LoadWAV(file.c_str())) == nullptr)
+	if ((chunk_ = Mix_LoadWAV(file.c_str())) == nullptr)
 		throw Exception("Mix_LoadWAV");
 }
 
 Chunk::Chunk(RWops& rwops) {
-    if ((chunk_ = Mix_LoadWAV_RW(rwops.Get(), 0)) == nullptr)
+	if ((chunk_ = Mix_LoadWAV_RW(rwops.Get(), 0)) == nullptr)
 		throw Exception("Mix_LoadWAV_RW");
 }
 
