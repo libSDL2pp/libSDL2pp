@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Fixed SDL 2.0.4 specific ```AudioDevice``` methods: ```AudioDevice::QueueAudio()```, ```AudioDevice::GetQueuedAudioSize()```
 * Fixed MSVC compiler support and .dll generation
+* Multiple documentation fixes
+
+### Added
+* More tests
+* Automatic SDL 2.0.4 detection
+* ```Texture::Update()``` overload which takes rvalue reference to ```Surface```
 
 ### Changed
 * ```Renderer::GetClipRect``` now returns ```Optional<Rect>``` instead of (possibly empty) ```Rect```
