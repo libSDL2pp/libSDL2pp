@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.13.0 - unreleased
+## 0.13.0 - 2016-11-08
 ### Fixed
 * Fixed SDL 2.0.4 specific ```AudioDevice``` methods: ```AudioDevice::QueueAudio()```, ```AudioDevice::GetQueuedAudioSize()```
 * Fixed MSVC compiler support and .dll generation
