@@ -336,6 +336,27 @@ public:
 	Texture& Update(const Optional<Rect>& rect, Surface& surface);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Update the given texture rectangle with new pixel data taken from surface
+	///
+	/// \param[in] rect Rect representing the area to update, or NullOpt to
+	///                 update the entire texture
+	/// \param[in] surface Surface to take pixel data from
+	///
+	/// \note No scaling is performed in this routine, so if rect and surface
+	///       sizes do not match, cropping is performed as appropriate
+	/// \note If surface and texture pixel formats do not match, surface is
+	///       automatically converted to texture format
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_UpdateTexture
+	///
+	////////////////////////////////////////////////////////////
+	Texture& Update(const Optional<Rect>& rect, Surface&& surface);
+
+	////////////////////////////////////////////////////////////
 	/// \brief Update the given texture rectangle with new pixel data
 	///
 	/// \param[in] rect Rect representing the area to update, or NullOpt to
