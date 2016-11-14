@@ -242,4 +242,20 @@ Window& Window::SetBordered(bool bordered) {
 	return *this;
 }
 
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+Window& Window::SetOpacity(float opacity) {
+    if (SDL_SetWindowOpacity(window_, opacity))
+		throw SDL2pp::Exception("SDL_SetWindowOpacity");
+    return *this;
+}
+
+float Window::GetOpacity() const {
+    float opacity;
+    if (SDL_GetWindowOpacity(window_, &opacity) == -1)
+		throw SDL2pp::Exception("SDL_GetWindowOpacity");
+
+    return opacity;
+}
+#endif
+
 }

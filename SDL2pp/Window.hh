@@ -24,6 +24,7 @@
 
 #include <string>
 
+#include <SDL2/SDL_version.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_video.h>
 
@@ -534,6 +535,30 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetBordered(bool bordered = true);
+
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+	////////////////////////////////////////////////////////////
+	/// \brief Set the opacity for a window
+	///
+	/// \param[in] opacity The opacity value (0.0f - transparent, 1.0f - opaque)
+	///
+	/// \returns Reference to self
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowOpacity
+	///
+	////////////////////////////////////////////////////////////
+	Window& SetOpacity(float opacity = 1.0f);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the opacity of a window
+	///
+	/// \returns Opacity value (0.0f - transparent, 1.0f - opaque)
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetWindowOpacity
+	///
+	////////////////////////////////////////////////////////////
+	float GetOpacity() const;
+#endif
 };
 
 }
