@@ -5,6 +5,7 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/3980/badge.svg)](https://scan.coverity.com/projects/3980)
 [![Coverage Status](https://coveralls.io/repos/github/libSDL2pp/libSDL2pp/badge.svg?branch=master)](https://coveralls.io/github/libSDL2pp/libSDL2pp?branch=master)
 [![Latest release](https://img.shields.io/github/release/libSDL2pp/libSDL2pp.svg)](https://github.com/libSDL2pp/libSDL2pp/releases)
+[![Packaging status](http://repology.org/badge/tiny-repos/libsdl2pp.svg)](http://repology.org/metapackage/libsdl2pp)
 
 This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
