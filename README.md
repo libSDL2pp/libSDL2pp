@@ -190,6 +190,8 @@ TARGET_LINK_LIBRARIES(... ${SDL2PP_LIBRARIES})
 SDL2pp is also already available from the following package
 repositories:
 
+<a href="http://repology.org/metapackage/libsdl2pp"><img src="http://repology.org/badge/vertical-allrepos/libsdl2pp.svg" alt="Packaging status" align="right"></a>
+
 * [Arch Linux AUR](https://aur.archlinux.org/packages/sdl2pp-git/)
 * [DragonflyBSD DPorts](https://github.com/DragonFlyBSD/DPorts/tree/master/devel/sdl2pp)
 * [FreeBSD ports](http://www.freshports.org/devel/sdl2pp/)
