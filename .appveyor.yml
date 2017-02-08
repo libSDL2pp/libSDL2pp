@@ -87,7 +87,7 @@ before_build:
 build_script:
   # build
   - |-
-    %MINGW% set PATH=c:\mingw\bin;%PATH%
+    %MINGW32% set PATH=c:\mingw\bin;%PATH%
 
     cd %APPVEYOR_BUILD_FOLDER%
     cmake -DCMAKE_PREFIX_PATH=%PREFIX% %CMAKE_ARGS% .
@@ -100,7 +100,7 @@ build_script:
   - |-
     set PATH=%PREFIX%\lib;%PATH%
     %MSVC% set PATH=%APPVEYOR_BUILD_FOLDER%\Debug;%PATH%
-    %MINGW% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
+    %MINGW32% set PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
     ctest -V
 
 after_build:
