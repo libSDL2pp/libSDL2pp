@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2/SDL_ttf.h>
+#include <SDL_ttf.h>
 
 #include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Exception.hh>

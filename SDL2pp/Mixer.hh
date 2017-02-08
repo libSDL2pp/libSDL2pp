@@ -25,8 +25,8 @@
 #include <functional>
 #include <memory>
 
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_mixer.h>
+#include <SDL_stdinc.h>
+#include <SDL_mixer.h>
 
 #include <SDL2pp/Export.hh>
 

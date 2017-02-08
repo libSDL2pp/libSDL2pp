@@ -21,7 +21,7 @@
 
 #include <vector>
 
-#include <SDL2/SDL_ttf.h>
+#include <SDL_ttf.h>
 
 #include <SDL2pp/Font.hh>
 #include <SDL2pp/RWops.hh>

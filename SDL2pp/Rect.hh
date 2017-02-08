@@ -24,7 +24,7 @@
 
 #include <functional>
 
-#include <SDL2/SDL_rect.h>
+#include <SDL_rect.h>
 
 #include <SDL2pp/Optional.hh>
 #include <SDL2pp/Point.hh>

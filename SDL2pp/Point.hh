@@ -25,7 +25,7 @@
 #include <iostream>
 #include <functional>
 
-#include <SDL2/SDL_rect.h>
+#include <SDL_rect.h>
 
 #include <SDL2pp/Export.hh>
 

@@ -1,6 +1,6 @@
 #include <vector>
 
-#include <SDL2/SDL_main.h>
+#include <SDL_main.h>
 
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/ContainerRWops.hh>

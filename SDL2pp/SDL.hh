@@ -22,7 +22,7 @@
 #ifndef SDL2PP_SDL_HH
 #define SDL2PP_SDL_HH
 
-#include <SDL2/SDL_stdinc.h>
+#include <SDL_stdinc.h>
 
 #include <SDL2pp/Export.hh>
 

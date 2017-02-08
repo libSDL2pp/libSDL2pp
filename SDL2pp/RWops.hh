@@ -24,7 +24,7 @@
 
 #include <string>
 
-#include <SDL2/SDL_rwops.h>
+#include <SDL_rwops.h>
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/Export.hh>
 
