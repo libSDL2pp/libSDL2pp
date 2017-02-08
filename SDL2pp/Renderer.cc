@@ -30,7 +30,7 @@
 
 namespace SDL2pp {
 
-Renderer::Renderer(SDL_Renderer* renderer) : renderer_(renderer) {
+Renderer::Renderer(SDL_Renderer* renderer) noexcept : renderer_(renderer) {
 }
 
 Renderer::Renderer(Window& window, int index, Uint32 flags) {

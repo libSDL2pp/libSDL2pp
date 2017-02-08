@@ -27,7 +27,7 @@
 
 namespace SDL2pp {
 
-Window::Window(SDL_Window* window) : window_(window) {
+Window::Window(SDL_Window* window) noexcept : window_(window) {
 }
 
 Window::Window(const std::string& title, int x, int y, int w, int h, Uint32 flags) {

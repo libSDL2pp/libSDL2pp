@@ -25,23 +25,20 @@
 
 namespace SDL2pp {
 
-AudioSpec::AudioSpec() {
+AudioSpec::AudioSpec() noexcept {
 	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
 }
 
-AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) {
+AudioSpec::AudioSpec(const SDL_AudioSpec& audiospec) noexcept : SDL_AudioSpec(audiospec) {
+}
+
+AudioSpec::AudioSpec(int freq, SDL_AudioFormat format, Uint8 channels, Uint16 samples) noexcept {
 	std::fill((char*)this, (char*)this + sizeof(SDL_AudioSpec), 0);
 	SDL_AudioSpec::freq = freq;
 	SDL_AudioSpec::format = format;
 	SDL_AudioSpec::channels = channels;
 	SDL_AudioSpec::samples = samples;
 }
-
-AudioSpec::~AudioSpec() {
-}
-
-AudioSpec::AudioSpec(AudioSpec&&) = default;
-AudioSpec& AudioSpec::operator=(AudioSpec&&) = default;
 
 void AudioSpec::MergeChanges(const SDL_AudioSpec& obtained) {
 	freq = obtained.freq;

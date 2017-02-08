@@ -60,7 +60,7 @@ public:
 	/// \param[in] font Existing TTF_Font to manage
 	///
 	////////////////////////////////////////////////////////////
-	Font(TTF_Font* font);
+	Font(TTF_Font* font) noexcept;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Loads font from .ttf or .fon file
@@ -98,7 +98,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf.html#SEC18
 	///
 	////////////////////////////////////////////////////////////
-	virtual ~Font();
+	~Font();
 
 	///@}
 

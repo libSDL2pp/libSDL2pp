@@ -29,7 +29,7 @@
 
 namespace SDL2pp {
 
-Font::Font(TTF_Font* font) {
+Font::Font(TTF_Font* font) noexcept {
 	font_ = font;
 }
 
