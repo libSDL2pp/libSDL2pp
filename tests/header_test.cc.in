@@ -1,4 +1,4 @@
-#include <SDL2/SDL_main.h>
+#include <SDL_main.h>
 #include <@HEADER@>
 
 int main(int, char*[]) {

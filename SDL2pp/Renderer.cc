@@ -21,7 +21,7 @@
 
 #include <vector>
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Window.hh>

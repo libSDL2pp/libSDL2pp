@@ -24,9 +24,9 @@
 
 #include <string>
 
-#include <SDL2/SDL_version.h>
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_video.h>
+#include <SDL_version.h>
+#include <SDL_stdinc.h>
+#include <SDL_video.h>
 
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Export.hh>

@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * ```Window::GetOpacity()``` and ```Window()::SetOpacity()``` wrappers for functions appeared in SDL 2.0.5
 
+### Changed
+* libSDL2pp now follows SDL2 include path conventions, finding and using SDL2 headers without SDL2/ prefix
+
 ## 0.13.0 - 2016-11-08
 ### Fixed
 * Fixed SDL 2.0.4 specific ```AudioDevice``` methods: ```AudioDevice::QueueAudio()```, ```AudioDevice::GetQueuedAudioSize()```

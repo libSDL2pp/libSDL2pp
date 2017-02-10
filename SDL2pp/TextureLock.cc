@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2/SDL_render.h>
+#include <SDL_render.h>
 
 #include <SDL2pp/Exception.hh>
 #include <SDL2pp/Rect.hh>

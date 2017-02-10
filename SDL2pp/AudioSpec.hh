@@ -22,7 +22,7 @@
 #ifndef SDL2PP_AUDIOSPEC_HH
 #define SDL2PP_AUDIOSPEC_HH
 
-#include <SDL2/SDL_audio.h>
+#include <SDL_audio.h>
 
 #include <SDL2pp/Export.hh>
 

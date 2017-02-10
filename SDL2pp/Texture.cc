@@ -24,9 +24,9 @@
 
 #include <SDL2pp/Config.hh>
 
-#include <SDL2/SDL_render.h>
+#include <SDL_render.h>
 #ifdef SDL2PP_WITH_IMAGE
-#	include <SDL2/SDL_image.h>
+#	include <SDL_image.h>
 #endif
 
 #include <SDL2pp/Texture.hh>

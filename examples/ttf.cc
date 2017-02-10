@@ -22,7 +22,7 @@
 #include <iostream>
 #include <vector>
 
-#include <SDL2/SDL_stdinc.h>
+#include <SDL_stdinc.h>
 
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLTTF.hh>

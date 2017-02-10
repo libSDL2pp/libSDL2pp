@@ -30,25 +30,25 @@ before_build:
   - |-
     %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.4-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\lib\x86\* %PREFIX%\lib > nul
 
   - |-
     %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.1-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2_image-devel-2.0.1-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2_image-2.0.1\lib\x86\* %PREFIX%\lib > nul
 
   - |-
     %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.1-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2_mixer-devel-2.0.1-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.1\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.1\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2_mixer-2.0.1\lib\x86\* %PREFIX%\lib > nul
 
   - |-
     %NEEDDEPENDS% %MSVC% appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2_ttf-devel-2.0.14-VC.zip > nul
-    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.14\include\* %PREFIX%\include\SDL2 > nul
+    %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.14\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2_ttf-2.0.14\lib\x86\* %PREFIX%\lib > nul
 
   # Depends for MinGW32

@@ -22,8 +22,8 @@
 #include <iostream>
 #include <cmath>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_image.h>
 
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLImage.hh>

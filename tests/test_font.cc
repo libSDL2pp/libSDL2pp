@@ -1,4 +1,4 @@
-#include <SDL2/SDL_main.h>
+#include <SDL_main.h>
 
 #include <SDL2pp/SDLTTF.hh>
 #include <SDL2pp/Font.hh>

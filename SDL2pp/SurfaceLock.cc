@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <SDL2/SDL_surface.h>
+#include <SDL_surface.h>
 
 #include <SDL2pp/Exception.hh>
 
