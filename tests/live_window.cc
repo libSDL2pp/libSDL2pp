@@ -194,23 +194,23 @@ BEGIN_TEST(int, char*[])
 #if SDL_VERSION_ATLEAST(2, 0, 5)
 	{
 		// Opacity
-        bool has_opacity = true;
-        try {
-            window.SetOpacity(0.5f);
-        } catch (...) {
-            has_opacity = false;
-            std::cerr << "Setting window opacity is not supported on this platform" << std::endl;
-        }
+		bool has_opacity = true;
+		try {
+			window.SetOpacity(0.5f);
+		} catch (...) {
+			has_opacity = false;
+			std::cerr << "Setting window opacity is not supported on this platform" << std::endl;
+		}
 
-        if (has_opacity) {
-            EXPECT_TRUE(window.GetOpacity() > 0.49f);
-            EXPECT_TRUE(window.GetOpacity() < 0.51f);
-            EventSleep(1000);
+		if (has_opacity) {
+			EXPECT_TRUE(window.GetOpacity() > 0.49f);
+			EXPECT_TRUE(window.GetOpacity() < 0.51f);
+			EventSleep(1000);
 
-            window.SetOpacity();
-            EXPECT_TRUE(window.GetOpacity() > 0.99f);
-            EventSleep(1000);
-        }
+			window.SetOpacity();
+			EXPECT_TRUE(window.GetOpacity() > 0.99f);
+			EventSleep(1000);
+		}
 	}
 #endif
 
