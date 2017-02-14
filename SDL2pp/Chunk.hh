@@ -51,7 +51,7 @@ public:
 	/// \param[in] chunk Existing Mix_Chunk to manage
 	///
 	////////////////////////////////////////////////////////////
-	Chunk(Mix_Chunk* chunk);
+	explicit Chunk(Mix_Chunk* chunk);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load file for use as a sample
@@ -63,7 +63,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC19
 	///
 	////////////////////////////////////////////////////////////
-	Chunk(const std::string& file);
+	explicit Chunk(const std::string& file);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load sample using RWops
@@ -75,7 +75,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC20
 	///
 	////////////////////////////////////////////////////////////
-	Chunk(RWops& rwops);
+	explicit Chunk(RWops& rwops);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor

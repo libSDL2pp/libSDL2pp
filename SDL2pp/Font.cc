@@ -19,6 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
 #include <vector>
 
 #include <SDL2/SDL_ttf.h>
@@ -29,8 +30,8 @@
 
 namespace SDL2pp {
 
-Font::Font(TTF_Font* font) {
-	font_ = font;
+Font::Font(TTF_Font* font) : font_(font) {
+	assert(font);
 }
 
 Font::Font(const std::string& file, int ptsize, long index) {

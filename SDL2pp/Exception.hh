@@ -83,7 +83,7 @@ public:
 	/// \param[in] function Name of SDL function which generated an error
 	///
 	////////////////////////////////////////////////////////////
-	Exception(const char* function);
+	explicit Exception(const char* function);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Copy constructor

@@ -59,7 +59,7 @@ public:
 	/// \param[in] renderer Existing SDL_Renderer to manage
 	///
 	////////////////////////////////////////////////////////////
-	Renderer(SDL_Renderer* renderer);
+	explicit Renderer(SDL_Renderer* renderer);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create renderer

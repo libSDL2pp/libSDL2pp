@@ -75,7 +75,7 @@ public:
 	/// \param[in] window Existing SDL_Window to manage
 	///
 	////////////////////////////////////////////////////////////
-	Window(SDL_Window* window);
+	explicit Window(SDL_Window* window);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create window with specified title and dimensions

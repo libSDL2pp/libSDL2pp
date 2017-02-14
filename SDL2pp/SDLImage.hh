@@ -67,7 +67,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_image/docs/SDL_image.html#SEC8
 	///
 	////////////////////////////////////////////////////////////
-	SDLImage(int flags = 0);
+	explicit SDLImage(int flags = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor, deinitializes SDL_image library

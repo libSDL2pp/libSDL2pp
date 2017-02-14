@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
+
 #include <SDL2pp/Chunk.hh>
 #include <SDL2pp/RWops.hh>
 #include <SDL2pp/Exception.hh>
@@ -26,6 +28,7 @@
 namespace SDL2pp {
 
 Chunk::Chunk(Mix_Chunk* chunk) : chunk_(chunk) {
+	assert(chunk);
 }
 
 Chunk::Chunk(const std::string& file) {

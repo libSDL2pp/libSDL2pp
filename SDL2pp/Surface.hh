@@ -80,7 +80,7 @@ public:
 		/// \see http://wiki.libsdl.org/SDL_LockSurface
 		///
 		////////////////////////////////////////////////////////////
-		LockHandle(Surface* surface);
+		explicit LockHandle(Surface* surface);
 
 	public:
 		////////////////////////////////////////////////////////////
@@ -169,7 +169,7 @@ public:
 	/// \param[in] surface Existing SDL_Surface to manage
 	///
 	////////////////////////////////////////////////////////////
-	Surface(SDL_Surface* surface);
+	explicit Surface(SDL_Surface* surface);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create RGB surface
@@ -217,7 +217,7 @@ public:
 	/// \param[in] rwops RWops used to access an image file
 	///
 	////////////////////////////////////////////////////////////
-	Surface(RWops& rwops);
+	explicit Surface(RWops& rwops);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Create surface loading it from file
@@ -225,7 +225,7 @@ public:
 	/// \param[in] filename Path to an image file
 	///
 	////////////////////////////////////////////////////////////
-	Surface(const std::string& filename);
+	explicit Surface(const std::string& filename);
 #endif
 
 	////////////////////////////////////////////////////////////
