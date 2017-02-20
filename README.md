@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/qhfpa29qd8bt619t/branch/master?svg=true)](https://ci.appveyor.com/project/AMDmi3/libsdl2pp)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/3980/badge.svg)](https://scan.coverity.com/projects/3980)
 [![Coverage Status](https://coveralls.io/repos/github/libSDL2pp/libSDL2pp/badge.svg?branch=master)](https://coveralls.io/github/libSDL2pp/libSDL2pp?branch=master)
-[![Packaging status](http://repology.org/badge/tiny-repos/libsdl2pp.svg)](http://repology.org/metapackage/libsdl2pp)
+[![Packaging status](https://repology.org/badge/tiny-repos/libsdl2pp.svg)](https://repology.org/metapackage/libsdl2pp)
 
 This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
 
@@ -189,7 +189,7 @@ TARGET_LINK_LIBRARIES(... ${SDL2PP_LIBRARIES})
 SDL2pp is also already available from the following package
 repositories:
 
-<a href="http://repology.org/metapackage/libsdl2pp"><img src="http://repology.org/badge/vertical-allrepos/libsdl2pp.svg" alt="Packaging status" align="right"></a>
+<a href="https://repology.org/metapackage/libsdl2pp"><img src="https://repology.org/badge/vertical-allrepos/libsdl2pp.svg" alt="Packaging status" align="right"></a>
 
 * [Arch Linux AUR](https://aur.archlinux.org/packages/sdl2pp-git/)
 * [DragonflyBSD DPorts](https://github.com/DragonFlyBSD/DPorts/tree/master/devel/sdl2pp)
