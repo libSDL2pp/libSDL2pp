@@ -19,12 +19,15 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
+
 #include <SDL2pp/Music.hh>
 #include <SDL2pp/Exception.hh>
 
 namespace SDL2pp {
 
 Music::Music(Mix_Music* music) : music_(music) {
+	assert(music);
 }
 
 Music::Music(const std::string& file) {

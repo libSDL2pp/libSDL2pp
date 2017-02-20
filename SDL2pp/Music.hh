@@ -49,7 +49,7 @@ public:
 	/// \param[in] music Existing Mix_Music to manage
 	///
 	////////////////////////////////////////////////////////////
-	Music(Mix_Music* music);
+	explicit Music(Mix_Music* music);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Load music file
@@ -61,7 +61,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC55
 	///
 	////////////////////////////////////////////////////////////
-	Music(const std::string& file);
+	explicit Music(const std::string& file);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor

@@ -19,6 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <cassert>
+
 #include <SDL.h>
 
 #include <SDL2pp/Window.hh>
@@ -28,6 +30,7 @@
 namespace SDL2pp {
 
 Window::Window(SDL_Window* window) : window_(window) {
+	assert(window);
 }
 
 Window::Window(const std::string& title, int x, int y, int w, int h, Uint32 flags) {
@@ -244,17 +247,17 @@ Window& Window::SetBordered(bool bordered) {
 
 #if SDL_VERSION_ATLEAST(2, 0, 5)
 Window& Window::SetOpacity(float opacity) {
-    if (SDL_SetWindowOpacity(window_, opacity))
+	if (SDL_SetWindowOpacity(window_, opacity))
 		throw SDL2pp::Exception("SDL_SetWindowOpacity");
-    return *this;
+	return *this;
 }
 
 float Window::GetOpacity() const {
-    float opacity;
-    if (SDL_GetWindowOpacity(window_, &opacity) == -1)
+	float opacity;
+	if (SDL_GetWindowOpacity(window_, &opacity) == -1)
 		throw SDL2pp::Exception("SDL_GetWindowOpacity");
 
-    return opacity;
+	return opacity;
 }
 #endif
 

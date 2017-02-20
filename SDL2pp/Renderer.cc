@@ -20,6 +20,7 @@
 */
 
 #include <vector>
+#include <cassert>
 
 #include <SDL.h>
 
@@ -31,6 +32,7 @@
 namespace SDL2pp {
 
 Renderer::Renderer(SDL_Renderer* renderer) : renderer_(renderer) {
+	assert(renderer);
 }
 
 Renderer::Renderer(Window& window, int index, Uint32 flags) {

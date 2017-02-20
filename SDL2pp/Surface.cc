@@ -20,6 +20,7 @@
 */
 
 #include <vector>
+#include <cassert>
 
 #include <SDL2pp/Config.hh>
 
@@ -37,6 +38,7 @@
 namespace SDL2pp {
 
 Surface::Surface(SDL_Surface* surface) : surface_(surface) {
+	assert(surface);
 }
 
 Surface::Surface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask) {
@@ -88,14 +90,14 @@ Surface Surface::Convert(const SDL_PixelFormat& format) {
 	SDL_Surface* surface = SDL_ConvertSurface(surface_, &format, 0);
 	if (surface == nullptr)
 		throw Exception("SDL_ConvertSurface");
-	return surface;
+	return SDL2pp::Surface(surface);
 }
 
 Surface Surface::Convert(Uint32 pixel_format) {
 	SDL_Surface* surface = SDL_ConvertSurfaceFormat(surface_, pixel_format, 0);
 	if (surface == nullptr)
 		throw Exception("SDL_ConvertSurfaceFormat");
-	return surface;
+	return SDL2pp::Surface(surface);
 }
 
 void Surface::Blit(const Optional<Rect>& srcrect, Surface& dst, const Rect& dstrect) {

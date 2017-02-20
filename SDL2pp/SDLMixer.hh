@@ -58,7 +58,7 @@ public:
 	/// \see https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer.html#SEC9
 	///
 	////////////////////////////////////////////////////////////
-	SDLMixer(int flags = 0);
+	explicit SDLMixer(int flags = 0);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor, deinitializes SDL_mixer library

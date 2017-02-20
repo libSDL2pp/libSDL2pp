@@ -220,7 +220,7 @@ public:
 	/// \param[in] rwops Pointer to SDL_RWops to use
 	///
 	////////////////////////////////////////////////////////////
-	RWops(SDL_RWops* rwops);
+	explicit RWops(SDL_RWops* rwops);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Move constructor
@@ -267,7 +267,7 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	template<class C>
-	RWops(C&& custom_rwops) {
+	explicit RWops(C&& custom_rwops) {
 		rwops_ = SDL_AllocRW();
 		if (rwops_ == nullptr)
 			throw Exception("SDL_AllocRW");

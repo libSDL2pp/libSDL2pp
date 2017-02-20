@@ -130,6 +130,8 @@ RWops RWops::FromFile(const std::string& file, const std::string& mode) {
 }
 
 RWops::RWops(SDL_RWops* rwops) {
+	assert(rwops);
+
 	rwops_ = SDL_AllocRW();
 	if (rwops_ == nullptr)
 		throw Exception("SDL_AllocRW");

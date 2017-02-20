@@ -21,6 +21,7 @@
 
 #include <utility>
 #include <algorithm>
+#include <cassert>
 
 #include <SDL2pp/Config.hh>
 
@@ -42,6 +43,7 @@
 namespace SDL2pp {
 
 Texture::Texture(SDL_Texture* texture) : texture_(texture) {
+	assert(texture);
 }
 
 Texture::Texture(Renderer& renderer, Uint32 format, int access, int w, int h) {
