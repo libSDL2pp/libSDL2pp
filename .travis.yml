@@ -12,6 +12,8 @@ matrix:
       env: CXXSTD=c++11
     - compiler: clang
       env: CXXSTD=c++1y BUILD_NOOPTLIBS=yes
+    - compiler: clang
+      env: CXXSTD=c++1y BUILD_STATIC=yes
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio
@@ -25,6 +27,9 @@ before_install:
         export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO"
     else
         sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
+    fi
+    if [ -n "${BUILD_STATIC}" ]; then
+        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_STATIC=YES"
     fi
 
   # evironment for live tests
