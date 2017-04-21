@@ -1,8 +1,9 @@
 #include <SDL_main.h>
 
-#include <SDL2pp/SDLTTF.hh>
-#include <SDL2pp/Font.hh>
 #include <SDL2pp/Exception.hh>
+#include <SDL2pp/Font.hh>
+#include <SDL2pp/RWops.hh>
+#include <SDL2pp/SDLTTF.hh>
 
 #include "testing.h"
 #include "movetest.hh"
@@ -12,6 +13,14 @@ using namespace SDL2pp;
 BEGIN_TEST(int, char*[])
 	SDLTTF ttf;
 	Font font(TESTDATA_DIR "/Vera.ttf", 30);
+
+	// RWops
+	{
+		auto rwops = RWops::FromFile(TESTDATA_DIR "/Vera.ttf");
+		Font font_by_rw(rwops, 30);
+
+		EXPECT_TRUE(font_by_rw.Get());
+	}
 
 	MOVE_TEST(Font, font, Get, nullptr);
 
