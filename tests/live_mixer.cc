@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <SDL2pp/SDL2pp.hh>
+#include <SDL2pp/RWops.hh>
 
 #include "testing.h"
 #include "movetest.hh"
@@ -25,6 +26,30 @@ BEGIN_TEST(int, char*[])
 
 	Chunk sound(TESTDATA_DIR "/test.ogg");
 	Music music(TESTDATA_DIR "/test.ogg");
+
+	// RWops methods
+	{
+		auto rwops = RWops::FromFile(TESTDATA_DIR "/test.ogg");
+		Chunk chunk_by_rw(rwops);
+
+		EXPECT_TRUE(chunk_by_rw.Get());
+
+		rwops.Seek(0, RW_SEEK_SET);
+		Music music_by_rw1(rwops);
+
+		EXPECT_TRUE(music_by_rw1.Get());
+		EXPECT_EQUAL(music_by_rw1.GetType(), MUS_OGG);
+
+		rwops.Seek(0, RW_SEEK_SET);
+		Music music_by_rw2(rwops, MUS_OGG);
+
+		EXPECT_TRUE(music_by_rw2.Get());
+		EXPECT_EQUAL(music_by_rw2.GetType(), MUS_OGG);
+
+		// bad format
+		rwops.Seek(0, RW_SEEK_SET);
+		EXPECT_EXCEPTION(Music(rwops, MUS_WAV), Exception);
+	}
 
 	MOVE_TEST(Chunk, sound, Get, nullptr);
 	MOVE_TEST(Music, music, Get, nullptr);
