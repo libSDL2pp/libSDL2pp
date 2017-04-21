@@ -26,6 +26,13 @@
 
 namespace SDL2pp {
 
+Sint64 RWops::StdSizeFuncWrapper(SDL_RWops* context) {
+	assert(context != nullptr);
+	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
+	assert(sdl_rwops != nullptr);
+	return sdl_rwops->size(sdl_rwops);
+}
+
 Sint64 RWops::StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence) {
 	assert(context != nullptr);
 	SDL_RWops* sdl_rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
@@ -61,6 +68,13 @@ int RWops::StdCloseFuncWrapper(SDL_RWops* context) {
 	rwops->rwops_ = nullptr;
 
 	return ret;
+}
+
+Sint64 RWops::CustomSizeFuncWrapper(SDL_RWops* context) {
+	assert(context != nullptr);
+	CustomRWops* custom_rwops = reinterpret_cast<CustomRWops*>(context->hidden.unknown.data1);
+	assert(custom_rwops != nullptr);
+	return custom_rwops->Size();
 }
 
 Sint64 RWops::CustomSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence) {
@@ -136,6 +150,7 @@ RWops::RWops(SDL_RWops* rwops) {
 	if (rwops_ == nullptr)
 		throw Exception("SDL_AllocRW");
 
+	rwops_->size = StdSizeFuncWrapper;
 	rwops_->seek = StdSeekFuncWrapper;
 	rwops_->read = StdReadFuncWrapper;
 	rwops_->write = StdWriteFuncWrapper;

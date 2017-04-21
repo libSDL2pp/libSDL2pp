@@ -54,6 +54,16 @@ public:
 	virtual ~CustomRWops() {}
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the data stream
+	///
+	/// \returns Size of the data stream on success, -1 if unknown
+	///
+	/// \see http://wiki.libsdl.org/SDL_RWsize
+	///
+	////////////////////////////////////////////////////////////
+	virtual Sint64 Size() = 0;
+
+	////////////////////////////////////////////////////////////
 	/// \brief Seek within the data stream
 	///
 	/// \param[in] offset Offset in bytes, relative to whence location; can
@@ -148,11 +158,13 @@ protected:
 	SDL_RWops* rwops_; ///< Managed SDL_RWops object
 
 private:
+	static Sint64 StdSizeFuncWrapper(SDL_RWops* context);
 	static Sint64 StdSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
 	static size_t StdReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum);
 	static size_t StdWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum);
 	static int StdCloseFuncWrapper(SDL_RWops* context);
 
+	static Sint64 CustomSizeFuncWrapper(SDL_RWops* context);
 	static Sint64 CustomSeekFuncWrapper(SDL_RWops* context, Sint64 offset, int whence);
 	static size_t CustomReadFuncWrapper(SDL_RWops* context, void *ptr, size_t size, size_t maxnum);
 	static size_t CustomWriteFuncWrapper(SDL_RWops* context, const void *ptr, size_t size, size_t maxnum);
@@ -272,6 +284,7 @@ public:
 		if (rwops_ == nullptr)
 			throw Exception("SDL_AllocRW");
 
+		rwops_->size = CustomSizeFuncWrapper;
 		rwops_->seek = CustomSeekFuncWrapper;
 		rwops_->read = CustomReadFuncWrapper;
 		rwops_->write = CustomWriteFuncWrapper;

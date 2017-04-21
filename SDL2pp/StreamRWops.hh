@@ -24,6 +24,7 @@
 
 #include <SDL2pp/RWops.hh>
 
+#include <cassert>
 #include <stdexcept>
 #include <iostream>
 #include <type_traits>
@@ -145,6 +146,26 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	StreamRWops(S& stream) : stream_(stream) {
+	}
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the data stream
+	///
+	/// \returns Size of the data stream on success, -1 if unknown
+	///
+	/// \see SDL2pp::RWops::Size
+	/// \see http://wiki.libsdl.org/SDL_RWsize
+	///
+	////////////////////////////////////////////////////////////
+	virtual Sint64 Size() override {
+		Sint64 old_pos = TellHelper<S>();
+		if (old_pos == -1) // not seekable?
+			return -1;
+		SeekHelper<S>(0, std::ios_base::end);
+		Sint64 size = TellHelper<S>();
+		SeekHelper<S>(old_pos, std::ios_base::beg);
+		assert(TellHelper<S>() == old_pos); // make sure we're back to where we were
+		return size;
 	}
 
 	////////////////////////////////////////////////////////////

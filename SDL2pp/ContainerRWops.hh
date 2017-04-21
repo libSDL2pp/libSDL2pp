@@ -83,6 +83,19 @@ public:
 	}
 
 	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the data stream
+	///
+	/// \returns Size of the data stream on success, -1 if unknown
+	///
+	/// \see SDL2pp::RWops::Size
+	/// \see http://wiki.libsdl.org/SDL_RWsize
+	///
+	////////////////////////////////////////////////////////////
+	virtual Sint64 Size() override {
+		return static_cast<Sint64>(container_.size());
+	}
+
+	////////////////////////////////////////////////////////////
 	/// \brief Seek within the container
 	///
 	/// \param[in] offset Offset in bytes, relative to whence location; can
