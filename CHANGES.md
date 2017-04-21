@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.14.0 - unreleased
 ### Added
 * ```Window::GetOpacity()``` and ```Window()::SetOpacity()``` wrappers for functions appeared in SDL 2.0.5
+* ```Music``` RWops constructors based on undocumented SDL_mixer functions
 
 ### Changed
 * libSDL2pp now follows SDL2 include path conventions, finding and using SDL2 headers without SDL2/ prefix

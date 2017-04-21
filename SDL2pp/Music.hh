@@ -30,6 +30,8 @@
 
 namespace SDL2pp {
 
+class RWops;
+
 ////////////////////////////////////////////////////////////
 /// \brief %Music data
 ///
@@ -62,6 +64,33 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	explicit Music(const std::string& file);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Load music using RWops
+	///
+	/// This uses undocumented SDL_Mixer function. Comment
+	/// in SDL_mixer.h suggests it's only indended to work with
+	/// Ogg and MikMod.
+	///
+	/// \param[in] rwops SDL2pp::RWops used to access music data
+	///
+	/// \throws SDL2pp::Exception
+	///
+	////////////////////////////////////////////////////////////
+	explicit Music(RWops& rwops);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Load music using RWops
+	///
+	/// This uses undocumented SDL_Mixer function.
+	///
+	/// \param[in] rwops SDL2pp::RWops used to access music data
+	/// \param[in] type Music type to load
+	///
+	/// \throws SDL2pp::Exception
+	///
+	////////////////////////////////////////////////////////////
+	Music(RWops& rwops, Mix_MusicType type);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor

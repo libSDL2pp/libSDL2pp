@@ -21,8 +21,9 @@
 
 #include <cassert>
 
-#include <SDL2pp/Music.hh>
 #include <SDL2pp/Exception.hh>
+#include <SDL2pp/Music.hh>
+#include <SDL2pp/RWops.hh>
 
 namespace SDL2pp {
 
@@ -33,6 +34,16 @@ Music::Music(Mix_Music* music) : music_(music) {
 Music::Music(const std::string& file) {
 	if ((music_ = Mix_LoadMUS(file.c_str())) == nullptr)
 		throw Exception("Mix_LoadMUS");
+}
+
+Music::Music(RWops& rwops) {
+	if ((music_ = Mix_LoadMUS_RW(rwops.Get(), 0)) == nullptr)
+		throw Exception("Mix_LoadMUS_RW");
+}
+
+Music::Music(RWops& rwops, Mix_MusicType type) {
+	if ((music_ = Mix_LoadMUSType_RW(rwops.Get(), type, 0)) == nullptr)
+		throw Exception("Mix_LoadMUSType_RW");
 }
 
 Music::~Music() {
