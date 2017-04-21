@@ -191,12 +191,7 @@ Sint64 RWops::Tell() {
 }
 
 Sint64 RWops::Size() {
-	Sint64 old_pos = Tell();
-	Sint64 size = Seek(0, RW_SEEK_END);
-	Sint64 back_pos = Seek(old_pos, RW_SEEK_SET);
-	(void)back_pos; // silence unused variable warning on release build
-	assert(back_pos == old_pos);
-	return size;
+	return SDL_RWsize(rwops_);
 }
 
 Uint16 RWops::ReadBE16() {
