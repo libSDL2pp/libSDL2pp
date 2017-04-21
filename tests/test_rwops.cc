@@ -25,6 +25,11 @@ BEGIN_TEST(int, char*[])
 		}
 
 		{
+			// Size
+			EXPECT_TRUE(rw.Size() == 4);
+		}
+
+		{
 			// Seeks
 			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
 			EXPECT_TRUE(rw.Tell() == 0);
@@ -58,18 +63,20 @@ BEGIN_TEST(int, char*[])
 
 			// Position after read
 			EXPECT_TRUE(rw.Tell() == 4);
+			EXPECT_TRUE(rw.Size() == 4);
 		}
 
 		{
 			// Read via SDL
-			EXPECT_TRUE(rw.Seek(0, RW_SEEK_SET) == 0);
+			EXPECT_TRUE(SDL_RWseek(rw.Get(), 0, RW_SEEK_SET) == 0);
 
 			char buf[4] = {0};
 			EXPECT_TRUE(SDL_RWread(rw.Get(), buf, 1, 4) == 4);
 			EXPECT_TRUE(buf[0] == 'a' && buf[3] == 'd');
 
 			// Position after read
-			EXPECT_TRUE(rw.Tell() == 4);
+			EXPECT_TRUE(SDL_RWtell(rw.Get()) == 4);
+			EXPECT_TRUE(SDL_RWsize(rw.Get()) == 4);
 		}
 
 		{
@@ -95,6 +102,7 @@ BEGIN_TEST(int, char*[])
 			EXPECT_TRUE(rw.Tell() == 8);
 			EXPECT_TRUE(buffer.size() == 8);
 			EXPECT_TRUE(buffer == std::vector<char>({'1', '2', '1', '2', '1', '2', '1', '2'}));
+			EXPECT_TRUE(rw.Size() == 8);
 		}
 
 		{
@@ -108,6 +116,7 @@ BEGIN_TEST(int, char*[])
 			EXPECT_TRUE(buffer[99] == '\0');
 			EXPECT_TRUE(buffer[100] == 'x');
 			EXPECT_TRUE(buffer[101] == 'y');
+			EXPECT_TRUE(rw.Size() == 102);
 		}
 
 		{
@@ -174,14 +183,20 @@ BEGIN_TEST(int, char*[])
 			std::stringstream test;
 			RWops rw((StreamRWops<std::ostream>(test)));
 
+			EXPECT_EQUAL(rw.Size(), 0);
+
 			char buf[4] = { 'a', 'b', 'c', 'd' };
 			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_EQUAL(rw.Size(), 4);
 
 			EXPECT_TRUE(rw.Seek(0, RW_SEEK_CUR) == 4);
 
 			EXPECT_TRUE(rw.Seek(2, RW_SEEK_SET) == 2);
 
 			EXPECT_TRUE(rw.Write(buf, 1, 4) == 4);
+
+			EXPECT_EQUAL(rw.Size(), 6);
 
 			EXPECT_EQUAL(test.str(), "ababcd");
 		}
@@ -191,6 +206,8 @@ BEGIN_TEST(int, char*[])
 
 			std::stringstream test("abcdef");
 			RWops rw((StreamRWops<std::istream>(test)));
+
+			EXPECT_EQUAL(rw.Size(), 6);
 
 			char buf[4];
 			EXPECT_EQUAL(rw.Read(buf, 1, 4), 4UL);
@@ -223,6 +240,8 @@ BEGIN_TEST(int, char*[])
 			EXPECT_EQUAL(rw.Read(buf, 1, 2), 2UL);
 
 			EXPECT_EQUAL(std::string(buf, 2), "ef");
+
+			EXPECT_EQUAL(rw.Size(), 6);
 		}
 	}
 
@@ -231,11 +250,13 @@ BEGIN_TEST(int, char*[])
 		RWops rw = RWops::FromFile(TESTDATA_DIR "/test.txt");
 
 		EXPECT_TRUE(rw.Tell() == 0);
+		EXPECT_TRUE(rw.Size() == 9);
 		char buf[8] = {0};
 		EXPECT_TRUE(rw.Read(buf, 1, 8) == 8);
 		EXPECT_TRUE(buf[0] == 'a');
 		EXPECT_TRUE(buf[7] == 'h');
 		EXPECT_TRUE(rw.Tell() == 8);
+		EXPECT_TRUE(rw.Size() == 9);
 
 		rw.Close();
 	}
