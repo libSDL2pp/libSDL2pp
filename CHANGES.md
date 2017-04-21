@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.14.0 - unreleased
+### Fixed
+* Proper ```Size()``` handling for custom ```RWops```
+
 ### Added
 * ```Window::GetOpacity()``` and ```Window()::SetOpacity()``` wrappers for functions appeared in SDL 2.0.5
 * ```Music``` RWops constructors based on undocumented SDL_mixer functions
