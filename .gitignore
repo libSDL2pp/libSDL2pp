@@ -19,7 +19,8 @@ Debug/
 Win32/
 
 # Binaries
-examples/*.exe
+*.o
+*.exe
 examples/audio_sine
 examples/audio_wav
 examples/fill
