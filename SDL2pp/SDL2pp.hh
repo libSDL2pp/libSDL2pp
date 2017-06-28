@@ -96,34 +96,34 @@
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
 
+#ifdef SDL2PP_WITH_TTF
 ////////////////////////////////////////////////////////////
 /// \defgroup ttf SDL_ttf
 ///
 /// \brief Text rendering through SDL_ttf library
 ///
 ////////////////////////////////////////////////////////////
-#ifdef SDL2PP_WITH_TTF
 #	include <SDL2pp/SDLTTF.hh>
 #	include <SDL2pp/Font.hh>
 #endif
 
+#ifdef SDL2PP_WITH_IMAGE
 ////////////////////////////////////////////////////////////
 /// \defgroup image SDL_image
 ///
 /// \brief Functions that are specific to SDL_image library
 ///
 ////////////////////////////////////////////////////////////
-#ifdef SDL2PP_WITH_IMAGE
 #	include <SDL2pp/SDLImage.hh>
 #endif
 
+#ifdef SDL2PP_WITH_MIXER
 ////////////////////////////////////////////////////////////
 /// \defgroup mixer SDL_mixer
 ///
 /// \brief Functions that are specific to SDL_mixer library
 ///
 ////////////////////////////////////////////////////////////
-#ifdef SDL2PP_WITH_MIXER
 #	include <SDL2pp/Chunk.hh>
 #	include <SDL2pp/Mixer.hh>
 #	include <SDL2pp/Music.hh>
