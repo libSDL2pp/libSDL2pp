@@ -19,6 +19,7 @@ Debug/
 Win32/
 
 # Binaries
+SDL2pp/*.o
 examples/*.exe
 examples/audio_sine
 examples/audio_wav
