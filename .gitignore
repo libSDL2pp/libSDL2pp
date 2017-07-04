@@ -38,6 +38,8 @@ libSDL2pp.dll
 libSDL2pp.dll.a
 libSDL2pp.so
 libSDL2pp.so.*
+libSDL2pp.dylib
+libSDL2pp.*.dylib
 tests/live_*
 tests/test_*
 !tests/live_*.cc
@@ -48,3 +50,6 @@ tests/SDL2pp_*_hh_test*
 
 # Doxygen-generated documentation
 doxygen/
+
+# OS Specific files
+.DS_Store
