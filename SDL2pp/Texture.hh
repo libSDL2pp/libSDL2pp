@@ -31,6 +31,7 @@
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Config.hh>
 #include <SDL2pp/Export.hh>
+#include <SDL2pp/Color.hh>
 
 struct SDL_Texture;
 
@@ -422,6 +423,20 @@ public:
 	Texture& SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Set an additional color value multiplied into render copy operations
+	///
+	/// \param[in] color Color to be used when multiplied into render copy operations
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetTextureColorMod
+	///
+	////////////////////////////////////////////////////////////
+	Texture& SetColorAndAlphaMod(const Color color = Color{255, 255, 255, 255});
+
+	////////////////////////////////////////////////////////////
 	/// \brief Lock texture for write-only pixel access
 	///
 	/// \param[in] rect Rect representing area to lock for access
@@ -536,6 +551,18 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void GetColorMod(Uint8& r, Uint8& g, Uint8 &b) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into render copy operations
+	///
+	/// \return Color object with the values used to do render copy operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetTextureColorMod
+	///
+	////////////////////////////////////////////////////////////
+	Color GetColorAndAlphaMod() const;
 };
 
 }
