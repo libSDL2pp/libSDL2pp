@@ -197,8 +197,8 @@ Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	return *this;
 }
 
-Renderer& Renderer::SetDrawColor(const Color& color) {
-	return SetDrawColor(color.r, color.g, color.b, color.a);
+Renderer& Renderer::SetDrawColor(const Color color) {
+    return SetDrawColor(color.r, color.g, color.b, color.a);
 }
 
 Renderer& Renderer::SetTarget() {
