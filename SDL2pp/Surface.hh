@@ -398,6 +398,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
+	/// \see http://wiki.libsdl.org/SDL_GetSurfaceAlphaMod
 	/// \see http://wiki.libsdl.org/SDL_GetSurfaceColorMod
 	///
 	////////////////////////////////////////////////////////////
@@ -499,10 +500,11 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceAlphaMod
 	/// \see http://wiki.libsdl.org/SDL_SetSurfaceColorMod
 	///
 	////////////////////////////////////////////////////////////
-	Surface& SetColorAndAlphaMod(const Color color);
+	Surface& SetColorAndAlphaMod(const Color& color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the RLE acceleration hint for a surface

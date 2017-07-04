@@ -431,10 +431,11 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
+	/// \see http://wiki.libsdl.org/SDL_SetTextureAlphaMod
 	/// \see http://wiki.libsdl.org/SDL_SetTextureColorMod
 	///
 	////////////////////////////////////////////////////////////
-	Texture& SetColorAndAlphaMod(const Color color = Color{255, 255, 255, 255});
+	Texture& SetColorAndAlphaMod(const Color& color = Color{255, 255, 255, SDL_ALPHA_OPAQUE});
 
 	////////////////////////////////////////////////////////////
 	/// \brief Lock texture for write-only pixel access
@@ -559,6 +560,7 @@ public:
 	///
 	/// \throws SDL2pp::Exception
 	///
+	/// \see http://wiki.libsdl.org/SDL_GetTextureAlphaMod
 	/// \see http://wiki.libsdl.org/SDL_GetTextureColorMod
 	///
 	////////////////////////////////////////////////////////////

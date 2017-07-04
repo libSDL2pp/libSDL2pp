@@ -314,7 +314,7 @@ public:
 	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawColor
 	///
 	////////////////////////////////////////////////////////////
-	Renderer& SetDrawColor(const Color color);
+	Renderer& SetDrawColor(const Color& color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to default
