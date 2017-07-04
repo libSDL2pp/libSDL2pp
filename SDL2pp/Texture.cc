@@ -157,7 +157,7 @@ Texture& Texture::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	return *this;
 }
 
-Texture& Texture::SetColorAndAlphaMod(const Color color) {
+Texture& Texture::SetColorAndAlphaMod(const Color& color) {
 	return SetColorMod(color.r, color.g, color.b).SetAlphaMod(color.a);
 }
 
@@ -222,7 +222,7 @@ void Texture::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 Color Texture::GetColorAndAlphaMod() const {
 	Color color;
 	GetColorMod(color.r, color.g, color.b);
-	color.SetAlpha(GetAlphaMod());
+	color.a = GetAlphaMod();
 	return color;
 }
 
