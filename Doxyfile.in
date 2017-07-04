@@ -14,24 +14,24 @@ OUTPUT_DIRECTORY       = doxygen
 QUIET                  = YES
 
 # Process source and README file
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/SDL2pp \
-                         @CMAKE_CURRENT_SOURCE_DIR@/README.md
+INPUT                  = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp" \
+                         "@CMAKE_CURRENT_SOURCE_DIR@/README.md"
 
 # Recurse into subdirectories
 RECURSIVE              = YES
 
 # Exclude foreign files
-EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/external
+EXCLUDE                = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/external"
 
 # Examples (doesn't work atm)
-EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples
+EXAMPLE_PATH           = "@CMAKE_CURRENT_SOURCE_DIR@/examples"
 
 # Filter through sed to remove badges which Doxygen fails to process properly
 INPUT_FILTER           = "sed -e '/^\[!\[/d'"
 FILTER_PATTERNS        = *.md
 
 # README file is the main page
-USE_MDFILE_AS_MAINPAGE = @CMAKE_CURRENT_SOURCE_DIR@/README.md
+USE_MDFILE_AS_MAINPAGE = "@CMAKE_CURRENT_SOURCE_DIR@/README.md"
 
 # Include timestamp
 HTML_TIMESTAMP         = YES
