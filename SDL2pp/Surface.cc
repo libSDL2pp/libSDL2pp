@@ -147,8 +147,8 @@ SDL_BlendMode Surface::GetBlendMode() const {
 
 Color Surface::GetColorAndAlphaMod() const {
 	Color color;
-    GetColorMod(color.r, color.g, color.b);
-    color.SetAlpha(GetAlphaMod());
+	GetColorMod(color.r, color.g, color.b);
+	color.a = GetAlphaMod();
 	return color;
 }
 
@@ -187,7 +187,7 @@ Surface& Surface::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	return *this;
 }
 
-Surface& Surface::SetColorAndAlphaMod(const Color color) {
+Surface& Surface::SetColorAndAlphaMod(const Color& color) {
 	return SetColorMod(color.r, color.g, color.b).SetAlphaMod(color.a);
 }
 
