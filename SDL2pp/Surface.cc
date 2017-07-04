@@ -145,6 +145,13 @@ SDL_BlendMode Surface::GetBlendMode() const {
 	return blendMode;
 }
 
+Color Surface::GetColorAndAlphaMod() const {
+	Color color;
+    GetColorMod(color.r, color.g, color.b);
+    color.SetAlpha(GetAlphaMod());
+	return color;
+}
+
 void Surface::GetColorMod(Uint8& r, Uint8& g, Uint8& b) const {
 	if (SDL_GetSurfaceColorMod(surface_, &r, &g, &b) != 0)
 		throw Exception("SDL_GetSurfaceColorMod");
@@ -178,6 +185,10 @@ Surface& Surface::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
 	if (SDL_SetSurfaceColorMod(surface_, r, g, b) != 0)
 		throw Exception("SDL_SetSurfaceColorMod");
 	return *this;
+}
+
+Surface& Surface::SetColorAndAlphaMod(const Color color) {
+	return SetColorMod(color.r, color.g, color.b).SetAlphaMod(color.a);
 }
 
 Surface& Surface::SetRLE(bool flag) {

@@ -30,6 +30,7 @@
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Export.hh>
+#include <SDL2pp/Color.hh>
 
 struct SDL_Surface;
 struct SDL_PixelFormat;
@@ -393,6 +394,18 @@ public:
 	////////////////////////////////////////////////////////////
 	/// \brief Get the additional color value multiplied into blit operations
 	///
+	/// \return Color object with the values used to do blit operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetSurfaceColorMod
+	///
+	////////////////////////////////////////////////////////////
+	Color GetColorAndAlphaMod() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into blit operations
+	///
 	/// \param[out] r Variable to be filled in with the current red color value
 	/// \param[out] g Variable to be filled in with the current green color value
 	/// \param[out] b Variable to be filled in with the current blue color value
@@ -476,6 +489,20 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface& SetColorMod(Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set an additional color value multiplied into blit operations
+	///
+	/// \param[in] color Color to be multiplied into blit operations
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetSurfaceColorMod
+	///
+	////////////////////////////////////////////////////////////
+	Surface& SetColorAndAlphaMod(const Color color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set the RLE acceleration hint for a surface
