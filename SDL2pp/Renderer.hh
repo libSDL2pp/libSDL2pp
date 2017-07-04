@@ -30,6 +30,7 @@
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Rect.hh>
 #include <SDL2pp/Export.hh>
+#include <SDL2pp/Color.hh>
 
 struct SDL_RendererInfo;
 struct SDL_Renderer;
@@ -300,6 +301,20 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Renderer& SetDrawColor(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 a = 255);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set color user for drawing operations
+	///
+	/// \param[in] color Color to draw on the rendering target
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetRenderDrawColor
+	///
+	////////////////////////////////////////////////////////////
+	Renderer& SetDrawColor(const Color color);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Set current render target to default
@@ -751,6 +766,18 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	SDL_BlendMode GetDrawBlendMode() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the additional color value multiplied into render copy operations
+	///
+	/// \return Color object with the value used to do render copy operations
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_GetRenderDrawColor
+	///
+	////////////////////////////////////////////////////////////
+	Color GetDrawColor() const;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get the additional color value multiplied into render copy operations

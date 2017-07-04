@@ -197,6 +197,10 @@ Renderer& Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	return *this;
 }
 
+Renderer& Renderer::SetDrawColor(const Color color) {
+    return SetDrawColor(color.r, color.g, color.b, color.a);
+}
+
 Renderer& Renderer::SetTarget() {
 	if (SDL_SetRenderTarget(renderer_, nullptr) != 0)
 		throw Exception("SDL_SetRenderTarget");
@@ -409,6 +413,12 @@ SDL_BlendMode Renderer::GetDrawBlendMode() const {
 	if (SDL_GetRenderDrawBlendMode(renderer_, &mode) != 0)
 		throw Exception("SDL_GetRenderDrawBlendMode");
 	return mode;
+}
+
+Color Renderer::GetDrawColor() const {
+	Color color;
+	GetDrawColor(color.r, color.g, color.b, color.a);
+	return color;
 }
 
 void Renderer::GetDrawColor(Uint8& r, Uint8& g, Uint8& b, Uint8& a) const {
