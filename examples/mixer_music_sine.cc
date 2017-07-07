@@ -33,6 +33,8 @@ int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 
+	// XXX: this should be constexpr and not captured in lambda
+	// below, but that fails on microsoft crapiler
 	float frequency = 2093.00f; // C7 tone
 	int64_t nsample = 0;
 

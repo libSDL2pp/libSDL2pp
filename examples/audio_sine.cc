@@ -33,15 +33,17 @@ using namespace SDL2pp;
 int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
 
-	constexpr int samplerate = 48000;
-	constexpr float frequency = 2093.00f; // C7 tone
+	// XXX: these should be constexpr and not captured in lambda
+	// below, but that fails on microsoft crapiler
+	int samplerate = 48000;
+	float frequency = 2093.00f; // C7 tone
 	int64_t nsample = 0;
 
 	// Setup audio device, and provide callback which plays sine wave with specified frequency
 	AudioSpec spec(samplerate, AUDIO_S16SYS, 1, 4096);
 
 	// Open audio device
-	AudioDevice dev(NullOpt, 0, spec, [&nsample](Uint8* stream, int len) {
+	AudioDevice dev(NullOpt, 0, spec, [&nsample, samplerate, frequency](Uint8* stream, int len) {
 				// fill provided buffer with sine wave
 				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
 					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)samplerate * frequency));
