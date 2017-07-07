@@ -22,6 +22,6 @@
 #include <SDL2pp/Color.hh>
 
 std::ostream& operator<<(std::ostream& stream, const SDL2pp::Color& color) {
-    stream << "[r:" << static_cast<int>(color.r) << ",g:" << static_cast<int>(color.g) << ",b:" << static_cast<int>(color.b) << ",a:" << static_cast<int>(color.a) << "]";
-    return stream;
+	stream << "[r:" << static_cast<int>(color.r) << ",g:" << static_cast<int>(color.g) << ",b:" << static_cast<int>(color.b) << ",a:" << static_cast<int>(color.a) << "]";
+	return stream;
 }
