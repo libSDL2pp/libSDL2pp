@@ -1,5 +1,7 @@
 # simple command-line tests
 SET(CLI_TESTS
+	test_color
+	test_color_constexpr
 	test_error
 	test_optional
 	test_pointrect
