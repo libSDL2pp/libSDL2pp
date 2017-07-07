@@ -73,6 +73,7 @@
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/Surface.hh>
 #include <SDL2pp/Texture.hh>
+#include <SDL2pp/Color.hh>
 
 ////////////////////////////////////////////////////////////
 /// \defgroup geometry 2D geometry
