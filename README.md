@@ -275,6 +275,7 @@ Projects using libSDL2pp:
 * [kumar8600](https://github.com/kumar8600)
 * [ooxi](https://github.com/ooxi)
 * [Vladimir Gamalian](https://github.com/vladimirgamalian)
+* [Vraiment](https://github.com/Vraiment)
 
 ## License ##
 
