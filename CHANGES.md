@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.15.0 - 2017-07-10
+### Added
+* ```Color``` class wrapping around ```SDL_Color```
+
 ## 0.14.1 - 2017-06-28
 ### Fixed
 * ```Surface.hh``` include was missing from ```SDL2pp.hh```
