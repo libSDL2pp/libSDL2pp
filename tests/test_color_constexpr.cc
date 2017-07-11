@@ -24,4 +24,6 @@ int main(int, char*[]) {
 	constexpr int a = c1.GetAlpha();
 
 	static_assert(r == 0 && g == 0 && b == 0 && a == 0, "");
+
+	return 0;
 }
