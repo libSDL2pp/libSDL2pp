@@ -77,4 +77,6 @@ int main(int, char*[]) {
 
 		static_assert(b3 && b4 && b5 && b6, "");
 	}
+
+	return 0;
 }
