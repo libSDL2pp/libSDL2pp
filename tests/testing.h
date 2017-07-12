@@ -36,7 +36,7 @@
 #include <sstream>
 #include <functional>
 
-#ifdef _WIN32
+#if (defined _WIN32) || (defined SDL2PP_XCODE_GENERATED)
 #	define TESTING_NO_COLOR
 #endif
 
