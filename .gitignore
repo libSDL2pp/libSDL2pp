@@ -17,6 +17,9 @@ sdl2pp.pc
 *.sln
 Debug/
 Win32/
+CMakeScripts/
+*.build
+*.xcodeproj
 
 # Binaries
 *.o
