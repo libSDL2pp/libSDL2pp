@@ -2,6 +2,7 @@
 SET(CLI_TESTS
 	test_color
 	test_color_constexpr
+	test_eventpolling
 	test_error
 	test_optional
 	test_pointrect
