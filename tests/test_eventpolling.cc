@@ -128,4 +128,85 @@ BEGIN_TEST(int, char*[])
 		// Verify no further events
 		EXPECT_TRUE(PollEvent() == false);
 	}
+	
+	// With function as an event handler
+	{
+		StaticEventHandler::events.clear();
+		
+		vector<SDL_Event> expectedEvents;
+		for (const auto eventCode : { 15, 32, 99, 85 }) {
+			expectedEvents.push_back(PushUserEvent(eventCode));
+		}
+		int totalExpectedEvents = static_cast<int>(expectedEvents.size());
+		
+		EXPECT_TRUE(PollAllEvents(StaticEventHandler::EventHandler) == totalExpectedEvents);
+		EXPECT_TRUE(StaticEventHandler::events.size() == expectedEvents.size());
+		
+		for (int n = 0; n < totalExpectedEvents; n++) {
+			const SDL_Event result = StaticEventHandler::events[n];
+			const SDL_Event expected = expectedEvents[n];
+			
+			EXPECT_TRUE(result.type == expected.type);
+			EXPECT_TRUE(result.user.code == expected.user.code);
+		}
+		
+		// Verify no further events
+		EXPECT_TRUE(PollEvent(StaticEventHandler::EventHandler) == false);
+		EXPECT_TRUE(StaticEventHandler::events.size() == expectedEvents.size());
+	}
+	
+	// With lambda as an event handler
+	{
+		vector<SDL_Event> handledEvents;
+		auto eventHandler = [&handledEvents](const SDL_Event& event) {
+			handledEvents.push_back(event);
+		};
+		
+		vector<SDL_Event> expectedEvents;
+		for (const auto eventCode : { 37, 88, 42, 63, 23, 19 }) {
+			expectedEvents.push_back(PushUserEvent(eventCode));
+		}
+		int totalExpectedEvents = static_cast<int>(expectedEvents.size());
+		
+		EXPECT_TRUE(PollAllEvents(eventHandler) == totalExpectedEvents);
+		EXPECT_TRUE(handledEvents.size() == expectedEvents.size());
+		
+		for (int n = 0; n < totalExpectedEvents; n++) {
+			const SDL_Event result = handledEvents[n];
+			const SDL_Event expected = expectedEvents[n];
+			
+			EXPECT_TRUE(result.type == expected.type);
+			EXPECT_TRUE(result.user.code == expected.user.code);
+		}
+		
+		// Verify no further events
+		EXPECT_TRUE(PollEvent(eventHandler) == false);
+		EXPECT_TRUE(handledEvents.size() == expectedEvents.size());
+	}
+	
+	// With callable object as an event handler
+	{
+		CallableEventHandler eventHandler;
+		
+		vector<SDL_Event> expectedEvents;
+		for (const auto eventCode : { 11, 98, 62, 35, 71 }) {
+			expectedEvents.push_back(PushUserEvent(eventCode));
+		}
+		int totalExpectedEvents = static_cast<int>(expectedEvents.size());
+		
+		EXPECT_TRUE(PollAllEvents(eventHandler) == totalExpectedEvents);
+		EXPECT_TRUE(eventHandler.events.size() == expectedEvents.size());
+		
+		for (int n = 0; n < totalExpectedEvents; n++) {
+			const SDL_Event result = eventHandler.events[n];
+			const SDL_Event expected = expectedEvents[n];
+			
+			EXPECT_TRUE(result.type == expected.type);
+			EXPECT_TRUE(result.user.code == expected.user.code);
+		}
+		
+		// Verify no further events
+		EXPECT_TRUE(PollEvent(eventHandler) == false);
+		EXPECT_TRUE(eventHandler.events.size() == expectedEvents.size());
+	}
 END_TEST()

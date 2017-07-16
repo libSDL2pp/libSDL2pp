@@ -40,6 +40,13 @@ namespace SDL2pp {
 	}
 	
 	int PollAllEvents();
+	
+	template <typename T>
+	int PollAllEvents(T& eventHandler) {
+		int result;
+		for (result = 0; PollEvent(eventHandler); result++);
+		return result;
+	}
 }
 
 #endif
