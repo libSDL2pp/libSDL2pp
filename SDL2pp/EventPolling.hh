@@ -38,6 +38,8 @@ namespace SDL2pp {
 		
 		return true;
 	}
+	
+	int PollAllEvents();
 }
 
 #endif

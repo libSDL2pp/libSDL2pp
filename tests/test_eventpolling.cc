@@ -111,4 +111,21 @@ BEGIN_TEST(int, char*[])
 		EXPECT_TRUE(PollEvent(eventHandler) == false);
 		EXPECT_TRUE(eventHandler.events.size() == 1);
 	}
+
+	// With no callback and no polled events
+	{
+		EXPECT_TRUE(PollAllEvents() == 0);
+	}
+	
+	// With no callback and several polled events
+	{
+		constexpr int totalEvents = 5;
+		for (int n = 0; n < totalEvents; ++n) {
+			PushUserEvent();
+		}
+		
+		EXPECT_TRUE(PollAllEvents() == totalEvents);
+		// Verify no further events
+		EXPECT_TRUE(PollEvent() == false);
+	}
 END_TEST()

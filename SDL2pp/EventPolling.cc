@@ -28,4 +28,12 @@ namespace SDL2pp {
 		
 		return result;
 	}
+	
+	int PollAllEvents() {
+		int result;
+		
+		for (result = 0; PollEvent(); result++);
+		
+		return result;
+	}
 }
