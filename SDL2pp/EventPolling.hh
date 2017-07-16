@@ -26,6 +26,18 @@
 
 namespace SDL2pp {
 	bool PollEvent();
+	
+	template <typename T>
+	bool PollEvent(T& eventHandler) {
+		SDL_Event event;
+		if (!SDL_PollEvent(&event)) {
+			return false;
+		}
+		
+		eventHandler(event);
+		
+		return true;
+	}
 }
 
 #endif
