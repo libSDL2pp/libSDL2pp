@@ -20,3 +20,12 @@
 */
 
 #include <SDL2pp/EventPolling.hh>
+
+namespace SDL2pp {
+	bool PollEvent() {
+		SDL_Event event;
+		auto result = SDL_PollEvent(&event);
+		
+		return result;
+	}
+}

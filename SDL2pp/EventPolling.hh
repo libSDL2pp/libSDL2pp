@@ -22,8 +22,10 @@
 #ifndef SDL2PP_EVENTPOLLING_HH
 #define SDL2PP_EVENTPOLLING_HH
 
-namespace SDL2pp {
+#include <SDL_events.h>
 
+namespace SDL2pp {
+	bool PollEvent();
 }
 
 #endif
