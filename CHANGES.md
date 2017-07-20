@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.16.0 - unreleased
+### Added
+* New SDL 2.0.5 ```Window``` method: ```Window::SetResizable()```
+
 ## 0.15.0 - 2017-07-10
 ### Added
 * ```Color``` class wrapping around ```SDL_Color```

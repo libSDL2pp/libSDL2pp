@@ -212,6 +212,29 @@ BEGIN_TEST(int, char*[])
 			EventSleep(1000);
 		}
 	}
+
+    {
+        // Resizable
+        Uint32 flags = window.GetFlags();
+
+        if (flags & SDL_WINDOW_RESIZABLE) {
+			window.SetResizable(false);
+			EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_RESIZABLE));
+            EventSleep(1000);
+
+			window.SetResizable(true);
+			EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+            EventSleep(1000);
+        } else {
+			window.SetResizable(true);
+			EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+            EventSleep(1000);
+
+			window.SetResizable(false);
+			EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_RESIZABLE));
+            EventSleep(1000);
+        }
+    }
 #endif
 
 END_TEST()

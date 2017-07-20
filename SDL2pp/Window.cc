@@ -259,6 +259,11 @@ float Window::GetOpacity() const {
 
 	return opacity;
 }
+
+Window& Window::SetResizable(bool resizable) {
+	SDL_SetWindowResizable(window_, resizable ? SDL_TRUE : SDL_FALSE);
+	return *this;
+}
 #endif
 
 }

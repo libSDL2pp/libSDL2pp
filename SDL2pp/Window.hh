@@ -558,6 +558,18 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	float GetOpacity() const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set user-resizable state of a window
+	///
+	/// \param[in] resizable True to allow resizing, false to disallow
+	///
+	/// \returns Reference to self
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowResizable
+	///
+	////////////////////////////////////////////////////////////
+	Window& SetResizable(bool resizable = true);
 #endif
 };
 
