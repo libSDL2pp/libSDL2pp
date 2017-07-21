@@ -260,7 +260,7 @@ Projects using libSDL2pp:
 ## WWW ##
 
 * [GitHub page](https://github.com/libSDL2pp/libSDL2pp)
-* [Online documentation](http://sdl2pp.amdmi3.ru/)
+* [Online documentation](https://sdl2pp.amdmi3.ru/)
 
 ## Author ##
 
