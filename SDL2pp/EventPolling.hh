@@ -27,102 +27,104 @@
 #include <SDL2pp/Export.hh>
 
 namespace SDL2pp {
-	////////////////////////////////////////////////////////////
-	/// \brief Polls a single event
-	///
-	/// This function tries to poll a single event from the event
-	/// queue using SDL_PollEvent(). If an event was polled it
-	/// returns true, if not it returns false.
-	///
-	/// \ingroup events
-	///
-	/// \headerfile SDL2pp/EventPolling.hh
-	///
-	/// \returns True if an event was polled, false otherwise
-	///
-	/// \see https://wiki.libsdl.org/SDL_PollEvent
-	///
-	////////////////////////////////////////////////////////////
-	SDL2PP_EXPORT bool PollEvent();
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Polls and handles a single event
-	///
-	/// This function tries to poll a single event from the event
-	/// queue using SDL_PollEvent(). If an event was polled the
-	/// event handler is called using the retrieved SDL_Event as an
-	/// argument then this function returns true. If no event was
-	/// retrieved the event handler is not called and this function
-	/// returns false.
-	///
-	/// \ingroup events
-	///
-	/// \headerfile SDL2pp/EventPolling.hh
-	///
-	/// \param[in] eventHandler Object that can be used as eventHandler(event)
-	///                         where event is an instance of SDL_Event
-	///
-	/// \returns True if an event was polled, false otherwise
-	///
-	/// \see https://wiki.libsdl.org/SDL_Event
-	/// \see https://wiki.libsdl.org/SDL_PollEvent
-	///
-	////////////////////////////////////////////////////////////
-	template <typename T>
-	bool PollEvent(T& eventHandler) {
-		SDL_Event event;
-		if (!SDL_PollEvent(&event)) {
-			return false;
+	namespace Event {
+		////////////////////////////////////////////////////////////
+		/// \brief Polls a single event
+		///
+		/// This function tries to poll a single event from the event
+		/// queue using SDL_PollEvent(). If an event was polled it
+		/// returns true, if not it returns false.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventPolling.hh
+		///
+		/// \returns True if an event was polled, false otherwise
+		///
+		/// \see https://wiki.libsdl.org/SDL_PollEvent
+		///
+		////////////////////////////////////////////////////////////
+		SDL2PP_EXPORT bool PollEvent();
+		
+		////////////////////////////////////////////////////////////
+		/// \brief Polls and handles a single event
+		///
+		/// This function tries to poll a single event from the event
+		/// queue using SDL_PollEvent(). If an event was polled the
+		/// event handler is called using the retrieved SDL_Event as an
+		/// argument then this function returns true. If no event was
+		/// retrieved the event handler is not called and this function
+		/// returns false.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventPolling.hh
+		///
+		/// \param[in] eventHandler Object that can be used as eventHandler(event)
+		///                         where event is an instance of SDL_Event
+		///
+		/// \returns True if an event was polled, false otherwise
+		///
+		/// \see https://wiki.libsdl.org/SDL_Event
+		/// \see https://wiki.libsdl.org/SDL_PollEvent
+		///
+		////////////////////////////////////////////////////////////
+		template <typename T>
+		bool PollEvent(T& eventHandler) {
+			SDL_Event event;
+			if (!SDL_PollEvent(&event)) {
+				return false;
+			}
+			
+			eventHandler(event);
+			
+			return true;
 		}
 		
-		eventHandler(event);
+		////////////////////////////////////////////////////////////
+		/// \brief Polls all the events from the event queue
+		///
+		/// This function calls SDL_PollEvent() until the event queue is empty.
+		/// Returns the amount of events that were polled from the queue.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventPolling.hh
+		///
+		/// \returns The amount of polled events (can be zero)
+		///
+		/// \see https://wiki.libsdl.org/SDL_PollEvent
+		///
+		////////////////////////////////////////////////////////////
+		SDL2PP_EXPORT int PollAllEvents();
 		
-		return true;
-	}
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Polls all the events from the event queue
-	///
-	/// This function calls SDL_PollEvent() until the event queue is empty.
-	/// Returns the amount of events that were polled from the queue.
-	///
-	/// \ingroup events
-	///
-	/// \headerfile SDL2pp/EventPolling.hh
-	///
-	/// \returns The amount of polled events (can be zero)
-	///
-	/// \see https://wiki.libsdl.org/SDL_PollEvent
-	///
-	////////////////////////////////////////////////////////////
-	SDL2PP_EXPORT int PollAllEvents();
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Polls and handles all the events from the event queue
-	///
-	/// This function calls SDL_PollEvent() until the event queue is empty.
-	/// Then for each event that was polled the event handler is called
-	/// using the polled event as an argument. This function returns the
-	/// amount of events that were polled.
-	///
-	/// \ingroup events
-	///
-	/// \headerfile SDL2pp/EventPolling.hh
-	///
-	/// \param[in] eventHandler Object that can be used as eventHandler(event)
-	///                         where event is an instance of SDL_Event
-	///
-	/// \returns The amount of polled events (can be zero)
-	///
-	/// \see https://wiki.libsdl.org/SDL_Event
-	/// \see https://wiki.libsdl.org/SDL_PollEvent
-	///
-	////////////////////////////////////////////////////////////
-	template <typename T>
-	int PollAllEvents(T& eventHandler) {
-		int result;
-		for (result = 0; PollEvent(eventHandler); result++);
-		return result;
+		////////////////////////////////////////////////////////////
+		/// \brief Polls and handles all the events from the event queue
+		///
+		/// This function calls SDL_PollEvent() until the event queue is empty.
+		/// Then for each event that was polled the event handler is called
+		/// using the polled event as an argument. This function returns the
+		/// amount of events that were polled.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventPolling.hh
+		///
+		/// \param[in] eventHandler Object that can be used as eventHandler(event)
+		///                         where event is an instance of SDL_Event
+		///
+		/// \returns The amount of polled events (can be zero)
+		///
+		/// \see https://wiki.libsdl.org/SDL_Event
+		/// \see https://wiki.libsdl.org/SDL_PollEvent
+		///
+		////////////////////////////////////////////////////////////
+		template <typename T>
+		int PollAllEvents(T& eventHandler) {
+			int result;
+			for (result = 0; PollEvent(eventHandler); result++);
+			return result;
+		}
 	}
 }
 

@@ -8,6 +8,7 @@
 #include <vector>
 
 using namespace SDL2pp;
+using namespace SDL2pp::Event;
 using namespace std;
 
 inline SDL_Event PushUserEvent(Sint32 userCode = 0, void *data1 = nullptr, void *data2 = nullptr) {
