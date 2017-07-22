@@ -70,7 +70,7 @@ namespace SDL2pp {
 		///
 		////////////////////////////////////////////////////////////
 		template <typename T>
-		bool PollEvent(T& eventHandler) {
+		bool PollEvent(T&& eventHandler) {
 			SDL_Event event;
 			if (!SDL_PollEvent(&event)) {
 				return false;
@@ -120,7 +120,7 @@ namespace SDL2pp {
 		///
 		////////////////////////////////////////////////////////////
 		template <typename T>
-		int PollAllEvents(T& eventHandler) {
+		int PollAllEvents(T&& eventHandler) {
 			int result;
 			for (result = 0; PollEvent(eventHandler); result++);
 			return result;

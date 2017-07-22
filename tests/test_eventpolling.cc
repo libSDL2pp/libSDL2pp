@@ -77,13 +77,11 @@ BEGIN_TEST(int, char*[])
 	// With lambda as an event handler
 	{
 		vector<SDL_Event> events;
-		auto eventHandler = [&events](const SDL_Event& event) {
-			events.push_back(event);
-		};
-		
 		const SDL_Event expectedEvent = PushUserEvent(22);
 		
-		EXPECT_TRUE(PollEvent(eventHandler) == true);
+		EXPECT_TRUE(PollEvent([&events](const SDL_Event& event) {
+			events.push_back(event);
+		}) == true);
 		EXPECT_TRUE(events.size() == 1);
 		
 		const SDL_Event result = events[0];
@@ -91,7 +89,9 @@ BEGIN_TEST(int, char*[])
 		EXPECT_TRUE(result.user.code == expectedEvent.user.code);
 		
 		// Verify no further events
-		EXPECT_TRUE(PollEvent(eventHandler) == false);
+		EXPECT_TRUE(PollEvent([&events](const SDL_Event& event) {
+			events.push_back(event);
+		}) == false);
 		EXPECT_TRUE(events.size() == 1);
 	}
 	
@@ -159,17 +159,15 @@ BEGIN_TEST(int, char*[])
 	// With lambda as an event handler
 	{
 		vector<SDL_Event> handledEvents;
-		auto eventHandler = [&handledEvents](const SDL_Event& event) {
-			handledEvents.push_back(event);
-		};
-		
 		vector<SDL_Event> expectedEvents;
 		for (const auto eventCode : { 37, 88, 42, 63, 23, 19 }) {
 			expectedEvents.push_back(PushUserEvent(eventCode));
 		}
 		int totalExpectedEvents = static_cast<int>(expectedEvents.size());
 		
-		EXPECT_TRUE(PollAllEvents(eventHandler) == totalExpectedEvents);
+		EXPECT_TRUE(PollAllEvents([&handledEvents](const SDL_Event& event) {
+			handledEvents.push_back(event);
+		}) == totalExpectedEvents);
 		EXPECT_TRUE(handledEvents.size() == expectedEvents.size());
 		
 		for (int n = 0; n < totalExpectedEvents; n++) {
@@ -181,7 +179,9 @@ BEGIN_TEST(int, char*[])
 		}
 		
 		// Verify no further events
-		EXPECT_TRUE(PollEvent(eventHandler) == false);
+		EXPECT_TRUE(PollEvent([&handledEvents](const SDL_Event& event) {
+			handledEvents.push_back(event);
+		}) == false);
 		EXPECT_TRUE(handledEvents.size() == expectedEvents.size());
 	}
 	
