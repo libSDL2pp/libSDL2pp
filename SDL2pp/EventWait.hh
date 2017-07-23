@@ -24,8 +24,13 @@
 
 #include <SDL_events.h>
 
+#include <SDL2pp/Optional.hh>
+
 namespace SDL2pp {
 	namespace Event {
+		SDL_Event WaitEvent();
+		
+		Optional<SDL_Event> WaitEvent(int timeout);
 	}
 }
 

@@ -21,7 +21,33 @@
 
 #include <SDL2pp/EventWait.hh>
 
+#include <SDL2pp/Exception.hh>
+
 namespace SDL2pp {
 	namespace Event {
+		SDL_Event WaitEvent() {
+			SDL_Event result;
+			if (SDL_WaitEvent(&result) == 0) {
+				throw Exception("SDL_WaitEvent");
+			}
+			return result;
+		}
+		
+		Optional<SDL_Event> WaitEvent(int timeout) {
+			SDL_Event result;
+			SDL_ClearError(); // Necessary to ensure SDL_WaitEventTimeout
+							  // returned with no errors
+			if (SDL_WaitEventTimeout(&result, timeout) == 0) {
+				auto error = SDL_GetError();
+				// Check if the error message is empty
+				if (*error == 0) {
+					return Optional<SDL_Event>();
+				} else {
+					throw Exception("SDL_WaitEventTimeout");
+				}
+			}
+			
+			return result;
+		}
 	}
 }
