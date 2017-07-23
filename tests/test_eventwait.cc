@@ -1,5 +1,6 @@
-#include <SDL_main.h>
+#include <SDL.h>
 
+#include <SDL2pp/SDL.hh>
 #include <SDL2pp/EventWait.hh>
 
 #include "testing.h"
@@ -8,6 +9,8 @@ using namespace SDL2pp;
 using namespace SDL2pp::Event;
 
 BEGIN_TEST(int, char*[])
+	const SDL sdl(SDL_INIT_EVENTS);
+
 	// Test wait event with no timeout
 	{
 		SDL_Event expected;
