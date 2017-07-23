@@ -28,8 +28,47 @@
 
 namespace SDL2pp {
 	namespace Event {
+		////////////////////////////////////////////////////////////
+		/// \brief Waits indefinitely for an event
+		///
+		/// This function waits for the next available event. This
+		/// function WILL STOP the program execution until an event
+		/// is available.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventWait.hh
+		///
+		/// \returns The event that was available
+		///
+		/// \throws SDL2pp::Exception
+		///
+		/// \see https://wiki.libsdl.org/SDL_WaitEvent
+		///
+		////////////////////////////////////////////////////////////
 		SDL_Event WaitEvent();
 		
+		////////////////////////////////////////////////////////////
+		/// \brief Waits a given amount of time for an event
+		///
+		/// This function waits for the next available event for
+		/// specified amount of time. This function WILL STOP the
+		/// program execution until the given amount of time runs out
+		/// or an event is available.
+		///
+		/// \ingroup events
+		///
+		/// \headerfile SDL2pp/EventWait.hh
+		///
+		/// \param[in] timeout The amount of time to wait for an event
+		///
+		/// \returns The last event that was available
+		///
+		/// \throws SDL2pp::Exception
+		///
+		/// \see https://wiki.libsdl.org/SDL_WaitEvent
+		///
+		////////////////////////////////////////////////////////////
 		Optional<SDL_Event> WaitEvent(int timeout);
 	}
 }
