@@ -60,3 +60,11 @@ FOREACH(TEST ${LIVE_TESTS})
 		ADD_TEST(${TEST} ${TEST})
 	ENDIF(SDL2PP_ENABLE_LIVE_TESTS)
 ENDFOREACH(TEST ${TESTS})
+
+# Catch based tests
+SET(CATCH_CLI_TESTS
+)
+
+ADD_EXECUTABLE(unit_tests_catch catch_main.cc ${CATCH_CLI_TESTS})
+TARGET_LINK_LIBRARIES(unit_tests_catch ${SDL2PP_LIBRARIES})
+ADD_TEST(unit_tests_catch unit_tests_catch)
