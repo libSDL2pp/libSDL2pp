@@ -21,6 +21,8 @@
 
 #include <SDL2pp/EventPolling.hh>
 
+using std::function;
+
 namespace SDL2pp {
 	namespace Event {
 		bool PollEvent() {
@@ -30,11 +32,28 @@ namespace SDL2pp {
 			return result;
 		}
 		
+		bool PollEvent(function<void(const SDL_Event &)> eventHandler) {
+			SDL_Event event;
+			if (!SDL_PollEvent(&event)) {
+				return false;
+			}
+			
+			eventHandler(event);
+			
+			return true;
+		}
+		
 		int PollAllEvents() {
 			int result;
 			
 			for (result = 0; PollEvent(); result++);
 			
+			return result;
+		}
+		
+		int PollAllEvents(function<void(const SDL_Event &)> eventHandler) {
+			int result;
+			for (result = 0; PollEvent(eventHandler); result++);
 			return result;
 		}
 	}

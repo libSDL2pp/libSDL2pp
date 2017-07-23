@@ -101,7 +101,7 @@ BEGIN_TEST(int, char*[])
 		
 		const SDL_Event expectedEvent = PushUserEvent(45);
 		
-		EXPECT_TRUE(PollEvent(eventHandler) == true);
+		EXPECT_TRUE(PollEvent(std::ref(eventHandler)) == true);
 		EXPECT_TRUE(eventHandler.events.size() == 1);
 		
 		const SDL_Event result = eventHandler.events[0];
@@ -195,7 +195,7 @@ BEGIN_TEST(int, char*[])
 		}
 		int totalExpectedEvents = static_cast<int>(expectedEvents.size());
 		
-		EXPECT_TRUE(PollAllEvents(eventHandler) == totalExpectedEvents);
+		EXPECT_TRUE(PollAllEvents(std::ref(eventHandler)) == totalExpectedEvents);
 		EXPECT_TRUE(eventHandler.events.size() == expectedEvents.size());
 		
 		for (int n = 0; n < totalExpectedEvents; n++) {

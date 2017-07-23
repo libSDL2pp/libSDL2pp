@@ -26,6 +26,8 @@
 
 #include <SDL2pp/Export.hh>
 
+#include <functional>
+
 namespace SDL2pp {
 	namespace Event {
 		////////////////////////////////////////////////////////////
@@ -56,6 +58,19 @@ namespace SDL2pp {
 		/// retrieved the event handler is not called and this function
 		/// returns false.
 		///
+		/// This function accepts free functions, lambdas and callable objects.
+		///
+		/// If an instance of a callable struct/class needs to be passed
+		/// by reference, std::ref() needs to be used:
+		/// \code
+		/// struct EventHandler {
+		///     void operator()(const SDL_Event &);
+		/// };
+		///
+		/// EventHandler myEventHandler;
+		/// PollEvent(std::ref(myEventHandler));
+		/// \endcode
+		///
 		/// \ingroup events
 		///
 		/// \headerfile SDL2pp/EventPolling.hh
@@ -69,17 +84,7 @@ namespace SDL2pp {
 		/// \see https://wiki.libsdl.org/SDL_PollEvent
 		///
 		////////////////////////////////////////////////////////////
-		template <typename T>
-		bool PollEvent(T&& eventHandler) {
-			SDL_Event event;
-			if (!SDL_PollEvent(&event)) {
-				return false;
-			}
-			
-			eventHandler(event);
-			
-			return true;
-		}
+		SDL2PP_EXPORT bool PollEvent(std::function<void(const SDL_Event &)> eventHandler);
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Polls all the events from the event queue
@@ -106,6 +111,19 @@ namespace SDL2pp {
 		/// using the polled event as an argument. This function returns the
 		/// amount of events that were polled.
 		///
+		/// This function accepts free functions, lambdas and callable objects.
+		///
+		/// If an instance of a callable struct/class needs to be passed
+		/// by reference, std::ref() needs to be used:
+		/// \code
+		/// struct EventHandler {
+		///     void operator()(const SDL_Event &);
+		/// };
+		///
+		/// EventHandler myEventHandler;
+		/// PollAllEvents(std::ref(myEventHandler));
+		/// \endcode
+		///
 		/// \ingroup events
 		///
 		/// \headerfile SDL2pp/EventPolling.hh
@@ -119,12 +137,7 @@ namespace SDL2pp {
 		/// \see https://wiki.libsdl.org/SDL_PollEvent
 		///
 		////////////////////////////////////////////////////////////
-		template <typename T>
-		int PollAllEvents(T&& eventHandler) {
-			int result;
-			for (result = 0; PollEvent(eventHandler); result++);
-			return result;
-		}
+		SDL2PP_EXPORT int PollAllEvents(std::function<void(const SDL_Event &)> eventHandler);
 	}
 }
 
