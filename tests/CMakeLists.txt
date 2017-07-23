@@ -1,6 +1,5 @@
 # simple command-line tests
 SET(CLI_TESTS
-	test_color
 	test_color_constexpr
 	test_error
 	test_optional
@@ -63,6 +62,7 @@ ENDFOREACH(TEST ${TESTS})
 
 # Catch based tests
 SET(CATCH_CLI_TESTS
+	test_color
 )
 
 ADD_EXECUTABLE(unit_tests_catch catch_main.cc ${CATCH_CLI_TESTS})
