@@ -24,6 +24,7 @@
 
 #include <SDL_events.h>
 
+#include <SDL2pp/Export.hh>
 #include <SDL2pp/Optional.hh>
 
 namespace SDL2pp {
@@ -46,7 +47,7 @@ namespace SDL2pp {
 		/// \see https://wiki.libsdl.org/SDL_WaitEvent
 		///
 		////////////////////////////////////////////////////////////
-		SDL_Event WaitEvent();
+		SDL2PP_EXPORT SDL_Event WaitEvent();
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Waits a given amount of time for an event
@@ -69,7 +70,7 @@ namespace SDL2pp {
 		/// \see https://wiki.libsdl.org/SDL_WaitEvent
 		///
 		////////////////////////////////////////////////////////////
-		Optional<SDL_Event> WaitEvent(int timeout);
+		SDL2PP_EXPORT Optional<SDL_Event> WaitEvent(int timeout);
 	}
 }
 
