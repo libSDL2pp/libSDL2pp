@@ -483,6 +483,8 @@ public:
 	///
 	/// \returns Index of the display containing the center of the window
 	///
+	/// \throws SDL2pp::Exception
+	///
 	/// \see http://wiki.libsdl.org/SDL_GetWindowDisplayIndex
 	///
 	////////////////////////////////////////////////////////////
@@ -494,6 +496,8 @@ public:
 	///
 	/// \param[out] mode SDL_DisplayMode structure filled in with the
 	///                  fullscreen display mode
+	///
+	/// \throws SDL2pp::Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_GetWindowDisplayMode
 	///
@@ -544,6 +548,8 @@ public:
 	///
 	/// \returns Reference to self
 	///
+	/// \throws SDL2pp::Exception
+	///
 	/// \see http://wiki.libsdl.org/SDL_SetWindowOpacity
 	///
 	////////////////////////////////////////////////////////////
@@ -553,6 +559,8 @@ public:
 	/// \brief Get the opacity of a window
 	///
 	/// \returns Opacity value (0.0f - transparent, 1.0f - opaque)
+	///
+	/// \throws SDL2pp:Exception
 	///
 	/// \see http://wiki.libsdl.org/SDL_GetWindowOpacity
 	///
