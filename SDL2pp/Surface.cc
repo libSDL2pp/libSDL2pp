@@ -56,6 +56,11 @@ Surface::Surface(Uint32 flags, int width, int height, int depth, Uint32 format) 
 	if ((surface_ = SDL_CreateRGBSurfaceWithFormat(flags, width, height, depth, format)) == nullptr)
 		throw Exception("SDL_CreateRGBSurfaceWithFormat");
 }
+
+Surface::Surface(void* pixels, int width, int height, int depth, int pitch, Uint32 format) {
+	if ((surface_ = SDL_CreateRGBSurfaceWithFormatFrom(pixels, width, height, depth, pitch, format)) == nullptr)
+		throw Exception("SDL_CreateRGBSurfaceWithFormatFrom");
+}
 #endif
 
 #ifdef SDL2PP_WITH_IMAGE
