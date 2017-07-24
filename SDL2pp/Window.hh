@@ -578,6 +578,20 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Window& SetResizable(bool resizable = true);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Sets the modal to the parent window
+	///
+	/// \param[in] parent The window that should be the parent
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://wiki.libsdl.org/SDL_SetWindowModalFor
+	///
+	////////////////////////////////////////////////////////////
+	Window &SetModal(Window& parent);
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Read only data structure to represent the size borders of a window
