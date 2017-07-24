@@ -51,6 +51,13 @@ Surface::Surface(void* pixels, int width, int height, int depth, int pitch, Uint
 		throw Exception("SDL_CreateRGBSurfaceFrom");
 }
 
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+Surface::Surface(Uint32 flags, int width, int height, int depth, Uint32 format) {
+	if ((surface_ = SDL_CreateRGBSurfaceWithFormat(flags, width, height, depth, format)) == nullptr)
+		throw Exception("SDL_CreateRGBSurfaceWithFormat");
+}
+#endif
+
 #ifdef SDL2PP_WITH_IMAGE
 Surface::Surface(RWops& rwops) {
 	if ((surface_ = IMG_Load_RW(rwops.Get(), 0)) == nullptr)

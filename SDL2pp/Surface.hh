@@ -24,6 +24,7 @@
 
 #include <SDL_stdinc.h>
 #include <SDL_blendmode.h>
+#include <SDL_version.h>
 
 #include <SDL2pp/Config.hh>
 #include <SDL2pp/Optional.hh>
@@ -210,6 +211,24 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	Surface(void* pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+	
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+	////////////////////////////////////////////////////////////
+	/// \brief Create RGB surface with the given format
+	///
+	/// \param[in] flags Flags are obsolete and should be set to 0
+	/// \param[in] width Width of the surface
+	/// \param[in] height Height of the surface
+	/// \param[in] depth Depth of the surface
+	/// \param[in] format The pixel format of the surface
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://wiki.libsdl.org/SDL_CreateRGBSurfaceWithFormat
+	///
+	////////////////////////////////////////////////////////////
+	Surface(Uint32 flags, int width, int height, int depth, Uint32 format);
+#endif
 
 #ifdef SDL2PP_WITH_IMAGE
 	////////////////////////////////////////////////////////////
