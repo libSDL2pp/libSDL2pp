@@ -31,6 +31,29 @@
 
 namespace SDL2pp {
 	////////////////////////////////////////////////////////////
+	/// \brief Gets the area of a given display
+	///
+	/// This function retrieves an rectangle with the area of
+	/// the given display, with the initial display being located
+	/// at (0,0). This function does not takes into account space
+	/// that is not usable, like OS X's menu bar.
+	///
+	/// \ingroup graphics
+	///
+	/// \headerfile SDL2pp/Display.hh
+	///
+	/// \param[in] displayIndex The display to retrieve the area
+	///
+	/// \returns A rectangle with area of the given display
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://wiki.libsdl.org/SDL_GetDisplayBounds
+	///
+	////////////////////////////////////////////////////////////
+	SDL2PP_EXPORT Rect GetDisplayBounds(int displayIndex);
+	
+	////////////////////////////////////////////////////////////
 	/// \brief Gets the name of a given display
 	///
 	/// \ingroup graphics

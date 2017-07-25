@@ -28,6 +28,15 @@
 using std::string;
 
 namespace SDL2pp {
+Rect GetDisplayBounds(int displayIndex) {
+	Rect result;
+	if (SDL_GetDisplayBounds(displayIndex, &result) < 0) {
+		throw Exception("SDL_GetDisplayBounds");
+	}
+ 	
+	return result;
+}
+
 string GetDisplayName(int displayIndex) {
 	const char* name = SDL_GetDisplayName(displayIndex);
 	if (name == nullptr) {
