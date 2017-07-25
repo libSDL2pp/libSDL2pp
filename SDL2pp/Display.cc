@@ -26,6 +26,17 @@
 #include <SDL_video.h>
 
 namespace SDL2pp {
+#if SDL_VERSION_ATLEAST(2, 0, 4)
+DPI GetDisplayDPI(int displayIndex) {
+	float diagonal = 0, horizontal = 0, vertical = 0;
+	if (SDL_GetDisplayDPI(displayIndex, &diagonal, &horizontal, &vertical) < 0) {
+		throw Exception("SDL_GetDisplayDPI");
+	}
+	
+	return DPI{diagonal, horizontal, vertical};
+}
+#endif
+
 #if SDL_VERSION_ATLEAST(2, 0, 5)
 Rect GetDisplayUsableBounds(int displayIndex) {
 	Rect result;
