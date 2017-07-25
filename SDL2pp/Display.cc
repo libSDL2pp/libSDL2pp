@@ -21,6 +21,19 @@
 
 #include <SDL2pp/Display.hh>
 
-namespace SDL2pp {
+#include <SDL2pp/Exception.hh>
 
+#include <SDL_video.h>
+
+namespace SDL2pp {
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+Rect GetDisplayUsableBounds(int displayIndex) {
+	Rect result;
+	if (SDL_GetDisplayUsableBounds(displayIndex, &result) < 0) {
+		throw Exception("SDL_GetDisplayUsableBounds");
+	}
+	
+	return result;
+}
+#endif
 }

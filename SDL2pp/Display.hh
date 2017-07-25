@@ -24,8 +24,36 @@
 
 #include <SDL2pp/Export.hh>
 
-namespace SDL2pp {
+#include <SDL_version.h>
 
+#include <SDL2pp/Rect.hh>
+
+namespace SDL2pp {
+#if SDL_VERSION_ATLEAST(2, 0, 5)
+	////////////////////////////////////////////////////////////
+	/// \brief Gets the usable desktop area of a given display
+	///
+	/// This function retrieves an rectangle with the usable area
+	/// of the given display, with the initial display being
+	/// located at (0,0). This function does takes into account
+	/// space that is not usable, like OS X's menu bar, removing it
+	/// and returning the actual usable area.
+	///
+	/// \ingroup graphics
+	///
+	/// \headerfile SDL2pp/Display.hh
+	///
+	/// \param[in] displayIndex The display to retrieve the usable area
+	///
+	/// \returns A rectangle with the usable area of the given display
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://wiki.libsdl.org/SDL_GetDisplayUsableBounds
+	///
+	////////////////////////////////////////////////////////////
+	SDL2PP_EXPORT Rect GetDisplayUsableBounds(int displayIndex);
+#endif
 }
 
 #endif
