@@ -27,8 +27,27 @@
 #include <SDL_version.h>
 
 #include <SDL2pp/Rect.hh>
+#include <string>
 
 namespace SDL2pp {
+	////////////////////////////////////////////////////////////
+	/// \brief Gets the name of a given display
+	///
+	/// \ingroup graphics
+	///
+	/// \headerfile SDL2pp/Display.hh
+	///
+	/// \param[in] displayIndex The display to retrieve its name
+	///
+	/// \returns A string with the name of the given display
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see https://wiki.libsdl.org/SDL_GetDisplayName
+	///
+	////////////////////////////////////////////////////////////
+	SDL2PP_EXPORT std::string GetDisplayName(int displayIndex);
+	
 #if SDL_VERSION_ATLEAST(2, 0, 4)
 	////////////////////////////////////////////////////////////
 	/// \brief Read-only struct to store DPI information of a display

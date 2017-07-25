@@ -25,7 +25,18 @@
 
 #include <SDL_video.h>
 
+using std::string;
+
 namespace SDL2pp {
+string GetDisplayName(int displayIndex) {
+	const char* name = SDL_GetDisplayName(displayIndex);
+	if (name == nullptr) {
+		throw Exception("SDL_GetDisplayName");
+	}
+	
+	return string{name};
+}
+
 #if SDL_VERSION_ATLEAST(2, 0, 4)
 DPI GetDisplayDPI(int displayIndex) {
 	float diagonal = 0, horizontal = 0, vertical = 0;
