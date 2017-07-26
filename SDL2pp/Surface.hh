@@ -217,6 +217,8 @@ public:
 	///
 	/// \param[in] rwops RWops used to access an image file
 	///
+	/// \throws SDL2pp::Exception
+	///
 	////////////////////////////////////////////////////////////
 	explicit Surface(RWops& rwops);
 
@@ -224,6 +226,8 @@ public:
 	/// \brief Create surface loading it from file
 	///
 	/// \param[in] filename Path to an image file
+	///
+	/// \throws SDL2pp::Exception
 	///
 	////////////////////////////////////////////////////////////
 	explicit Surface(const std::string& filename);
