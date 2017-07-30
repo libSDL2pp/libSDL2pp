@@ -64,6 +64,35 @@ namespace Private {
 	template <typename T, typename... Tx>
 	using Or = typename OrOperation<T, Tx...>::type;
 #endif
+
+/*
+ * Templated class to perform an "AND" operation on any amount of types.
+ *
+ * Usage is as follows:
+ *     template <typename T,
+ *               typename = typename And<HasFeatureOne<T>, HasFeatureTwo<T>>
+ *     void UseFeatureOneAndFeatureTwo(T t) {
+ *         // The code will be only compiled if both
+ *         // HasFeatureOne<T> and HasFeatureTwo<T> are type_true
+ *     }
+ */
+#if __cplusplus >= 201703L
+	// Use the standard definitions if they are available
+	template <typename T, typename... Tx>
+	using And = typename std::conjunction<T, Tx...>::type;
+#else
+	template <typename...>
+	struct AndOperation : std::true_type { };
+	
+	template <typename T>
+	struct AndOperation<T> : T { };
+	
+	template <typename T, typename... Tx>
+	struct AndOperation<T, Tx...> : std::conditional<bool(T::value), AndOperation<Tx...>, T> { };
+	
+	template <typename T, typename... Tx>
+	using And = typename AndOperation<T, Tx...>::type;
+#endif
 }
 }
 
