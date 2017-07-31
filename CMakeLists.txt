@@ -158,6 +158,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
+	SDL2pp/Private/EventHandlerFunctor.hh
 	SDL2pp/Private/Utility.hh
 )
 
