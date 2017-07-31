@@ -28,8 +28,8 @@
 #include <utility>
 #endif
 
+#include <tuple>
 #include <type_traits>
-
 
 namespace SDL2pp {
 /*
@@ -93,6 +93,25 @@ namespace Private {
 	template <typename T, typename... Tx>
 	using And = typename AndOperation<T, Tx...>::type;
 #endif
+
+/*
+ * Templated class to an specific type in a tuple, returns std::true_type if the
+ * tuple contains T, std::false_type otherwise.
+ */
+template <typename T, typename Tuple>
+struct TupleHasTypeOperation;
+
+template <typename T>
+struct TupleHasTypeOperation<T, std::tuple<>> : std::false_type { };
+
+template <typename T, typename U, typename... Tx>
+struct TupleHasTypeOperation<T, std::tuple<U, Tx...>> : TupleHasTypeOperation<T, std::tuple<Tx...>> { };
+
+template <typename T, typename... Tx>
+struct TupleHasTypeOperation<T, std::tuple<T, Tx...>> : std::true_type { };
+
+template <typename T, typename... Tx>
+using TupleHasType = typename TupleHasTypeOperation<T, Tx...>::type;
 }
 }
 
