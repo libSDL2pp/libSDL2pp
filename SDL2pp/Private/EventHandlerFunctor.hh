@@ -52,7 +52,9 @@ namespace Private {
 	struct IsEventHandlerFunctor<
 		EventHandlerType,
 		EventType,
-		std::is_convertible<EventHandlerType, EventHandlerFunctorSignature<EventType>>
+		typename std::enable_if<
+			std::is_convertible<EventHandlerType, EventHandlerFunctorSignature<EventType>>::value
+		>::type
 	> : std::true_type { };
 }
 }

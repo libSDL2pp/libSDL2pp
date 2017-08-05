@@ -30,6 +30,15 @@ namespace SDL2pp {
  */
 namespace Private {
 	/*
+	 * Templated class to detect if a given type can handle a given event.
+	 */
+	template <typename EventHandlerType, typename EventType>
+	struct HasEventHandlerMethod : std::is_same<
+		decltype(std::declval<EventHandlerType>().HandleEvent(std::declval<const EventType &>())),
+		void
+	> { };
+	
+	/*
 	 * Templated class to identify a class that is not an event handler object.
 	 */
 	template <typename, typename, typename = void>
@@ -45,10 +54,9 @@ namespace Private {
 	struct IsEventHandlerObject<
 		EventHandlerType,
 		EventType,
-		std::is_same<
-			decltype(std::declval<EventHandlerType>().HandleEvent(std::declval<const EventType &>())),
-			void
-		>
+		typename std::enable_if<
+			HasEventHandlerMethod<EventHandlerType, EventType>::value
+		>::type
 	> : std::true_type { };
 }
 }

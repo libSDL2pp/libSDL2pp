@@ -91,13 +91,15 @@ namespace Private {
 	struct IsEventHandler<
 		EventHandlerType,
 		EventType,
-		And<
-			Or<
-				IsEventHandlerObject<EventHandlerType, EventType>,
-				IsEventHandlerFunctor<EventHandlerType, EventType>
-			>,
-			TupleHasType<EventType, ValidEventTypes>
-		>
+		typename std::enable_if<
+			And<
+				Or<
+					IsEventHandlerObject<EventHandlerType, EventType>,
+					IsEventHandlerFunctor<EventHandlerType, EventType>
+				>,
+				TupleHasType<EventType, ValidEventTypes>
+			>::value
+		>::type
 	> : std::true_type { };
 }
 }
