@@ -22,18 +22,19 @@
 #ifndef SDL2PP_EVENTPOLLING_HH
 #define SDL2PP_EVENTPOLLING_HH
 
-#include <SDL2pp/Private/EventHandler.hh>
+#include <SDL2pp/Private/EventDispatching.hh>
 
 namespace SDL2pp {
 namespace Event {
 	template <typename... EventHandlers>
-	bool PollEvent(EventHandlers&&...) {
+	bool PollEvent(EventHandlers&&... eventHandlers) {
 		SDL_Event event;
 		if (!SDL_PollEvent(&event)) {
 			return false;
 		}
 		
 		// TODO: Private::DispatchEvent(event, eventHandlers...);
+		Private::DispatchEvent(event, eventHandlers...);
 		
 		return true;
 	}
