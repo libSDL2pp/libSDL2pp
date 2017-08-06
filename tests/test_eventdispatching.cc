@@ -54,4 +54,16 @@ auto eventHandlerObject = EventHandlerObject{};
 DispatchEvent(event, eventHandlerObject);
 EXPECT_EQUAL(event.user.code, eventHandlerObject.result);
 
+struct SpecificEventHandler {
+	Sint32 result;
+	
+	void HandleEvent(SDL_UserEvent event) {
+		result = event.code;
+	}
+};
+
+auto specificEventHandler = SpecificEventHandler{};
+DispatchEvent(event, specificEventHandler);
+EXPECT_EQUAL(event.user.code, specificEventHandler.result);
+
 END_TEST()
