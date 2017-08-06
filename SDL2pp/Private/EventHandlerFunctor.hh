@@ -31,13 +31,6 @@ namespace SDL2pp {
  */
 namespace Private {
 	/*
-	 * Helper alias to help identify a functor object with the correct signature
-	 * to be used as an event handler.
-	 */
-	template <typename EventType>
-	using EventHandlerFunctorSignature = std::function<void(const EventType &)>;
-
-	/*
 	 * Templated class to identify a class that is not an event handler functor.
 	 */
 	template <typename, typename, typename = void>
@@ -53,7 +46,7 @@ namespace Private {
 		EventHandlerType,
 		EventType,
 		typename std::enable_if<
-			std::is_convertible<EventHandlerType, EventHandlerFunctorSignature<EventType>>::value
+			std::is_convertible<EventHandlerType, std::function<void(EventType)>>::value
 		>::type
 	> : std::true_type { };
 }
