@@ -3,6 +3,7 @@ SET(CLI_TESTS
 	test_color
 	test_color_constexpr
 	test_error
+	test_eventdispatching
 	test_eventhandler
 	test_optional
 	test_pointrect

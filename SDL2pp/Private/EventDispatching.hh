@@ -28,35 +28,36 @@
 
 #include <SDL_events.h>
 
+#include <iostream>
+using namespace std;
+
 namespace SDL2pp {
 namespace Private
 {
 	template <typename EventHandler>
-	auto DispatchEvent(const SDL_Event &event, EventHandler&& eventHandler) -> std::enable_if<IsEventHandlerFunctor<EventHandler, SDL_Event>::value>
-	{
-		eventHandler(event);
-	}
-	
-	template <typename EventHandler>
-	auto DispatchEvent(const SDL_Event &event, EventHandler&& eventHandler) -> std::enable_if<IsEventHandlerObject<EventHandler, SDL_Event>::value>
+	auto DispatchSpecificEvent(const SDL_Event &event, EventHandler&& eventHandler) -> typename std::enable_if<IsEventHandlerObject<EventHandler, SDL_Event>::value>::type
 	{
 		eventHandler.HandleEvent(event);
 	}
 	
 	template <typename EventHandler>
-	auto DispatchEvent(const SDL_Event&, EventHandler&&) -> std::enable_if<!IsEventHandler<EventHandler, SDL_Event>::value>
+	auto DispatchSpecificEvent(const SDL_Event &event, EventHandler&& eventHandler) -> typename std::enable_if<IsEventHandlerFunctor<EventHandler, SDL_Event>::value>::type
 	{
-		static_assert(!IsEventHandler<EventHandler, SDL_Event>::value, "One of the given values is not a valid event handler");
+		eventHandler(event);
+	}
+	
+	template <typename EventHandler>
+	auto DispatchSpecificEvent(const SDL_Event &, EventHandler&&) -> typename std::enable_if<!IsEventHandler<EventHandler, SDL_Event>::value>::type
+	{
+		static_assert(IsEventHandler<EventHandler, SDL_Event>::value, "Event handler is not a valid functor or object");
 	}
 
 	template <typename... EventHandlers>
-	void DispatchEvent(const SDL_Event & event, EventHandlers&&... eventHandlers) {
-		DispatchEvent(event, eventHandlers...);
-	}
+	void DispatchEvent(const SDL_Event &, EventHandlers&&...);
 	
 	template <typename EventHandler, typename... EventHandlers>
 	void DispatchEvent(const SDL_Event &event, EventHandler&& eventHandler, EventHandlers&&... eventHandlers) {
-		DispatchEvent(event, eventHandler);
+		DispatchSpecificEvent(event, eventHandler);
 		DispatchEvent(event, eventHandlers...);
 	}
 	
