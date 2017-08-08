@@ -163,6 +163,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Private/EventHandler.hh
 	SDL2pp/Private/EventHandlerFunctor.hh
 	SDL2pp/Private/EventHandlerObject.hh
+	SDL2pp/Private/EventTypeFilters.hh
 	SDL2pp/Private/Utility.hh
 )
 
