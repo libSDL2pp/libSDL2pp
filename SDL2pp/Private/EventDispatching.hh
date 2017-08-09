@@ -30,41 +30,42 @@ namespace SDL2pp {
  */
 namespace Private {
 	/*
-	 * Templated function to dynamically dispatch an event of type EventType to an event handler functor of type EventHandler.
+	 * Templated function to dynamically dispatch an event of type EventType to an event handler functor of type EventHandlerType.
 	 *
-	 * This will be only called if 'eventHandler(event)'
+	 * This will be only called if 'eventHandler(event)' can be called
 	 */
-	template <typename EventHandler, typename EventType>
-	auto DispatchEventHandlerFunctor(const EventType &event, EventHandler&& eventHandler) -> typename std::enable_if<IsEventHandlerFunctor<EventHandler, EventType>::value>::type
+	template <typename EventHandlerType, typename EventType>
+	auto DispatchEventHandlerFunctor(const EventType &event, EventHandlerType&& eventHandler) -> typename std::enable_if<IsEventHandlerFunctor<EventHandlerType, EventType>::value>::type
 	{
 		eventHandler(event);
 	}
 	
 	/*
-	 * Templated function to do nothing when trying to dispatch an event of type EventType to an invalid event handler functor of type EventHandler.
+	 * Templated function to do nothing when trying to dispatch an event of type EventType to an invalid event handler functor of type EventHandlerType.
 	 */
-	template <typename EventHandler, typename EventType>
-	auto DispatchEventHandlerFunctor(const EventType &, EventHandler&&) -> typename std::enable_if<!IsEventHandlerFunctor<EventHandler, EventType>::value>::type
+	template <typename EventHandlerType, typename EventType>
+	auto DispatchEventHandlerFunctor(const EventType &, EventHandlerType&&) -> typename std::enable_if<!IsEventHandlerFunctor<EventHandlerType, EventType>::value>::type
 	{
 		// no-op
 	}
 	
 	/*
-	 * Templated function to do nothing when trying to dispatch an event of type EventType to an invalid event handler object of type EventHandler.
+	 * Templated function to dynamically dispatch an event of type EventType to an event handler object of type EventHandlerType.
+	 *
+	 * This will be only called if 'eventHandler.HandleEvent(event)' can be called
 	 */
-	template <typename EventHandler, typename EventType>
-	auto DispatchEventHandlerObject(const EventType &event, EventHandler&& eventHandler) -> typename std::enable_if<IsEventHandlerObject<EventHandler, EventType>::value>::type
+	template <typename EventHandlerType, typename EventType>
+	auto DispatchEventHandlerObject(const EventType &event, EventHandlerType&& eventHandler) -> typename std::enable_if<IsEventHandlerObject<EventHandlerType, EventType>::value>::type
 	{
 		eventHandler.HandleEvent(event);
 	}
 	
+	
 	/*
-	 * Templated function to dynamically dispatch an event of type EventType to an event handler object of type EventHandler.
-	 *
-	 * This will be only called if 'eventHandler.HandleEvent(event)'
+	 * Templated function to do nothing when trying to dispatch an event of type EventType to an invalid event handler object of type EventHandlerType.
 	 */
-	template <typename EventHandler, typename EventType>
-	auto DispatchEventHandlerObject(const EventType &, EventHandler&&) -> typename std::enable_if<!IsEventHandlerObject<EventHandler, EventType>::value>::type
+	template <typename EventHandlerType, typename EventType>
+	auto DispatchEventHandlerObject(const EventType &, EventHandlerType&&) -> typename std::enable_if<!IsEventHandlerObject<EventHandlerType, EventType>::value>::type
 	{
 		// no-op
 	}
@@ -72,13 +73,13 @@ namespace Private {
 	/*
 	 * Templated class to dispatch an event to a given event handler:
 	 *
-	 * EventHandler is the type of the event handler
 	 * ValidEventHandler is a boolean to detect if the event was actially valid for any of the event types
+	 * EventHandlerType is the type of the event handler
 	 * EvenTypes is a tuple containing a list of valid event types
 	 *
 	 * Basically, this class would be roughly the equivalent of the following pseudocode:
 	 *
-	 * DispatchEvent(SDL_Event event, EventHandler eventHandler, EventTypes eventTypes) {
+	 * DispatchEvent(SDL_Event event, EventHandlerType eventHandler, EventTypes eventTypes) {
 	 *     auto validEventHandler = false;
 	 *
 	 *     for (auto eventType : eventTypes) {
@@ -92,7 +93,7 @@ namespace Private {
 	 *     if (!validEventHandler) throw;
 	 * }
 	 */
-	template <typename EventHandler, bool ValidEventHandler, typename... EventTypes>
+	template <bool ValidEventHandler, typename EventHandlerType, typename... EventTypes>
 	struct EventDispatcher;
 	
 	/*
@@ -102,20 +103,20 @@ namespace Private {
 	 * The tail then is passed to another expansion of EventDispatcher along with the calculated value of IsEventHandler
 	 *
 	 */
-	template <typename EventHandler, bool ValidEventHandler, typename EventType, typename... EventTypes>
-	struct EventDispatcher<EventHandler, ValidEventHandler, std::tuple<EventType, EventTypes...>> {
-		static constexpr bool IsValidEventHandler = ValidEventHandler || IsEventHandler<EventHandler, EventType>::value;
+	template <bool ValidEventHandler, typename EventHandlerType, typename EventType, typename... EventTypes>
+	struct EventDispatcher<ValidEventHandler, EventHandlerType, std::tuple<EventType, EventTypes...>> {
+		static constexpr bool IsValidEventHandler = ValidEventHandler || IsEventHandler<EventHandlerType, EventType>::value;
 		
 		using Filter = EventTypeFilter<EventType>;
 		
-		static void DispatchEvent(const SDL_Event &event, EventHandler&& eventHandler) {
+		static void DispatchEvent(const SDL_Event &event, EventHandlerType&& eventHandler) {
 			if (Filter::ShouldHandleEvent(event)) {
-				DispatchEventHandlerFunctor(Filter::GetEventByType(event), std::forward<EventHandler>(eventHandler));
-				DispatchEventHandlerObject(Filter::GetEventByType(event), std::forward<EventHandler>(eventHandler));
+				DispatchEventHandlerFunctor(Filter::GetEventByType(event), std::forward<EventHandlerType>(eventHandler));
+				DispatchEventHandlerObject(Filter::GetEventByType(event), std::forward<EventHandlerType>(eventHandler));
 				
 			}
 			
-			EventDispatcher<EventHandler, IsValidEventHandler, std::tuple<EventTypes...>>::DispatchEvent(event, std::forward<EventHandler>(eventHandler));
+			EventDispatcher<IsValidEventHandler, EventHandlerType, std::tuple<EventTypes...>>::DispatchEvent(event, std::forward<EventHandlerType>(eventHandler));
 		}
 	};
 	
@@ -126,11 +127,11 @@ namespace Private {
 	 * is placed in the IsValidEventHandler variable, finally when an event gets dispatched
 	 * an static_assert happens to verify if the event handler actually handled any events.
 	 */
-	template <typename EventHandler, bool ValidEventHandler>
-	struct EventDispatcher<EventHandler, ValidEventHandler, std::tuple<>> {
+	template <bool ValidEventHandler, typename EventHandlerType>
+	struct EventDispatcher<ValidEventHandler, EventHandlerType, std::tuple<>> {
 		static constexpr auto IsValidEventHandler = ValidEventHandler;
 		
-		static void DispatchEvent(const SDL_Event &, EventHandler&&) {
+		static void DispatchEvent(const SDL_Event &, EventHandlerType&&) {
 			static_assert(IsValidEventHandler, "One of the given event handlers is not a valid one");
 		}
 	};
@@ -138,17 +139,17 @@ namespace Private {
 	/*
 	 * Templated class expand a list of event handlers so they can be dispatched.
 	 */
-	template <typename... EventHandlers>
-	void DispatchEvent(const SDL_Event &, EventHandlers&&...);
+	template <typename... EventHandlerTypes>
+	void DispatchEvent(const SDL_Event &, EventHandlerTypes&&...);
 
 	/*
 	 * Instantiation of the class to expand a list of event handlers so they can be dispatched.
 	 *
 	 * This "peels" the first event handler from the arguments, dispatchs it and then expands the tail of the list.
 	 */
-	template <typename EventHandler, typename... EventHandlers>
-	void DispatchEvent(const SDL_Event &event, EventHandler&& eventHandler, EventHandlers&&... eventHandlers) {
-		EventDispatcher<EventHandler, false, ValidEventTypes>::DispatchEvent(event, std::forward<EventHandler>(eventHandler));
+	template <typename EventHandlerType, typename... EventHandlerTypes>
+	void DispatchEvent(const SDL_Event &event, EventHandlerType&& eventHandler, EventHandlerTypes&&... eventHandlers) {
+		EventDispatcher<false, EventHandlerType, ValidEventTypes>::DispatchEvent(event, std::forward<EventHandlerType>(eventHandler));
 		DispatchEvent(event, eventHandlers...);
 	}
 
