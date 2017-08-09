@@ -5,6 +5,7 @@ SET(CLI_TESTS
 	test_error
 	test_eventdispatching
 	test_eventhandler
+	test_eventpolling
 	test_optional
 	test_pointrect
 	test_pointrect_constexpr
