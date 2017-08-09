@@ -17,6 +17,7 @@ namespace TestFreeFunctions {
 BEGIN_TEST(int, char*[])
 	// These test require a major rework, commenting everything in the mean time
 	SDL_Event event;
+	event.common.timestamp = 98;
 	event.type = SDL_QUIT;
 	event.user.code = 31;
 
@@ -122,11 +123,56 @@ BEGIN_TEST(int, char*[])
 		
 		eventHandler.quitEventExecuted = false;
 		
-		event.type = SDL_KEYUP;
+		SDL_Event keyboardEvent;
+		keyboardEvent.type = SDL_KEYUP;
 		
-		DispatchEvent(event, eventHandler);
+		DispatchEvent(keyboardEvent, eventHandler);
 		
 		EXPECT_TRUE(!eventHandler.quitEventExecuted);
 		EXPECT_TRUE(eventHandler.keyboardEventExecuted);
+	}
+
+	// Test call event handler that's both a functor and object
+	{
+		struct EventHandler {
+			bool quitEventFunctorExecuted = false;
+			bool quitEventObjectExecuted = false;
+			
+			void operator()(SDL_QuitEvent) {
+				quitEventFunctorExecuted = true;
+			}
+			
+			void HandleEvent(SDL_QuitEvent) {
+				quitEventObjectExecuted = true;
+			}
+		};
+		
+		auto eventHandler = EventHandler{};
+		DispatchEvent(event, eventHandler);
+		
+		EXPECT_TRUE(eventHandler.quitEventFunctorExecuted);
+		EXPECT_TRUE(eventHandler.quitEventObjectExecuted);
+	}
+
+	// Test don't call event handler with annotated types
+	{
+		struct EventHandler {
+			bool quitEventFunctorExecuted = false;
+			bool quitEventObjectExecuted = false;
+			
+			void operator()(SDL_QuitEvent) {
+				quitEventFunctorExecuted = true;
+			}
+			
+			void HandleEvent(SDL_QuitEvent &) {
+				quitEventObjectExecuted = true;
+			}
+		};
+		
+		auto eventHandler = EventHandler{};
+		DispatchEvent(event, eventHandler);
+		
+		EXPECT_TRUE(eventHandler.quitEventFunctorExecuted);
+		EXPECT_TRUE(!eventHandler.quitEventObjectExecuted);
 	}
 END_TEST()
