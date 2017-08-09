@@ -66,4 +66,6 @@ int main(int, char*[]) {
 		!IsEventHandler<InvalidEventHandler, SDL_Event>::value,
 		"IsEventHandler<> shouldn't accept a class without a valid signature"
 	);
+	
+	return 0;
 }

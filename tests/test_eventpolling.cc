@@ -13,7 +13,7 @@ BEGIN_TEST(int, char*[])
 
 	// Empty event poll
 	SDL_Event event;
-	while (SDL_PollEvent(&event));
+	while (SDL_PollEvent(&event)) { }
 
 	// Poll a single event
 	{
@@ -64,7 +64,7 @@ BEGIN_TEST(int, char*[])
 		event.type = SDL_QUIT;
 		SDL_PushEvent(&event);
 		
-		auto eventHandler = EventHandler{};
+		auto eventHandler = EventHandler();
 		
 		EXPECT_EQUAL(PollAllEvents(eventHandler), 3);
 		EXPECT_TRUE(!PollEvent()); // Verify no additional events

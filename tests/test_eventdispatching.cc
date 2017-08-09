@@ -49,7 +49,7 @@ BEGIN_TEST(int, char*[])
 			}
 		};
 
-		auto eventHandlerFunctor = EventHandlerFunctor{};
+		auto eventHandlerFunctor = EventHandlerFunctor();
 		DispatchEvent(event, eventHandlerFunctor);
 		EXPECT_EQUAL(event.user.code, eventHandlerFunctor.result);
 	}
@@ -64,7 +64,7 @@ BEGIN_TEST(int, char*[])
 			}
 		};
 
-		auto eventHandlerObject = EventHandlerObject{};
+		auto eventHandlerObject = EventHandlerObject();
 		DispatchEvent(event, eventHandlerObject);
 		EXPECT_EQUAL(event.user.code, eventHandlerObject.result);
 	}
@@ -78,8 +78,8 @@ BEGIN_TEST(int, char*[])
 				executed = true;
 			}
 		};
-		auto eventHandlerFunctor1 = EventHandlerFunctor{};
-		auto eventHandlerFunctor2 = EventHandlerFunctor{};
+		auto eventHandlerFunctor1 = EventHandlerFunctor();
+		auto eventHandlerFunctor2 = EventHandlerFunctor();
 		
 		struct EventHandlerObject {
 			bool executed = false;
@@ -88,7 +88,7 @@ BEGIN_TEST(int, char*[])
 				executed = true;
 			}
 		};
-		auto eventHandlerObject = EventHandlerObject{};
+		auto eventHandlerObject = EventHandlerObject();
 	
 		auto lambdaExecuted = false;
 		auto lambda = [&lambdaExecuted](SDL_QuitEvent) { lambdaExecuted = true; };
@@ -115,7 +115,7 @@ BEGIN_TEST(int, char*[])
 			}
 		};
 		
-		auto eventHandler = EventHandler{};
+		auto eventHandler = EventHandler();
 		DispatchEvent(event, eventHandler);
 		
 		EXPECT_TRUE(eventHandler.quitEventExecuted);
@@ -147,32 +147,10 @@ BEGIN_TEST(int, char*[])
 			}
 		};
 		
-		auto eventHandler = EventHandler{};
+		auto eventHandler = EventHandler();
 		DispatchEvent(event, eventHandler);
 		
 		EXPECT_TRUE(eventHandler.quitEventFunctorExecuted);
 		EXPECT_TRUE(eventHandler.quitEventObjectExecuted);
-	}
-
-	// Test don't call event handler with annotated types
-	{
-		struct EventHandler {
-			bool quitEventFunctorExecuted = false;
-			bool quitEventObjectExecuted = false;
-			
-			void operator()(SDL_QuitEvent) {
-				quitEventFunctorExecuted = true;
-			}
-			
-			void HandleEvent(SDL_QuitEvent &) {
-				quitEventObjectExecuted = true;
-			}
-		};
-		
-		auto eventHandler = EventHandler{};
-		DispatchEvent(event, eventHandler);
-		
-		EXPECT_TRUE(eventHandler.quitEventFunctorExecuted);
-		EXPECT_TRUE(!eventHandler.quitEventObjectExecuted);
 	}
 END_TEST()
