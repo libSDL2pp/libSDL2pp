@@ -62,7 +62,7 @@ namespace Private {
 		SDL_TextEditingEvent,
 		SDL_TextInputEvent,
 		SDL_TouchFingerEvent,
-		//SDL_UserEvent, <- User events are a special case
+		SDL_UserEvent,
 		SDL_WindowEvent
 	>;
 	

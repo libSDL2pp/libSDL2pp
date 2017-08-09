@@ -97,7 +97,7 @@ namespace Private {
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_TextEditingEvent, event.type == SDL_TEXTEDITING, event.edit);
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_TextInputEvent, event.type == SDL_TEXTINPUT, event.text);
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_TouchFingerEvent, event.type == SDL_FINGERMOTION || event.type == SDL_FINGERDOWN || event.type == SDL_FINGERUP, event.tfinger);
-	//SDL2PP_DEFINE_EVENT_MAPPING(SDL_UserEvent, event.type == SDL_USEREVENT, event.user); <- This won't work
+	SDL2PP_DEFINE_EVENT_MAPPING(SDL_UserEvent, SDL_USEREVENT <= event.type && event.type <= SDL_LASTEVENT, event.user);
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_WindowEvent, event.type == SDL_WINDOWEVENT, event.window);
 	
 #undef SDL2PP_DEFINE_EVENT_MAPPING
