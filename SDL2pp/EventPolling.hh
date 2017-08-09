@@ -26,6 +26,32 @@
 
 namespace SDL2pp {
 namespace Event {
+	////////////////////////////////////////////////////////////
+	/// \brief Polls and handles a single event
+	///
+	/// This function tries to poll a single event from the event
+	/// queue using SDL_PollEvent(). If an event was polled the
+	/// event handler is called using the retrieved SDL_Event as an
+	/// argument then this function returns true. If no event was
+	/// retrieved the event handler is not called and this function
+	/// returns false.
+	///
+	/// This function accepts the following as event handlers:
+	///     - Functors (lambdas, free functions, callable objects)
+	///     - Objects (Objects that have a HandleEvent(EventType) function)
+	///
+	/// \ingroup events
+	///
+	/// \headerfile SDL2pp/EventPolling.hh
+	///
+	/// \param[in] eventHandlers A list of event handlers that will handle the event
+	///
+	/// \returns True if an event was polled, false otherwise
+	///
+	/// \see https://wiki.libsdl.org/SDL_PollEvent
+	/// \see https://wiki.libsdl.org/CategoryEvents#Structures
+	///
+	////////////////////////////////////////////////////////////
 	template <typename... EventHandlers>
 	bool PollEvent(EventHandlers&&... eventHandlers) {
 		SDL_Event event;
@@ -33,12 +59,35 @@ namespace Event {
 			return false;
 		}
 		
-		// TODO: Private::DispatchEvent(event, eventHandlers...);
 		Private::DispatchEvent(event, eventHandlers...);
 		
 		return true;
 	}
-		
+	
+	////////////////////////////////////////////////////////////
+	/// \brief Polls and handles all the events from the event queue
+	///
+	/// This function calls SDL_PollEvent() until the event queue is empty.
+	/// Then for each event that was polled the event handler is called
+	/// using the polled event as an argument. This function returns the
+	/// amount of events that were polled.
+	///
+	/// This function accepts the following as event handlers:
+	///     - Functors (lambdas, free functions, callable objects)
+	///     - Objects (Objects that have a HandleEvent(EventType) function)
+	///
+	/// \ingroup events
+	///
+	/// \headerfile SDL2pp/EventPolling.hh
+	///
+	/// \param[in] eventHandlers A list of event handlers that will handle the polled event
+	///
+	/// \returns The amount of polled events (can be zero)
+	///
+	/// \see https://wiki.libsdl.org/SDL_PollEvent
+	/// \see https://wiki.libsdl.org/CategoryEvents#Structures
+	///
+	////////////////////////////////////////////////////////////
 	template <typename... EventHandlers>
 	int PollAllEvents(EventHandlers&&... eventHandlers) {
 		int result;
