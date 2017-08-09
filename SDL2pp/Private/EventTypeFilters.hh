@@ -80,7 +80,7 @@ namespace Private {
 #if SDL_VERSION_ATLEAST(2, 0, 5)
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_DropEvent, event.type == SDL_DROPFILE || event.type == SDL_DROPTEXT || event.type == SDL_DROPBEGIN || event.type == SDL_DROPCOMPLETE, event.drop);
 #else
-	SDL2PP_DEFINE_EVENT_MAPPING(SDL_DropEvent, event.type == SDL_DROPFILE || event.type == SDL_DROPTEXT, event.drop);
+	SDL2PP_DEFINE_EVENT_MAPPING(SDL_DropEvent, event.type == SDL_DROPFILE, event.drop);
 #endif
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_JoyAxisEvent, event.type == SDL_JOYAXISMOTION, event.jaxis);
 	SDL2PP_DEFINE_EVENT_MAPPING(SDL_JoyBallEvent, event.type == SDL_JOYBALLMOTION, event.jball);

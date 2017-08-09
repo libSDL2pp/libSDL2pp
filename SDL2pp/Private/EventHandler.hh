@@ -29,6 +29,7 @@
 #include <type_traits>
 
 #include <SDL_events.h>
+#include <SDL_version.h>
 
 namespace SDL2pp {
 /*
@@ -40,7 +41,9 @@ namespace Private {
 	 */
 	using ValidEventTypes = std::tuple<
 		SDL_Event,
+#if SDL_VERSION_ATLEAST(2, 0, 5)
 		SDL_AudioDeviceEvent,
+#endif
 		SDL_ControllerAxisEvent,
 		SDL_ControllerButtonEvent,
 		SDL_ControllerDeviceEvent,
