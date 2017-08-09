@@ -22,10 +22,9 @@
 #ifndef SDL2PP_PRIVATE_EVENTHANDLER_HH
 #define SDL2PP_PRIVATE_EVENTHANDLER_HH
 
-#include <SDL2pp/Private/EventHandlerFunctor.hh>
-#include <SDL2pp/Private/EventHandlerObject.hh>
 #include <SDL2pp/Private/Utility.hh>
 
+#include <functional>
 #include <tuple>
 #include <type_traits>
 
@@ -65,6 +64,50 @@ namespace Private {
 		SDL_UserEvent,
 		SDL_WindowEvent
 	>;
+	
+	/*
+	 * Templated class to identify a class that is not an event handler functor.
+	 */
+	template <typename, typename, typename = void>
+	struct IsEventHandlerFunctor : std::false_type { };
+
+	/*
+	 * Templated class to identify a class that is an event handler functor, the
+	 * way this is done is by verifying if the functor is assignable to the
+	 * expected signature.
+	 */
+	template <typename EventHandlerType, typename EventType>
+	struct IsEventHandlerFunctor<
+		EventHandlerType,
+		EventType,
+		typename std::enable_if<
+			std::is_convertible<EventHandlerType, std::function<void(EventType)>>::value
+		>::type
+	> : std::true_type { };
+	
+	/*
+	 * Templated class to identify a class that is not an event handler object.
+	 */
+	template <typename, typename, typename = void>
+	struct IsEventHandlerObject : std::false_type { };
+	
+	/*
+	 * Templated class to identify a class that is an event handler object, the
+	 * way this is done is by verifying that an instance of EventHandlerType has
+	 * the "HandleEvent" member function which received a "EventType" and
+	 * returns void.
+	 */
+	template <typename EventHandlerType, typename EventType>
+	struct IsEventHandlerObject<
+		EventHandlerType,
+		EventType,
+		typename std::enable_if<
+			std::is_same<
+				decltype(std::declval<EventHandlerType>().HandleEvent(std::declval<EventType>())),
+				void
+			>::value
+		>::type
+	> : std::true_type { };
 	
 	/*
 	 * Templated class to identify a class that is not an event handler.
