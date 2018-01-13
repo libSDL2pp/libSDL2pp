@@ -303,6 +303,18 @@ public:
 	Window& SetFullscreen(Uint32 flags);
 
 	////////////////////////////////////////////////////////////
+	/// \brief Toggle the window's fullscreen state
+	///
+	/// \returns Reference to self
+	///
+	/// \throws SDL2pp::Exception
+	///
+	/// \see http://wiki.libsdl.org/SDL_SetWindowFullscreen
+	///
+	////////////////////////////////////////////////////////////	
+	Window& ToggleFullscreen();
+	
+	////////////////////////////////////////////////////////////
 	/// \brief Set the size of a window's client area
 	///
 	/// \param[in] w Width of the window in pixels
