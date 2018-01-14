@@ -1,5 +1,7 @@
 # CMake files
 CMakeCache.txt
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
 CMakeFiles/
 CTestTestfile.cmake
 Makefile
