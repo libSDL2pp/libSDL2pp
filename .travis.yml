@@ -16,6 +16,7 @@ matrix:
       env: CXXSTD=c++1y BUILD_STATIC=yes
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-get install libegl1-mesa-dev libgles2-mesa-dev
   - sudo apt-get install cmake libsdl2-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
   - |-
