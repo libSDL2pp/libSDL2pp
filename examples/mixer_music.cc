@@ -33,7 +33,6 @@ using namespace SDL2pp;
 
 int main(int, char*[]) try {
 	SDL sdl(SDL_INIT_AUDIO);
-	SDLMixer mixerlib(MIX_INIT_OGG);
 	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
 	Music music(TESTDATA_DIR "/test.ogg");
