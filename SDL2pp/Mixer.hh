@@ -43,8 +43,8 @@ class Music;
 /// \headerfile SDL2pp/Mixer.hh
 ///
 /// This class represents open SDL_mixer audio device. Object
-/// of this class must be constructed before creating any
-/// SDL2pp:Chunk's.
+/// of this class must be constructed before calling any other
+/// mixer functions.
 ///
 ////////////////////////////////////////////////////////////
 class SDL2PP_EXPORT Mixer {
