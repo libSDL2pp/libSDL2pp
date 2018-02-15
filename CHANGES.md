@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Fixed
+* Make `SDLmain` library optional in Unix, since some distros seem to drop it
+
 ## 0.16.0 - 2018-02-11
 ### Added
 * New SDL 2.0.5 ```Window``` method: ```Window::SetResizable()```
