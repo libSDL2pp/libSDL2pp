@@ -16,7 +16,7 @@ matrix:
       env: CXXSTD=c++1y BUILD_STATIC=yes
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio
+  - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio graphviz
   - |-
     if [ -n "${BUILD_COVERAGE}" ]; then
         export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DCMAKE_BUILD_TYPE=Coverage"
