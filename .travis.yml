@@ -41,6 +41,8 @@ before_install:
   - export SDL_VIDEODRIVER=x11
   - export DISPLAY=:99.0
 
+  - export CXXFLAGS="${CXXFLAGS} -Werror"
+
 script:
   - export PREFIX=`pwd`.prefix
   - cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=${CXXSTD} ${CMAKE_EXTRA_ARGS}
