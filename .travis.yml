@@ -5,15 +5,11 @@ matrix:
   include:
     # Note that we stick some additional variations to some builds
     - compiler: gcc
-      env: CXXSTD=c++11 BUILD_COVERAGE=yes
-    - compiler: gcc
-      env: CXXSTD=c++1y
+      env: BUILD_COVERAGE=yes
     - compiler: clang
-      env: CXXSTD=c++11
+      env: BUILD_NOOPTLIBS=yes
     - compiler: clang
-      env: CXXSTD=c++1y BUILD_NOOPTLIBS=yes
-    - compiler: clang
-      env: CXXSTD=c++1y BUILD_STATIC=yes
+      env: BUILD_STATIC=yes
 before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo apt-get update -qq
@@ -43,7 +39,7 @@ before_install:
 
 script:
   - export PREFIX=`pwd`.prefix
-  - cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=${CXXSTD} ${CMAKE_EXTRA_ARGS}
+  - cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSDL2PP_WITH_WERROR=YES ${CMAKE_EXTRA_ARGS}
   - VERBOSE=1 make && make ARGS=-V test && make install
   - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
   - make doxygen

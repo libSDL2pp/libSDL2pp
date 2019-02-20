@@ -11,11 +11,13 @@ set(SDL2PP_PATCH_VERSION 0)
 
 set(SDL2PP_VERSION "${SDL2PP_MAJOR_VERSION}.${SDL2PP_MINOR_VERSION}.${SDL2PP_PATCH_VERSION}")
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS NO)
+
 # there are functions present on wiki, but not yet in stable SDL2 releases;
 # we hide these under following options
 option(SDL2PP_WITH_WERROR "Make warnings fatal" OFF)
-
-set(SDL2PP_CXXSTD "c++11" CACHE STRING "Used c++ standard")
 
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	OPTION(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
@@ -75,7 +77,6 @@ else()
 	set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
 	set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} --coverage")
 
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${SDL2PP_CXXSTD}")
 	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wall -Wextra -pedantic")
 	set(SDL2PP_WERROR_FLAG "-Werror")
 
