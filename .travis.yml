@@ -6,26 +6,16 @@ matrix:
     - compiler: gcc
       env: COVERAGE=yes CXXFLAGS="--coverage" LDFLAGS"=--coverage"
     - compiler: clang
-      env: NOOPTLIBS=yes
+      env: CMAKE_ARGS="-DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO" NOOPTLIBS=yes
     - compiler: clang
-      env: STATIC=yes
+      env: CMAKE_ARGS="-DSDL2PP_STATIC=YES"
 before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
-  - |-
-    if [ -n "${COVERAGE}" ]; then
-        pip install --user pyyaml cpp-coveralls
-    fi
-    if [ -n "${NOOPTLIBS}" ]; then
-        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO"
-    else
-        sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
-    fi
-    if [ -n "${STATIC}" ]; then
-        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_STATIC=YES"
-    fi
+  - if [ -n "${COVERAGE}" ]; then pip install --user pyyaml cpp-coveralls; fi
+  - if [ -z "${NOOPTLIBS}" ]; then sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev; fi
 
   # evironment for live tests
   - dbus-launch pulseaudio --start
@@ -37,18 +27,20 @@ before_install:
 
 script:
   - export PREFIX=`pwd`.prefix
-  - cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} -DSDL2PP_WITH_WERROR=YES ${CMAKE_EXTRA_ARGS}
-  - VERBOSE=1 make && make ARGS=-V test && make install
-  - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp # `style' gives false positive in cppcheck 1.61 which comes with trusty
+  - cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug ${CMAKE_ARGS}
+  - cmake --build .
+  - ctest -V
+    # `style' gives false positive in cppcheck 1.61 which comes with trusty
+  - cppcheck -I . --enable=performance,portability,information,missingInclude --error-exitcode=2 SDL2pp
+  - sudo make install
   - make doxygen
 #  - "if make doxygen 2>&1 | grep 'warning:'; then echo 'FATAL: doxygen warnings!'; false; fi"
   - "if git ls-files --others --exclude-standard | grep ''; then echo 'FATAL: incomplete .gitignore'; false; fi"
 
-  - cat ${TRAVIS_BUILD_DIR}/sdl2pp.pc
-  - cd ${TRAVIS_BUILD_DIR}/exttests/pkg-config && PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig make
+  - cd ${TRAVIS_BUILD_DIR}/exttests/pkg-config && make
 
   - cat ${TRAVIS_BUILD_DIR}/FindSDL2PP.cmake
-  - cd ${TRAVIS_BUILD_DIR}/exttests/cmake && cmake -DCMAKE_MODULE_PATH=${PREFIX}/share/cmake/Modules . && make
+  - cd ${TRAVIS_BUILD_DIR}/exttests/cmake && cmake . && make
 
   - cd ${TRAVIS_BUILD_DIR}
 

@@ -66,7 +66,22 @@
 ///
 ////////////////////////////////////////////////////////////
 
-#if defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
+#if defined(SDL2PP_WITH_STD_OPTIONAL)
+
+#	include <optional>
+
+namespace SDL2pp {
+
+template<typename T>
+using Optional = std:::optional<T>;
+
+using BadOptionalAccess = std::bad_optional_access;
+
+constexpr std::nullopt_t NullOpt = std::nullopt;
+
+}
+
+#elif defined(SDL2PP_WITH_EXPERIMENTAL_OPTIONAL)
 
 #	include <experimental/optional>
 
