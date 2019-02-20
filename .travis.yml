@@ -38,9 +38,7 @@ script:
   - "if git ls-files --others --exclude-standard | grep ''; then echo 'FATAL: incomplete .gitignore'; false; fi"
 
   - cd ${TRAVIS_BUILD_DIR}/exttests/pkg-config && make
-
-  - cat ${TRAVIS_BUILD_DIR}/FindSDL2PP.cmake
-  - cd ${TRAVIS_BUILD_DIR}/exttests/cmake && cmake . && make
+  - cd ${TRAVIS_BUILD_DIR}/exttests/cmake && cmake -DCMAKE_VERBOSE_MAKEFILE=yes . && make
 
   - cd ${TRAVIS_BUILD_DIR}
 

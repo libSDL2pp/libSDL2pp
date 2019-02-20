@@ -1,7 +1,7 @@
 project(libSDL2pp)
 cmake_minimum_required(VERSION 2.8)
 
-find_package(SDL2PP REQUIRED)
+find_package(SDL2pp REQUIRED)
 
 set(CMAKE_CXX_STANDARD 11)
 
