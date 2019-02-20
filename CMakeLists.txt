@@ -230,6 +230,7 @@ if(SDL2PP_STANDALONE)
 
 	# pkgconfig module
 	configure_file(sdl2pp.pc.in sdl2pp.pc @ONLY)
+	configure_file(SDL2ppConfig.cmake.in SDL2ppConfig.cmake @ONLY)
 
 	# install
 	set(PKGCONFIGDIR lib/pkgconfig CACHE STRING "directory where to install pkg-config files")
@@ -252,5 +253,13 @@ if(SDL2PP_STANDALONE)
 	)
 	install(FILES ${PROJECT_BINARY_DIR}/sdl2pp.pc DESTINATION ${PKGCONFIGDIR})
 
-	install(EXPORT SDL2pp NAMESPACE SDL2pp:: DESTINATION lib/cmake/SDL2pp FILE SDL2ppConfig.cmake)
+	install(EXPORT SDL2pp NAMESPACE SDL2pp:: DESTINATION lib/cmake/SDL2pp FILE SDL2ppTargets.cmake)
+	install(FILES
+		${PROJECT_BINARY_DIR}/SDL2ppConfig.cmake
+		cmake/FindSDL2.cmake
+		cmake/FindSDL2_image.cmake
+		cmake/FindSDL2_ttf.cmake
+		cmake/FindSDL2_mixer.cmake
+		DESTINATION lib/cmake/SDL2pp
+	)
 endif()
