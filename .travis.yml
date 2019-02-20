@@ -3,29 +3,27 @@ sudo: required
 dist: trusty
 matrix:
   include:
-    # Note that we stick some additional variations to some builds
     - compiler: gcc
-      env: BUILD_COVERAGE=yes
+      env: COVERAGE=yes CXXFLAGS="--coverage" LDFLAGS"=--coverage"
     - compiler: clang
-      env: BUILD_NOOPTLIBS=yes
+      env: NOOPTLIBS=yes
     - compiler: clang
-      env: BUILD_STATIC=yes
+      env: STATIC=yes
 before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio
   - sudo sed -i -e '/using ::gets/ d' /usr/include/c++/4.8/cstdio # build failure with clang/c++1y
   - |-
-    if [ -n "${BUILD_COVERAGE}" ]; then
-        export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DCMAKE_BUILD_TYPE=Coverage"
+    if [ -n "${COVERAGE}" ]; then
         pip install --user pyyaml cpp-coveralls
     fi
-    if [ -n "${BUILD_NOOPTLIBS}" ]; then
+    if [ -n "${NOOPTLIBS}" ]; then
         export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO"
     else
         sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
     fi
-    if [ -n "${BUILD_STATIC}" ]; then
+    if [ -n "${STATIC}" ]; then
         export CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DSDL2PP_STATIC=YES"
     fi
 
@@ -55,4 +53,4 @@ script:
   - cd ${TRAVIS_BUILD_DIR}
 
 after_success:
-  - if [ -n "${BUILD_COVERAGE}" ]; then coveralls -i SDL2pp; fi
+  - if [ -n "${COVERAGE}" ]; then coveralls -i SDL2pp; fi
