@@ -11,7 +11,7 @@ install_manifest.txt
 
 # Generated files
 Doxyfile
-FindSDL2PP.cmake
+SDL2ppConfig.cmake
 SDL2pp/Config.hh
 SDL2pp/Export.hh
 sdl2pp.pc
