@@ -28,7 +28,7 @@ before_build:
 
   # Depends for MSVC
   - |-
-    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://www.libsdl.org/release/SDL2-devel-2.0.4-VC.zip
+    %NEEDDEPENDS% %MSVC% appveyor DownloadFile http://libsdl.org/release/SDL2-devel-2.0.12-VC.zip
     %NEEDDEPENDS% %MSVC% 7z x SDL2-devel-2.0.4-VC.zip > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\include\* %PREFIX%\include > nul
     %NEEDDEPENDS% %MSVC% copy SDL2-2.0.4\lib\x86\* %PREFIX%\lib > nul
