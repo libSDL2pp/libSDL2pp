@@ -28,21 +28,21 @@ BEGIN_TEST(int, char*[])
 
 	{
 		// Default state
-		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PAUSED);
+		EXPECT_EQUAL(device.GetStatus(), SDL_AUDIO_PAUSED);
 		EXPECT_TRUE(callback_requests == 0);
 
 		long saved_reqs = callback_requests;
 
 		// Unpause
 		device.Pause(false);
-		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PLAYING);
+		EXPECT_EQUAL(device.GetStatus(), SDL_AUDIO_PLAYING);
 
 		SDL_Delay(1000);
 		EXPECT_TRUE(callback_requests > saved_reqs);
 
 		// Pause
 		device.Pause(true);
-		EXPECT_TRUE(device.GetStatus(), SDL_AUDIO_PLAYING);
+		EXPECT_EQUAL(device.GetStatus(), SDL_AUDIO_PAUSED);
 
 		saved_reqs = callback_requests;
 
