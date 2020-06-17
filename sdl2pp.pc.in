@@ -9,4 +9,4 @@ Version: @SDL2PP_VERSION@
 Requires: @SDL2_ALL_PKGCONFIG_MODULES@
 Conflicts:
 Libs: @SDL2PP_EXTRA_PKGCONFIG_LIBRARIES@ -L${libdir} -lSDL2pp
-Cflags: -I${includedir}
+Cflags: -I${includedir} @SDL2_ALL_INCLUDE_DIRS@
