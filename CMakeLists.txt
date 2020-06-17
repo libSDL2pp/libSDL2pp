@@ -73,19 +73,12 @@ ELSE(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${SDL2PP_CXXSTD}")
 	SET(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wall -Wextra -pedantic")
 
-	INCLUDE(AppendCXXFlagIfSupported)
+	IF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+		SET(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wmissing-prototypes -Wtautological-compare -Wshorten-64-to-32")
 
-	# enable for more cleanups
-	#APPEND_CXX_FLAG_IF_SUPPORTED(-Weverything SDL2PP_WARNINGS)
-
-	# always enables some -Weverything warnings
-	APPEND_CXX_FLAG_IF_SUPPORTED(-Wmissing-prototypes SDL2PP_WARNINGS)
-	APPEND_CXX_FLAG_IF_SUPPORTED(-Wtautological-compare SDL2PP_WARNINGS)
-	APPEND_CXX_FLAG_IF_SUPPORTED(-Wshorten-64-to-32 SDL2PP_WARNINGS)
-
-	# disable some -Weverything warnings
-	#APPEND_CXX_FLAG_IF_SUPPORTED(-Wno-c++98-compat SDL2PP_WARNINGS)
-	#APPEND_CXX_FLAG_IF_SUPPORTED(-Wno-padded SDL2PP_WARNINGS)
+		# For adventurous
+		#SET(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Weverything -Wno-c++98-compat -Wno-padded")
+	ENDIF()
 ENDIF(MSVC)
 
 LIST(REMOVE_DUPLICATES SDL2_ALL_INCLUDE_DIRS)
