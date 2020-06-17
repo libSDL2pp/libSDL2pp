@@ -1,9 +1,9 @@
 version: '{branch}.{build}'
-os: Visual Studio 2015
+os: Visual Studio 2019
 clone_depth: 1
 environment:
   matrix:
-  - CMAKE_ARGS: -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_CXX_FLAGS="-D_SCL_SECURE_NO_WARNINGS /wd4275 /wd4251 /EHsc /WX" -G "Visual Studio 14 2015"
+  - CMAKE_ARGS: -DSDL2PP_ENABLE_LIVE_TESTS=OFF -DCMAKE_CXX_FLAGS="-D_SCL_SECURE_NO_WARNINGS /wd4275 /wd4251 /EHsc /WX" -G "Visual Studio 16 2019"
     PREFIX: c:\usr_msvc
     MSVC:
     MINGW32: rem
