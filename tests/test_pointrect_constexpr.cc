@@ -18,6 +18,7 @@ int main(int, char*[]) {
 
 		static_assert(b1, "");
 		static_assert(b2, "");
+		static_assert(p2 == p3, "");
 
 		constexpr int x = p1.GetX();
 		constexpr int y = p1.GetY();
