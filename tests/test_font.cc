@@ -19,7 +19,7 @@ BEGIN_TEST(int, char*[])
 		auto rwops = RWops::FromFile(TESTDATA_DIR "/Vera.ttf");
 		Font font_by_rw(rwops, 30);
 
-		EXPECT_TRUE(font_by_rw.Get());
+		EXPECT_TRUE(font_by_rw.Get() != nullptr);
 	}
 
 	MOVE_TEST(Font, font, Get, nullptr);
@@ -97,11 +97,11 @@ BEGIN_TEST(int, char*[])
 
 	{
 		// Glyphs provided
-		EXPECT_TRUE(font.IsGlyphProvided(u'A'));
+		EXPECT_TRUE(font.IsGlyphProvided(u'A') > 0);
 #ifndef _MSC_VER // MSVC has problems with unicode literals
-		EXPECT_TRUE(font.IsGlyphProvided(u'¼'));
-		EXPECT_TRUE(!font.IsGlyphProvided(u'л'));
-		EXPECT_TRUE(!font.IsGlyphProvided(u'Ы'));
+		EXPECT_TRUE(font.IsGlyphProvided(u'¼') > 0);
+		EXPECT_TRUE(font.IsGlyphProvided(u'л') == 0);
+		EXPECT_TRUE(font.IsGlyphProvided(u'Ы') == 0);
 #endif
 	}
 

@@ -32,18 +32,18 @@ BEGIN_TEST(int, char*[])
 		auto rwops = RWops::FromFile(TESTDATA_DIR "/test.ogg");
 		Chunk chunk_by_rw(rwops);
 
-		EXPECT_TRUE(chunk_by_rw.Get());
+		EXPECT_TRUE(chunk_by_rw.Get() != nullptr);
 
 		rwops.Seek(0, RW_SEEK_SET);
 		Music music_by_rw1(rwops);
 
-		EXPECT_TRUE(music_by_rw1.Get());
+		EXPECT_TRUE(music_by_rw1.Get() != nullptr);
 		EXPECT_EQUAL(music_by_rw1.GetType(), MUS_OGG);
 
 		rwops.Seek(0, RW_SEEK_SET);
 		Music music_by_rw2(rwops, MUS_OGG);
 
-		EXPECT_TRUE(music_by_rw2.Get());
+		EXPECT_TRUE(music_by_rw2.Get() != nullptr);
 		EXPECT_EQUAL(music_by_rw2.GetType(), MUS_OGG);
 
 		// bad format

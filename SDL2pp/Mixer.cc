@@ -213,15 +213,15 @@ void Mixer::HaltMusic() {
 }
 
 bool Mixer::FadeOutMusic(int ms) {
-	return Mix_FadeOutMusic(ms);
+	return Mix_FadeOutMusic(ms) > 0;
 }
 
 bool Mixer::IsMusicPlaying() const {
-	return Mix_PlayingMusic();
+	return Mix_PlayingMusic() > 0;
 }
 
 bool Mixer::IsMusicPaused() const {
-	return Mix_PausedMusic();
+	return Mix_PausedMusic() > 0;
 }
 
 Mix_Fading Mixer::GetMusicFading() const {

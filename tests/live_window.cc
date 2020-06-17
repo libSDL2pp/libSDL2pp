@@ -120,33 +120,33 @@ BEGIN_TEST(int, char*[])
 		// Flags
 		std::cerr << "Window flags: " << std::hex << "0x" << window.GetFlags() << std::dec << std::endl;
 
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_SHOWN);
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_SHOWN, SDL_WINDOW_SHOWN);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_RESIZABLE, SDL_WINDOW_RESIZABLE);
 
 		window.Hide();
-		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_SHOWN));
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_SHOWN, 0U);
 		EventSleep(1000);
 
 		window.Show();
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_SHOWN);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_SHOWN, SDL_WINDOW_SHOWN);
 		EventSleep(1000);
 
 		window.Maximize();
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_MAXIMIZED);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_MAXIMIZED, SDL_WINDOW_MAXIMIZED);
 		EventSleep(1000);
 
 		window.Restore();
-		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_MAXIMIZED));
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_MAXIMIZED, 0U);
 		EventSleep(1000);
 
 		window.Minimize();
 		EventSleep(1000); // Minimization may take some time, e.g. on Ubuntu due to animations
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_MINIMIZED, "May fail on some WMs", NON_FATAL);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_MINIMIZED, SDL_WINDOW_MINIMIZED, "May fail on some WMs", NON_FATAL);
 		EventSleep(1000);
 
 		window.Restore();
 		EventSleep(1000); // Restore from minimized state may take some time, e.g. on Ubuntu due to animations
-		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_MINIMIZED));
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_MINIMIZED, 0U);
 		EventSleep(1000);
 
 		// May hang until window is moved (SDL bug?)
@@ -183,11 +183,11 @@ BEGIN_TEST(int, char*[])
 	{
 		// Fullscreen
 		window.SetFullscreen(SDL_WINDOW_FULLSCREEN_DESKTOP);
-		EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		EventSleep(1000);
 
 		window.SetFullscreen(0);
-		EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP));
+		EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP, 0U);
 		EventSleep(1000);
 	}
 
@@ -219,19 +219,19 @@ BEGIN_TEST(int, char*[])
 
         if (flags & SDL_WINDOW_RESIZABLE) {
 			window.SetResizable(false);
-			EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_RESIZABLE));
+			EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_RESIZABLE, 0U);
             EventSleep(1000);
 
 			window.SetResizable(true);
-			EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+			EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_RESIZABLE, SDL_WINDOW_RESIZABLE);
             EventSleep(1000);
         } else {
 			window.SetResizable(true);
-			EXPECT_TRUE(window.GetFlags() & SDL_WINDOW_RESIZABLE);
+			EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_RESIZABLE, SDL_WINDOW_RESIZABLE);
             EventSleep(1000);
 
 			window.SetResizable(false);
-			EXPECT_TRUE(!(window.GetFlags() & SDL_WINDOW_RESIZABLE));
+			EXPECT_EQUAL(window.GetFlags() & SDL_WINDOW_RESIZABLE, 0U);
             EventSleep(1000);
         }
     }

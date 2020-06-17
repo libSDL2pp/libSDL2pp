@@ -45,8 +45,8 @@ public:
 	bool Test3x3(int x, int y, int mask, int r, int g, int b, int a = -1) {
 		for (int dy = -1; dy <= 1; dy++) {
 			for (int dx = -1; dx <= 1; dx++) {
-				bool maskbit = mask & (1 << ((1 - dx) + (1 - dy) * 4));
-				if (Test(x + dx, y + dy, r, g, b, a) != !!maskbit)
+				bool maskbit = !!(mask & (1 << ((1 - dx) + (1 - dy) * 4)));
+				if (Test(x + dx, y + dy, r, g, b, a) != maskbit)
 					return false;
 			}
 		}
@@ -59,15 +59,15 @@ BEGIN_TEST(int, char*[])
 
 	{
 		// SDL initialization stuff
-		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO));
+		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO) > 0);
 
 		sdl.QuitSubSystem(SDL_INIT_VIDEO);
 
-		EXPECT_TRUE(!sdl.WasInit(SDL_INIT_VIDEO));
+		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO) == 0);
 
 		sdl.InitSubSystem(SDL_INIT_VIDEO);
 
-		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO));
+		EXPECT_TRUE(sdl.WasInit(SDL_INIT_VIDEO) > 0);
 	}
 
 	Window window("libSDL2pp test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 320, 240, 0);

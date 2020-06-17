@@ -95,7 +95,7 @@ Font& Font::SetHinting(int hinting) {
 }
 
 bool Font::GetKerning() const {
-	return TTF_GetFontKerning(font_);
+	return TTF_GetFontKerning(font_) > 0;
 }
 
 Font& Font::SetKerning(bool allowed) {
@@ -124,7 +124,7 @@ long Font::GetNumFaces() const {
 }
 
 bool Font::IsFixedWidth() const {
-	return TTF_FontFaceIsFixedWidth(font_);
+	return TTF_FontFaceIsFixedWidth(font_) > 0;
 }
 
 Optional<std::string> Font::GetFamilyName() const {
