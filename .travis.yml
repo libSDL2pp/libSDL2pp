@@ -5,15 +5,11 @@ matrix:
   include:
     # Note that we stick some additional variations to some builds
     - compiler: gcc
-      env: CXXSTD=c++11 BUILD_COVERAGE=yes
-    - compiler: gcc
-      env: CXXSTD=c++1y
+      env: BUILD_COVERAGE=yes
     - compiler: clang
-      env: CXXSTD=c++11
+      env: BUILD_NOOPTLIBS=yes
     - compiler: clang
-      env: CXXSTD=c++1y BUILD_NOOPTLIBS=yes
-    - compiler: clang
-      env: CXXSTD=c++1y BUILD_STATIC=yes
+      env: BUILD_STATIC=yes
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq cmake libsdl2-dev cppcheck doxygen pulseaudio graphviz
@@ -42,7 +38,7 @@ before_install:
   - export CXXFLAGS="${CXXFLAGS} -Werror"
 
 script:
-  - cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_VERBOSE_MAKEFILE=yes -DSDL2PP_WITH_WERROR=YES -DSDL2PP_CXXSTD=${CXXSTD} ${CMAKE_EXTRA_ARGS}
+  - cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_VERBOSE_MAKEFILE=yes -DSDL2PP_WITH_WERROR=YES ${CMAKE_EXTRA_ARGS}
   - make
   - ctest -V
   - sudo make install
