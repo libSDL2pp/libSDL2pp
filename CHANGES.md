@@ -2,9 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.16.1 - 2020-06-18
 ### Fixed
 * Make `SDLmain` library optional in Unix, since some distros seem to drop it
+* Fix using unsupported warning flags on some compilers
 
 ## 0.16.0 - 2018-02-11
 ### Added
