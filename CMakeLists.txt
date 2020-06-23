@@ -128,6 +128,7 @@ SET(LIBRARY_HEADERS
 	SDL2pp/AudioSpec.hh
 	SDL2pp/Color.hh
 	SDL2pp/ContainerRWops.hh
+	SDL2pp/EventPolling.hh
 	SDL2pp/Exception.hh
 	SDL2pp/Optional.hh
 	SDL2pp/Point.hh
@@ -141,6 +142,10 @@ SET(LIBRARY_HEADERS
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
+	SDL2pp/Private/EventDispatching.hh
+	SDL2pp/Private/EventHandler.hh
+	SDL2pp/Private/EventTypeFilters.hh
+	SDL2pp/Private/Utility.hh
 )
 
 SET(LIBRARY_EXTERNAL_HEADERS
