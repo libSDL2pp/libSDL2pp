@@ -264,6 +264,24 @@ Window& Window::SetResizable(bool resizable) {
 	SDL_SetWindowResizable(window_, resizable ? SDL_TRUE : SDL_FALSE);
 	return *this;
 }
+
+Window& Window::SetModal(Window& parent) {
+	if (SDL_SetWindowModalFor(window_, parent.window_) != 0) {
+		throw SDL2pp::Exception("SDL_SetWindowModalFor");
+	}
+	
+	return *this;
+}
+
+Window::Borders Window::GetBordersSize() const {
+	int top = 0, left = 0, bottom = 0, right = 0;
+	
+	if (SDL_GetWindowBordersSize(window_, &top, &left, &bottom, &right) != 0) {
+		throw SDL2pp::Exception("SDL_GetWindowBordersSize");
+	}
+	
+	return Borders{ top, left, bottom, right };
+}
 #endif
 
 }
