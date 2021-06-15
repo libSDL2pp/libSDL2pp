@@ -22,7 +22,15 @@
 #ifndef SDL2PP_SDL_HH
 #define SDL2PP_SDL_HH
 
-#include <SDL2/SDL_stdinc.h>
+#ifdef __has_include
+#  if __has_include(<SDL2/SDL_stdinc.h>)
+#    include <SDL2/SDL_stdinc.h>
+#  else
+#    include <SDL_stdinc.h>
+#  endif
+#else
+#  include <SDL_stdinc.h>
+#endif
 
 #include <SDL2pp/Export.hh>
 
