@@ -42,3 +42,6 @@ GENERATE_LATEX         = NO
 # Assume source preprocessed with all subsystems enable
 # Also enable all conditionals based on SDL version
 PREDEFINED             = SDL2PP_WITH_IMAGE SDL2PP_WITH_MIXER SDL2PP_WITH_TTF SDL_VERSION_ATLEAST(X,Y,Z)=1
+
+# Disable email obfuscation
+OBFUSCATE_EMAILS = False
