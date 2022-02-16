@@ -47,6 +47,7 @@ libSDL2pp.dylib
 libSDL2pp.*.dylib
 tests/live_*
 tests/test_*
+tests/unit_tests_catch
 !tests/live_*.cc
 !tests/test_*.cc
 

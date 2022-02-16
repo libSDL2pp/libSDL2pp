@@ -1,13 +1,16 @@
-#include <SDL_main.h>
+#include "catch.hpp"
+
 #include <SDL_error.h>
 
 #include <SDL2pp/Exception.hh>
 
-#include "testing.h"
-
 using namespace SDL2pp;
 
-BEGIN_TEST(int, char*[])
+using Catch::Equals;
+
+auto const TAGS = "[general][error]";
+
+TEST_CASE("Test throwing Exception class", TAGS) {
 	SDL_SetError("BarError");
 
 	try {
@@ -15,8 +18,8 @@ BEGIN_TEST(int, char*[])
 	} catch (SDL2pp::Exception& e) {
 		// this SDL_SetError should not clobber Exception contents
 		SDL_SetError("AnotherError");
-		EXPECT_EQUAL(e.GetSDLFunction(), "FooFunction");
-		EXPECT_EQUAL(e.GetSDLError(), "BarError");
-		EXPECT_EQUAL((std::string)e.what(), "FooFunction failed: BarError");
+		CHECK_THAT(e.GetSDLFunction(), Equals("FooFunction"));
+		CHECK_THAT(e.GetSDLError(), Equals("BarError"));
+		CHECK_THAT(e.what(), Equals("FooFunction failed: BarError"));
 	}
-END_TEST()
+}
