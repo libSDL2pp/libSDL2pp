@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.16.2 - 2022-04-25
+### Fixed
+* Fix font dimensions test
+
 ## 0.16.1 - 2020-06-18
 ### Fixed
 * Make `SDLmain` library optional in Unix, since some distros seem to drop it
