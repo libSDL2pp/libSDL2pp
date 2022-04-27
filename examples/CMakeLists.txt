@@ -32,5 +32,5 @@ endif()
 
 foreach(EXAMPLE ${EXAMPLES})
 	add_executable(${EXAMPLE} ${EXAMPLE}.cc)
-	target_link_libraries(${EXAMPLE} ${SDL2PP_LIBRARIES})
+	target_link_libraries(${EXAMPLE} SDL2pp::SDL2pp)
 endforeach()

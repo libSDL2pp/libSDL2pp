@@ -19,17 +19,23 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	option(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
 	option(SDL2PP_WITH_TTF "Enable SDL2_ttf support" ON)
 	option(SDL2PP_WITH_MIXER "Enable SDL2_mixer support" ON)
+
+	option(SDL2PP_WITH_EXAMPLES "Build examples" ON)
+	option(SDL2PP_WITH_TESTS "Build tests" ON)
+	option(SDL2PP_ENABLE_LIVE_TESTS "Enable live tests (require X11 display and audio device)" ON)
+	option(SDL2PP_STATIC "Build static library instead of shared one" OFF)
 else()
 	# please set SDL2PP_WITH_IMAGE, SDL2PP_WITH_TTF, SDL2PP_WITH_MIXER in parent project as needed
 endif()
 
 # depends
 find_package(SDL2 REQUIRED)
-set(SDL2_ALL_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
-set(SDL2_ALL_LIBRARIES ${SDL2_LIBRARY})
+set(SDL2_ALL_LIBRARIES SDL2::SDL2)
 set(SDL2_ALL_PKGCONFIG_MODULES sdl2)
-set(SDL2PP_EXTRA_LIBRARIES ${SDL2MAIN_LIBRARY})
-set(SDL2PP_EXTRA_PKGCONFIG_LIBRARIES ${SDL2MAIN_LIBRARY})
+
+if(TARGET SDL2::SDL2main)
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2main)
+endif()
 
 if(MINGW)
 	set(MINGW32_LIBRARY "mingw32" CACHE STRING "mingw32 library")
@@ -39,8 +45,7 @@ endif()
 
 if(SDL2PP_WITH_IMAGE)
 	find_package(SDL2_image REQUIRED)
-	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR})
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_IMAGE_LIBRARY})
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_image)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_image")
 else()
 	message(STATUS "SDL2_image support disabled")
@@ -48,8 +53,7 @@ endif()
 
 if(SDL2PP_WITH_TTF)
 	find_package(SDL2_ttf REQUIRED)
-	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR})
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_TTF_LIBRARY})
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_ttf)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_ttf")
 else()
 	message(STATUS "SDL2_ttf support disabled")
@@ -57,31 +61,25 @@ endif()
 
 if(SDL2PP_WITH_MIXER)
 	find_package(SDL2_mixer REQUIRED)
-	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIR})
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_MIXER_LIBRARY})
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_mixer)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_mixer")
 else()
 	message(STATUS "SDL2_mixer support disabled")
 endif()
 
 # compiler flags & definitions
-if(MSVC)
-	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} /W3")
-else()
-	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wall -Wextra -pedantic")
-
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-		set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wmissing-prototypes -Wtautological-compare -Wshorten-64-to-32")
-
-		# For adventurous
-		#set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Weverything -Wno-c++98-compat -Wno-padded")
-	endif()
-endif()
-
-list(REMOVE_DUPLICATES SDL2_ALL_INCLUDE_DIRS)
-
-include_directories(BEFORE ${PROJECT_SOURCE_DIR})
-include_directories(SYSTEM ${SDL2_ALL_INCLUDE_DIRS})
+#if(MSVC)
+#	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} /W3")
+#else()
+#	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wall -Wextra -pedantic")
+#
+#	if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#		set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wmissing-prototypes -Wtautological-compare -Wshorten-64-to-32")
+#
+#		# For adventurous
+#		#set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Weverything -Wno-c++98-compat -Wno-padded")
+#	endif()
+#endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL2PP_WARNINGS}")
 
@@ -90,8 +88,6 @@ configure_file(
 	SDL2pp/Config.hh.in
 	SDL2pp/Config.hh
 )
-
-include_directories(BEFORE ${PROJECT_BINARY_DIR})
 
 # sources
 set(LIBRARY_SOURCES
@@ -178,26 +174,30 @@ endif()
 # targets
 include(GenerateExportHeader)
 
+if(SDL2PP_STATIC)
+	add_library(SDL2pp STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
+	set_target_properties(SDL2pp PROPERTIES
+		POSITION_INDEPENDENT_CODE ON
+	)
+else()
+	add_library(SDL2pp SHARED ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
+	set_target_properties(SDL2pp PROPERTIES
+		VERSION 8.3.0
+		SOVERSION 8
+		C_VISIBILITY_PRESET hidden
+	)
+endif()
+target_include_directories(SDL2pp PUBLIC
+	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+	$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>
+	$<INSTALL_INTERFACE:include>
+)
+target_link_libraries(SDL2pp PUBLIC ${SDL2_ALL_LIBRARIES})
+generate_export_header(SDL2pp EXPORT_FILE_NAME SDL2pp/Export.hh)
+
+add_library(SDL2pp::SDL2pp ALIAS SDL2pp)
+
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
-	# options
-	option(SDL2PP_WITH_EXAMPLES "Build examples" ON)
-	option(SDL2PP_WITH_TESTS "Build tests" ON)
-	option(SDL2PP_ENABLE_LIVE_TESTS "Enable live tests (require X11 display and audio device)" ON)
-	option(SDL2PP_STATIC "Build static library instead of shared one" OFF)
-
-	# library
-	if(SDL2PP_STATIC)
-		add_library(SDL2pp STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
-	else()
-		add_library(SDL2pp SHARED ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
-		target_link_libraries(SDL2pp ${SDL2_ALL_LIBRARIES})
-		set_target_properties(SDL2pp PROPERTIES VERSION 8.3.0 SOVERSION 8)
-	endif()
-
-	generate_export_header(SDL2pp EXPORT_FILE_NAME SDL2pp/Export.hh)
-
-	set(SDL2PP_LIBRARIES ${SDL2PP_EXTRA_LIBRARIES} SDL2pp ${SDL2_ALL_LIBRARIES})
-
 	# examples and tests
 	if(SDL2PP_WITH_EXAMPLES)
 		add_subdirectory(examples)
@@ -219,55 +219,42 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 		)
 	endif()
 
-	# pkgconfig and cmake modules
-	set(CMAKEMODDIR share/cmake/Modules CACHE STRING "directory where to install cmake module")
-	set(PKGCONFIGDIR lib/pkgconfig CACHE STRING "directory where to install pkg-config files")
-	if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
-		set(PKGCONFIGDIR libdata/pkgconfig)
-	endif()
-
-	include(Join)
-
-	join_quoted("${SDL2PP_EXTRA_LIBRARIES}" SDL2PP_EXTRA_LIBRARIES_STR)
-	join_quoted("${SDL2_ALL_LIBRARIES}" SDL2_ALL_LIBRARIES_STR)
-	join_quoted("${SDL2_ALL_INCLUDE_DIRS}" SDL2_ALL_INCLUDE_DIRS_STR)
-
-	configure_file(
-		sdl2pp.pc.in
-		sdl2pp.pc
-		@ONLY
-	)
-
-	configure_file(
-		FindSDL2PP.cmake.in
-		FindSDL2PP.cmake
-		@ONLY
-	)
-
 	# install
-	install(FILES
-		${LIBRARY_HEADERS}
-		${PROJECT_BINARY_DIR}/SDL2pp/Config.hh
-		${PROJECT_BINARY_DIR}/SDL2pp/Export.hh
-		DESTINATION include/SDL2pp
-	)
+	include(GNUInstallDirs)
+
 	install(TARGETS SDL2pp
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+		EXPORT SDL2pp-targets
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	)
-	install(FILES ${PROJECT_BINARY_DIR}/sdl2pp.pc DESTINATION ${PKGCONFIGDIR})
-	install(FILES ${PROJECT_BINARY_DIR}/FindSDL2PP.cmake DESTINATION ${CMAKEMODDIR})
+	install(
+		FILES
+			${LIBRARY_HEADERS}
+			${PROJECT_BINARY_DIR}/SDL2pp/Config.hh
+			${PROJECT_BINARY_DIR}/SDL2pp/Export.hh
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SDL2pp
+	)
 
-	message(STATUS "libSDL2pp ${SDL2PP_VERSION} standalone build")
-else()
-	# library
-	add_library(SDL2pp STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
-	generate_export_header(SDL2pp EXPORT_FILE_NAME SDL2pp/Export.hh)
+	configure_file(sdl2pp.pc.in sdl2pp.pc @ONLY)
+	install(
+		FILES
+			${PROJECT_BINARY_DIR}/sdl2pp.pc
+		DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+	)
 
-	# provide variables to parent
-	set(SDL2PP_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${SDL2_ALL_INCLUDE_DIRS} PARENT_SCOPE)
-	set(SDL2PP_LIBRARIES ${SDL2PP_EXTRA_LIBRARIES} SDL2pp ${SDL2_ALL_LIBRARIES} PARENT_SCOPE)
-
-	message(STATUS "libSDL2pp ${SDL2PP_VERSION} bundled build")
+	configure_file(cmake/SDL2ppConfig.cmake.in cmake/SDL2ppConfig.cmake @ONLY)
+	install(EXPORT SDL2pp-targets
+		FILE SDL2ppTargets.cmake
+		NAMESPACE SDL2pp::
+		DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SDL2pp
+	)
+	install(
+		FILES
+			${PROJECT_BINARY_DIR}/cmake/SDL2ppConfig.cmake
+			cmake/FindSDL2_image.cmake
+			cmake/FindSDL2_ttf.cmake
+			cmake/FindSDL2_mixer.cmake
+		DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SDL2pp
+	)
 endif()

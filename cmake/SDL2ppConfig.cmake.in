@@ -1,0 +1,15 @@
+find_package(SDL2 REQUIRED)
+
+if(@SDL2PP_WITH_IMAGE@)
+	include("${CMAKE_CURRENT_LIST_DIR}/FindSDL2_image.cmake")
+endif()
+
+if(@SDL2PP_WITH_TTF@)
+	include("${CMAKE_CURRENT_LIST_DIR}/FindSDL2_ttf.cmake")
+endif()
+
+if(@SDL2PP_WITH_MIXER@)
+	include("${CMAKE_CURRENT_LIST_DIR}/FindSDL2_mixer.cmake")
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/SDL2ppTargets.cmake")

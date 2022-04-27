@@ -77,8 +77,8 @@ jobs:
       - name: Testing client code with CMake detection
         run: |
           cd $GITHUB_WORKSPACE/exttests/cmake
-          cmake . || true
-          cmake --build . || true
+          cmake .
+          cmake --build .
 
       - name: Upload coverage
         if: ${{ contains(matrix.features, 'coverage') }}
