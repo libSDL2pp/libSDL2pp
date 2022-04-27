@@ -19,7 +19,7 @@ jobs:
           echo 'CXX=${{ matrix.cxx }}' >> $GITHUB_ENV
           echo 'CXXFLAGS=-Wall -Wextra -pedantic' >> $GITHUB_ENV  # XXX: Add -Werror
           echo 'LDFLAGS=' >> $GITHUB_ENV
-          echo 'SDL_AUDIODRIVER=pulseaudio' >> $GITHUB_ENV
+          echo 'SDL_AUDIODRIVER=disk' >> $GITHUB_ENV
           echo 'SDL_VIDEODRIVER=x11' >> $GITHUB_ENV
           echo 'DISPLAY=:99.0' >> $GITHUB_ENV
       - name: Set up environment (flags)
@@ -42,7 +42,7 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           apt-get update -qq
-          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen pulseaudio graphviz xvfb
+          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen graphviz xvfb
       - name: Install dependencies (optional libs)
         if: ${{ !contains(matrix.features, 'nooptlibs') }}
         run: apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
@@ -54,8 +54,7 @@ jobs:
 
       - name: Set up environment for live tests
         run: |
-          pulseaudio --daemonize --system || true
-          /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX || true
+          /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
 
       - name: Configure
         run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr ${CMAKE_ARGS}
