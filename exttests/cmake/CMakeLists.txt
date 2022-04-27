@@ -1,10 +1,10 @@
-PROJECT(libSDL2pp)
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+project(libSDL2pp)
+cmake_minimum_required(VERSION 2.8)
 
-FIND_PACKAGE(SDL2PP REQUIRED)
+find_package(SDL2PP REQUIRED)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
-ADD_EXECUTABLE(cmake-ext-test ../../examples/sprites.cc)
-TARGET_LINK_LIBRARIES(cmake-ext-test ${SDL2PP_LIBRARIES})
+include_directories(${SDL2PP_INCLUDE_DIRS})
+add_executable(cmake-ext-test ../../examples/sprites.cc)
+target_link_libraries(cmake-ext-test ${SDL2PP_LIBRARIES})

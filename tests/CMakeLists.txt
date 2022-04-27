@@ -1,5 +1,5 @@
 # simple command-line tests
-SET(CLI_TESTS
+set(CLI_TESTS
 	test_color
 	test_color_constexpr
 	test_error
@@ -11,52 +11,52 @@ SET(CLI_TESTS
 )
 
 # live tests require X11 display and/or audio output
-SET(LIVE_TESTS
+set(LIVE_TESTS
 	live_audiodevice
 	live_rendering
 	live_window
 )
 
-IF(SDL2PP_WITH_MIXER)
-	SET(LIVE_TESTS ${LIVE_TESTS}
+if(SDL2PP_WITH_MIXER)
+	set(LIVE_TESTS ${LIVE_TESTS}
 		live_mixer
 	)
-ENDIF(SDL2PP_WITH_MIXER)
+endif(SDL2PP_WITH_MIXER)
 
-IF(SDL2PP_WITH_IMAGE)
-	SET(CLI_TESTS ${CLI_TESTS}
+if(SDL2PP_WITH_IMAGE)
+	set(CLI_TESTS ${CLI_TESTS}
 		test_surface
 	)
-ENDIF(SDL2PP_WITH_IMAGE)
+endif(SDL2PP_WITH_IMAGE)
 
-IF(SDL2PP_WITH_TTF)
-	SET(CLI_TESTS ${CLI_TESTS}
+if(SDL2PP_WITH_TTF)
+	set(CLI_TESTS ${CLI_TESTS}
 		test_font
 	)
-ENDIF(SDL2PP_WITH_TTF)
+endif(SDL2PP_WITH_TTF)
 
-ADD_DEFINITIONS(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
+add_definitions(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
 # header tests: these just include specific headers to check if
 # they are compilable (e.g., includes and forward declarations are
 # complete and do not require extra includes)
-FOREACH(HEADER ${LIBRARY_HEADERS})
-	STRING(REGEX REPLACE [^a-zA-Z0-9] _ HEADER_NORMALIZED ${HEADER})
-	CONFIGURE_FILE(header_test.cc.in ${HEADER_NORMALIZED}_test.cc)
-	ADD_EXECUTABLE(${HEADER_NORMALIZED}_test ${HEADER_NORMALIZED}_test.cc)
-	TARGET_LINK_LIBRARIES(${HEADER_NORMALIZED}_test ${SDL2PP_LIBRARIES})
-ENDFOREACH(HEADER ${TESTS})
+foreach(HEADER ${LIBRARY_HEADERS})
+	string(REGEX REPLACE [^a-zA-Z0-9] _ HEADER_NORMALIZED ${HEADER})
+	configure_file(header_test.cc.in ${HEADER_NORMALIZED}_test.cc)
+	add_executable(${HEADER_NORMALIZED}_test ${HEADER_NORMALIZED}_test.cc)
+	target_link_libraries(${HEADER_NORMALIZED}_test ${SDL2PP_LIBRARIES})
+endforeach(HEADER ${TESTS})
 
-FOREACH(TEST ${CLI_TESTS})
-	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
-	TARGET_LINK_LIBRARIES(${TEST} ${SDL2PP_LIBRARIES})
-	ADD_TEST(${TEST} ${TEST})
-ENDFOREACH(TEST ${TESTS})
+foreach(TEST ${CLI_TESTS})
+	add_executable(${TEST} ${TEST}.cc)
+	target_link_libraries(${TEST} ${SDL2PP_LIBRARIES})
+	add_test(${TEST} ${TEST})
+endforeach(TEST ${TESTS})
 
-FOREACH(TEST ${LIVE_TESTS})
-	ADD_EXECUTABLE(${TEST} ${TEST}.cc)
-	TARGET_LINK_LIBRARIES(${TEST} ${SDL2PP_LIBRARIES})
-	IF(SDL2PP_ENABLE_LIVE_TESTS)
-		ADD_TEST(${TEST} ${TEST})
-	ENDIF(SDL2PP_ENABLE_LIVE_TESTS)
-ENDFOREACH(TEST ${TESTS})
+foreach(TEST ${LIVE_TESTS})
+	add_executable(${TEST} ${TEST}.cc)
+	target_link_libraries(${TEST} ${SDL2PP_LIBRARIES})
+	if(SDL2PP_ENABLE_LIVE_TESTS)
+		add_test(${TEST} ${TEST})
+	endif(SDL2PP_ENABLE_LIVE_TESTS)
+endforeach(TEST ${TESTS})
