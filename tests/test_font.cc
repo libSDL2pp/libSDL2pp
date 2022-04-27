@@ -105,8 +105,12 @@ BEGIN_TEST(int, char*[])
 #endif
 	}
 
+	auto isAllowedARect = [](const Rect& r) {
+		return r.x == 0 && r.y == 0 && r.w >= 20 && r.w <= 21 && r.h >= 22 && r.h <= 22;
+	};
+
 	auto isAllowedAADims = [](const Point& p) {
-		return p == Point(43, 35) || p == Point(43, 36);
+		return p.x >= 42 && p.x <= 43 && p.y >= 35 && p.y <= 36;
 	};
 
 	{
@@ -119,12 +123,12 @@ BEGIN_TEST(int, char*[])
 		EXPECT_NO_EXCEPTION(font.GetGlyphMetrics(u'A', minx, maxx, miny, maxy, advance));
 
 		EXPECT_EQUAL(minx, 0);
-		EXPECT_EQUAL(maxx, 20);
+		EXPECT_TRUE(maxx >= 20 && maxx <= 21);
 		EXPECT_EQUAL(miny, 0);
 		EXPECT_EQUAL(maxy, 22);
 		EXPECT_EQUAL(advance, 21);
 
-		EXPECT_EQUAL(font.GetGlyphRect(u'A'), Rect(0, 0, 20, 22));
+		EXPECT_TRUE(isAllowedARect(font.GetGlyphRect(u'A')));
 		EXPECT_EQUAL(font.GetGlyphAdvance(u'A'), 21);
 
 		// Text size
