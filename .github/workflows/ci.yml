@@ -71,7 +71,7 @@ jobs:
       - name: Testing client code with pkg-config detection
         run: |
           cd $GITHUB_WORKSPACE/exttests/pkg-config
-          make || true
+          make
       - name: Testing client code with pkg-config detection
         run: |
           cd $GITHUB_WORKSPACE/exttests/cmake
