@@ -16,7 +16,7 @@ jobs:
         run: |
           echo 'CXX=${{ matrix.cxx }}' >> $GITHUB_ENV
           echo 'CXXFLAGS=-Wall -Wextra -pedantic' >> $GITHUB_ENV  # XXX: Add -Werror
-          echo 'CMAKE_BUILD_TYPE=Debug' >> $GITHUB_ENV
+          echo 'LDFLAGS=' >> $GITHUB_ENV
           echo 'SDL_AUDIODRIVER=pulseaudio' >> $GITHUB_ENV
           echo 'SDL_VIDEODRIVER=x11' >> $GITHUB_ENV
           echo 'DISPLAY=:99.0' >> $GITHUB_ENV
@@ -26,7 +26,9 @@ jobs:
         run: echo 'CXXFLAGS=$CXXFLAGS -Wno-self-assign-overloaded' >> $GITHUB_ENV
       - name: Set up environment (coverage)
         if: ${{ contains(matrix.features, 'coverage') }}
-        run: echo 'CMAKE_BUILD_TYPE=Coverage' >> $GITHUB_ENV
+        run: |
+          echo 'CXXFLAGS=$CXXFLAGS --coverage' >> $GITHUB_ENV
+          echo 'LDFLAGS=$LDFLAGS --coverage' >> $GITHUB_ENV
       - name: Set up environment (optional libs)
         if: ${{ contains(matrix.features, 'nooptlibs') }}
         run: echo 'CMAKE_ARGS=$CMAKE_ARGS -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO' >> $GITHUB_ENV
@@ -51,7 +53,7 @@ jobs:
           /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
 
       - name: Configure
-        run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS}
+        run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr ${CMAKE_ARGS}
       - name: Build
         run: cmake --build .
       - name: Run tests
