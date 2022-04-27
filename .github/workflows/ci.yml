@@ -2,7 +2,9 @@ name: CI
 on: [ push, pull_request ]
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:rolling
     strategy:
       matrix:
         include:
@@ -38,19 +40,22 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -qq libsdl2-dev cppcheck doxygen pulseaudio graphviz
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -qq
+          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen pulseaudio graphviz xvfb
       - name: Install dependencies (optional libs)
         if: ${{ !contains(matrix.features, 'nooptlibs') }}
-        run: sudo apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
+        run: apt-get install -qq libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
       - name: Install dependencies (coverage)
         if: ${{ contains(matrix.features, 'coverage') }}
-        run: pip install --user pyyaml cpp-coveralls
+        run: |
+          apt-get install -yqq --no-install-recommends python3-pip git curl
+          pip install --user pyyaml cpp-coveralls
 
       - name: Set up environment for live tests
         run: |
-          pulseaudio --start --daemonize --disallow-exit --exit-idle-time -1
-          /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
+          pulseaudio --daemonize --system || true
+          /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX || true
 
       - name: Configure
         run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr ${CMAKE_ARGS}
@@ -59,7 +64,7 @@ jobs:
       - name: Run tests
         run: ctest -V || true  # TODO: debug failing live_mixer test
       - name: Install
-        run: sudo cmake --install .
+        run: cmake --install .
 
       - name: Run cppcheck
         # `style' gives false positive in cppcheck 1.61 which comes with trusty
