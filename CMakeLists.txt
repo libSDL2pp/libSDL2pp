@@ -17,9 +17,9 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	option(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
 	option(SDL2PP_WITH_TTF "Enable SDL2_ttf support" ON)
 	option(SDL2PP_WITH_MIXER "Enable SDL2_mixer support" ON)
-else(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+else()
 	# please set SDL2PP_WITH_IMAGE, SDL2PP_WITH_TTF, SDL2PP_WITH_MIXER in parent project as needed
-endif(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+endif()
 
 # depends
 find_package(SDL2 REQUIRED)
@@ -33,39 +33,39 @@ if(MINGW)
 	set(MINGW32_LIBRARY "mingw32" CACHE STRING "mingw32 library")
 	set(SDL2PP_EXTRA_LIBRARIES ${MINGW32_LIBRARY} ${SDL2PP_EXTRA_LIBRARIES})
 	set(SDL2PP_EXTRA_PKGCONFIG_LIBRARIES "-l${MINGW32_LIBRARY} ${SDL2PP_EXTRA_PKGCONFIG_LIBRARIES}")
-endif(MINGW)
+endif()
 
 if(SDL2PP_WITH_IMAGE)
 	find_package(SDL2_image REQUIRED)
 	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR})
 	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_IMAGE_LIBRARY})
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_image")
-else(SDL2PP_WITH_IMAGE)
+else()
 	message(STATUS "SDL2_image support disabled")
-endif(SDL2PP_WITH_IMAGE)
+endif()
 
 if(SDL2PP_WITH_TTF)
 	find_package(SDL2_ttf REQUIRED)
 	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIR})
 	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_TTF_LIBRARY})
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_ttf")
-else(SDL2PP_WITH_TTF)
+else()
 	message(STATUS "SDL2_ttf support disabled")
-endif(SDL2PP_WITH_TTF)
+endif()
 
 if(SDL2PP_WITH_MIXER)
 	find_package(SDL2_mixer REQUIRED)
 	set(SDL2_ALL_INCLUDE_DIRS ${SDL2_ALL_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIR})
 	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} ${SDL2_MIXER_LIBRARY})
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_mixer")
-else(SDL2PP_WITH_MIXER)
+else()
 	message(STATUS "SDL2_mixer support disabled")
-endif(SDL2PP_WITH_MIXER)
+endif()
 
 # compiler flags & definitions
 if(MSVC)
 	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} /W3")
-else(MSVC)
+else()
 	set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_DEBUG} --coverage")
 	set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
 	set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} --coverage")
@@ -79,7 +79,7 @@ else(MSVC)
 		# For adventurous
 		#set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Weverything -Wno-c++98-compat -Wno-padded")
 	endif()
-endif(MSVC)
+endif()
 
 list(REMOVE_DUPLICATES SDL2_ALL_INCLUDE_DIRS)
 
@@ -159,7 +159,7 @@ if(SDL2PP_WITH_TTF)
 		SDL2pp/SDLTTF.hh
 		SDL2pp/Font.hh
 	)
-endif(SDL2PP_WITH_TTF)
+endif()
 
 if(SDL2PP_WITH_IMAGE)
 	set(LIBRARY_SOURCES
@@ -170,7 +170,7 @@ if(SDL2PP_WITH_IMAGE)
 		${LIBRARY_HEADERS}
 		SDL2pp/SDLImage.hh
 	)
-endif(SDL2PP_WITH_IMAGE)
+endif()
 
 if(SDL2PP_WITH_MIXER)
 	set(LIBRARY_SOURCES
@@ -187,7 +187,7 @@ if(SDL2PP_WITH_MIXER)
 		SDL2pp/Music.hh
 		SDL2pp/SDLMixer.hh
 	)
-endif(SDL2PP_WITH_MIXER)
+endif()
 
 # targets
 include(GenerateExportHeader)
@@ -202,11 +202,11 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	# library
 	if(SDL2PP_STATIC)
 		add_library(SDL2pp STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
-	else(SDL2PP_STATIC)
+	else()
 		add_library(SDL2pp SHARED ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
 		target_link_libraries(SDL2pp ${SDL2_ALL_LIBRARIES})
 		set_target_properties(SDL2pp PROPERTIES VERSION 8.3.0 SOVERSION 8)
-	endif(SDL2PP_STATIC)
+	endif()
 
 	generate_export_header(SDL2pp EXPORT_FILE_NAME SDL2pp/Export.hh)
 
@@ -215,12 +215,12 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	# examples and tests
 	if(SDL2PP_WITH_EXAMPLES)
 		add_subdirectory(examples)
-	endif(SDL2PP_WITH_EXAMPLES)
+	endif()
 
 	if(SDL2PP_WITH_TESTS)
 		enable_testing()
 		add_subdirectory(tests)
-	endif(SDL2PP_WITH_TESTS)
+	endif()
 
 	# doxygen
 	find_package(Doxygen)
@@ -231,14 +231,14 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			COMMENT "Generating API documentation with Doxygen" VERBATIM
 		)
-	endif(DOXYGEN_FOUND)
+	endif()
 
 	# pkgconfig and cmake modules
 	set(CMAKEMODDIR share/cmake/Modules CACHE STRING "directory where to install cmake module")
 	set(PKGCONFIGDIR lib/pkgconfig CACHE STRING "directory where to install pkg-config files")
 	if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
 		set(PKGCONFIGDIR libdata/pkgconfig)
-	endif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
+	endif()
 
 	include(Join)
 
@@ -275,7 +275,7 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	install(FILES ${PROJECT_BINARY_DIR}/FindSDL2PP.cmake DESTINATION ${CMAKEMODDIR})
 
 	message(STATUS "libSDL2pp ${SDL2PP_VERSION} standalone build")
-else(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+else()
 	# library
 	add_library(SDL2pp STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
 	generate_export_header(SDL2pp EXPORT_FILE_NAME SDL2pp/Export.hh)
@@ -285,4 +285,4 @@ else(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	set(SDL2PP_LIBRARIES ${SDL2PP_EXTRA_LIBRARIES} SDL2pp ${SDL2_ALL_LIBRARIES} PARENT_SCOPE)
 
 	message(STATUS "libSDL2pp ${SDL2PP_VERSION} bundled build")
-endif(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+endif()

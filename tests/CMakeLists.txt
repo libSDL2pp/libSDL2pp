@@ -21,19 +21,19 @@ if(SDL2PP_WITH_MIXER)
 	set(LIVE_TESTS ${LIVE_TESTS}
 		live_mixer
 	)
-endif(SDL2PP_WITH_MIXER)
+endif()
 
 if(SDL2PP_WITH_IMAGE)
 	set(CLI_TESTS ${CLI_TESTS}
 		test_surface
 	)
-endif(SDL2PP_WITH_IMAGE)
+endif()
 
 if(SDL2PP_WITH_TTF)
 	set(CLI_TESTS ${CLI_TESTS}
 		test_font
 	)
-endif(SDL2PP_WITH_TTF)
+endif()
 
 add_definitions(-DTESTDATA_DIR="${PROJECT_SOURCE_DIR}/testdata")
 
@@ -45,18 +45,18 @@ foreach(HEADER ${LIBRARY_HEADERS})
 	configure_file(header_test.cc.in ${HEADER_NORMALIZED}_test.cc)
 	add_executable(${HEADER_NORMALIZED}_test ${HEADER_NORMALIZED}_test.cc)
 	target_link_libraries(${HEADER_NORMALIZED}_test ${SDL2PP_LIBRARIES})
-endforeach(HEADER ${TESTS})
+endforeach()
 
 foreach(TEST ${CLI_TESTS})
 	add_executable(${TEST} ${TEST}.cc)
 	target_link_libraries(${TEST} ${SDL2PP_LIBRARIES})
 	add_test(${TEST} ${TEST})
-endforeach(TEST ${TESTS})
+endforeach()
 
 foreach(TEST ${LIVE_TESTS})
 	add_executable(${TEST} ${TEST}.cc)
 	target_link_libraries(${TEST} ${SDL2PP_LIBRARIES})
 	if(SDL2PP_ENABLE_LIVE_TESTS)
 		add_test(${TEST} ${TEST})
-	endif(SDL2PP_ENABLE_LIVE_TESTS)
-endforeach(TEST ${TESTS})
+	endif()
+endforeach()

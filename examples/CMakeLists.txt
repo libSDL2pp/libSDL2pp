@@ -13,7 +13,7 @@ if(SDL2PP_WITH_IMAGE)
 		image
 		fill
 	)
-endif(SDL2PP_WITH_IMAGE)
+endif()
 
 if(SDL2PP_WITH_MIXER)
 	set(EXAMPLES ${EXAMPLES}
@@ -22,15 +22,15 @@ if(SDL2PP_WITH_MIXER)
 		mixer_music_sine
 		mixer_effects
 	)
-endif(SDL2PP_WITH_MIXER)
+endif()
 
 if(SDL2PP_WITH_TTF)
 	set(EXAMPLES ${EXAMPLES}
 		ttf
 	)
-endif(SDL2PP_WITH_TTF)
+endif()
 
 foreach(EXAMPLE ${EXAMPLES})
 	add_executable(${EXAMPLE} ${EXAMPLE}.cc)
 	target_link_libraries(${EXAMPLE} ${SDL2PP_LIBRARIES})
-endforeach(EXAMPLE)
+endforeach()
