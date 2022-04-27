@@ -23,18 +23,18 @@ jobs:
       - name: Set up environment (flags)
         if: ${{ matrix.xxx == 'clang++' }}
         # there are explicit self-assignment tests
-        run: echo 'CXXFLAGS=$CXXFLAGS -Wno-self-assign-overloaded' >> $GITHUB_ENV
+        run: echo "CXXFLAGS=$CXXFLAGS -Wno-self-assign-overloaded" >> $GITHUB_ENV
       - name: Set up environment (coverage)
         if: ${{ contains(matrix.features, 'coverage') }}
         run: |
-          echo 'CXXFLAGS=$CXXFLAGS --coverage' >> $GITHUB_ENV
-          echo 'LDFLAGS=$LDFLAGS --coverage' >> $GITHUB_ENV
+          echo "CXXFLAGS=$CXXFLAGS --coverage" >> $GITHUB_ENV
+          echo "LDFLAGS=$LDFLAGS --coverage" >> $GITHUB_ENV
       - name: Set up environment (optional libs)
         if: ${{ contains(matrix.features, 'nooptlibs') }}
-        run: echo 'CMAKE_ARGS=$CMAKE_ARGS -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO' >> $GITHUB_ENV
+        run: echo "CMAKE_ARGS=$CMAKE_ARGS -DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO" >> $GITHUB_ENV
       - name: Set up environment (static build)
         if: ${{ contains(matrix.features, 'static') }}
-        run: echo 'CMAKE_ARGS=$CMAKE_ARGS -DSDL2PP_STATIC=YES' >> $GITHUB_ENV
+        run: echo "CMAKE_ARGS=$CMAKE_ARGS -DSDL2PP_STATIC=YES" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
