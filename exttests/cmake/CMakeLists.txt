@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 
 find_package(SDL2PP REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${SDL2PP_INCLUDE_DIRS})
 add_executable(cmake-ext-test ../../examples/sprites.cc)

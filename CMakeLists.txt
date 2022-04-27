@@ -11,7 +11,9 @@ set(SDL2PP_PATCH_VERSION 2)
 
 set(SDL2PP_VERSION "${SDL2PP_MAJOR_VERSION}.${SDL2PP_MINOR_VERSION}.${SDL2PP_PATCH_VERSION}")
 
-set(SDL2PP_CXXSTD "c++11" CACHE STRING "Used c++ standard")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS NO)
 
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 	option(SDL2PP_WITH_IMAGE "Enable SDL2_image support" ON)
@@ -70,7 +72,6 @@ else()
 	set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
 	set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} --coverage")
 
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${SDL2PP_CXXSTD}")
 	set(SDL2PP_WARNINGS "${SDL2PP_WARNINGS} -Wall -Wextra -pedantic")
 
 	if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -85,13 +86,6 @@ list(REMOVE_DUPLICATES SDL2_ALL_INCLUDE_DIRS)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR})
 include_directories(SYSTEM ${SDL2_ALL_INCLUDE_DIRS})
-
-include(CheckCompile)
-check_compile(
-	SDL2PP_WITH_EXPERIMENTAL_OPTIONAL
-	"#include <experimental/optional>\nint main() { std::experimental::optional<int> o; return !o; }"
-	"experimental/optional header"
-)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL2PP_WARNINGS}")
 
@@ -141,10 +135,6 @@ set(LIBRARY_HEADERS
 	SDL2pp/Texture.hh
 	SDL2pp/Wav.hh
 	SDL2pp/Window.hh
-)
-
-set(LIBRARY_EXTERNAL_HEADERS
-	SDL2pp/external/libcpp_optional.hh
 )
 
 # optional sources
@@ -265,7 +255,6 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 		${PROJECT_BINARY_DIR}/SDL2pp/Export.hh
 		DESTINATION include/SDL2pp
 	)
-	install(FILES ${LIBRARY_EXTERNAL_HEADERS} DESTINATION include/SDL2pp/external)
 	install(TARGETS SDL2pp
 		RUNTIME DESTINATION bin
 		LIBRARY DESTINATION lib

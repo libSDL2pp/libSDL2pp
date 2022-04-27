@@ -6,7 +6,7 @@
 
 # libSDL2pp
 
-This library provides C++11 bindings/wrapper for SDL2 and satellite libraries.
+This library provides C++17 bindings/wrapper for SDL2 and satellite libraries.
 
 ## Synopsis
 
@@ -125,7 +125,7 @@ methods. These classes support:
   need to manually check return code after each function call)
 * Method overloading, default arguments, method chaining allow shorter
   and cleaner code
-* C++11 move semantics support, which allow you to store SDL objects
+* Move semantics support, which allow you to store SDL objects
   in containers and pass/return them by value without noticeable overhead
 
 Set of functional extensions above SDL2 is also available:
@@ -136,9 +136,6 @@ Set of functional extensions above SDL2 is also available:
 * Number of additional methods and operator support for Point and Rect
 
 ## Building
-
-To build libSDL2pp, you need a compiler with C++11 support, for
-example clang 3.4+ or gcc 4.8+.
 
 Dependencies:
 * [cmake](https://cmake.org/)
@@ -157,7 +154,6 @@ Following variables may be supplied to CMake to affect build:
 * ```SDL2PP_WITH_MIXER``` - enable SDL_mixer support (default ON)
 * ```SDL2PP_WITH_TTF``` - enable SDL_ttf support (default ON)
 * ```SDL2PP_WITH_WERROR``` - treat warnings as errors, useful for CI (default OFF)
-* ```SDL2PP_CXXSTD``` - override C++ standard (default C++11). With C++1y some additional features are enabled such as usage of [[deprecated]] attribute and using stock experimental/optional from C++ standard library
 * ```SDL2PP_WITH_EXAMPLES``` - enable building example programs (only for standalone build, default ON)
 * ```SDL2PP_WITH_TESTS``` - enable building tests (only for standalone build, default ON)
 * ```SDL2PP_STATIC``` - build static library instead of shared (only for standalone build, default OFF)
@@ -232,7 +228,7 @@ any wrappers over non object-oriented SDL2 code, as these will not bring
 any benefits over using plain C API. E.g. I see no point in implementing
 SDL2pp::Delay() as it won't bring any convenience over SDL_Delay().
 
-The same strongly applies to the SDL2 bits which duplicate C++11
+The same strongly applies to the SDL2 bits which duplicate C++17
 standard library, e.g. threads and atomic ops.
 
 ## Users

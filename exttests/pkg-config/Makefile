@@ -1,6 +1,6 @@
 CXX?=			g++
 
-CXXFLAGS+=		-std=c++11
+CXXFLAGS+=		-std=c++17
 
 SDL2PP_CFLAGS=	`pkg-config --cflags sdl2pp`
 SDL2PP_LIBS=	`pkg-config --libs sdl2pp`

@@ -6,12 +6,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - { cxx: g++,     std: c++11, features: "coverage" }
-          - { cxx: g++,     std: c++1y, features: "" }
-          - { cxx: clang++, std: c++11, features: "" }
-          - { cxx: clang++, std: c++1y, features: "nooptlibs" }
-          - { cxx: clang++, std: c++1y, features: "static" }
-    name: ${{ matrix.cxx }} ${{ matrix.std }} ${{ matrix.features }}
+          - { cxx: g++,     features: "coverage" }
+          - { cxx: clang++, features: "nooptlibs" }
+          - { cxx: clang++, features: "static" }
+    name: ${{ matrix.cxx }} ${{ matrix.features }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up environment
@@ -53,7 +51,7 @@ jobs:
           /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
 
       - name: Configure
-        run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr -DSDL2PP_CXXSTD=${{ matrix.std }} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS}
+        run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS}
       - name: Build
         run: cmake --build .
       - name: Run tests
