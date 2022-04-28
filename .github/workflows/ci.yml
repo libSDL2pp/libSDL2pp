@@ -51,7 +51,7 @@ jobs:
       - name: Build
         run: cmake --build .
       - name: Run tests
-        run: ctest -V || true  # TODO: debug failing live_mixer test
+        run: ctest -V
       - name: Install
         run: cmake --install .
 
