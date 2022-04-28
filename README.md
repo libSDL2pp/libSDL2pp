@@ -3,6 +3,7 @@
 </a>
 
 [![CI](https://github.com/libSDL2pp/libSDL2pp/actions/workflows/ci.yml/badge.svg)](https://github.com/libSDL2pp/libSDL2pp/actions/workflows/ci.yml)
+[![Github commits (since latest release)](https://img.shields.io/github/commits-since/libSDL2pp/libSDL2pp/latest.svg)](https://github.com/libSDL2pp/libSDL2pp)
 
 # libSDL2pp
 
