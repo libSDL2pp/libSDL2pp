@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.17.0 - 2022-04-28
+### Changed
+* Switch to modern CMake
+* Switch to C++17
+
 ## 0.16.2 - 2022-04-25
 ### Fixed
 * Fix font dimensions test
