@@ -33,67 +33,67 @@
 
 using namespace SDL2pp;
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_VIDEO);
-	SDLTTF ttf;
-	Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
-	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_VIDEO);
+		SDLTTF ttf;
+		Window window("libSDL2pp demo: font", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+		Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	Font font(TESTDATA_DIR "/Vera.ttf", 30);
+		Font font(TESTDATA_DIR "/Vera.ttf", 30);
 
-	std::vector<Texture> textures;
+		std::vector<Texture> textures;
 
-	textures.emplace_back(render,
-			font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color{255, 255, 255, 255})
-		);
-	textures.emplace_back(render,
-			font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color{255, 255, 255, 255}, SDL_Color{127, 127, 127, 255})
-		);
-	textures.emplace_back(render,
-			font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color{255, 255, 255, 255})
-		);
+		textures.emplace_back(render,
+				font.RenderText_Solid("Hello, world! (solid mode)", SDL_Color{255, 255, 255, 255})
+			);
+		textures.emplace_back(render,
+				font.RenderText_Shaded("Hello, world! (shaded mode)", SDL_Color{255, 255, 255, 255}, SDL_Color{127, 127, 127, 255})
+			);
+		textures.emplace_back(render,
+				font.RenderText_Blended("Hello, world! (blended mode)", SDL_Color{255, 255, 255, 255})
+			);
 
-	font.SetOutline(1);
+		font.SetOutline(1);
 
-	textures.emplace_back(render,
-			font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color{255, 255, 255, 255})
-		);
+		textures.emplace_back(render,
+				font.RenderText_Blended("Hello, world! (blended + outline)", SDL_Color{255, 255, 255, 255})
+			);
 
-	font.SetOutline(0);
+		font.SetOutline(0);
 
-	textures.emplace_back(render,
-			font.RenderUTF8_Blended(u8"Hello, world! «¼½¾» (UTF-8 support)", SDL_Color{255, 255, 255, 255})
-		);
-	textures.emplace_back(render,
-			font.RenderUNICODE_Blended(u"Hello, world! «¼½¾» (UTF-16 support)", SDL_Color{255, 255, 255, 255})
-		);
+		textures.emplace_back(render,
+				font.RenderUTF8_Blended(u8"Hello, world! «¼½¾» (UTF-8 support)", SDL_Color{255, 255, 255, 255})
+			);
+		textures.emplace_back(render,
+				font.RenderUNICODE_Blended(u"Hello, world! «¼½¾» (UTF-16 support)", SDL_Color{255, 255, 255, 255})
+			);
 
-	while (1) {
-		// Process input
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
-				return 0;
+		while (1) {
+			// Process input
+			SDL_Event event;
+			while (SDL_PollEvent(&event))
+				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
+					return 0;
 
-		// Clear screen
-		render.SetDrawColor(0, 63, 63);
-		render.Clear();
+			// Clear screen
+			render.SetDrawColor(0, 63, 63);
+			render.Clear();
 
-		// Render all strings
-		int h = 0;
-		for (auto& texture: textures) {
-			render.Copy(texture, NullOpt, Rect(0, h, texture.GetWidth(), texture.GetHeight()));
-			h += texture.GetHeight();
+			// Render all strings
+			int h = 0;
+			for (auto& texture: textures) {
+				render.Copy(texture, NullOpt, Rect(0, h, texture.GetWidth(), texture.GetHeight()));
+				h += texture.GetHeight();
+			}
+
+			render.Present();
+
+			// Frame limiter
+			SDL_Delay(1);
 		}
-
-		render.Present();
-
-		// Frame limiter
-		SDL_Delay(1);
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
 	}
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
 }

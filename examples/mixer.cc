@@ -31,49 +31,49 @@
 
 using namespace SDL2pp;
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_AUDIO);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_AUDIO);
+		Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-	Chunk sound(TESTDATA_DIR "/test.ogg");
+		Chunk sound(TESTDATA_DIR "/test.ogg");
 
-	mixer.SetChannelFinishedHandler([](int channel){
-			std::cerr << "Channel " << channel << " finished playback" << std::endl;
-		});
+		mixer.SetChannelFinishedHandler([](int channel){
+				std::cerr << "Channel " << channel << " finished playback" << std::endl;
+			});
 
-	int chan;
+		int chan;
 
-	// Fade in
-	chan = mixer.FadeInChannel(-1, sound, 0, 1000);
-	std::cerr << "Fading sound in on channel " << chan << "\n";
+		// Fade in
+		chan = mixer.FadeInChannel(-1, sound, 0, 1000);
+		std::cerr << "Fading sound in on channel " << chan << "\n";
 
-	SDL_Delay(2000);
+		SDL_Delay(2000);
 
-	// Mix 3 sounds
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
+		// Mix 3 sounds
+		chan = mixer.PlayChannel(-1, sound);
+		std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(250);
+		SDL_Delay(250);
 
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
+		chan = mixer.PlayChannel(-1, sound);
+		std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(250);
+		SDL_Delay(250);
 
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Playing sound on channel " << chan << "\n";
+		chan = mixer.PlayChannel(-1, sound);
+		std::cerr << "Playing sound on channel " << chan << "\n";
 
-	SDL_Delay(2000);
+		SDL_Delay(2000);
 
-	// Fade out
-	chan = mixer.PlayChannel(-1, sound);
-	std::cerr << "Fading out sound on channel " << chan << "\n";
-	mixer.FadeOutChannel(chan, 2000);
+		// Fade out
+		chan = mixer.PlayChannel(-1, sound);
+		std::cerr << "Fading out sound on channel " << chan << "\n";
+		mixer.FadeOutChannel(chan, 2000);
 
-	SDL_Delay(2000);
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
+		SDL_Delay(2000);
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
 }

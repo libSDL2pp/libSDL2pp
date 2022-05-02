@@ -31,18 +31,18 @@
 
 using namespace SDL2pp;
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_AUDIO);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+int main(int, char*[]) {
+   try {
+      SDL sdl(SDL_INIT_AUDIO);
+      Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-	Music music(TESTDATA_DIR "/test.ogg");
+      Music music(TESTDATA_DIR "/test.ogg");
 
-	mixer.FadeInMusic(music, -1, 2000);
+      mixer.FadeInMusic(music, -1, 2000);
 
-	SDL_Delay(5000);
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
+      SDL_Delay(5000);
+   } catch (std::exception& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
+      return 1;
+   }
 }

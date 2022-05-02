@@ -38,56 +38,56 @@ static const unsigned char pixels[4 * 4 * 4] = {
 	RGBA(0x80, 0x00, 0xff, 0xff), RGBA(0x00, 0x00, 0xff, 0xff), RGBA(0x00, 0x80, 0xff, 0xff), RGBA(0x00, 0xff, 0xff, 0xff),
 };
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_VIDEO);
-	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
-	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_VIDEO);
+		Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+		Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-	// Load sprite texture
-	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
-	sprite.Update(NullOpt, pixels, 4 * 4);
-	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
+		// Load sprite texture
+		Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 4, 4);
+		sprite.Update(NullOpt, pixels, 4 * 4);
+		sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
+		render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
-	while (1) {
-		// Process input
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
-				return 0;
+		while (1) {
+			// Process input
+			SDL_Event event;
+			while (SDL_PollEvent(&event))
+				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
+					return 0;
 
-		// Clear screen
-		render.SetDrawColor(0, 32, 32);
-		render.Clear();
+			// Clear screen
+			render.SetDrawColor(0, 32, 32);
+			render.Clear();
 
-		// Simple copy
-		render.Copy(sprite, NullOpt, Rect(80, 0, 240, 240));
+			// Simple copy
+			render.Copy(sprite, NullOpt, Rect(80, 0, 240, 240));
 
-		// Copy with modulation
-		render.Copy(sprite, NullOpt, Rect(400, 0, 120, 120));
-		sprite.SetAlphaMod(92);
-		render.Copy(sprite, NullOpt, Rect(400 + 120, 0, 120, 120));
-		sprite.SetColorMod(255, 0, 0);
-		render.Copy(sprite, NullOpt, Rect(400, 0 + 120, 120, 120));
-		sprite.SetAlphaMod();
-		render.Copy(sprite, NullOpt, Rect(400 + 120, 0 + 120, 120, 120));
-		sprite.SetColorMod();
+			// Copy with modulation
+			render.Copy(sprite, NullOpt, Rect(400, 0, 120, 120));
+			sprite.SetAlphaMod(92);
+			render.Copy(sprite, NullOpt, Rect(400 + 120, 0, 120, 120));
+			sprite.SetColorMod(255, 0, 0);
+			render.Copy(sprite, NullOpt, Rect(400, 0 + 120, 120, 120));
+			sprite.SetAlphaMod();
+			render.Copy(sprite, NullOpt, Rect(400 + 120, 0 + 120, 120, 120));
+			sprite.SetColorMod();
 
-		// Copy with rotation
-		render.Copy(sprite, NullOpt, Rect(80, 240, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, NullOpt, SDL_FLIP_NONE);
+			// Copy with rotation
+			render.Copy(sprite, NullOpt, Rect(80, 240, 240, 240), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, NullOpt, SDL_FLIP_NONE);
 
-		// Rotation around another point
-		render.Copy(sprite, NullOpt, Rect(520, 360, 120, 120), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point(0, 0), SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+			// Rotation around another point
+			render.Copy(sprite, NullOpt, Rect(520, 360, 120, 120), -1.0 * SDL_GetTicks() / 5000.0 * 360.0, Point(0, 0), SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
 
-		render.Present();
+			render.Present();
 
-		// Frame limiter
-		SDL_Delay(1);
+			// Frame limiter
+			SDL_Delay(1);
+		}
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
 	}
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
 }

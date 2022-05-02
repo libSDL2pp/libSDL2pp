@@ -29,28 +29,28 @@
 
 using namespace SDL2pp;
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_AUDIO);
-	Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_AUDIO);
+		Mixer mixer(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 1, 4096);
 
-	// XXX: this should be constexpr and not captured in lambda
-	// below, but that fails on microsoft crapiler
-	float frequency = 2093.00f; // C7 tone
-	int64_t nsample = 0;
+		// XXX: this should be constexpr and not captured in lambda
+		// below, but that fails on microsoft crapiler
+		float frequency = 2093.00f; // C7 tone
+		int64_t nsample = 0;
 
-	// Set custom music hook which generates a sine wave
-	mixer.SetMusicHook([&nsample, frequency](Uint8* stream, int len) {
-				// fill provided buffer with sine wave
-				for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
-					*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)MIX_DEFAULT_FREQUENCY * frequency));
-			}
-		);
+		// Set custom music hook which generates a sine wave
+		mixer.SetMusicHook([&nsample, frequency](Uint8* stream, int len) {
+					// fill provided buffer with sine wave
+					for (Uint8* ptr = stream; ptr < stream + len; ptr += 2)
+						*(Uint16*)ptr = (Uint16)(32766.0f * sin(nsample++ / (float)MIX_DEFAULT_FREQUENCY * frequency));
+				}
+			);
 
-	// Play for 1 second, after which everything is stopped and closed
-	SDL_Delay(1000);
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
+		// Play for 1 second, after which everything is stopped and closed
+		SDL_Delay(1000);
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
 }

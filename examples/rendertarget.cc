@@ -45,76 +45,76 @@ enum {
 	MY_RENDERTARGET_SIZE = 512,
 };
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_VIDEO);
-	Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
-	Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-	render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_VIDEO);
+		Window window("libSDL2pp demo: sprites", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+		Renderer render(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+		render.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
-	// Necessary checks according to SDL docs
-	SDL_RendererInfo ri;
-	render.GetInfo(ri);
+		// Necessary checks according to SDL docs
+		SDL_RendererInfo ri;
+		render.GetInfo(ri);
 
-	if (!(ri.flags & SDL_RENDERER_TARGETTEXTURE)) {
-		std::cerr << "Sorry, your renderer doesn't support texture targets" << std::endl;
-		return 1;
-	}
-
-	// Sprite data
-	Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, MY_SPRITE_SIZE, MY_SPRITE_SIZE);
-
-	sprite.Update(NullOpt, pixels, MY_SPRITE_SIZE * MY_SPRITE_SIZE);
-	sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
-
-	// Two render target textures
-	Texture target1(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
-	target1.SetBlendMode(SDL_BLENDMODE_BLEND);
-
-	Texture target2(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
-	target2.SetBlendMode(SDL_BLENDMODE_BLEND);
-
-	while (1) {
-		// Process input
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
-				return 0;
-
-		// Note we fill with transparent color, not black
-		render.SetDrawColor(0, 0, 0, 0);
-
-		// Fill base texture with sprite texture
-		render.SetTarget(target1);
-		render.Clear();
-		render.Copy(sprite);
-
-		// Repeat several cycles of flip-flop tiling
-		for (int i = 0; i < 4; i++) {
-			render.SetTarget(target2);
-			render.Clear();
-			render.Copy(target1, NullOpt, Rect(0, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, NullOpt, Rect(0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-			render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
-
-			// Swap textures to copy recursively
-			std::swap(target1, target2);
+		if (!(ri.flags & SDL_RENDERER_TARGETTEXTURE)) {
+			std::cerr << "Sorry, your renderer doesn't support texture targets" << std::endl;
+			return 1;
 		}
 
-		// Draw result to screen
-		render.SetTarget();
-		render.Clear();
+		// Sprite data
+		Texture sprite(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, MY_SPRITE_SIZE, MY_SPRITE_SIZE);
 
-		render.Copy(target1, NullOpt, Rect((MY_SCREEN_WIDTH - MY_SCREEN_HEIGHT) / 2, 0, MY_SCREEN_HEIGHT, MY_SCREEN_HEIGHT), SDL_GetTicks() / 10000.0 * 360.0);
+		sprite.Update(NullOpt, pixels, MY_SPRITE_SIZE * MY_SPRITE_SIZE);
+		sprite.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-		render.Present();
+		// Two render target textures
+		Texture target1(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
+		target1.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-		// Frame limiter
-		SDL_Delay(1);
+		Texture target2(render, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, MY_RENDERTARGET_SIZE, MY_RENDERTARGET_SIZE);
+		target2.SetBlendMode(SDL_BLENDMODE_BLEND);
+
+		while (1) {
+			// Process input
+			SDL_Event event;
+			while (SDL_PollEvent(&event))
+				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_q)))
+					return 0;
+
+			// Note we fill with transparent color, not black
+			render.SetDrawColor(0, 0, 0, 0);
+
+			// Fill base texture with sprite texture
+			render.SetTarget(target1);
+			render.Clear();
+			render.Copy(sprite);
+
+			// Repeat several cycles of flip-flop tiling
+			for (int i = 0; i < 4; i++) {
+				render.SetTarget(target2);
+				render.Clear();
+				render.Copy(target1, NullOpt, Rect(0, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+				render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, 0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+				render.Copy(target1, NullOpt, Rect(0, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+				render.Copy(target1, NullOpt, Rect(MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2, MY_RENDERTARGET_SIZE / 2), SDL_GetTicks() / 10000.0 * 360.0);
+
+				// Swap textures to copy recursively
+				std::swap(target1, target2);
+			}
+
+			// Draw result to screen
+			render.SetTarget();
+			render.Clear();
+
+			render.Copy(target1, NullOpt, Rect((MY_SCREEN_WIDTH - MY_SCREEN_HEIGHT) / 2, 0, MY_SCREEN_HEIGHT, MY_SCREEN_HEIGHT), SDL_GetTicks() / 10000.0 * 360.0);
+
+			render.Present();
+
+			// Frame limiter
+			SDL_Delay(1);
+		}
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
 	}
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
 }

@@ -32,40 +32,40 @@
 
 using namespace SDL2pp;
 
-int main(int, char*[]) try {
-	SDL sdl(SDL_INIT_AUDIO);
+int main(int, char*[]) {
+	try {
+		SDL sdl(SDL_INIT_AUDIO);
 
-	Wav wav(TESTDATA_DIR "/test.wav");
-	Uint8* wav_pos = wav.GetBuffer();
+		Wav wav(TESTDATA_DIR "/test.wav");
+		Uint8* wav_pos = wav.GetBuffer();
 
-	// Open audio device
-	AudioDevice dev(NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
-				// Fill provided buffer with wave contents
-				Uint8* stream_pos = stream;
-				Uint8* stream_end = stream + len;
+		// Open audio device
+		AudioDevice dev(NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
+					// Fill provided buffer with wave contents
+					Uint8* stream_pos = stream;
+					Uint8* stream_end = stream + len;
 
-				while (stream_pos < stream_end) {
-					Uint8* wav_end = wav.GetBuffer() + wav.GetLength();
+					while (stream_pos < stream_end) {
+						Uint8* wav_end = wav.GetBuffer() + wav.GetLength();
 
-					size_t copylen = std::min(wav_end - wav_pos, stream_end - stream_pos);
+						size_t copylen = std::min(wav_end - wav_pos, stream_end - stream_pos);
 
-					std::copy(wav_pos, wav_pos + copylen, stream_pos);
-					stream_pos += copylen;
-					wav_pos += copylen;
-					if (wav_pos >= wav_end)
-						wav_pos = wav.GetBuffer();
+						std::copy(wav_pos, wav_pos + copylen, stream_pos);
+						stream_pos += copylen;
+						wav_pos += copylen;
+						if (wav_pos >= wav_end)
+							wav_pos = wav.GetBuffer();
+					}
 				}
-			}
-		);
+			);
 
-	// Sound plays after this call
-	dev.Pause(false);
+		// Sound plays after this call
+		dev.Pause(false);
 
-	// Play for 5 seconds, after which everything is stopped and closed
-	SDL_Delay(5000);
-
-	return 0;
-} catch (std::exception& e) {
-	std::cerr << "Error: " << e.what() << std::endl;
-	return 1;
+		// Play for 5 seconds, after which everything is stopped and closed
+		SDL_Delay(5000);
+	} catch (std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
 }
