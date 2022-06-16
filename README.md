@@ -217,7 +217,7 @@ target_link_libraries(mytarget SDL2pp::SDL2pp)
 ```
 
 If bundled, libSDL2pp does not build examples and becomes a static
-library. See [hoverboard](https://github.com/AMDmi3/hoverboard-sdl/blob/master/CMakeLists.txt#L34-L40)
+library. See [hoverboard](https://github.com/AMDmi3/hoverboard-sdl/blob/5729f9fb6929f6e8147481f5b21772fc1e35562a/CMakeLists.txt#L34-L40)
 project as an example of using both bundled and systemwide SDL2pp.
 
 ## Completeness
