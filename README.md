@@ -154,13 +154,13 @@ cmake --build .
 
 Following variables may be supplied to CMake to affect build:
 
-* ```SDL2PP_WITH_IMAGE``` - enable SDL_image support (default ON)
-* ```SDL2PP_WITH_MIXER``` - enable SDL_mixer support (default ON)
-* ```SDL2PP_WITH_TTF``` - enable SDL_ttf support (default ON)
-* ```SDL2PP_WITH_EXAMPLES``` - enable building example programs (only for standalone build, default ON)
-* ```SDL2PP_WITH_TESTS``` - enable building tests (only for standalone build, default ON)
-* ```SDL2PP_STATIC``` - build static library instead of shared (only for standalone build, default OFF)
-* ```SDL2PP_ENABLE_LIVE_TESTS``` - enable tests which require X11 and/or audio device to run (only for standalone build, default ON)
+* `SDL2PP_WITH_IMAGE` - enable SDL_image support (default ON)
+* `SDL2PP_WITH_MIXER` - enable SDL_mixer support (default ON)
+* `SDL2PP_WITH_TTF` - enable SDL_ttf support (default ON)
+* `SDL2PP_WITH_EXAMPLES` - enable building example programs (only for standalone build, default ON)
+* `SDL2PP_WITH_TESTS` - enable building tests (only for standalone build, default ON)
+* `SDL2PP_STATIC` - build static library instead of shared (only for standalone build, default OFF)
+* `SDL2PP_ENABLE_LIVE_TESTS` - enable tests which require X11 and/or audio device to run (only for standalone build, default ON)
 
 ## Installation
 
