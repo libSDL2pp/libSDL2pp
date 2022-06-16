@@ -163,24 +163,30 @@ Following variables may be supplied to CMake to affect build:
 
 To install the library system-wide, run:
 
-    cmake . && make && make install
+```sh
+cmake .
+cmake --build .
+cmake --install .
+```
 
 You can change installation prefix with CMAKE_INSTALL_PREFIX cmake
 variable:
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr/local . && make && make install
+```sh
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
+cmake --build .
+cmake --install .
+```
 
-SDL2pp installs pkg-config file, so it can be used with any build
-system that interacts with pkg-config, including CMake and GNU
-Autotools. It also installs CMake module file, which can be used
+SDL2pp installs `pkg-config` file, so it can be used with any build
+system that interacts with `pkg-config`, including CMake, meson and
+GNU Autotools. It also installs CMake module file, which can be used
 from CMake directly:
 
 ```cmake
-FIND_PACKAGE(SDL2PP REQUIRED)
+find_package(SDL2pp REQUIRED)
 
-INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
-...
-TARGET_LINK_LIBRARIES(... ${SDL2PP_LIBRARIES})
+target_link_libraries(mytarget SDL2pp::SDL2pp)
 ```
 
 ## Bundling ##
@@ -193,27 +199,23 @@ Just place the library into dedicated directory in your project
 (for example, extlib/libSDL2pp) and add
 
 ```cmake
-SET(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
-SET(SDL2PP_WITH_MIXER ON) # if you need SDL_mixer support
-SET(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
-ADD_SUBDIRECTORY(extlib/libSDL2pp)
+set(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+set(SDL2PP_WITH_MIXER ON) # if you need SDL_mixer support
+set(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
+add_subdirectory(extlib/libSDL2pp)
 ```
 
 into your core CMakeLists.txt. This will act similar to how
-FIND_PACKAGE usually does, and will provide ${SDL2PP_INCLUDE_DIRS}
-and ${SDL2PP_LIBRARIES} variables for your project. You will then
-be able to use them as usual:
+`find_package` usually does, and will provide `SDL2pp::SDL2pp`
+target for your project. You will then be able it as usual:
 
 ```cmake
-INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
-
-ADD_EXECUTABLE(mytarget ...)
-TARGET_LINK_LIBRARIES(mytarget ${SDL2PP_LIBRARIES})
+target_link_libraries(mytarget SDL2pp::SDL2pp)
 ```
 
 If bundled, libSDL2pp does not build examples and becomes a static
-library, providing required SDL2 includes/libs in the mentioned
-variables.
+library. See [hoverboard](https://github.com/AMDmi3/hoverboard-sdl/blob/master/CMakeLists.txt#L34-L40)
+project as an example of using both bundled and systemwide SDL2pp.
 
 ## Completeness
 
