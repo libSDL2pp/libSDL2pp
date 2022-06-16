@@ -147,7 +147,10 @@ Dependencies:
 
 To build standalone version:
 
-    cmake . && make
+```shell
+cmake .
+cmake --build .
+```
 
 Following variables may be supplied to CMake to affect build:
 
@@ -163,7 +166,7 @@ Following variables may be supplied to CMake to affect build:
 
 To install the library system-wide, run:
 
-```sh
+```shell
 cmake .
 cmake --build .
 cmake --install .
@@ -172,7 +175,7 @@ cmake --install .
 You can change installation prefix with CMAKE_INSTALL_PREFIX cmake
 variable:
 
-```sh
+```shell
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
 cmake --build .
 cmake --install .
