@@ -7,7 +7,7 @@
 
 # libSDL2pp
 
-This library provides C++17 bindings/wrapper for SDL2 and satellite libraries.
+This library provides C++ bindings/wrapper for SDL2 and satellite libraries.
 
 ## Synopsis
 

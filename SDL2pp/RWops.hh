@@ -1,5 +1,5 @@
 /*
-  libSDL2pp - C++11 bindings/wrapper for SDL2
+  libSDL2pp - C++ bindings/wrapper for SDL2
   Copyright (C) 2014-2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
 
   This software is provided 'as-is', without any express or implied
@@ -133,7 +133,7 @@ public:
 /// works with it), Mem and ConstMem (take memory chunk and work with
 /// it like a file) and allow one to write custom RWops.
 ///
-/// SDL2pp::RWops support all this in extended C++11 way.
+/// SDL2pp::RWops support all this in extended C++ way.
 ///
 /// Usage example:
 /// \code

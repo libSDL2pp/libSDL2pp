@@ -5,7 +5,7 @@ PROJECT_NAME           = "libSDL2pp"
 PROJECT_NUMBER         = @SDL2PP_VERSION@
 
 # Project description
-PROJECT_BRIEF          = "C++11 bindings/wrapper for SDL2"
+PROJECT_BRIEF          = "C++ bindings/wrapper for SDL2"
 
 # Where to place generated files
 OUTPUT_DIRECTORY       = doxygen

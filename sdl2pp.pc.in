@@ -4,7 +4,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: sdl2pp
-Description: C++11 bindings/wrappers for SDL2
+Description: C++ bindings/wrappers for SDL2
 Version: @SDL2PP_VERSION@
 Requires: @SDL2_ALL_PKGCONFIG_MODULES@
 Conflicts:
