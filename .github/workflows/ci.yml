@@ -20,7 +20,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           apt-get update -qq
-          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen graphviz xvfb curl
+          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen graphviz curl
           if [ ${{ !contains(matrix.features, 'nooptlibs') }} = true ]; then
             apt-get install -qq --no-install-recommends libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
           fi
@@ -34,17 +34,11 @@ jobs:
           curl --insecure https://raw.githubusercontent.com/AMDmi3/github_env/c8cc83d/github_env.py > e; chmod 755 e
           ./e 'CXX=${{ matrix.cxx }}'
           ./e 'CXXFLAGS=-Wall -Wextra -pedantic' # XXX: Add -Werror
-          ./e 'SDL_AUDIODRIVER=disk'
-          ./e 'SDL_VIDEODRIVER=x11'
-          ./e 'DISPLAY=:99.0'
+          ./e 'CMAKE_ARGS=-DSDL2PP_ENABLE_LIVE_TESTS=NO'  # no ability to run live tests in CI (SDL_InitSubsystem failed: x11 not available with xvfb)
           ./e --if ${{ matrix.xxx == 'clang++' }} 'CXXFLAGS+=-Wno-self-assign-overloaded'  # explicit self-assignment tests
           ./e --if ${{ contains(matrix.features, 'coverage') }} 'CXXFLAGS+=--coverage' 'LDFLAGS+=--coverage'
           ./e --if ${{ contains(matrix.features, 'nooptlibs') }} 'CMAKE_ARGS+=-DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO'
           ./e --if ${{ contains(matrix.features, 'static') }} 'CMAKE_ARGS+=-DSDL2PP_STATIC=YES'
-
-      - name: Set up environment for live tests
-        run: |
-          /sbin/start-stop-daemon --start --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 800x600x24 -ac +extension GLX
 
       - name: Configure
         run: cmake . -DCMAKE_VERBOSE_MAKEFILE=yes -DCMAKE_INSTALL_PREFIX=/usr ${CMAKE_ARGS}
