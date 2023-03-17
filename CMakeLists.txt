@@ -39,7 +39,7 @@ endif()
 
 if(SDL2PP_WITH_IMAGE)
 	find_package(SDL2_image REQUIRED)
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_image)
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2_image::SDL2_image)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_image")
 else()
 	message(STATUS "SDL2_image support disabled")
@@ -47,7 +47,7 @@ endif()
 
 if(SDL2PP_WITH_TTF)
 	find_package(SDL2_ttf REQUIRED)
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_ttf)
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2_ttf::SDL2_ttf)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_ttf")
 else()
 	message(STATUS "SDL2_ttf support disabled")
@@ -55,7 +55,7 @@ endif()
 
 if(SDL2PP_WITH_MIXER)
 	find_package(SDL2_mixer REQUIRED)
-	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2::SDL2_mixer)
+	set(SDL2_ALL_LIBRARIES ${SDL2_ALL_LIBRARIES} SDL2_mixer::SDL2_mixer)
 	set(SDL2_ALL_PKGCONFIG_MODULES "${SDL2_ALL_PKGCONFIG_MODULES} SDL2_mixer")
 else()
 	message(STATUS "SDL2_mixer support disabled")
@@ -243,12 +243,5 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 		NAMESPACE SDL2pp::
 		DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SDL2pp
 	)
-	install(
-		FILES
-			${PROJECT_BINARY_DIR}/cmake/SDL2ppConfig.cmake
-			cmake/FindSDL2_image.cmake
-			cmake/FindSDL2_ttf.cmake
-			cmake/FindSDL2_mixer.cmake
-		DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SDL2pp
-	)
+	install(FILES ${PROJECT_BINARY_DIR}/cmake/SDL2ppConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SDL2pp)
 endif()
