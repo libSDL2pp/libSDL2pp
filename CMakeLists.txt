@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 # meta
-project(libSDL2pp LANGUAGES CXX VERSION 0.18.0)
+project(libSDL2pp LANGUAGES CXX VERSION 0.18.1)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 

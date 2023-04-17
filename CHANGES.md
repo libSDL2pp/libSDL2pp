@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.18.1 - 2023-04-17
+### Fixed
+* Fix SDL2main library link order
+
 ## 0.18.0 - 2023-03-27
 ### Changed
 * Switch SDL2_{mixer,mixer,ttf} detection to upstream CMake scripts
