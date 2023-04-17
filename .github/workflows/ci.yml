@@ -20,7 +20,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           apt-get update -qq
-          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen graphviz curl
+          apt-get install -yqq --no-install-recommends build-essential clang cmake libsdl2-dev cppcheck doxygen graphviz curl ca-certificates
           if [ ${{ !contains(matrix.features, 'nooptlibs') }} = true ]; then
             apt-get install -qq --no-install-recommends libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
           fi
@@ -31,7 +31,7 @@ jobs:
 
       - name: Set up environment
         run: |
-          curl --insecure https://raw.githubusercontent.com/AMDmi3/github_env/c8cc83d/github_env.py > e; chmod 755 e
+          curl https://raw.githubusercontent.com/AMDmi3/github_env/c8cc83d/github_env.py > e; chmod 755 e
           ./e 'CXX=${{ matrix.cxx }}'
           ./e 'CXXFLAGS=-Wall -Wextra -pedantic' # XXX: Add -Werror
           ./e 'CMAKE_ARGS=-DSDL2PP_ENABLE_LIVE_TESTS=NO'  # no ability to run live tests in CI (SDL_InitSubsystem failed: x11 not available with xvfb)
@@ -70,6 +70,7 @@ jobs:
 
       - name: Upload coverage
         if: ${{ contains(matrix.features, 'coverage') }}
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
+          gcov: true
