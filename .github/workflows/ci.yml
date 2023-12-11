@@ -26,7 +26,7 @@ jobs:
           fi
           if [ ${{ contains(matrix.features, 'coverage') }} = true ]; then
             apt-get install -qq --no-install-recommends python3-pip git
-            pip install --user pyyaml cpp-coveralls
+            pip install --break-system-packages pyyaml cpp-coveralls
           fi
 
       - name: Set up environment
