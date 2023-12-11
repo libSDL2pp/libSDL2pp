@@ -142,6 +142,14 @@ Window& Window::SetFullscreen(Uint32 flags) {
 	return *this;
 }
 
+Window& Window::ToggleFullscreen() {
+	Uint32 const fullscreenFlag = SDL_WINDOW_FULLSCREEN | SDL_WINDOW_FULLSCREEN_DESKTOP;
+	bool const isFullscreen = SDL_GetWindowFlags(window_) & fullscreenFlag;
+	if (SDL_SetWindowFullscreen(window_, isFullscreen ? SDL_FALSE : SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
+		throw Exception("SDL_SetWindowFullscreen");
+	return *this;
+}
+
 Window& Window::SetSize(int w, int h) {
 	SDL_SetWindowSize(window_, w, h);
 	return *this;
