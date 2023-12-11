@@ -97,6 +97,14 @@
 #include <SDL2pp/ContainerRWops.hh>
 #include <SDL2pp/StreamRWops.hh>
 
+///////////////////////////////////////////////////////////
+/// \defgroup events Event handling
+///
+/// \brief Functions and classes to easily manage SDL events
+///
+////////////////////////////////////////////////////////////
+#include <SDL2pp/EventPolling.hh>
+
 #ifdef SDL2PP_WITH_TTF
 ////////////////////////////////////////////////////////////
 /// \defgroup ttf SDL_ttf

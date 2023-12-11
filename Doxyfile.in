@@ -21,7 +21,8 @@ INPUT                  = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp" \
 RECURSIVE              = YES
 
 # Exclude foreign files
-EXCLUDE                = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/external"
+EXCLUDE                = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/external" \
+                         "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/Private"
 
 # Examples (doesn't work atm)
 EXAMPLE_PATH           = "@CMAKE_CURRENT_SOURCE_DIR@/examples"

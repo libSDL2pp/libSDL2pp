@@ -3,10 +3,14 @@ set(CLI_TESTS
 	test_color
 	test_color_constexpr
 	test_error
+	test_eventdispatching
+	test_eventhandler
+	test_eventpolling
 	test_optional
 	test_pointrect
 	test_pointrect_constexpr
 	test_rwops
+	test_utility
 	test_wav
 )
 
