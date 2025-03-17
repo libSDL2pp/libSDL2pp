@@ -1,0 +1,40 @@
+name: Doxygen
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:rolling
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          apt-get update -qq
+          apt-get install -yqq --no-install-recommends build-essential cmake libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev doxygen graphviz curl ca-certificates git openssh-client
+      - uses: actions/checkout@v4
+        with:
+          repository: libSDL2pp/libSDL2pp.github.io
+          ssh-key: ${{ secrets.PAGES_SSH_KEY }}
+          path: doxygen/html
+      - name: Clean up old docs
+        run: |
+          cd doxygen/html
+          git rm -r .
+      - name: Configure
+        run: cmake .
+      - name: Run doxygen
+        run: make doxygen
+      - name: Deploy
+        run: |
+          cd doxygen/html
+          touch .nojekyll
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update for ${{ github.repository }} commit ${{ github.sha }} run_id ${{ github.run_id }}"
+          git push --force
