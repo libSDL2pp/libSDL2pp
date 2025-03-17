@@ -250,8 +250,8 @@ Projects using libSDL2pp:
 
 ## WWW
 
-* [GitHub page](https://github.com/libSDL2pp/libSDL2pp)
-* [Online documentation](https://sdl2pp.amdmi3.ru/)
+* [GitHub repository](https://github.com/libSDL2pp/libSDL2pp)
+* [Doxygen documentation](https://libsdl2pp.github.io/)
 
 ## Author
 
