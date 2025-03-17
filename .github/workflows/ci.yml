@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - { cxx: g++,     features: "coverage" }
+          - { cxx: g++ }
           - { cxx: clang++, features: "nooptlibs" }
           - { cxx: clang++, features: "static" }
     name: ${{ matrix.cxx }} ${{ matrix.features }}
@@ -24,10 +24,6 @@ jobs:
           if [ ${{ !contains(matrix.features, 'nooptlibs') }} = true ]; then
             apt-get install -qq --no-install-recommends libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
           fi
-          if [ ${{ contains(matrix.features, 'coverage') }} = true ]; then
-            apt-get install -qq --no-install-recommends python3-pip git
-            pip install --break-system-packages pyyaml cpp-coveralls
-          fi
 
       - name: Set up environment
         run: |
@@ -36,7 +32,6 @@ jobs:
           ./e 'CXXFLAGS=-Wall -Wextra -pedantic' # XXX: Add -Werror
           ./e 'CMAKE_ARGS=-DSDL2PP_ENABLE_LIVE_TESTS=NO'  # no ability to run live tests in CI (SDL_InitSubsystem failed: x11 not available with xvfb)
           ./e --if ${{ matrix.cxx == 'clang++' }} 'CXXFLAGS+=-Wno-self-assign-overloaded'  # explicit self-assignment tests
-          ./e --if ${{ contains(matrix.features, 'coverage') }} 'CXXFLAGS+=--coverage' 'LDFLAGS+=--coverage'
           ./e --if ${{ contains(matrix.features, 'nooptlibs') }} 'CMAKE_ARGS+=-DSDL2PP_WITH_IMAGE=NO -DSDL2PP_WITH_MIXER=NO -DSDL2PP_WITH_TTF=NO'
           ./e --if ${{ contains(matrix.features, 'static') }} 'CMAKE_ARGS+=-DSDL2PP_STATIC=YES'
 
@@ -67,11 +62,3 @@ jobs:
           cd $GITHUB_WORKSPACE/exttests/cmake
           cmake .
           cmake --build .
-
-      - name: Upload coverage
-        if: ${{ contains(matrix.features, 'coverage') }}
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          gcov: true
