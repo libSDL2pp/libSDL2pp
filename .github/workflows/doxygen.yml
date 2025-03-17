@@ -36,5 +36,9 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
-          git commit -m "Update for ${{ github.repository }} commit ${{ github.sha }} run_id ${{ github.run_id }}"
-          git push --force
+          if git diff --cached --quiet; then
+            echo "No changes, skipping commit"
+          else
+            git commit -m "Update for ${{ github.repository }} commit ${{ github.sha }} run_id ${{ github.run_id }}"
+            git push --force
+          fi
