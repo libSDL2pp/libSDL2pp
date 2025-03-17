@@ -72,11 +72,11 @@ try {
   SDL_Delay(2000);
 
   // All SDL objects are released at this point or if an error occurs
-} catch (SDL2pp::Exception& e) {
+} catch (const SDL2pp::Exception& e) {
   // Exception stores SDL_GetError() result and name of function which failed
   std::cerr << "Error in: " << e.GetSDLFunction() << std::endl;
   std::cerr << "  Reason: " << e.GetSDLError() << std::endl;
-} catch (std::exception& e) {
+} catch (const std::exception& e) {
   // This also works (e.g. "SDL_Init failed: No available video device")
   std::cerr << e.what() << std::endl;
 }
