@@ -26,15 +26,8 @@ EXCLUDE                = "@CMAKE_CURRENT_SOURCE_DIR@/SDL2pp/external"
 # Examples (doesn't work atm)
 EXAMPLE_PATH           = "@CMAKE_CURRENT_SOURCE_DIR@/examples"
 
-# Filter through sed to remove badges which Doxygen fails to process properly
-INPUT_FILTER           = "sed -e '/^\[!\[/d'"
-FILTER_PATTERNS        = *.md
-
 # README file is the main page
 USE_MDFILE_AS_MAINPAGE = "@CMAKE_CURRENT_SOURCE_DIR@/README.md"
-
-# Include timestamp
-HTML_TIMESTAMP         = YES
 
 # We target web, no latex needed
 GENERATE_LATEX         = NO
