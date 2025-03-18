@@ -1,4 +1,4 @@
-<a href="https://repology.org/metapackage/libsdl2pp/versions">
+<a href="https://repology.org/project/libsdl2pp/versions">
     <img src="https://repology.org/badge/vertical-allrepos/libsdl2pp.svg" alt="libsdl2pp packaging status" align="right">
 </a>
 
